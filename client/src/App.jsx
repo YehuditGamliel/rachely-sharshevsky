@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home/Home'
 import Login from './components/Login/Login';
 import Todos from './components/Todos/Todos'
-import Posts from './components/Posts/Posts'
+import Eyeglasses from './components/Eyeglasses/Eyeglasses'
 import Comments from "./components/comments/Comments";
 import Info from "./components/Info/Info";
 
@@ -14,15 +14,16 @@ function App() {
   return (
     <Router>
         <Routes>
-          
-          <Route path="/" element={<Login />} />
+                 <Route path="/" element={<Home />} />
+   
+          {/* <Route path="/" element={<Login />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="home/users/:id" element={<Home />}>
-            <Route path="posts">
-              <Route index element={<Posts />} />
-              <Route path=':postId/comments' element={<Comments />} />
-              <Route path="search/:field/:data" element={<Posts />} />
+            <Route path="eyeglasses">
+              <Route index element={<Eyeglasses />} />
+              {/* <Route path=':postId/comments' element={<Comments />} />
+              <Route path="search/:field/:data" element={<Posts />} /> */}
             </Route>
             <Route path="todos">
               <Route index element={<Todos />} />

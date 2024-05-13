@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import '../Posts/Posts.css'
+import './Posts.css'
 import { UserContext } from "../../UserProvider";
-function Posts() {
+function Eyeglasses() {
   const { id } = useParams();
   const [posts, setPosts] = useState([])
   const [displayInputs, setDisplayInputs] = useState({ isActive: false, index: 0, action: "" })
@@ -222,5 +222,5 @@ function Posts() {
         <Link to={`${boldPost.id}/comments`}>Show comments</Link></div>)}
   </>)
 }
-export default Posts;
+export default Eyeglasses;
 

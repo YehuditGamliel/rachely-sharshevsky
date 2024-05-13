@@ -34,15 +34,15 @@ function Home() {
         <div id="links">
             <img src={logo} id="logo"/>
             {/* <header>{user.userName}</header> */}
-            <nav>
+            <nav id="links">
                 <ul>
-                <li> <Link to={"./posts"}>בית</Link></li>
-                    <li> <Link to={"./posts"}>משקפי ראיה</Link></li>
-                    <li> <Link to={"./todos"}>משקפי שמש</Link></li>
-                    <li> <Link to={"./info"}>משקפי קריאה</Link></li>
-                    <li> <Link to={"./posts"}>עדשות</Link></li>
-                    <li> <Link to={"./todos"}>בדיקת ראיה</Link></li>
-                    <li> <Link to={"./info"}>יצירת קשר</Link></li>
+                <li> <Link to={"./posts"}>בית </Link></li>
+                    <li> <Link to={"./eyeglasses"}>משקפי ראיה </Link></li>
+                    <li> <Link to={"./todos"}>משקפי שמש </Link></li>
+                    <li> <Link to={"./info"}>משקפי קריאה </Link></li>
+                    <li> <Link to={"./posts"}>עדשות </Link></li>
+                    <li> <Link to={"./todos"}>בדיקת ראיה </Link></li>
+                    <li> <Link to={"./info"}>יצירת קשר </Link></li>
                 </ul>
             </nav>
         </div>

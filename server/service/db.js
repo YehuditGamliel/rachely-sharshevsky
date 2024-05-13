@@ -17,7 +17,7 @@ async function executeQuery(query, params){
         [results] = await connection.execute(query,params);
         //console.log(query)
     } catch (err) {
-        //console.log(err);
+        console.log(err);
     }
     finally {
         connection.end();
