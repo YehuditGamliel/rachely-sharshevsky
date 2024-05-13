@@ -1,0 +1,75 @@
+#topPost {
+  display: inline-block;
+  width: 100%;
+}
+
+#searchPost {
+  float: left;
+  width: 30%;
+}
+
+#addPost {
+  float: right;
+  width: 20%;
+}
+
+#titltPostList {
+  margin-left: 200px;
+}
+
+#postList {
+  width: 100%;
+
+}
+
+#idPost {
+  float: left;
+  width: 5%;
+  margin-bottom: 10px;
+}
+
+#titlePost {
+  float: left;
+  width: 35%;
+  margin-bottom: 10px;
+}
+
+#buttonsPost {
+  display: flex;
+  float: right;
+  width: 60%;
+  margin-bottom: 10px;
+}
+
+#buttons {
+  width: 50%;
+}
+
+#displayInputs {
+  float: left;
+  width: 25%;
+  display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+#buttonAdd {
+  color: #03e9f4;
+  font-size: 20px;
+  letter-spacing: 4px
+}
+
+.btnBoldPost {
+  background-color: #2e3a4f;
+  color: #03e9f4;
+  font-size: 20px;
+  letter-spacing: 4px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+#boldPost {
+  color: #62c4cf;
+  font-size: 25px;
+}

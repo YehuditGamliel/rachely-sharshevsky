@@ -1,0 +1,188 @@
+/* body{
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+} */
+
+::placeholder {
+  color: #03e9f4;
+  opacity: 1; 
+}
+
+.register-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  padding: 30px;
+  transform: translate(-50%, -50%);
+  background: #3e444f;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6); 
+  box-shadow: 0 15px 25px rgba(203, 184, 184, 0.6);
+  border-radius: 10px;
+}
+
+.register-box h2 {
+  margin: 0 0 20px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.register-box .user-box {
+  position: relative;
+}
+
+.register-box .user-box input {
+  background-color:#141e30;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.register-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.register-box .user-box input:focus + label,
+.register-box .user-box input:valid + label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+.register-box form .submit {
+  background-color: #2e3a4f;
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 4px
+}
+
+.register-box .submit:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+
+.link{
+  color: #748198;
+}
+
+.register-box2 h2 {
+  margin: 0 0 20px;
+  font-size: 20px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.register-box2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  margin-top: 1%;
+  margin-bottom: 3%;
+
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  /* background: rgba(0,0,0,.5); */
+  background: #3e444f;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.register-box2 .user-box2 {
+  position: relative;
+}
+
+.register-box2 .user-box2 input {
+  background-color:#141e30;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 12px;
+  color: #fff;
+  margin-bottom: 5px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.register-box2 .user-box2 label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.register-box2 .user-box2 input:focus + label,
+.register-box2 .user-box2 input:valid + label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.register-box2 form .submit {
+  background-color: #2e3a4f;
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 4px
+}
+
+.register-box2 .submit:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+.span{
+  color: white;
+}
+
