@@ -22,7 +22,7 @@ function App() {
           <Route path="home/users/:id" element={<Home />}>
             <Route path="eyeglasses">
               <Route index element={<Eyeglasses />} />
-              {/* <Route path=':postId/comments' element={<Comments />} />
+              {/* <Route path=':' element={<Comments />} />
               <Route path="search/:field/:data" element={<Posts />} /> */}
             </Route>
             <Route path="todos">

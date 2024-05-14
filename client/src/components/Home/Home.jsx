@@ -4,7 +4,6 @@ import { UserContext } from "../../UserProvider";
 import './Home.css';
 import logo from '../../img/logo.png'
 
-
 function Home() {
 
     // const navigate = useNavigate();

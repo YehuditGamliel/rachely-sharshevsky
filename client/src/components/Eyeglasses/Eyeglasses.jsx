@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import './Posts.css'
+import './Eyeglasses.css'
 import { UserContext } from "../../UserProvider";
 function Eyeglasses() {
   const { id } = useParams();
