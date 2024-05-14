@@ -11,11 +11,11 @@ function Login() {
     const { user, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (user) {
-            navigate(`/home/users/${user.id}`)
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (user) {
+    //         navigate(`/home/users/${user.id}`)
+    //     }
+    // }, [])
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {

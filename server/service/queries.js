@@ -1,3 +1,4 @@
+
 export function getAllQuery(tableName,columns) {
     console.log("qrey")
     const query = `SELECT ${columns} FROM optics.${tableName} WHERE  isActive =1`;
@@ -10,7 +11,7 @@ export function getAllQuery(tableName,columns) {
 //     LIMIT ${limit[0]} , ${limit[1] - limit[0]}`;
 //     return query
 // }
-export function getByValueQuery(tableName) {
+export function getByValueQuery(tableName ) {
     const query = `select  * from optics.eyeglasses; ` ;
 
     return query

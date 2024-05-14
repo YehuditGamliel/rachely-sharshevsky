@@ -3,40 +3,42 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import './Eyeglasses.css'
 import { UserContext } from "../../UserProvider";
 function Eyeglasses() {
-  const { id } = useParams();
-  const [posts, setPosts] = useState([])
-  const [displayInputs, setDisplayInputs] = useState({ isActive: false, index: 0, action: "" })
-  const [valuesPost, setValuesPost] = useState({ title: "", body: "" })
-  const [boldPost, setBoldPost] = useState(0)
-  const navigate = useNavigate();
-  const [valuesSearch, setvaluesSearch] = useState({ title: "", id: "" })
-  const { user, setCurrentUser } = useContext(UserContext);
-  const [lastSearch, setLastSearch] = useState("");
-  const seeMore = useRef(false);
-  const range = 2;
+  // const { id } = useParams();
+  // const [posts, setPosts] = useState([])
+  // const [displayInputs, setDisplayInputs] = useState({ isActive: false, index: 0, action: "" })
+  // const [valuesPost, setValuesPost] = useState({ title: "", body: "" })
+  // const [boldPost, setBoldPost] = useState(0)
+  // const navigate = useNavigate();
+  // const [valuesSearch, setvaluesSearch] = useState({ title: "", id: "" })
+  // const { user, setCurrentUser } = useContext(UserContext);
+  // const [lastSearch, setLastSearch] = useState("");
+   const seeMore = useRef(false);
+   const range = 2;
 
 
-  useEffect(() => {
-    if (id != user.id) {
-      localStorage.clear();
-      setCurrentUser();
-      navigate('/login');
-    }
-    if (user == null) {
-      navigate('/login');
-    }
-    getPosts();
+  // useEffect(() => {
+  //   if (id != user.id) {
+  //     localStorage.clear();
+  //     setCurrentUser();
+  //     navigate('/login');
+  //   }
+  //   if (user == null) {
+  //     navigate('/login');
+  //   }
+  //   getPosts();
 
-  }, [])
+  // }, [])
 
   const handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
     setValuesPost({ ...valuesPost, [name]: value })
   }
-  const getPosts = () => {
-    let start = seeMore.current ? posts.length : 0
-    fetch(`http://localhost:8082/posts?userId=${id}&_start=${start}&_end=${start + range}`, {
+
+  useEffect(() => {
+    //let start = seeMore.current ? posts.length : 0
+    //fetch(`http://localhost:8082/posts?userId=${id}&_start=${start}&_end=${start + range}`, {
+      fetch(`http://localhost:8082/eyeglasses`, {
       method: 'GET',
 
     })
@@ -46,12 +48,14 @@ function Eyeglasses() {
           alert(json.error)
         }
         else {
-          seeMore.current ? setPosts([...posts, ...json.data]) : setPosts(json.data);
-          setLastSearch("all")
-          seeMore.current = false;
+          //seeMore.current ? setPosts([...posts, ...json.data]) : setPosts(json.data);
+          //setLastSearch("all")
+          //seeMore.current = false;
+          alert("oooooo")
         }
       })
-  }
+    }, [])
+
   const addPost = () => {
     if (displayInputs.isActive) {
       setDisplayInputs({ isActive: false, index: 0, action: "" })
@@ -186,10 +190,10 @@ function Eyeglasses() {
       getPosts();
     }
   }
-  return (<>
-    <div id="topPost">
+  return (<><p>rrrrrrrrrrrrrrrrrr</p>
+    {/* <div id="topPost">
       <div id="searchPost">
-        <h3 id="searchTitle">Search:</h3>
+        <h3 id="searchTitle">Search:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1</h3>
         <input type="text" name="title" onChange={search} placeholder="title" />
         <button disabled={valuesSearch.title == ""} onClick={() => { searchByTitle(valuesSearch.title) }}>search title</button>
         <input type="text" name="id" onChange={search} placeholder="id" />
@@ -219,7 +223,7 @@ function Eyeglasses() {
     </div>
     {boldPost != 0 && (
       <div><p id="boldPost" style={{ color: "#03e9f4" }}>id:{boldPost.id}  title:{boldPost.title} body:{boldPost.body}</p>
-        <Link to={`${boldPost.id}/comments`}>Show comments</Link></div>)}
+        <Link to={`${boldPost.id}/comments`}>Show comments</Link></div>)} */}
   </>)
 }
 export default Eyeglasses;
