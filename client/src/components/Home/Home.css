@@ -20,8 +20,8 @@ a {
     text-decoration: none;
     font-size: 20px;
     font-weight: 500;
-    color:#41c1ba;
-    margin-top:20%;
+    /* color:#41c1ba; */
+    color: white;
     text-decoration: inherit;
 } 
 #logo{
@@ -40,7 +40,7 @@ nav {
         list-style: none;
          border-top: solid 3px ;
          border-bottom: solid 3px ;
-          line-height: 60px ;
+          line-height: 50px ;
          text-align: center
     }
 
@@ -64,6 +64,21 @@ nav {
     margin-left:0;
     letter-spacing: 4px
 }
+#header{
+    width: 100%;
+}
+#title{
+    text-align:center;
+    font-size: 70px;
+}
+#text{
+    display: flex;
+    word-spacing: 10px;
+    width: 50%;
+    text-align: center;
+    
+}
+
 
 .button:hover{
     background: #03e9f4;
