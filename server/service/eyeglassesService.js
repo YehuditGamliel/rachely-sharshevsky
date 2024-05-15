@@ -6,29 +6,16 @@ export class EyeglassesService {
 
     async getAllEyeglasses() {
        // console.log("service")
-        const query = getAllQuery('eyeglasses', 'model,price,photo,p');
+        const query = getAllQuery('optics.eyeglasses', 'model,price,photo,p');
         const result = await executeQuery(query);
-         console.log(result)
-        return result;
-    }
-    async updateEyeglasses( valueType,value, itemDetailes) {
- 
-        const query = updateQuery('eyeglasses',valueType, itemDetailes);
-        const result = await executeQuery(query, [value]);
         console.log(result)
         return result;
     }
-    async deleteEyeglasses(tableName, id) {
-        const query = deleteQuery('eyeglasses');
-        const result = await executeQuery(query, [id]);
-        return result;
 
-    }
     async addEyeglasses( itemDetailes) {
-        console.log(itemDetailes)
-        const query = addQuery('eyeglasses','model,price,photo,p');
-        const result = await executeQuery(query, [itemDetailes]);
-        //console.log(result)
+        console.log(Object.values(itemDetailes))
+        const query = addQuery('optics.eyeglasses','model,price,photo,p');
+        const result = await executeQuery(query, Object.values(itemDetailes));
         return result;
     }
     // async getById(tableName, columns, id) {
@@ -54,8 +41,19 @@ export class EyeglassesService {
         return result;
     }
   
-   
-   
+    async deleteObject(tableName, id) {
+        const query = deleteQuery(tableName);
+        const result = await executeQuery(query, [id]);
+        return result;
+
+    }
+    async updateObject(tableName, valueType,value, itemDetailes) {
+        let values = Object.values(itemDetailes).slice(1)
+        const query = updateQuery(tableName,valueType, Object.keys(itemDetailes).slice(1)
+    );
+        const result = await executeQuery(query, [...values, value]);
+        return result;
+    }
     async sort(tableName, userId, limit, sortedKey, columns) {
         const query = sortedQuery(tableName, limit, sortedKey, columns);
         const result = await executeQuery(query, [userId]);

@@ -7,9 +7,6 @@ console.log("RouterE");
 
 eyeglassesRouter.post("/", eyeglassesController.addEyeglasses)
 eyeglassesRouter.get("/", eyeglassesController.getAllEyeglasses)
-eyeglassesRouter.delete("/:id",eyeglassesController.deleteEyeglasses)
-eyeglassesRouter.put("/:model", eyeglassesController.updateEyeglasses)
-
 
 
 export {

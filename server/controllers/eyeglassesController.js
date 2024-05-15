@@ -34,10 +34,9 @@ export class EyeglassesController {
 // }
    async addEyeglasses(req, res, next) {
     try {
-        console.log(req.body)
+       // console.log("dfs")
         const eyeglassesService = new EyeglassesService();
-        let values = Object.values( req.body)
-        const resultItem = await eyeglassesService.addEyeglasses(`"${values[0]}",${values[1]},"${values[2]}",${values[3]}`);
+        const resultItem = await eyeglassesService.addEyeglasses(req.body);
         res.status(200).json({ status: 200, data: resultItem.insertId });
     }
     catch (ex) {
@@ -49,11 +48,10 @@ export class EyeglassesController {
 }
 
 
-    async deleteEyeglasses(req, res, next) {
-
+    async deletecomment(req, res, next) {
     try {
-        const eyeglassesService = new EyeglassesService();
-        await eyeglassesService.deleteEyeglasses( req.params.id);
+        const commentsService = new TableService();
+        await commentsService.deleteObject(CommentController.tableName, req.params.id);
         res.status(200).json({ status: 200, data: req.params.id });
     }
     catch (ex) {
@@ -64,15 +62,10 @@ export class EyeglassesController {
     }
 }
 
-    async updateEyeglasses(req, res, next) {
+    async updatecomment(req, res, next) {
         try {
-            console.log("updatwControler")
-            const eyeglassesService = new EyeglassesService();
-            let values = Object.values( req.body)
-            console.log(Object.values( req.body))
-                let data=`id=${values[0]} , model="${values[1]}", price=${values[2]}, photo="${values[3]}" ,p=${values[4]}`
-            await eyeglassesService.updateEyeglasses("model",req.params.model,data);
-            //console.Consolelog(data)
+            const commentService = new TableService();
+            await commentService.updateObject(CommentController.tableName, req.params.id, req.body);
             res.status(200).json({ status: 200 });
         }
         catch (ex) {
