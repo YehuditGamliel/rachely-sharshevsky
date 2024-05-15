@@ -5,9 +5,7 @@ import Home from './components/Home/Home'
 import Login from './components/Login/Login';
 import Todos from './components/Todos/Todos'
 import Eyeglasses from './components/Eyeglasses/Eyeglasses'
-import Comments from "./components/comments/Comments";
-import Info from "./components/Info/Info";
-
+import singleEyeglasses from "./components/SingleEyeglasses";
 import Register from "./components/Register/Register";
 
 function App() {
@@ -18,13 +16,11 @@ function App() {
           <Route path='/eyeglasses' element={<Eyeglasses />} />
           <Route path="/" element={<Login />} /> 
           <Route path="/login" element={<Login />} />
-          
           <Route path="/register" element={<Register />} />
           <Route path="home/users/:id" element={<Home />}>
             <Route path="eyeglasses">
               <Route index element={<Eyeglasses />} />
-              {/* <Route path=':' element={<Comments />} />
-              <Route path="search/:field/:data" element={<Posts />} /> */}
+              <Route path=":eyeglassesModel" element={<singleEyeglasses />} />
             </Route>
             <Route path="todos">
               <Route index element={<Todos />} />

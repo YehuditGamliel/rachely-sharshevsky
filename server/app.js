@@ -4,17 +4,17 @@ import { eyeglassesRouter } from './router/eyeglassesRouter.js'
 // import { postRouter } from './router/eyeGlassesRouter.js';
 // import {logErrors} from './middleware/logError.js';
 // import {loginRouter} from './router/logInRouter.js'
-// let allowCrossDomain = function(req, res, next) {
-//     res.header('Access-Control-Allow-Origin', "*");
-//     res.header('Access-Control-Allow-Headers', "*");
-//     res.header('Access-Control-Allow-Methods', "*");
-//     next();
-//   }
+let allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Headers', "*");
+    res.header('Access-Control-Allow-Methods', "*");
+    next();
+  }
   
 const app = express();
  app.use(express.json());
  console.log("eee")
-// app.use(allowCrossDomain);
+ app.use(allowCrossDomain);
 // app.use('/authorization',loginRouter);
 app.use('/users', userRouter);
  app.use('/eyeglasses', eyeglassesRouter);

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../UserProvider";
-import '../comments/Comments.css'
+import '../SingleEyeglassee/SingleEyeglassee.css'
 
-function Comments() {
+function SingleEyeglasses() {
   const { user, setUser } = useContext(UserContext);
   const { id, postId } = useParams()
   const [comments, setComments] = useState([])
-  const [displayInputs, setDisplayInputs] = useState({ isActive: false, index: 0, action: "" })
+  const [displayInputs, setDisplayInputs] = useState({ i3sActive: false, index: 0, action: "" })
   const [valuesComment, setValuesComment] = useState()
 
   useEffect(() => {
@@ -121,4 +121,4 @@ function Comments() {
     )}
   </>)
 }
-export default Comments
+export default SingleEyeglasses

@@ -44,8 +44,9 @@ function Home() {
                     <li> <Link to={"./info"}>יצירת קשר </Link></li>
                 </ul>
             </nav>
+            <Outlet />  
         </div>
-        <Outlet />
+       
     </>)
 }
 export default Home
