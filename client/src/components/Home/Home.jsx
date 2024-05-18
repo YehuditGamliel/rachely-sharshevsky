@@ -3,7 +3,8 @@ import React, { useContext, useEffect } from 'react';
 import { UserContext } from "../../UserProvider";
 import './Home.css';
 import logo from '../../img/logo.png'
-import header from '../../img/header.jpg'
+import Button from '@mui/material/Button';
+
 function Home() {
 
     // const navigate = useNavigate();
@@ -31,6 +32,7 @@ function Home() {
     return (<>
         {/* <button className='button' onClick={LogOut}>Logout</button> */}
         <div id="links">
+      
             <img src={logo} id="logo"/>
             {/* <header>{user.userName}</header> */}
             <nav id="links">
@@ -43,8 +45,13 @@ function Home() {
                     <li> <Link to={"./todos"}>בדיקת ראיה </Link></li>
                     <li> <Link to={"./info"}>יצירת קשר </Link></li>
                 </ul>
+               
             </nav>
-            <img src={header} id="header"/>
+           
+
+        </div>
+            <div>
+            {/* <img src={header} id="header"/> */}
             <h1 id="title">אופטיקה אי-סנטר</h1>
                <p id="text">
                אתר “אופטיקה אי-סנטר” הוקם בכדי לתת ללקוחות שלנו את המענה המהיר והמקצועי ביותר ובשירות ישיר עד לפתח ביתכם. באתר תוכלו למצוא מגוון מוצרי אופטיקה מובחרים: עדשות מגע, משקפי ראייה ומשקפי שמש, 
@@ -52,9 +59,11 @@ function Home() {
                  החזון של אופטיקה אי-סנטר לאפשר לכל שכבות האוכלוסייה בישראל לרכוש משקפי ראייה, משקפי שמש ועדשות מגע, במחיר השווה לכל נפש.
                   בפעילותה שברה הרשת את המונופול שהיה קיים בתחום האופטיקה בישראל כאשר הציעה משקפיים במחירים הוגנים וזולים ומבצעים אשר גררו אחריהם הוזלת מחירים בכל הענף.
                </p>
-            
-            <Outlet />  
-        </div>
+               <div id='bottom'>
+                  <p id='titleBottom'>צרו איתנו קשר</p>
+               </div>
+               <Outlet />  
+           </div>
        
     </>)
 }

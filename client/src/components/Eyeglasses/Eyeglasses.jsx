@@ -2,16 +2,19 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import './Eyeglasses.css'
 import { UserContext } from "../../UserProvider";
-// import   '../../img'
-import logo from '../../img/logo.png';
-function Eyeglasses() {
- 
-   const [displayEyeglasses,setDisplayEyglasses] = useState([]);
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import logo from'../../img/logo.png'
 
-   const navigate = useNavigate();
+function Eyeglasses() {
+
+  const [displayEyeglasses, setDisplayEyglasses] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-      fetch(`http://localhost:8082/eyeglasses`, {
+    fetch(`http://localhost:8082/eyeglasses`, {
       method: 'GET',
 
     })
@@ -22,32 +25,34 @@ function Eyeglasses() {
         }
         else {
           console.log(json.data[0])
-          setDisplayEyglasses(...displayEyeglasses,json.data)
+          setDisplayEyglasses(...displayEyeglasses, json.data)
           //setLastSearch("all")
           //seeMore.current = false;
           //alert("oooooo")
         }
       })
-    }, [])
-    const glassesInfo = async (glassesId) => {
-      navigate(`/home`)
-    }
-    
-  
-  return (<>
-  <div id='container'>
-    {console.log(displayEyeglasses)}
-      {displayEyeglasses.map((eyeglasses, index) => <div key={index} class="glasses">
-        <div><img src={logo} id="image"/></div>
-          <div id ="model">{eyeglasses.model}</div><br/> 
-           <span>{eyeglasses.price}</span>
-           {/* <span >{eyeglasses.photo}</span> */}
-           <br/>
-           <button onClick={() => glassesInfo(eyeglasses.model)} id="buttonInfo">למידע נוסף</button>
+  }, [])
+  const glassesInfo = async (glassesId) => {
+    navigate(`/home`)
+  }
 
-          
+
+  return (<>
+    <div id='container'>
+      {console.log(displayEyeglasses)}
+      {displayEyeglasses.map((eyeglasses, index) => <div key={index} class="glasses">
+        <div><img src={logo} id="image" /></div>
+        <div id="model">{eyeglasses.model}</div><br />
+        <span>{eyeglasses.price}</span>
+        {/* <span >{eyeglasses.photo}</span> */}
+        <br />
+        {/* <button onClick={() => glassesInfo(eyeglasses.model)} id="buttonInfo">למידע נוסף</button> */}
+        <IconButton color="primary" aria-label="add to shopping cart">
+          <AddShoppingCartIcon />
+        </IconButton>
+
       </div>)}</div>
-    
+
   </>)
 }
 export default Eyeglasses;
