@@ -51,7 +51,7 @@ function Eyeglasses() {
         {/* <IconButton color="primary" aria-label="add to shopping cart">
           <AddShoppingCartIcon />
         </IconButton> */}
-        <SingleEyeglassee title={eyeglasses.model} price={eyeglasses.price}/>
+        <SingleEyeglassee title={eyeglasses.model} price={eyeglasses.price} photo={eyeglasses.photo}/>
 
       </div>)
       }
