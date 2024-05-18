@@ -62,8 +62,13 @@ function Home() {
                <div id='bottom'>
                   <p id='titleBottom'>צרו איתנו קשר</p>
                </div>
+<<<<<<< HEAD
                <Outlet />  
            </div>
+=======
+            <Outlet />  
+        </div>
+>>>>>>> 39351044b707a3b5e1b7d03eb2add531dce414bf
        
     </>)
 }
