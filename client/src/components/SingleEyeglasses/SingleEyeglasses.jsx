@@ -97,22 +97,32 @@ export default function SingleEyeglasses(props) {
           if you like.
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton onClick={() => add()} color="primary" aria-label="add to shopping cart">
+     
+       {(props.stock)? <p>אזל מהמלאי!</p>
+        
+        :(
+           <CardActions disableSpacing>
+          <IconButton onClick={() => add()} color="primary" aria-label="add to shopping cart">
           <AddShoppingCartIcon />
         </IconButton>
-        <IconButton aria-label="share">
+        </CardActions>
+        )
+        }
+      
+
+        
+        {/* <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
         <ExpandMore
           expand={expanded}
-          // onClick={add()}
+          onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
+        </ExpandMore> */}
+      
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
