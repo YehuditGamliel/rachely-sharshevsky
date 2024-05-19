@@ -9,6 +9,7 @@ const showImage=()=>{
 };
 return(
     <div className="App">
+
         <Webcam ref={webRef}/>
         <button
         onClick={()=>{
