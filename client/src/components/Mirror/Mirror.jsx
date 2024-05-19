@@ -9,7 +9,6 @@ const showImage=()=>{
 };
 return(
     <div className="App">
-        React Webcam
         <Webcam ref={webRef}/>
         <button
         onClick={()=>{

@@ -43,7 +43,7 @@ function Eyeglasses() {
   return (<>
   <Mirror/>
     <div id='container'>
-      
+    
       {displayEyeglasses.map((eyeglasses, index) => <div key={index} class="glasses">
         {/* <div><img src={logo} id="image" /></div> */}
         {/* <div id="model">{eyeglasses.model}</div><br />
