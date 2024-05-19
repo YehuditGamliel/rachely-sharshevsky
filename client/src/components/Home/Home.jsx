@@ -16,12 +16,12 @@ function Home() {
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
-          right: -3,
-          top: 13,
-          border: `2px solid ${theme.palette.background.paper}`,
-          padding: '0 4px',
+            right: -3,
+            top: 13,
+            border: `2px solid ${theme.palette.background.paper}`,
+            padding: '0 4px',
         },
-      }));
+    }));
 
     // const { id } = useParams();
     // useEffect(() => {
@@ -41,6 +41,11 @@ function Home() {
     // }
 
     return (<>
+    {/* <div>
+        <p id="p">בדיקה!</p>
+        <Outlet/>
+    </div> */}
+    
         {/* <button className='button' onClick={LogOut}>Logout</button> */}
         <div id="links">
 
@@ -48,7 +53,7 @@ function Home() {
             {/* <header>{user.userName}</header> */}
             <nav id="links">
                 <ul>
-                <IconButton aria-label="cart">
+                    <IconButton aria-label="cart">
                         <StyledBadge badgeContent={1} color="secondary">
                             <ShoppingCartIcon />
                         </StyledBadge>
@@ -60,12 +65,11 @@ function Home() {
                     <li> <Link to={"./posts"}>עדשות </Link></li>
                     <li> <Link to={"./todos"}>בדיקת ראיה </Link></li>
                     <li> <Link to={"./info"}>יצירת קשר </Link></li>
-                 
+
                 </ul>
-
+          
             </nav>
-
-
+            
         </div>
         <div>
             {/* <img src={header} id="header"/> */}
@@ -79,8 +83,7 @@ function Home() {
             <div id='bottom'>
                 <p id='titleBottom'>צרו איתנו קשר</p>
             </div>
-
-            <Outlet />
+         
         </div>
 
 
