@@ -7,6 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import logo from'../../img/logo.png'
 import  SingleEyeglassee  from '../SingleEyeglasses/SingleEyeglasses.jsx';
+import Mirror from'../../components/Mirror/Mirror.jsx'
+
 
 function Eyeglasses() {
 
@@ -39,6 +41,7 @@ function Eyeglasses() {
 
 
   return (<>
+  <Mirror/>
     <div id='container'>
       
       {displayEyeglasses.map((eyeglasses, index) => <div key={index} class="glasses">

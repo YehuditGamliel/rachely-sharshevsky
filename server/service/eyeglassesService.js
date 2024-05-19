@@ -1,7 +1,6 @@
 
 import { executeQuery } from './db.js';
 import {checkUserId, sortedQuery, getByIdQuery, getByTitleQuery, updateQuery, deleteQuery, addQuery, getAllQuery, getByValueQuery, AuthenticationQuery } from './queries.js'
-
 export class EyeglassesService {
 
     async getAllEyeglasses() {

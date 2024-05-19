@@ -17,6 +17,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
 // import '../SingleEyeglassee/SingleEyeglassee.css'
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -33,13 +34,14 @@ function add() {
 }
 const buyEyeglasses = (id) => {
   
-  fetch(`http://localhost:8082/eyeglasses/${id}`, {
+  fetch(`http://localhost:8082/eyeglasses/${model}`, {
     method: 'PUT',
     body: JSON.stringify({
-      model: idTodo,
-      price: valuesTodo.title,
-      photo: valuesTodo.completed,
-      
+      // model: props.model,
+      price: props.price,
+      photo: props.photo,
+      p:props.stock
+
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -48,12 +50,13 @@ const buyEyeglasses = (id) => {
     .then((response) => response.json())
     .then(json => {
       if (json.status == 200) {
-        setTodos(todos.map((todo) => {
-          if (todo.id == idTodo) {
-            return { id: id, title: valuesTodo.title, completed: valuesTodo.completed }
-          }
-          return todo
-        }))
+        alert("p")
+        // setTodos(todos.map((todo) => {
+        //   if (todo.id == idTodo) {
+        //     return { id: id, title: valuesTodo.title, completed: valuesTodo.completed }
+        //   }
+        //   return todo
+        // }))
       }
       else {
         alert(json.error)
@@ -102,7 +105,7 @@ export default function SingleEyeglasses(props) {
         
         :(
            <CardActions disableSpacing>
-          <IconButton onClick={() => add()} color="primary" aria-label="add to shopping cart">
+          <IconButton onClick={() => buyEyeglasses(props.model)} color="primary" aria-label="add to shopping cart">
           <AddShoppingCartIcon />
         </IconButton>
         </CardActions>
