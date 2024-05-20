@@ -1,22 +1,37 @@
 
 import { executeQuery } from './db.js';
-import {checkUserId, sortedQuery, getByIdQuery, getByTitleQuery, updateQuery, deleteQuery, addQuery, getAllQuery, getByValueQuery, AuthenticationQuery } from './queries.js'
+import {getByValueQuery,checkUserId, sortedQuery, getByTitleQuery, updateQuery, deleteQuery, addQuery, getAllQuery, AuthenticationQuery } from './queries.js'
 export class EyeglassesService {
 
     async getAllEyeglasses() {
        // console.log("service")
-        const query = getAllQuery('optics.eyeglasses', 'model,price,photo,p');
+
+        const query = getAllQuery('optics.eyeglasses', 'model,price,photo,title');
         const result = await executeQuery(query);
         console.log(result)
         return result;
     }
+    async getEyeglassesByModel( model) {
+        const query = getByValueQuery('optics.eyeglasses','model','color,stock,description,BridgeWidth,lensWidth,company');
+        const result = await executeQuery(query, [model]);
+        console.log(result)
+        return result;
+    }
+    // async getExtraDetails() {
+    //      const query = getAllQuery('optics.eyeglasses','color,stock,company,description,BridgeWidth,lensWidth,company');
+    //      const result = await executeQuery(query);
+    //      console.log(result)
+    //      return result;
+    //  }
 
+    //
     async addEyeglasses( itemDetailes) {
         console.log(Object.values(itemDetailes))
         const query = addQuery('optics.eyeglasses','model,price,photo,p');
         const result = await executeQuery(query, Object.values(itemDetailes));
         return result;
     }
+    //
     // async getById(tableName, columns, id) {
     //     const query = getByIdQuery(tableName, columns);
     //     const result = await executeQuery(query, [id]);
@@ -28,6 +43,7 @@ export class EyeglassesService {
     //     const result = await executeQuery(query, [userId, value]);
     //     return result;
     // }
+    //
     async getByValue(tableName) {
         console.log(tableName)
         const query = getByValueQuery(tableName);

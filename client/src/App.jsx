@@ -8,6 +8,7 @@ import Eyeglasses from './components/Eyeglasses/Eyeglasses'
 // import RecipeReviewCard from './components/RecipeReviewCard/RecipeReviewCard'
 //import SingleEyeglasses from './components/SingleEyeglasses/SingleEyeglasses';
 import Register from "./components/Register/Register";
+import SpecificInfo from './components/SpecificInfo/SpecificInfo';
 
 function App() {
   return (
@@ -20,20 +21,20 @@ function App() {
           <Route path="/" element={<Login />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="home/users/:id" element={<Home />}>
+           {/* <Route path="home/users/:id" element={<Home />}> */}
             <Route path="eyeglasses">
               <Route index element={<Eyeglasses />} />
-              {/* <Route path=":eyeglassesModel" element={<singleEyeglasses />} /> */}
+              <Route path=":eyeglassesModel" element={<SpecificInfo />} />
             </Route>
-            <Route path="todos">
+           {/* <Route path="todos">
               <Route index element={<Todos />} />
               <Route path=":todoId" element={<Todos />} />
               <Route path="search" element={<Todos />} />
               <Route path="?sortBy" element={<Todos/>}/>
             </Route>
-            {/* <Route path="info" element={<Info />} />    */}
+            <Route path="info" element={<Info />} />   
             <Route path='*' element={<p>not found</p>}/>        
-          </Route>
+          </Route> */}
         </Routes>
     </Router>
   )

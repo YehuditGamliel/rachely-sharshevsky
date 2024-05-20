@@ -9,8 +9,9 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-function Home() {
 
+function Home() {
+    //const { state } = useLocation();
     // const navigate = useNavigate();
     // const { user, setCurrentUser } = useContext(UserContext);
 
@@ -41,14 +42,10 @@ function Home() {
     // }
 
     return (<>
-    {/* <div>
-        <p id="p">בדיקה!</p>
-        <Outlet/>
-    </div> */}
-    
-        {/* <button className='button' onClick={LogOut}>Logout</button> */}
-        <div id="links">
 
+        {/* <button className='button' onClick={LogOut}>Logout</button> */}
+        <div>
+        <div id="links">
             <img src={logo} id="logo" />
             {/* <header>{user.userName}</header> */}
             <nav id="links">
@@ -65,11 +62,11 @@ function Home() {
                     <li> <Link to={"./posts"}>עדשות </Link></li>
                     <li> <Link to={"./todos"}>בדיקת ראיה </Link></li>
                     <li> <Link to={"./info"}>יצירת קשר </Link></li>
-
                 </ul>
-          
+
             </nav>
-            
+            <Outlet />
+
         </div>
         <div>
             {/* <img src={header} id="header"/> */}
@@ -83,10 +80,10 @@ function Home() {
             <div id='bottom'>
                 <p id='titleBottom'>צרו איתנו קשר</p>
             </div>
-         
+            
         </div>
-
-
+        
+        </div>
     </>)
 }
 export default Home

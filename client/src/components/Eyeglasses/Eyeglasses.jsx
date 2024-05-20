@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import {Outlet, useParams, Link, useNavigate } from "react-router-dom";
 import './Eyeglasses.css'
 import { UserContext } from "../../UserProvider";
 import IconButton from '@mui/material/IconButton';
@@ -41,26 +41,14 @@ function Eyeglasses() {
 
 
   return (<>
-  <Mirror/>
+  {/* <Mirror/> */}
     <div id='container'>
-    
       {displayEyeglasses.map((eyeglasses, index) => <div key={index} class="glasses">
-        {/* <div><img src={logo} id="image" /></div> */}
-        {/* <div id="model">{eyeglasses.model}</div><br />
-        <span>{eyeglasses.price}</span>
-        <span >{eyeglasses.photo}</span>
-        <br /> */}
-        {/* <button onClick={() => glassesInfo(eyeglasses.model)} id="buttonInfo">למידע נוסף</button> */}
-        {/* <IconButton color="primary" aria-label="add to shopping cart">
-          <AddShoppingCartIcon />
-        </IconButton> */}
-        <SingleEyeglassee title={eyeglasses.model} price={eyeglasses.price} photo={eyeglasses.photo} stock=
-        {eyeglasses.p}/>
-
+        <SingleEyeglassee model={eyeglasses.model} price={eyeglasses.price} photo={eyeglasses.photo} title=
+        {eyeglasses.title}/>
       </div>)
       }
       </div>
-
   </>)
 }
 export default Eyeglasses;

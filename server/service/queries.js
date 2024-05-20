@@ -1,6 +1,6 @@
 export function getAllQuery(tableName,columns) {
     console.log("qrey")
-    const query = `SELECT ${columns} FROM ${tableName} WHERE  isActive =1`;
+    const query = `SELECT ${columns} FROM ${tableName} `;
     console.log(query)
     return query
     //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
@@ -10,11 +10,7 @@ export function getAllQuery(tableName,columns) {
 //     LIMIT ${limit[0]} , ${limit[1] - limit[0]}`;
 //     return query
 // }
-export function getByValueQuery(tableName) {
-    const query = `select  * from optics.eyeglasses; ` ;
 
-    return query
-}
 export function addQuery(tableName, itemKeys) {
     console.log(itemKeys)
   
@@ -33,11 +29,15 @@ export function addQuery(tableName, itemKeys) {
     console.log(query);
     return query
 }
-export function getByIdQuery(tableName, columns) {
-    console.log("sadadas")
-    const query = `SELECT ${columns} FROM optics.${tableName}  WHERE id= ? AND isActive =1`;
+export function getByValueQuery(tableName, value, columns) {
+    const query = `SELECT ${columns} FROM ${tableName}  WHERE ${value} = ?`;
+    console.log(query)
     return query
 }
+// export function getByValueQuery(tableName, columns) {
+//     const query = `SELECT ${columns} FROM optics.${tableName}  WHERE id= ? AND isActive =1`;
+//     return query
+// }
 export function getByTitleQuery(tableName, limit, value, columns) {
     const query = `SELECT ${columns} FROM project.${tableName}  WHERE userId=? AND title LIKE "${value}%" 
     LIMIT ${limit[0]} , ${limit[1] - limit[0]}`;

@@ -18,6 +18,21 @@ export class EyeglassesController {
         next(err)
     }
 }
+async getEyeglassesByModel(req, res, next) {
+    console.log("Controller E")
+    try {
+        //let limit = Object.values(req.query).slice(1)
+        const eyeglassesService = new EyeglassesService();
+        const resultItems = await eyeglassesService.getEyeglassesByModel(req.params.model)
+        return res.status(200).json({ status: 200, data: resultItems });
+    }
+    catch (ex) {
+        const err = {}
+        err.statusCode = 500;
+        err.message = ex;
+        next(err)
+    }
+}
 
 //     async getCommentById(req, res, next) {
 //     try {

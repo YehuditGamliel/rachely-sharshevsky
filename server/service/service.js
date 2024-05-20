@@ -1,6 +1,6 @@
 
 import { executeQuery } from './db.js';
-import {checkUserId, sortedQuery, getByIdQuery, getByTitleQuery, updateQuery, deleteQuery, addQuery,  getByValueQuery, AuthenticationQuery } from './queries.js'
+import {checkUserId, sortedQuery,  getByTitleQuery, updateQuery, deleteQuery, addQuery,  getByValueQuery, AuthenticationQuery } from './queries.js'
 
 export class TableService {
     // async getAll(tableName, id, limit,entity, columns) {
@@ -8,11 +8,11 @@ export class TableService {
     //     const result = await executeQuery(query, [id]);
     //     return result;
     // }
-    async getById(tableName, columns, id) {
-        const query = getByIdQuery(tableName, columns);
-        const result = await executeQuery(query, [id]);
-        return result;
-    }
+    // async getById(tableName, columns, id) {
+    //     const query = getByIdQuery(tableName, columns);
+    //     const result = await executeQuery(query, [id]);
+    //     return result;
+    // }
     // async getByValue(tableName, userId, limit, valueType, value, columns) {
     //     console.log(value)
     //     const query = getByValueQuery(tableName, limit, valueType, columns);
@@ -21,8 +21,8 @@ export class TableService {
     // }
     async getByValue(tableName) {
         console.log(tableName)
-        const query = getByValueQuery(tableName);
-        const result = await executeQuery(query);
+        const query = getByValueQuery(tableName,'model');
+        const result = await executeQuery(query,[model]);
         return result;
     }
     async getByAlphabet(tableName, userId, limit, value, columns) {
