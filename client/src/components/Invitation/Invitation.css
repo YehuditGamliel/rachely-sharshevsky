@@ -1,0 +1,13 @@
+.glassesImage{
+    margin-left: 7%;
+}
+.titleContainer{
+    display:flex;
+    align-items: center;
+    flex-direction: row-reverse
+    
+}
+.title{
+    font-size: 150%;
+    font-weight: bold;
+}

@@ -1,25 +1,24 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import '../SpecificInfo/SpecificInfo.css'
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import  Invitation  from '../Invitation/Invitation.jsx';
+import Invitation from '../Invitation/Invitation.jsx';
+import SingleEyeglasses from "../SingleEyeglasses/SingleEyeglasses.jsx";
 
 function SpecificInfo() {
     const { state } = useLocation();
     const { photo, model, title, price } = state;
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');
-    const [moreImages, setMoreImages] = useState('')
-    const [numOfProduct,setNumOfProduct]=useState(1)
+    const [moreImages, setMoreImages] = useState([])
+    const [numOfProduct, setNumOfProduct] = useState(1)
     const [toalPrice, setToalPrice] = useState(price)
-   
-   
-  
+
+
+
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -43,7 +42,8 @@ function SpecificInfo() {
                 else {
                     // console.log("!!!!!!!!!!!!!!!!"+json.dat)
                     setDisplaypecificInfo(json.data[0][0])
-                    setMoreImages(json.data[1])
+                    setMoreImages([...moreImages, ...json.data[1]]) 
+                    
 
                 }
             })
@@ -51,21 +51,21 @@ function SpecificInfo() {
 
 
     const addProduct = () => {
-       
-        if (numOfProduct+1 <= displaySpecificInfo.stock) {
-        setNumOfProduct(numOfProduct+1);
-        setToalPrice(toalPrice+price);
-       
-          
+
+        if (numOfProduct + 1 <= displaySpecificInfo.stock) {
+            setNumOfProduct(numOfProduct + 1);
+            setToalPrice(toalPrice + price);
+
+
         }
     };
     const removeProduct = () => {
-       
-        if (numOfProduct-1 != 0) {
-            setNumOfProduct(numOfProduct-1);
-            setToalPrice(toalPrice-price);
+
+        if (numOfProduct - 1 != 0) {
+            setNumOfProduct(numOfProduct - 1);
+            setToalPrice(toalPrice - price);
         }
-       
+
     };
 
     return (<>
@@ -86,16 +86,16 @@ function SpecificInfo() {
                 <div id="bottom">
                     <p>סה"כ</p>
                     <p id="totalPrice">{toalPrice}$</p>
-                    
-                    <Invitation/>
+
+                    <Invitation />
                     <ButtonGroup
                         disableElevation
                         variant="contained"
                         aria-label="Disabled button group"
-                    > 
+                    >
                         <Button onClick={removeProduct}>-</Button>
-                        <input type="number"  step="1" 
-                        value={numOfProduct}/>
+                        <input type="number" step="1"
+                            value={numOfProduct} />
                         <Button onClick={addProduct}>+</Button>
                     </ButtonGroup>
 
@@ -105,15 +105,23 @@ function SpecificInfo() {
             {console.log(moreImages)}
 
             <img id="img" src={photo} />
-           
+
         </div>
-        {/* <div id="moreGlasses">
-            {moreImages.map((img, index) =>
-                <img id="img" src={img.photo} />
+        <div id="moreGlasses">
+        {/* {moreImages.map(function(productSpec, i){
+        return <span key={i}><b>Category Name:</b> {productSpec.price}</span>;
+})} */}
+                <div>
+            {moreImages.map((img) =>
+                 <SingleEyeglasses id="SingleEyeglasses" model={img.model}price={img.price}
+                photo={img.photo} title={img.title} /> 
             )
             }
+            </div>
 
-        </div>  */}
+
+        </div>
+
        
 
     </>)

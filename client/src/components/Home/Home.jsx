@@ -8,6 +8,7 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import header from '../../img/header.jpg'; 
 
 
 function Home() {
@@ -69,7 +70,7 @@ function Home() {
 
         </div>
         <div>
-            {/* <img src={header} id="header"/> */}
+            <img src={header} id="header"/>
             <h1 id="title">אופטיקה אי-סנטר</h1>
             <p id="text">
                 אתר “אופטיקה אי-סנטר” הוקם בכדי לתת ללקוחות שלנו את המענה המהיר והמקצועי ביותר ובשירות ישיר עד לפתח ביתכם. באתר תוכלו למצוא מגוון מוצרי אופטיקה מובחרים: עדשות מגע, משקפי ראייה ומשקפי שמש,

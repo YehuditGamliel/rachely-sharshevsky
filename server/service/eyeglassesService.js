@@ -18,7 +18,7 @@ export class EyeglassesService {
         return result;
     }
     async getEyeglassesByCompany( company) {
-        const query = getByValueQuery('optics.eyeglasses','company','photo');
+        const query = getByValueQuery('optics.eyeglasses','company','photo,model,title,price');
         const result = await executeQuery(query, [company]);
         console.log(result)
         return result;
