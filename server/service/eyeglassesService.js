@@ -12,8 +12,14 @@ export class EyeglassesService {
         return result;
     }
     async getEyeglassesByModel( model) {
-        const query = getByValueQuery('optics.eyeglasses','model','color,stock,description,BridgeWidth,lensWidth,company');
+        const query = getByValueQuery('optics.eyeglasses','model','color,stock,description,BridgeWidth,lensWidth,company,material');
         const result = await executeQuery(query, [model]);
+        console.log(result)
+        return result;
+    }
+    async getEyeglassesByCompany( company) {
+        const query = getByValueQuery('optics.eyeglasses','company','photo');
+        const result = await executeQuery(query, [company]);
         console.log(result)
         return result;
     }

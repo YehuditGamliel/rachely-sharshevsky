@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.18",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "bootstrap": "^5.3.3",
     "js-sha512": "^0.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

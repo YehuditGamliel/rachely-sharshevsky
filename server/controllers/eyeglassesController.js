@@ -24,7 +24,9 @@ async getEyeglassesByModel(req, res, next) {
         //let limit = Object.values(req.query).slice(1)
         const eyeglassesService = new EyeglassesService();
         const resultItems = await eyeglassesService.getEyeglassesByModel(req.params.model)
-        return res.status(200).json({ status: 200, data: resultItems });
+        const result = await eyeglassesService.getEyeglassesByCompany(resultItems[0].company)
+        console.log(result)
+        return res.status(200).json({ status: 200, data: [resultItems,result] });
     }
     catch (ex) {
         const err = {}
