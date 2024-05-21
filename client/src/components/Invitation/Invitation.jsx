@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -15,7 +15,7 @@ import Select from '@mui/material/Select';
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('paper');
   const [age, setAge] = React.useState('');
-  
+
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
     setScroll(scrollType);
@@ -44,7 +44,9 @@ import Select from '@mui/material/Select';
 
   return (
     <React.Fragment>
-      <Button onClick={handleClickOpen('paper')}>לבחירת עדשות</Button>
+          
+                      
+      <Button  variant="outlined"onClick={handleClickOpen('paper')} startIcon={<RemoveRedEyeIcon />}>לבחירת עדשות</Button>
       {/* <Button onClick={handleClickOpen('body')}>scroll=body</Button> */}
       <Dialog
         open={open}

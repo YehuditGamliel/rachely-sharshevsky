@@ -86,14 +86,13 @@ function SpecificInfo() {
                 <div id="bottom">
                     <p>סה"כ</p>
                     <p id="totalPrice">{toalPrice}$</p>
-                    <Button variant="outlined" startIcon={<ShoppingCartIcon />}>
-                        לקניה
-                    </Button>
+                    
+                    <Invitation/>
                     <ButtonGroup
                         disableElevation
                         variant="contained"
                         aria-label="Disabled button group"
-                    >
+                    > 
                         <Button onClick={removeProduct}>-</Button>
                         <input type="number"  step="1" 
                         value={numOfProduct}/>
@@ -106,7 +105,7 @@ function SpecificInfo() {
             {console.log(moreImages)}
 
             <img id="img" src={photo} />
-
+           
         </div>
         {/* <div id="moreGlasses">
             {moreImages.map((img, index) =>
@@ -115,7 +114,7 @@ function SpecificInfo() {
             }
 
         </div>  */}
-        <Invitation/>
+       
 
     </>)
 }
