@@ -34,6 +34,10 @@ function Invitation() {
   const [scroll, setScroll] = React.useState('paper');
   // const [age, setAge] = React.useState('');
   const [disable,setDisable]=useState(1)
+  const [style, setStyle] = useState("noneBorder");
+  
+  const [buttonBorder,setButtonBorder]=useState({a:"noneBorder",b:"noneBorder",c:"noneBorder",d:"noneBorder"})
+  const [isButtonDisabled, setButtonDisabled] = useState(true);
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
     setScroll(scrollType);
@@ -42,9 +46,9 @@ function Invitation() {
     setOpen(false);
   };
  
-  const handleChange = (event) => {
-      event.currentTarget.disabled = false;
-  };
+  // const handleChange = (event) => {
+  //     event.currentTarget.disabled = false;
+  // };
 
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
@@ -55,7 +59,33 @@ function Invitation() {
       }
     }
   }, [open]);
+  const changeStyle=(char)=>{
+    setButtonDisabled(false)
+    switch (char)
+    {
+      case 'a':{
+        setButtonBorder({a:"border",b:"noneBorder",c:"noneBorder",d:"noneBorder"})
+         break;
+      }
+      case 'b':{
+        setButtonBorder({a:"noneBorder",b:"border",c:"noneBorder",d:"noneBorder"})
+        break;
 
+      }
+      case 'c':{
+        setButtonBorder({a:"noneBorder",b:"noneBorder",c:"border",d:"noneBorder"})
+        break;
+
+      }
+      default:{
+        setButtonBorder({a:"noneBorder",b:"noneBorder",c:"noneBorder",d:"border"})
+
+      }
+     
+    }
+   
+   
+  }
   return (
     <React.Fragment>
       <Button variant="outlined" onClick={handleClickOpen('paper')} startIcon={<RemoveRedEyeIcon />}>לבחירת עדשות</Button>
@@ -70,45 +100,56 @@ function Invitation() {
           <DialogContentText
           >
             <div direction="row" spacing={2}>
-              <DemoPaper
-                >
-                <div className="titleContainer">
+              {/* 1 */}
+               <div className={buttonBorder.a}>
+               <DemoPaper  onClick={()=>changeStyle("a")}>  
+                             <div className="titleContainer">
                 <img  className="glassesImage"src={glasses1}/><br/>
                 <nav className="title">ללא מרשם</nav>
                 </div>
                  משקפיים כאביזר אופנה למראה מתוחכם ושימושי. העדשות מגיעות עם הגנה מירבית מקרינת
               השמש UV400, בנוסף ניתן לשדרג לעדשות DEFENDER המגינות מפני
-              קרינת מסכים.</DemoPaper>
-              <DemoPaper onClick={()=>alert("pp")}>
+              קרינת מסכים.</DemoPaper></div>
+              {/* 2 */}
+              <div className={buttonBorder.b}>
+              <DemoPaper  onClick={()=>changeStyle("b")}>
                 <div className="titleContainer">
                 <img  className="glassesImage"src={glasses2}/><br/>
                 <nav className="title">עדשות למרחק</nav>
                 </div>
                  עוזרות לראות בצורה ברורה לאובייקטים
-                 במרחק ממך.הצורך בעדשות אלה יגבר בתנאי תאורה מוגבלים</DemoPaper>
-                 <DemoPaper >
+                 במרחק ממך.הצורך בעדשות אלה יגבר בתנאי תאורה מוגבלים
+                 </DemoPaper>
+                 </div>
+                 {/* 3 */}
+                 <div className={buttonBorder.c}>
+                 <DemoPaper  onClick={()=>changeStyle("c")}>
                 <div className="titleContainer">
                 <img  className="glassesImage"src={glasses3}/><br/>
                 <nav className="title">עדשות לקריאה</nav>
                 </div>
                  מיועדות לעזור לך לראותפרטים במרחק קרוב(קריאה מספר או צפייה במסך מחשב)
               </DemoPaper>
-              <DemoPaper>
+              </div>
+              {/* 4 */}
+               <div className={buttonBorder.d}>
+                 <DemoPaper  onClick={()=>changeStyle("d")}>
                 <div className="titleContainer">
                 <img  className="glassesImage"src={glasses4}/><br/>
                 <nav className="title">מולטיפוקל</nav>
                 </div>
                 לראות גם לרחוק וגם לקרוב בעדשה אחת,
                 ע"י 3 מוקדים הממוקמים באיזורים שונים של העדשה
-                </DemoPaper>    
+                </DemoPaper> 
+                </div>   
             </div>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button  
-          disabled
-          id="buttonContinue"
-          onClick={handleChange}>אפשר להמשיך</Button>
+          
+          disabled={isButtonDisabled ==true}
+              >אפשר להמשיך</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

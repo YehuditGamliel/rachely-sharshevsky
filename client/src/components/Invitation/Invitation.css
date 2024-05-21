@@ -11,3 +11,15 @@
     font-size: 150%;
     font-weight: bold;
 }
+.noneBorder{
+  
+    width: 50%;
+    padding: 1%;
+    
+}
+.border{
+    width: 100%;
+    padding: 1%;
+    background-color: black;
+    
+}
