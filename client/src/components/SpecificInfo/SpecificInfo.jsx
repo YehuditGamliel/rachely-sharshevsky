@@ -87,7 +87,7 @@ function SpecificInfo() {
                     <p>סה"כ</p>
                     <p id="totalPrice">{toalPrice}$</p>
 
-                    <Invitation />
+                    <Invitation model={model}/>
                     <ButtonGroup
                         disableElevation
                         variant="contained"
