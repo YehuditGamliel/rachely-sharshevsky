@@ -40,6 +40,7 @@ function Invitation(model) {
   const [qualityGlasses,setQualityGlasses]=useState('')
   const kindOfGlassesArry = ["withoutPrescription", "distanceLenses", "readingGlasses","multifocal"];
   const qualityGlassesArry = ["1.5", "1.6", "1.67","1.74"];
+  const [diffrentBetweenEyes,setDiffrentBetweenEyes]=useState('same')
 
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
@@ -70,7 +71,10 @@ function Invitation(model) {
       //  console.log("pp",value,n,arry[n])
       console.log(userItem)
     }
+    {console.log(isButtonDisabled)}
+    setButtonDisabled(false)
    setPaper({title:title})
+   {console.log(isButtonDisabled)}
    setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
 
     setUserItem(userItem => ({
@@ -79,9 +83,10 @@ function Invitation(model) {
     }));
   
   };
-  // const inputSizes=(type)=>{
+  const inputSizes=(type)=>{
+    setDiffrentBetweenEyes(type)
 
-  // }
+  }
 const changeStyle = (char,title) => {
   switch(title){
     case 'kindOfGlasses':{
@@ -258,6 +263,7 @@ return (
             </DialogContent>
               <Button
                 onClick={()=>addInformation('qualityGlasses', qualityGlasses,qualityGlassesArry,'sizeOfGlasses')}
+            
                 disabled={isButtonDisabled == true}
               >אפשר להמשיך</Button>
           </Dialog>
@@ -273,8 +279,13 @@ return (
             aria-describedby="scroll-dialog-description">
             <DialogTitle id="scroll-dialog-title" >נא להזין את פרטי המרשם שלך:</DialogTitle>
             <DialogContent dividers={scroll === 'paper'}>
-             <Button onClick={inputSizes(same)}>מספר זהה בשתי העיניים</Button>
-             <Button onClick={inputSizes(diffrent)}>מספר שונה בכל עין</Button>
+             <Button onClick={()=>inputSizes('diffrent')}>מספר זהה בשתי העיניים</Button>
+             <Button onClick={()=>inputSizes('same')}>מספר שונה בכל עין</Button>
+             {(diffrentBetweenEyes=='same')?
+             (<p>עין ימין ושמאל</p>
+            )
+             :<></>}
+          
             </DialogContent>
               <Button
                 onClick={()=>addInformation('qualityGlasses', qualityGlasses,qualityGlassesArry,'sizeOfGlasses')}
