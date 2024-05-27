@@ -43,9 +43,9 @@ function Invitation(model) {
   const qualityGlassesArry = ["1.5", "1.6", "1.67","1.74"];
   const { login, setLogin } = useState(<Login/>);
 
-const register = () => {
- setLogin(<Login/>);
-};
+ const register = () => {
+    setLogin(<Login/>);
+ };
   // const [diffrentBetweenEyes,setDiffrentBetweenEyes]=useState('same')
 
   const handleClickOpen = (scrollType) => () => {
@@ -348,7 +348,7 @@ return (
           </Dialog>
           )
         }
-        
+
         // {console.log("pp",qualityGlasses)}
         {console.log(userItem)}
       })()}

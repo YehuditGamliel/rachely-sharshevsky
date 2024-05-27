@@ -1,6 +1,7 @@
 import express from 'express';
 import { userRouter } from './router/userRouter.js'
 import { eyeglassesRouter } from './router/eyeglassesRouter.js'
+import {eyesDataRouter} from './router/eyesDataRouter.js'
 // import { postRouter } from './router/eyeGlassesRouter.js';
 // import {logErrors} from './middleware/logError.js';
 // import {loginRouter} from './router/logInRouter.js'
@@ -18,7 +19,7 @@ const app = express();
 // app.use('/authorization',loginRouter);
 app.use('/users', userRouter);
  app.use('/eyeglasses', eyeglassesRouter);
-// app.use('/todos', todoRouter);
+app.use('/eyesData', eyesDataRouter);
 //app.use(logErrors);
 
 

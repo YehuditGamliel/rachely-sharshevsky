@@ -12,22 +12,23 @@ export function getAllQuery(tableName,columns) {
 // }
 
 export function addQuery(tableName, itemKeys) {
-    console.log(itemKeys)
-  
-    // let keys = "", QuestionMark = "";
-    // itemKeys.forEach(element => {
-    //     console.log(element)
-    //     keys += element + ',';
-    //     QuestionMark += "?,"
-    // })model,price,photo,p
-    //keys.slice(0, -1)
-    console.log(itemKeys,QuestionMark);
-    //const query = `INSERT INTO ${tableName} (${itemKeys}) VALUES (${QuestionMark.slice(0, -1)})`
-    const query=`INSERT INTO optics.eyeglasses (model,price,photo,p)
-    VALUES ("77444ppw",400,"pp.fpg",50);`;
+    //console.log(itemKeys)
+    // let keys = " ", QuestionMark = "";
+    // itemKeys.map((x) => x * 2);
+    // console.log(itemKeys)
+    //     // keys += element + ',';
+    //     // QuestionMark += "?,"
     
-    console.log(query);
+    // console.log(keys)
+    // const query = `INSERT INTO project.${tableName} (${keys.slice(0, -1)}) VALUES (${QuestionMark.slice(0, -1)})`
+    // console.log(query);
+   
+    //const query = `INSERT INTO  (${itemKeys}) VALUES (${QuestionMark.slice(0, -1)})`
+    const query=`INSERT INTO ${tableName} (id,SPHRight,SPHLeft,CYLRight,CYLLeft,addLeft,addRight,PDFAR,PDNEAR)
+    VALUES ("9091","0","0","0","0","1","1","63","63");`;
     return query
+    // console.log(query);
+    // return query
 }
 export function getByValueQuery(tableName, value, columns) {
     const query = `SELECT ${columns} FROM ${tableName}  WHERE ${value} = ?`;
