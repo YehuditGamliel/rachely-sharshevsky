@@ -6,7 +6,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-
 import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
@@ -14,8 +13,10 @@ import glasses1 from '../../img/glasses1.jpg'
 import glasses2 from '../../img/glasses2.jpg'
 import glasses3 from '../../img/glasses3.jpg'
 import glasses4 from '../../img/glasses4.png'
+import prescription1 from '../../img/prescription1.jpg'
 
 import './Invitation.css'
+import Login from '../Login/Login';
 
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 250,
@@ -40,7 +41,12 @@ function Invitation(model) {
   const [qualityGlasses,setQualityGlasses]=useState('')
   const kindOfGlassesArry = ["withoutPrescription", "distanceLenses", "readingGlasses","multifocal"];
   const qualityGlassesArry = ["1.5", "1.6", "1.67","1.74"];
-  const [diffrentBetweenEyes,setDiffrentBetweenEyes]=useState('same')
+  const { login, setLogin } = useState(<Login/>);
+
+const register = () => {
+ setLogin(<Login/>);
+};
+  // const [diffrentBetweenEyes,setDiffrentBetweenEyes]=useState('same')
 
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
@@ -76,17 +82,15 @@ function Invitation(model) {
    setPaper({title:title})
    {console.log(isButtonDisabled)}
    setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
-
     setUserItem(userItem => ({
       ...userItem,
       [name]: arry[valueInt]
     }));
-  
   };
-  const inputSizes=(type)=>{
-    setDiffrentBetweenEyes(type)
-
-  }
+  // const register=()=>{
+  //   alert("OO");
+  //  return <Login/>
+  // }
 const changeStyle = (char,title) => {
   switch(title){
     case 'kindOfGlasses':{
@@ -189,12 +193,67 @@ return (
               </DialogContentText>
             </DialogContent>
               <Button
-                onClick={()=>addInformation('kindOfGlasses', kindOfGlasses,kindOfGlassesArry,'qualityGlasses')}
+                onClick={()=>addInformation('kindOfGlasses', kindOfGlasses,kindOfGlassesArry,'WithOrWithoutPrescription')}
                 disabled={isButtonDisabled == true}
               >אפשר להמשיך</Button>
           </Dialog>
           )
-        }  else if(paper.title=='qualityGlasses') {
+          
+        } else if(paper.title=='WithOrWithoutPrescription') {
+
+          return (
+           
+
+            <Dialog
+            open={open}
+            onClose={handleClose}
+            scroll={scroll}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description">
+           
+            <DialogTitle id="scroll-dialog-title" >איך תרצו למלא את פרטי המרשם שלכם?</DialogTitle>
+            <DialogContent dividers={scroll === 'paper'}>
+              <DialogContentText>
+                <div direction="row" spacing={2}>
+                  {/* 1 */}
+                  <div className={buttonBorder.a}>
+                    <DemoPaper onClick={() => changeStyle("1",'kindOfGlasses')}>
+                      <div className="titleContainer">
+                        <img className="glassesImage" src={prescription1} /><br />
+                        <nav className="title">עם המרשם ששמור לי באופטיקנה</nav>
+                      </div>
+                         במידה ורכשתם בעבר משקפי קריאה באתר שלנו :
+                         או ששמור לכם באיזור האישי את המרשם שלכם:)
+                      </DemoPaper></div>
+                  {/* 2 */}
+                  <div className={buttonBorder.b}>
+                    <DemoPaper onClick={() => changeStyle("2",'kindOfGlasses')}>
+                      <div className="titleContainer">
+                        <img className="glassesImage" src={glasses2} /><br />
+                        <nav className="title">מלוי פרטי המרשם</nav>
+                      </div>
+                      על ידי העתקת הפרטים מהמרשם הקיים שלכם                    </DemoPaper>
+                  </div>
+                
+                 
+                </div>
+              </DialogContentText>
+            </DialogContent>
+              <Button
+                // onClick={()=>addInformation('kindOfGlasses', kindOfGlasses,kindOfGlassesArry,'qualityGlasses')}
+                onClick={()=>register()}
+                disabled={isButtonDisabled == true}
+              >אפשר להמשיך</Button>
+          </Dialog>
+          )
+        }
+        
+        
+        
+        
+        
+        else if(paper.title=='qualityGlasses') {
+
           return (
             <Dialog
             open={open}
@@ -279,13 +338,8 @@ return (
             aria-describedby="scroll-dialog-description">
             <DialogTitle id="scroll-dialog-title" >נא להזין את פרטי המרשם שלך:</DialogTitle>
             <DialogContent dividers={scroll === 'paper'}>
-             <Button onClick={()=>inputSizes('diffrent')}>מספר זהה בשתי העיניים</Button>
-             <Button onClick={()=>inputSizes('same')}>מספר שונה בכל עין</Button>
-             {(diffrentBetweenEyes=='same')?
-             (<p>עין ימין ושמאל</p>
-            )
-             :<></>}
-          
+           <p>sxsx</p>
+            
             </DialogContent>
               <Button
                 onClick={()=>addInformation('qualityGlasses', qualityGlasses,qualityGlassesArry,'sizeOfGlasses')}
@@ -294,6 +348,7 @@ return (
           </Dialog>
           )
         }
+        
         // {console.log("pp",qualityGlasses)}
         {console.log(userItem)}
       })()}

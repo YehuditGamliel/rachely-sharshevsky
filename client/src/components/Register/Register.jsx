@@ -84,61 +84,61 @@ function Register() {
 
 
 
-  return (
-    <>
-      {!extraDetails ? (<div className="register-box">
-        <form onSubmit={handleSubmit(checkRegister)}>
-          <Link className='linkRegister' to="/login">Login</Link>
-          <h2>Sign Up</h2>
-          <div className="user-box">
-            <input type='text' name='userName' {...register("userName",
-              { required: true, minLength: 2, maxLength: 15 })} placeholder="userName" />
-            {errors.userName && errors.userName.type === "minLength" &&
-              (<span>userName must be a minimum of 2 characters long!</span>)}
-            {errors.userName && errors.userName.type === "maxlength" &&
-              (<span>userName can be a maximum of 15 characters long</span>)}
-            {errors.userName && errors.userName.type === "required" &&
-              (<span>userName is required</span>)}
-          </div>
-          <div className="user-box">
-            <input type='password' name='password' {...register("password",
-              { required: true, minLength: 6 })} placeholder="password" />
-            {errors.password && errors.password.type === "minLength" &&
-              (<span className="span">password must be a minimum of 6 characters long!</span>)}
-            {errors.password && errors.password.type === "required" &&
-              (<span className="span">password is required</span>)}
-          </div>
-          <div className="user-box">
-            <input type='password' name='verifyPassword' {...register("verifyPassword",
-              { required: true, minLength: 6 })} placeholder="verifyPassword" />
-            {errors.verifyPassword && errors.verifyPassword.type === "minLength" &&
-              (<span className="span">verify password must be a minimum of 6 characters long!</span>)}
-            {errors.verifyPassword && errors.verifyPassword.type === "required" &&
-              (<span className="span">verify password is required</span>)}
-          </div>
-          <button className='submit' type='submit'>submit</button>
-        </form></div>)
-        : (
-          <div className="register-box2">
-            <h2>Extra Details</h2>
-            <form onSubmit={handleSubmit2(checkMoreDetails)}>
-              <div className="user-box2">
-                <input type='text' {...moreDetails("name", { maxLength: 20 })} placeholder="name" />
-                {errors.name && <span className="span">A name can be a maximum of 20 characters long</span>}
-              </div>
-              <div className="user-box2">
-                <input type='email' {...moreDetails("email", { required: true })} placeholder="email" />
-                {errors1.email && errors1.email.type === "required" && (<span className="span">email is required</span>)}
-              </div>
-              <div className="user-box2">
-                <input type='number' {...moreDetails("phone", { maxLength: 10 })} placeholder="phone" />
-                {errors.phone && <span className="span">phone number can be a maximum of 10 numbers long</span>}
-              </div>
-              <button type='submit' className='submit'>submit</button>
-            </form></div>
-        )
-      }
-    </>
+  return (<p>iiii</p>
+    // <>
+    //   {!extraDetails ? (<div className="register-box">
+    //     <form onSubmit={handleSubmit(checkRegister)}>
+    //       <Link className='linkRegister' to="/login">Login</Link>
+    //       <h2>Sign Up</h2>
+    //       <div className="user-box">
+    //         <input type='text' name='userName' {...register("userName",
+    //           { required: true, minLength: 2, maxLength: 15 })} placeholder="userName" />
+    //         {errors.userName && errors.userName.type === "minLength" &&
+    //           (<span>userName must be a minimum of 2 characters long!</span>)}
+    //         {errors.userName && errors.userName.type === "maxlength" &&
+    //           (<span>userName can be a maximum of 15 characters long</span>)}
+    //         {errors.userName && errors.userName.type === "required" &&
+    //           (<span>userName is required</span>)}
+    //       </div>
+    //       <div className="user-box">
+    //         <input type='password' name='password' {...register("password",
+    //           { required: true, minLength: 6 })} placeholder="password" />
+    //         {errors.password && errors.password.type === "minLength" &&
+    //           (<span className="span">password must be a minimum of 6 characters long!</span>)}
+    //         {errors.password && errors.password.type === "required" &&
+    //           (<span className="span">password is required</span>)}
+    //       </div>
+    //       <div className="user-box">
+    //         <input type='password' name='verifyPassword' {...register("verifyPassword",
+    //           { required: true, minLength: 6 })} placeholder="verifyPassword" />
+    //         {errors.verifyPassword && errors.verifyPassword.type === "minLength" &&
+    //           (<span className="span">verify password must be a minimum of 6 characters long!</span>)}
+    //         {errors.verifyPassword && errors.verifyPassword.type === "required" &&
+    //           (<span className="span">verify password is required</span>)}
+    //       </div>
+    //       <button className='submit' type='submit'>submit</button>
+    //     </form></div>)
+    //     : (
+    //       <div className="register-box2">
+    //         <h2>Extra Details</h2>
+    //         <form onSubmit={handleSubmit2(checkMoreDetails)}>
+    //           <div className="user-box2">
+    //             <input type='text' {...moreDetails("name", { maxLength: 20 })} placeholder="name" />
+    //             {errors.name && <span className="span">A name can be a maximum of 20 characters long</span>}
+    //           </div>
+    //           <div className="user-box2">
+    //             <input type='email' {...moreDetails("email", { required: true })} placeholder="email" />
+    //             {errors1.email && errors1.email.type === "required" && (<span className="span">email is required</span>)}
+    //           </div>
+    //           <div className="user-box2">
+    //             <input type='number' {...moreDetails("phone", { maxLength: 10 })} placeholder="phone" />
+    //             {errors.phone && <span className="span">phone number can be a maximum of 10 numbers long</span>}
+    //           </div>
+    //           <button type='submit' className='submit'>submit</button>
+    //         </form></div>
+    //     )
+    //   }
+    // </>
   )
 }
 export default Register;

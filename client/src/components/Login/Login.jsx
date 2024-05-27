@@ -99,7 +99,9 @@ function Login() {
     }
 
     return (
+        
         <div className='login-background'>
+            {alert("pp")}
             <div className='login-box'>
                 <Link className='linkRegister' to="/register">Register</Link><br />
                 <Link onClick={() => setChangePassword(false)}>Login</Link>
