@@ -3,8 +3,8 @@
 import { EyeglassesService } from '../service/eyeglassesService.js'
 
 export class EyeglassesController {
+    
    async getAllEyeglasses(req, res, next) {
-    //console.log("Controller E")
     try {
         //let limit = Object.values(req.query).slice(1)
         const eyeglassesService = new EyeglassesService();

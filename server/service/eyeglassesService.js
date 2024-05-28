@@ -4,8 +4,6 @@ import {getByValueQuery,checkUserId, sortedQuery, getByTitleQuery, updateQuery, 
 export class EyeglassesService {
 
     async getAllEyeglasses() {
-       // console.log("service")
-
         const query = getAllQuery('optics.eyeglasses', 'model,price,photo,title');
         const result = await executeQuery(query);
         console.log(result)
