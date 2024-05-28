@@ -1,13 +1,17 @@
 
 
-import { TableService } from '../service/service.js'
+import { LoginService } from '../service/loginService.js'
 import { sha512, sha384, sha512_256, sha512_224 } from 'js-sha512';
 export class LoginController {
-
+          
     async Authentication(req, res, next) {
         try {
-            const loginService = new TableService();
+            {console.log("loginController")}
+            
+            console.log(req.body)
+            const loginService = new LoginService();
             const resultItems = await loginService.Authentication(req.body)
+            
             if (resultItems.length) {
                 return res.status(200).json({ status: 200, data: resultItems });
             }

@@ -21,13 +21,13 @@ function Login() {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            userName: '',
+            email: '',
             password: '',
         }
     });
     const { register: passwords, handleSubmit: handleSubmit2, formState: { errors: errors2 } } = useForm({
         defaultValues: {
-            userName: '',
+            email: '',
             oldPassword: '',
             newPassword: '',
             verifyPassword: ''
@@ -38,7 +38,7 @@ function Login() {
         let response = await fetch(`http://localhost:8082/authorization/login`, {
             method: 'POST',
             body: JSON.stringify({
-                userName: userDetails.userName,
+                email: userDetails.email,
                 password: userDetails.password
             }),
             headers: {
@@ -56,7 +56,8 @@ function Login() {
             navigate(`/home/users/${json.data[0].id}`)
         }
         else if (json.status == 400) {
-            <Alert severity="error">The username or password you entered is incorrect, please try again or sign up..</Alert>
+            <Alert severity="error">The email
+             or password you entered is incorrect, please try again or sign up..</Alert>
         }
         else {
             alert(json.error)
@@ -68,13 +69,13 @@ function Login() {
             setErrorMassage("verity is not correct,try again")
         else {
             setErrorMassage(" ")
-            let json = await userExist({ userName: passwords.userName, password: passwords.oldPassword })
+            let json = await userExist({ email: passwords.email, password: passwords.oldPassword })
             if (json.status == 200) {
                 fetch(`http://localhost:8082/authorization/login`, {
                     method: 'PUT',
                     body: JSON.stringify({
                         userId: json.data[0].id,
-                        userName: passwords.userName,
+                        email: passwords.email,
                         password: passwords.newPassword
                     }),
                     headers: {
@@ -88,7 +89,7 @@ function Login() {
                     })
             }
             else if (json.status == 400) {
-                <Alert severity="error">The username or password you entered is incorrect, please try again or sign up.</Alert>
+                <Alert severity="error">The email or password you entered is incorrect, please try again or sign up.</Alert>
             }
             else {
                 alert(json.error)
@@ -110,12 +111,12 @@ function Login() {
                 {!changePassword ?
                     <form onSubmit={handleSubmit(login)}>
                         <div className='user-box'>
-                            <input type='text' name='userName' {...register("userName",
+                            <input type='text' name='email' {...register("email",
                                 { required: true, minLength: 2 })} placeholder='usename' />
-                            {errors.userName && errors.userName.type === "minLength" &&
-                                (<span className='span'>userName must be a minimum of 2 characters long!</span>)}
-                            {errors.userName && errors.userName.type === "required" &&
-                                (<span className='span'>userName is required</span>)}
+                            {errors.email && errors.email.type === "minLength" &&
+                                (<span className='span'>email must be a minimum of 2 characters long!</span>)}
+                            {errors.email && errors.email.type === "required" &&
+                                (<span className='span'>email is required</span>)}
                         </div>
                         <div className='user-box'>
                             <input type='password' name='password' {...register("password",
@@ -130,12 +131,12 @@ function Login() {
                     </form>
                     : <><p>{errorMassage}</p>
                         <form onSubmit={handleSubmit2(handleChangePassword)}>
-                            <input type='text' name='userName' {...passwords("userName",
+                            <input type='text' name='email' {...passwords("email",
                                 { required: true, minLength: 2 })} placeholder='usename' />
-                            {errors.userName && errors.userName.type === "minLength" &&
-                                (<span className='span'>userName must be a minimum of 2 characters long!</span>)}
-                            {errors.userName && errors.userName.type === "required" &&
-                                (<span className='span'>userName is required</span>)}
+                            {errors.email && errors.email.type === "minLength" &&
+                                (<span className='span'>email must be a minimum of 2 characters long!</span>)}
+                            {errors.email && errors.email.type === "required" &&
+                                (<span className='span'>email is required</span>)}
                             <input type='password' name='oldPassword'{...passwords("oldPassword",
                                 { required: true, minLength: 6 })} placeholder='old Password' />
                             {errors2.oldPassword &&

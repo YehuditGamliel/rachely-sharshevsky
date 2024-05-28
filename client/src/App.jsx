@@ -15,8 +15,8 @@ function App() {
     <Router>
         <Routes>
                     {/* <Route path="/" element={<RecipeReviewCard />} /> */}
-
-          <Route path="/" element={<Home />} />
+          <Route path="/EyeCenter" element={<Home />}>
+          
           <Route path='/eyeglasses' element={<Eyeglasses />} />
           <Route path="/" element={<Login />} /> 
           <Route path="/login" element={<Login />} />
@@ -35,6 +35,7 @@ function App() {
             <Route path="info" element={<Info />} />   
             <Route path='*' element={<p>not found</p>}/>        
           </Route> */}
+           </Route>
         </Routes>
     </Router>
   )
