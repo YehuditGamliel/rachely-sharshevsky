@@ -1,39 +1,3 @@
-export function addQuery(tableName, itemKeys) {
-    let keys = "", QuestionMark = "";
-    itemKeys.forEach(element => {
-        keys += element + ',';
-        QuestionMark += "?,"
-    })
-    const query = `INSERT INTO optics.${tableName} (${keys.slice(0, -1)}) VALUES (${QuestionMark.slice(0, -1)});`;
-    console.log(query);
-    return query
-}
-
-export function getUserByEmailQuery() {
-    const query = `SELECT * FROM optics.users where email=? and password=?;`;
-    console.log(query)
-    return query
-}
-export function vv(){
-    const query = 'select * from optics.users;'
-    return query;
-}
-
-
-
-
-
-/////////////
-export function getByValueQuery(tableName, value, columns) {
-    const query = `SELECT ${columns} FROM optics.${tableName}  WHERE ${value} = ?`;
-    console.log(query)
-    return query
-}
-// export function getByValueQuery(tableName, columns) {
-//     const query = `SELECT ${columns} FROM optics.${tableName}  WHERE id= ? AND isActive =1`;
-//     return query
-// }
-
 export function getAllQuery(tableName,columns) {
     console.log("qrey")
     const query = `SELECT ${columns} FROM ${tableName} `;
@@ -46,7 +10,44 @@ export function getAllQuery(tableName,columns) {
 //     LIMIT ${limit[0]} , ${limit[1] - limit[0]}`;
 //     return query
 // }
+export function getUserByEmailQuery() {
+    const query = `SELECT * FROM optics.users where email=? and password=?;`;
+    console.log(query)
+    return query
+}
+export function vv(){
+    const query = 'select * from optics.users;'
+    return query;
+}
 
+export function addQuery(tableName, itemKeys) {
+    //console.log(itemKeys)
+    // let keys = " ", QuestionMark = "";
+    // itemKeys.map((x) => x * 2);
+    // console.log(itemKeys)
+    //     // keys += element + ',';
+    //     // QuestionMark += "?,"
+    
+    // console.log(keys)
+    // const query = `INSERT INTO project.${tableName} (${keys.slice(0, -1)}) VALUES (${QuestionMark.slice(0, -1)})`
+    // console.log(query);
+   
+    //const query = `INSERT INTO  (${itemKeys}) VALUES (${QuestionMark.slice(0, -1)})`
+    const query=`INSERT INTO ${tableName} (id,SPHRight,SPHLeft,CYLRight,CYLLeft,addLeft,addRight,PDFAR,PDNEAR)
+    VALUES ("9091","0","0","0","0","1","1","63","63");`;
+    return query
+    // console.log(query);
+    // return query
+}
+export function getByValueQuery(tableName, value, columns) {
+    const query = `SELECT ${columns} FROM ${tableName}  WHERE ${value} = ?`;
+    console.log(query)
+    return query
+}
+// export function getByValueQuery(tableName, columns) {
+//     const query = `SELECT ${columns} FROM optics.${tableName}  WHERE id= ? AND isActive =1`;
+//     return query
+// }
 export function getByTitleQuery(tableName, limit, value, columns) {
     const query = `SELECT ${columns} FROM project.${tableName}  WHERE userId=? AND title LIKE "${value}%" 
     LIMIT ${limit[0]} , ${limit[1] - limit[0]}`;
@@ -73,8 +74,8 @@ export function updateQuery(tableName,value, itemKeys) {
 
 export function AuthenticationQuery() {
     const query = `SELECT u.id, u.userName,u.email 
-    FROM project.users u INNER JOIN project.passwords p 
-    ON u.id=p.userId
+    FROM optics.users 
+   
     WHERE userName= ? AND password = ? AND u.isActive=1;`;
     return query
 }
@@ -83,7 +84,5 @@ export function checkUserId(){
     WHERE userName=?;`
     return query;
 }
-
-
 
 

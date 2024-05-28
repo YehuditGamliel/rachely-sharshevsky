@@ -4,6 +4,8 @@ import {getByValueQuery,checkUserId, sortedQuery, getByTitleQuery, updateQuery, 
 export class EyeglassesService {
 
     async getAllEyeglasses() {
+       // console.log("service")
+
         const query = getAllQuery('optics.eyeglasses', 'model,price,photo,title');
         const result = await executeQuery(query);
         console.log(result)
@@ -48,47 +50,47 @@ export class EyeglassesService {
     //     return result;
     // }
     //
-    // async getByValue(tableName) {
-    //     console.log(tableName)
-    //     const query = getByValueQuery(tableName);
-    //     const result = await executeQuery(query);
-    //     return result;
-    // }
-    // async getByAlphabet(tableName, userId, limit, value, columns) {
-    //     const query = getByTitleQuery(tableName, limit, value, columns);
-    //     const result = await executeQuery(query, [userId]);
-    //     return result;
-    // }
+    async getByValue(tableName) {
+        console.log(tableName)
+        const query = getByValueQuery(tableName);
+        const result = await executeQuery(query);
+        return result;
+    }
+    async getByAlphabet(tableName, userId, limit, value, columns) {
+        const query = getByTitleQuery(tableName, limit, value, columns);
+        const result = await executeQuery(query, [userId]);
+        return result;
+    }
   
-    // async deleteObject(tableName, id) {
-    //     const query = deleteQuery(tableName);
-    //     const result = await executeQuery(query, [id]);
-    //     return result;
+    async deleteObject(tableName, id) {
+        const query = deleteQuery(tableName);
+        const result = await executeQuery(query, [id]);
+        return result;
 
-    // }
-    // async updateObject(tableName, valueType,value, itemDetailes) {
-    //     let values = Object.values(itemDetailes).slice(1)
-    //     const query = updateQuery(tableName,valueType, Object.keys(itemDetailes).slice(1)
-    // );
-    //     const result = await executeQuery(query, [...values, value]);
-    //     return result;
-    // }
-    // async sort(tableName, userId, limit, sortedKey, columns) {
-    //     const query = sortedQuery(tableName, limit, sortedKey, columns);
-    //     const result = await executeQuery(query, [userId]);
-    //     return result;
-    // }
-    // async Authentication(data) {
-    //     const query = AuthenticationQuery();
-    //     const result = await executeQuery(query, Object.values(data));
-    //     return result;
-    // }
-    // async checkUserName(userName){ 
-    //      console.log(userName)
-    //     const query = checkUserId();
-    //     const result = await executeQuery(query, [userName]);
-    //     return result;
+    }
+    async updateObject(tableName, valueType,value, itemDetailes) {
+        let values = Object.values(itemDetailes).slice(1)
+        const query = updateQuery(tableName,valueType, Object.keys(itemDetailes).slice(1)
+    );
+        const result = await executeQuery(query, [...values, value]);
+        return result;
+    }
+    async sort(tableName, userId, limit, sortedKey, columns) {
+        const query = sortedQuery(tableName, limit, sortedKey, columns);
+        const result = await executeQuery(query, [userId]);
+        return result;
+    }
+    async Authentication(data) {
+        const query = AuthenticationQuery();
+        const result = await executeQuery(query, Object.values(data));
+        return result;
+    }
+    async checkUserName(userName){ 
+         console.log(userName)
+        const query = checkUserId();
+        const result = await executeQuery(query, [userName]);
+        return result;
 
        
-    // }
+    }
 }
