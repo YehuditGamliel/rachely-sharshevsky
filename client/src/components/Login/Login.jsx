@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 import { useNavigate, Link } from 'react-router-dom';
 import { UserContext } from "../../UserProvider";
 import '../Login/Login.css'
-import '../Register/Register'
+import  Register from '../Register/Register'
+import Alert from '@mui/material/Alert';
 
 function Login() {
     const [changePassword, setChangePassword] = useState(false)
     const [errorMassage, setErrorMassage] = useState("")
     const { user, setCurrentUser } = useContext(UserContext);
+    const [showRegister,setShowRegister]=useState('');
     const navigate = useNavigate();
 
     // useEffect(() => {
@@ -54,7 +56,7 @@ function Login() {
             navigate(`/home/users/${json.data[0].id}`)
         }
         else if (json.status == 400) {
-            alert("The username or password you entered is incorrect, please try again or sign up.")
+            <Alert severity="error">The username or password you entered is incorrect, please try again or sign up..</Alert>
         }
         else {
             alert(json.error)
@@ -86,7 +88,7 @@ function Login() {
                     })
             }
             else if (json.status == 400) {
-                alert("The username or password you entered is incorrect, please try again or sign up.")
+                <Alert severity="error">The username or password you entered is incorrect, please try again or sign up.</Alert>
             }
             else {
                 alert(json.error)
@@ -101,10 +103,10 @@ function Login() {
     return (
         
         <div className='login-background'>
-            {alert("pp")}
             <div className='login-box'>
-                <Link className='linkRegister' to="/register">Register</Link><br />
-                <Link onClick={() => setChangePassword(false)}>Login</Link>
+                <button onClick={()=>setShowRegister(<Register/>)}>Register</button>
+                {/* <Link className='linkRegister' to="/register">Register</Link><br /> */}
+                {/* <Link onClick={() => setChangePassword(false)}>Login</Link> */}
                 {!changePassword ?
                     <form onSubmit={handleSubmit(login)}>
                         <div className='user-box'>
@@ -154,6 +156,7 @@ function Login() {
 
 
             </div>
+            {showRegister}
         </div>
     )
 

@@ -54,6 +54,7 @@ export class TableService {
         return result;
     }
     async Authentication(data) {
+       console.log(data)
         const query = AuthenticationQuery();
         const result = await executeQuery(query, Object.values(data));
         return result;

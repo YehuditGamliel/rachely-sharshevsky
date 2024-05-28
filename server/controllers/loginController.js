@@ -5,6 +5,7 @@ import { sha512, sha384, sha512_256, sha512_224 } from 'js-sha512';
 export class LoginController {
 
     async Authentication(req, res, next) {
+        console.log("LogInController")
         try {
             const loginService = new TableService();
             const resultItems = await loginService.Authentication(req.body)

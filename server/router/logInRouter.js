@@ -6,6 +6,7 @@ const loginRouter = express.Router();
 
 const loginController = new LoginController()
 const userController=new UserController();
+console.log("LogInRouter")
 loginRouter.post("/login", loginController.Authentication)
 loginRouter.post("/signUp", userController.addUser);
 loginRouter.put("/login",loginController.updatePassword)

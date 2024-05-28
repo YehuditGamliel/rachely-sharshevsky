@@ -19,7 +19,20 @@ export class UserController {
     //     }
     // }
 
-
+async getUserByEmail(req, res, next){
+    try {
+        console.log("body",req.body);
+        const userService = new UserService();
+        const resultItem = await userService.getUserByEmail(req.body.email);
+        res.status(200).json({ status: 200, data: resultItem });
+    }
+    catch (ex) {
+        const err = {}
+        err.statusCode = 500;
+        err.message = ex;
+        next(err)
+    }
+}
     async addUser(req, res, next) {
         try {
             const userService = new UserService();

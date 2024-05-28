@@ -62,10 +62,8 @@ export function updateQuery(tableName,value, itemKeys) {
 }
 
 export function AuthenticationQuery() {
-    const query = `SELECT u.id, u.userName,u.email 
-    FROM project.users u INNER JOIN project.passwords p 
-    ON u.id=p.userId
-    WHERE userName= ? AND password = ? AND u.isActive=1;`;
+    const query = `SELECT *
+    FROM optics.users WHERE email= 'rsh61047@gmail.com' AND password = 'rS@61047' AND isActive=1;`;
     return query
 }
 export function checkUserId(){

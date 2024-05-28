@@ -11,10 +11,10 @@ export class UserService {
         return result;
     }
 
-    // async getUserByEmail(email) {
-    //     const query = getByValueQuery('optics.users');
-    //     const result = await executeQuery(query, [email]);
-    //     return result;
-    // }
+    async getUserByEmail(email) {
+        const query = getByValueQuery('optics.users');
+        const result = await executeQuery(query, [email]);
+        return result;
+    }
 
 }
