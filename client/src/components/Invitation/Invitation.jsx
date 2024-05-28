@@ -27,7 +27,7 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 }));
 
 function Invitation(model) {
-  const [userItem, setUserItem] = useState({model:model.model});
+  const [userEyesData, setUserEyesdata] = useState({model:model.model});
 
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
@@ -38,14 +38,15 @@ function Invitation(model) {
   const [buttonBorder, setButtonBorder] = useState({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   const [kindOfGlasses, setKindOfGlasses] = useState('')
-  const [qualityGlasses,setQualityGlasses]=useState('')
-  const kindOfGlassesArry = ["withoutPrescription", "distanceLenses", "readingGlasses","multifocal"];
-  const qualityGlassesArry = ["1.5", "1.6", "1.67","1.74"];
-  const { login, setLogin } = useState(<Login/>);
+  const [withOrWithoutPrescription,setWithOrWithoutPrescription]=('')
+  // const withOrWithoutPrescription
+  const [CU6,setCU6]=useState('')
+  const [login, setLogin ] = useState('');
+  // const [userEyesData,]=useState({});
 
- const register = () => {
-    setLogin(<Login/>);
- };
+  const kindOfGlassesArry = ["withoutPrescription", "distanceLenses", "readingGlasses","multifocal"];
+  const CU6Arry = ["1.5", "1.6", "1.67","1.74"];
+
   // const [diffrentBetweenEyes,setDiffrentBetweenEyes]=useState('same')
 
   const handleClickOpen = (scrollType) => () => {
@@ -56,9 +57,7 @@ function Invitation(model) {
     setOpen(false);
   };
 
-  // const handleChange = (event) => {
-  //     event.currentTarget.disabled = false;
-  // };
+ 
 
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
@@ -71,26 +70,28 @@ function Invitation(model) {
   }, [open]);
  
   const addInformation = (name, value,arry,title) => {
-    {
+    if(name=='withOrWithoutPrescription')
+      {
+        if(value=="PrescriptionSaved")
+          setLogin(<Login/>)
+      }
+      
+
       var valueInt = Number(value);
-      //qualityGlasses  prescriptionDetails
-      //  console.log("pp",value,n,arry[n])
-      console.log(userItem)
-    }
+   
+      console.log(userEyesData)
+    
     {console.log(isButtonDisabled)}
     setButtonDisabled(false)
    setPaper({title:title})
    {console.log(isButtonDisabled)}
    setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
-    setUserItem(userItem => ({
+    setUserEyesdata(userItem => ({
       ...userItem,
       [name]: arry[valueInt]
     }));
   };
-  // const register=()=>{
-  //   alert("OO");
-  //  return <Login/>
-  // }
+
 const changeStyle = (char,title) => {
   switch(title){
     case 'kindOfGlasses':{
@@ -98,9 +99,9 @@ const changeStyle = (char,title) => {
       break;
     }
       
-    case'qualityGlasses':{
+    case'CU6':{
     {console.log(title,char)}
-    setQualityGlasses(char)
+    setCU6(char)
     
 
 
@@ -193,13 +194,13 @@ return (
               </DialogContentText>
             </DialogContent>
               <Button
-                onClick={()=>addInformation('kindOfGlasses', kindOfGlasses,kindOfGlassesArry,'WithOrWithoutPrescription')}
+                onClick={()=>addInformation('kindOfGlasses', kindOfGlasses,kindOfGlassesArry,'wthOrWithoutPrescription')}
                 disabled={isButtonDisabled == true}
               >אפשר להמשיך</Button>
           </Dialog>
           )
           
-        } else if(paper.title=='WithOrWithoutPrescription') {
+        } else if(paper.title=='withOrWithoutPrescription') {
 
           return (
            
@@ -240,10 +241,11 @@ return (
               </DialogContentText>
             </DialogContent>
               <Button
-                // onClick={()=>addInformation('kindOfGlasses', kindOfGlasses,kindOfGlassesArry,'qualityGlasses')}
-                onClick={()=>register()}
+                onClick={()=>addInformation('kindOfGlasses', kindOfGlasses,kindOfGlassesArry,'CU^')}
+                // onClick={()=>}
                 disabled={isButtonDisabled == true}
               >אפשר להמשיך</Button>
+        {login}
           </Dialog>
           )
         }
@@ -252,7 +254,7 @@ return (
         
         
         
-        else if(paper.title=='qualityGlasses') {
+        else if(paper.title=='CU6') {
 
           return (
             <Dialog
@@ -268,7 +270,7 @@ return (
                 <div direction="row" spacing={2}>
                   {/* 1 */}
                   <div className={buttonBorder.a}>
-                    <DemoPaper onClick={() => changeStyle("1",'qualityGlasses')}>
+                    <DemoPaper onClick={() => changeStyle("1",'CU6')}>
                       <div className="titleContainer">
                         <nav className="title">1.5 עובי-CU6</nav>
                       </div>
@@ -279,7 +281,7 @@ return (
                       </DemoPaper></div>
                   {/* 2 */}
                   <div className={buttonBorder.b}>
-                    <DemoPaper onClick={() => changeStyle("2",'qualityGlasses')}>
+                    <DemoPaper onClick={() => changeStyle("2",'CU6')}>
                       <div className="titleContainer">
                         <nav className="title">1.6 עובי-CU6</nav>
                       </div>
@@ -294,7 +296,7 @@ return (
                   </div>
                   {/* 3 */}
                   <div className={buttonBorder.c}>
-                    <DemoPaper onClick={() => changeStyle("3",'qualityGlasses')}>
+                    <DemoPaper onClick={() => changeStyle("3",'CU6')}>
                       <div className="titleContainer">
                         <nav className="title">1.67 עובי-CU6</nav>
                       </div>
@@ -307,7 +309,7 @@ return (
                   </div>
                   {/* 4 */}
                   <div className={buttonBorder.d}>
-                    <DemoPaper onClick={() => changeStyle("4",'qualityGlasses')}>
+                    <DemoPaper onClick={() => changeStyle("4",'CU6')}>
                       <div className="titleContainer">
                         <nav className="title">1.74 עובי-CU6</nav>
                       </div>
@@ -321,7 +323,7 @@ return (
               </DialogContentText>
             </DialogContent>
               <Button
-                onClick={()=>addInformation('qualityGlasses', qualityGlasses,qualityGlassesArry,'sizeOfGlasses')}
+                onClick={()=>addInformation('CU6', CU6,CU6Arry,'sizeOfGlasses')}
             
                 disabled={isButtonDisabled == true}
               >אפשר להמשיך</Button>
@@ -342,15 +344,14 @@ return (
             
             </DialogContent>
               <Button
-                onClick={()=>addInformation('qualityGlasses', qualityGlasses,qualityGlassesArry,'sizeOfGlasses')}
+                onClick={()=>addInformation('CU6', CU6,CU6Arry,'sizeOfGlasses')}
                 disabled={isButtonDisabled == true}
               >אפשר להמשיך</Button>
           </Dialog>
           )
         }
 
-        // {console.log("pp",qualityGlasses)}
-        {console.log(userItem)}
+        {console.log(userEyesData)}
       })()}
 
   </React.Fragment>

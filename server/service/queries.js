@@ -12,20 +12,18 @@ export function getAllQuery(tableName,columns) {
 // }
 
 export function addQuery(tableName, itemKeys) {
-    //console.log(itemKeys)
-    // let keys = " ", QuestionMark = "";
-    // itemKeys.map((x) => x * 2);
-    // console.log(itemKeys)
-    //     // keys += element + ',';
-    //     // QuestionMark += "?,"
-    
-    // console.log(keys)
-    // const query = `INSERT INTO project.${tableName} (${keys.slice(0, -1)}) VALUES (${QuestionMark.slice(0, -1)})`
-    // console.log(query);
+    let keys = "", QuestionMark = "";
+    itemKeys.forEach(element => {
+        keys += element + ',';
+        QuestionMark += "?,"
+    })
+    //const query=`INSERT INTO ${tableName} (email,name,password) VALUES (?,?,?)`;
+    const query = `INSERT INTO optics.${tableName} (${keys.slice(0, -1)}) VALUES (${QuestionMark.slice(0, -1)});`;
+    console.log(query);
    
     //const query = `INSERT INTO  (${itemKeys}) VALUES (${QuestionMark.slice(0, -1)})`
-    const query=`INSERT INTO ${tableName} (id,SPHRight,SPHLeft,CYLRight,CYLLeft,addLeft,addRight,PDFAR,PDNEAR)
-    VALUES ("9091","0","0","0","0","1","1","63","63");`;
+    // const query=`INSERT INTO ${tableName} (id,SPHRight,SPHLeft,CYLRight,CYLLeft,addLeft,addRight,PDFAR,PDNEAR)
+    // VALUES ("9091","0","0","0","0","1","1","63","63");`;
     return query
     // console.log(query);
     // return query
