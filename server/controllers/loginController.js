@@ -29,6 +29,23 @@ export class LoginController {
             next(err)
         }
     }
+
+
+    async addUser(req, res, next) {
+        try {
+            const loginService = new LoginService();
+            const resultItem = await loginService.addUser(req.body);
+            console.log(resultItem);
+            res.status(200).json({ status: 200, data: resultItem });
+        }
+        catch (ex) {
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
+
     async checkUserName(req, res, next) {
         try {
             let userName = req.query.userName;

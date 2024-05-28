@@ -10,5 +10,15 @@ export class LoginService {
         const result = await executeQuery(query, Object.values(data));
         return result;
     }
+
+    async addUser(itemDetailes) {
+        const query = addQuery('users',Object.keys(itemDetailes));
+        console.log("query"+query);
+        const result = await executeQuery(query, Object.values(itemDetailes));
+        console.log(result)
+        return result;
+
+    }
+
  
 }

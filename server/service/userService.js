@@ -5,7 +5,7 @@ export class UserService {
 
     async addUser(itemDetailes) {
         const query = addQuery('users',Object.keys(itemDetailes));
-        console.log(query)
+        console.log("query"+query)
         const result = await executeQuery(query, Object.values(itemDetailes));
         console.log(result)
         return result;

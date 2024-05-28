@@ -9,15 +9,12 @@ import Alert from '@mui/material/Alert';
 function Login() {
     const [changePassword, setChangePassword] = useState(false)
     const [errorMassage, setErrorMassage] = useState("")
-    const { user, setCurrentUser } = useContext(UserContext);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
     const [showRegister,setShowRegister]=useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
         navigate(`/login`)
-        // if (user) {
-          
-        // }
     }, [])
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -51,11 +48,10 @@ function Login() {
 
     const login = async (user) => {
         let json = await userExist(user)
-        console.log(user)
         if (json.status == 200) {
             localStorage.setItem('currentUser', JSON.stringify(json.data[0]));
-            setCurrentUser(json.data[0])
-            navigate(`/home/users/${json.data[0].id}`)
+            setCurrentUser(JSON.stringify(json.data[0]))
+            //navigate(`/home/users/${json.data[0].id}`)
         }
         else if (json.status == 400) {
             <Alert severity="error">The email
@@ -66,6 +62,7 @@ function Login() {
 
         }
     }
+
     const handleChangePassword = async (passwords) => {
         if (passwords.newPassword != passwords.verifyPassword)
             setErrorMassage("verity is not correct,try again")
@@ -151,9 +148,6 @@ function Login() {
 
                         </form></>
                 }
-
-
-
             </div>
             {showRegister}
         </div>
