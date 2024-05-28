@@ -13,11 +13,12 @@ function Login() {
     const [showRegister,setShowRegister]=useState('');
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (user) {
-    //         navigate(`/home/users/${user.id}`)
-    //     }
-    // }, [])
+    useEffect(() => {
+        navigate(`/login`)
+        // if (user) {
+          
+        // }
+    }, [])
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -50,6 +51,7 @@ function Login() {
 
     const login = async (user) => {
         let json = await userExist(user)
+        console.log(user)
         if (json.status == 200) {
             localStorage.setItem('currentUser', JSON.stringify(json.data[0]));
             setCurrentUser(json.data[0])
@@ -96,13 +98,9 @@ function Login() {
 
             }
         }
-
-
-
     }
 
     return (
-        
         <div className='login-background'>
             <div className='login-box'>
                 <button onClick={()=>setShowRegister(<Register/>)}>Register</button>

@@ -34,7 +34,8 @@ function Register() {
   }
 
   const checkRegister = (user) => {
-    fetch(`http://localhost:8082/authorization/signUp?userName=${user.userName}`, {
+    fetch(`http://localhost:8082/authorization/signUp?email=${user.email}
+    }`, {
       method: 'GET'
     })
       .then(response => response.json())

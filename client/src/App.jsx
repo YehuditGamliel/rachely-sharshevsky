@@ -14,12 +14,10 @@ function App() {
   return (
     <Router>
         <Routes>
-                    {/* <Route path="/" element={<RecipeReviewCard />} /> */}
-          <Route path="/EyeCenter" element={<Home />}>
-          
+          <Route path="/" element={<Home />} />
           <Route path='/eyeglasses' element={<Eyeglasses />} />
           <Route path="/" element={<Login />} /> 
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Home />} />
           <Route path="/register" element={<Register />} />
            {/* <Route path="home/users/:id" element={<Home />}> */}
             <Route path="eyeglasses">
@@ -35,7 +33,6 @@ function App() {
             <Route path="info" element={<Info />} />   
             <Route path='*' element={<p>not found</p>}/>        
           </Route> */}
-           </Route>
         </Routes>
     </Router>
   )
