@@ -50,8 +50,11 @@ function Login() {
     const login = async (user) => {
         let json = await userExist(user)
         if (json.status == 200) {
-            localStorage.setItem('currentUser', JSON.stringify(json.data[0]));
-            setCurrentUser(JSON.stringify(json.data[0]))
+                 const updatedPerson = { ...JSON.stringify(json.data[0]), email: user.email };
+                 console.log(updatedPerson)
+        
+            // localStorage.setItem('currentUser', updatedPerson);
+            // setCurrentUser(updatedPerson)
             //navigate(`/home/users/${json.data[0].id}`)
         }
         else if (json.status == 400) {
