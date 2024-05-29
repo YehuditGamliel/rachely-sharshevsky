@@ -19,6 +19,7 @@ function Register() {
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       userName: '',
+      email: '',
       password: '',
       verifyPassword: ''
     }
@@ -114,6 +115,10 @@ const setLogin=()=>{
           {errors.userName && errors.userName.type === "required" &&
             (<span>userName is required</span>)}
         </div>
+        <div className="user-box2">
+              <input type='email' {...register("email", { required: true })} placeholder="email" />
+              {errors.email && errors.email.type === "required" && (<span className="span">email is required</span>)}
+            </div>
         <div className="user-box">
           <input type='password' name='password' {...register("password",
             { required: true, minLength: 6 })} placeholder="password" />

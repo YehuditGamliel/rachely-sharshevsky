@@ -50,14 +50,9 @@ function Login() {
     const login = async (user) => {
         let json = await userExist(user)
         if (json.status == 200) {
-                //  const updatedPerson = { ...JSON.stringify(json.data[0]), email: user.email };
-                //  console.log(updatedPerson)
-                 localStorage.setItem('currentUser', JSON.stringify(
-                    {  username: json[0].userName, email:user.email  }));
-                    // setUser({ id: json[0].id, username: user.username, email: json[0].email })
-            // localStorage.setItem('currentUser', updatedPerson);
-            // setCurrentUser(updatedPerson)
-            //navigate(`/home/users/${json.data[0].id}`)
+            localStorage.setItem('currentUser', JSON.stringify(
+            {  username: json.data[0].userName, email:user.email  }));
+            setCurrentUser({username: json.data[0].userName, email:user.email})
         }
         else if (json.status == 400) {
             <Alert severity="error">The email
@@ -65,7 +60,6 @@ function Login() {
         }
         else {
             alert(json.error)
-
         }
     }
 
@@ -102,6 +96,7 @@ function Login() {
             }
         }
     }
+
    const setRegister=()=>{
     setShowRegister(<Register/>) 
     setRegisterOrLogin(false)
@@ -112,8 +107,6 @@ function Login() {
             registerOrLogin?<div className='login-background'>
             <div className='login-box'>
                 <button onClick={()=>setRegister()}>Register</button>
-                {/* <Link className='linkRegister' to="/register">Register</Link><br /> */}
-                {/* <Link onClick={() => setChangePassword(false)}>Login</Link> */}
                 {!changePassword ?
                     <form onSubmit={handleSubmit(login)}>
                         <div className='user-box'>
