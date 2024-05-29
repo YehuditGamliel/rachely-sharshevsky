@@ -123,12 +123,7 @@ function SpecificInfo() {
             )
             }
             </div>
-
-
         </div>
-
-       
-
     </>)
 }
 export default SpecificInfo;
