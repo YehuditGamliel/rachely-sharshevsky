@@ -23,6 +23,7 @@ function App() {
             <Route path="eyeglasses">
               <Route index element={<Eyeglasses />} />
               <Route path=":eyeglassesModel" element={<SpecificInfo />} />
+              <Route path=":1" element={<Home />} />
             </Route>
            {/* <Route path="todos">
               <Route index element={<Todos />} />

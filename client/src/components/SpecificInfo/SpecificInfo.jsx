@@ -30,6 +30,7 @@ function SpecificInfo() {
     }));
 
     useEffect(() => {
+        // alert(model)
         fetch(`http://localhost:8082/eyeglasses/${model}`, {
             method: 'GET',
 
@@ -111,10 +112,14 @@ function SpecificInfo() {
         {/* {moreImages.map(function(productSpec, i){
         return <span key={i}><b>Category Name:</b> {productSpec.price}</span>;
 })} */}
-                <div>
+<div>
+     {moreImages.length>1?<p> משקפיים נוספות ממותג זה...</p>:<></>}
+    </div>     
+         <div  id="moreGlasses">
             {moreImages.map((img) =>
-                 <SingleEyeglasses id="SingleEyeglasses" model={img.model}price={img.price}
-                photo={img.photo} title={img.title} /> 
+            (img.model!=model) ?<SingleEyeglasses id="SingleEyeglasses" model={img.model}price={img.price} photo={img.photo} title={img.title} />
+             :console.log(img.model,"pp",  model)
+            //    }
             )
             }
             </div>

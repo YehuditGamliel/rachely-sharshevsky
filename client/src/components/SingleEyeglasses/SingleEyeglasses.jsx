@@ -70,11 +70,11 @@ const buyEyeglasses = (id) => {
    
   const [expanded, setExpanded] = React.useState(false);
   const navigate = useNavigate();
+ 
   const displaySpecificInfo=()=>{
-    //navigate('/eyeglasses/${props.model}', { state: { id: 7, color: 'green' } });
 
-    //<Navigate to={`/eyeglasses/${props.model}`} state={{data}} />
      navigate(`/eyeglasses/${props.model}`,{state:{photo:props.photo,model:props.model,title:props.title,price:props.price}})
+  
   }
   return (
     

@@ -45,7 +45,7 @@ function Eyeglasses() {
     <div id='container'>
       {displayEyeglasses.map((eyeglasses, index) => <div key={index} class="glasses">
         <SingleEyeglassee model={eyeglasses.model} price={eyeglasses.price} photo={eyeglasses.photo} title=
-        {eyeglasses.title}/>
+        {eyeglasses.title} />
       </div>)
       }
       </div>
