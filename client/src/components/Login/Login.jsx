@@ -11,6 +11,7 @@ function Login() {
     const [errorMassage, setErrorMassage] = useState("")
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const [showRegister,setShowRegister]=useState('');
+    const [registerOrLogin,setRegisterOrLogin]=useState(true)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -96,11 +97,16 @@ function Login() {
             }
         }
     }
-
+   const setRegister=()=>{
+    setShowRegister(<Register/>) 
+    setRegisterOrLogin(false)
+   }
     return (
-        <div className='login-background'>
+        <>
+        {
+            registerOrLogin?<div className='login-background'>
             <div className='login-box'>
-                <button onClick={()=>setShowRegister(<Register/>)}>Register</button>
+                <button onClick={()=>setRegister()}>Register</button>
                 {/* <Link className='linkRegister' to="/register">Register</Link><br /> */}
                 {/* <Link onClick={() => setChangePassword(false)}>Login</Link> */}
                 {!changePassword ?
@@ -149,8 +155,12 @@ function Login() {
                         </form></>
                 }
             </div>
-            {showRegister}
+            
         </div>
+        :showRegister
+        }
+        </>
+       
     )
 
 }
