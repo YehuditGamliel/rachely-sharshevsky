@@ -1,6 +1,6 @@
 
 import { executeQuery } from './db.js';
-import { updateQuery, deleteQuery, addQuery, getAllQuery, AuthenticationQuery } from './queries.js'
+import { addQuery } from './queries.js'
 export class EyesDataService {
 
            

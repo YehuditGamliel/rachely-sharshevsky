@@ -14,7 +14,7 @@ function Register() {
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
-      userName: '',
+      email: '',
       password: '',
       verifyPassword: ''
     }
@@ -96,14 +96,14 @@ function Register() {
           {/* <Link className='linkRegister' to="/login">Login</Link> */}
           <h2>Sign Up</h2>
           <div className="user-box">
-            <input type='text' name='userName' {...register("userName",
-              { required: true, minLength: 2, maxLength: 15 })} placeholder="userName" />
-            {errors.userName && errors.userName.type === "minLength" &&
+            <input type='text' name='email' {...register("email",
+              { required: true, minLength: 2, maxLength: 15 })} placeholder="email" />
+            {/* {errors.email && errors.email.type === "minLength" &&
               (<span>userName must be a minimum of 2 characters long!</span>)}
             {errors.userName && errors.userName.type === "maxlength" &&
               (<span>userName can be a maximum of 15 characters long</span>)}
             {errors.userName && errors.userName.type === "required" &&
-              (<span>userName is required</span>)}
+              (<span>userName is required</span>)} */}
           </div>
           <div className="user-box">
             <input type='password' name='password' {...register("password",
