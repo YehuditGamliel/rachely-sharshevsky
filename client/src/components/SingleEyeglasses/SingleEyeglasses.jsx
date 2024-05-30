@@ -66,7 +66,8 @@ const buyEyeglasses = (id) => {
  function SingleEyeglasses(props) {
  
   // const { state } = useLocation();
-  //   const { data } = state;
+  //   const { data } = state;Fstate
+  
    
   const [expanded, setExpanded] = React.useState(false);
   const navigate = useNavigate();

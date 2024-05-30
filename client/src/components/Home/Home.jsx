@@ -1,5 +1,6 @@
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import React, { useContext, useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
 import { UserContext } from "../../UserProvider";
 import './Home.css';
 import logo from '../../img/logo.png'
@@ -13,12 +14,28 @@ import Tab from '@mui/material/Tab';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 
 
-function Home() {
+
+function Home(props) {
     //const { state } 
+    // const { state } = useLocation();
+    // const {} = state;
+    let location = useLocation();
+  
+
     const [style,setStyle]=useState("activity")
     const [login,setLogin]= useState('');
     // const navigate = useNavigate();
-    // const { user, setCurrentUser } = useContext(UserContext);
+    // const { currentUser, setCurrentUser } = useContext(UserContext);
+    useEffect(() => {
+       if( location.pathname.slice(1)=='my-account')
+        {
+            setLogin('')
+              setStyle("activity")
+        }
+         
+      
+    }, [location])
+
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -39,7 +56,8 @@ function Home() {
     //     }
     // }, [id])
 
-
+   
+ 
     // const LogOut = () => {
     //     localStorage.clear();
     //     setCurrentUser('')
@@ -47,7 +65,7 @@ function Home() {
     // }
 
     return (<>
-
+{/* <button onClick={()=>t()}></button> */}
         {/* <button className='button' onClick={LogOut}>Logout</button> */}
         <div id={style}>
             <div id="links">
@@ -62,7 +80,7 @@ function Home() {
                         </IconButton>
 
                         <li> <Link to={"./posts"}>בית </Link></li>
-                        <li> <Link to={"./eyeglasses"}>משקפי ראיה </Link></li>
+                        <li> <Link to={"eyeglasses"}>משקפי ראיה </Link></li>
                         <li> <Link to={"./todos"}>משקפי שמש </Link></li>
                         <li> <Link to={"./info"}>משקפי קריאה </Link></li>
                         <li> <Link to={"./posts"}>עדשות </Link></li>
@@ -71,7 +89,10 @@ function Home() {
                         <li>
                         <Tab icon={<PersonPinIcon />} onClick={()=>{setLogin(<Login/>)
                     setStyle("notActivity")}} /></li>
-                        
+                    {/*  */}
+                    {location.pathname.slice(1)=='my-account'?
+                        <li>{ JSON.parse(localStorage.getItem('currentUser')).userName}</li>
+                        :<></>}
                      
                     </ul>
 
