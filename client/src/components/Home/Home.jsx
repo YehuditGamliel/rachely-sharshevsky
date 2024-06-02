@@ -25,7 +25,7 @@ function Home(props) {
     const [style,setStyle]=useState("activity")
     const [login,setLogin]= useState('');
     // const navigate = useNavigate();
-    // const { currentUser, setCurrentUser } = useContext(UserContext);
+     const { user, setCurrentUser } = useContext(UserContext);
     useEffect(() => {
        if( location.pathname.slice(1)=='my-account')
         {
@@ -91,7 +91,8 @@ function Home(props) {
                     setStyle("notActivity")}} /></li>
                     {/*  */}
                     {location.pathname.slice(1)=='my-account'?
-                        <li>{ JSON.parse(localStorage.getItem('currentUser')).userName}</li>
+                    <li><span>{user.userName}</span></li>
+                        // <li>{ JSON.parse(localStorage.getItem('currentUser')).userName}</li>
                         :<></>}
                      
                     </ul>
@@ -106,14 +107,14 @@ function Home(props) {
             <div>
                 <img  id={style} src={header}/>
                 <h1 id="title">אופטיקה אי-סנטר</h1>
-                <p id="text">
+                <span id="text">
                     אתר “אופטיקה אי-סנטר” הוקם בכדי לתת ללקוחות שלנו את המענה המהיר והמקצועי ביותר ובשירות ישיר עד לפתח ביתכם. באתר תוכלו למצוא מגוון מוצרי אופטיקה מובחרים: עדשות מגע, משקפי ראייה ומשקפי שמש,
                     וכן תוכלו להשאיר את פרטיכם במידה ותרצו להתייעץ עם הצוות המקצועי שלנו.
                     החזון של אופטיקה אי-סנטר לאפשר לכל שכבות האוכלוסייה בישראל לרכוש משקפי ראייה, משקפי שמש ועדשות מגע, במחיר השווה לכל נפש.
                     בפעילותה שברה הרשת את המונופול שהיה קיים בתחום האופטיקה בישראל כאשר הציעה משקפיים במחירים הוגנים וזולים ומבצעים אשר גררו אחריהם הוזלת מחירים בכל הענף.
-                </p>
+                </span>
                 <div id='bottom'>
-                    <p id='titleBottom'>צרו איתנו קשר</p>
+                    <span id='titleBottom'>צרו איתנו קשר</span>
                 </div>
 
             </div>

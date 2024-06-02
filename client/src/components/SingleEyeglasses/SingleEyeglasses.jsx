@@ -90,8 +90,8 @@ const buyEyeglasses = (id) => {
         image={props.photo}
         alt="Paella dish"
       />
-      <p> {props.price}</p>
-      <p>ש"ח</p>
+      <span> {props.price}</span>
+      <span>ש"ח</span>
           <CardActions disableSpacing>
               <Button  onClick={()=>displaySpecificInfo()} variant="contained" endIcon={<ChevronLeftIcon />}>
                 לפרטים

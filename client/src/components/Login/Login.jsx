@@ -5,8 +5,10 @@ import { UserContext } from "../../UserProvider";
 import '../Login/Login.css'
 import Register from '../Register/Register'
 import Alert from '@mui/material/Alert';
+import { Password } from 'primereact/password';
 
 function Login() {
+    const [value, setValue] = useState('');
     const [changePassword, setChangePassword] = useState(false)
     const [errorMassage, setErrorMassage] = useState("")
     const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -109,6 +111,7 @@ function Login() {
     }
     return (
         <>
+               
             {
                 registerOrLogin ? <div className='login-background'>
                     <div className='login-box'>
@@ -124,6 +127,7 @@ function Login() {
                                         (<span className='span'>email is required</span>)}
                                 </div>
                                 <div className='user-box'>
+                                <Password value={value} onChange={(e) => setValue(e.target.value)} toggleMask />
                                     <input type='password' name='password' {...register("password",
                                         { required: true, minLength: 6 })} placeholder='password' />
                                     {errors.password && errors.password.type === "minLength" &&

@@ -27,7 +27,7 @@ function Eyeglasses() {
           alert(json.error)
         }
         else {
-          console.log(json.data[0])
+          // console.log(json.data[0])
           setDisplayEyglasses(...displayEyeglasses, json.data)
           //setLastSearch("all")
           //seeMore.current = false;

@@ -7,16 +7,19 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Paper from '@mui/material/Paper';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from "../../UserProvider";
 import { styled } from '@mui/material/styles';
 import glasses1 from '../../img/glasses1.jpg'
 import glasses2 from '../../img/glasses2.jpg'
 import glasses3 from '../../img/glasses3.jpg'
 import glasses4 from '../../img/glasses4.png'
 import prescription1 from '../../img/prescription1.jpg'
-
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import './Invitation.css'
 import Login from '../Login/Login';
+import PaymentForm from '../PaymentForm/PaymentForm.jsx'
 
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 250,
@@ -27,25 +30,29 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 }));
 
 function Invitation(model) {
-  const [userEyesData, setUserEyesdata] = useState({model:model.model});
-
+  const [userEyesData, setUserEyesdata] = useState({ model: model.model });
+  const { user, setCurrentUser } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
   // const [age, setAge] = React.useState('');
-  const [disable, setDisable] = useState(1)
+  const [disable, setDisable] = useState(1);
   const [style, setStyle] = useState("noneBorder");
-  const [paper,setPaper]=useState({title:'kindOfGlasses'})
+  const [paper, setPaper] = useState({ title: 'kindOfGlasses' })
   const [buttonBorder, setButtonBorder] = useState({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   const [kindOfGlasses, setKindOfGlasses] = useState('')
-  const [withOrWithoutPrescription,setWithOrWithoutPrescription]=('')
+  const [withOrWithoutPrescription, setWithOrWithoutPrescription] = useState('')
+  const [sizeOfGlasses,setSizeOfGlasses]=useState({"PWRRight":0,"CYLRight":0,"PWRLeft":0,"CYLLeft":0,"PDFAR":62,"PDNEAR":62});
   // const withOrWithoutPrescription
-  const [CU6,setCU6]=useState('')
-  const [login, setLogin ] = useState('');
+  const [CU6, setCU6] = useState('')
+  const [login, setLogin] = useState('');
+  const [CreditCardForm, setCreditCardForm] = useState('');
   // const [userEyesData,]=useState({});
-
-  const kindOfGlassesArry = ["withoutPrescription", "distanceLenses", "readingGlasses","multifocal"];
-  const CU6Arry = ["1.5", "1.6", "1.67","1.74"];
+  const withOrWithoutPrescriptionArry = ["prescriptionSaved", "fillingPrescription"]
+  const kindOfGlassesArry = ["withoutPrescription", "distanceLenses", "readingGlasses", "multifocal"];
+  const CU6Arry = ["1.5", "1.6", "1.67", "1.74"];
+  const [plusNum,setPlusNum]=useState(false)
+  const [minusNum,setMinusNum]=useState(false)
 
   // const [diffrentBetweenEyes,setDiffrentBetweenEyes]=useState('same')
 
@@ -57,7 +64,7 @@ function Invitation(model) {
     setOpen(false);
   };
 
- 
+
 
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
@@ -68,293 +75,401 @@ function Invitation(model) {
       }
     }
   }, [open]);
- 
-  const addInformation = (name, value,arry,title) => {
-    if(name=='withOrWithoutPrescription')
-      {
-        if(value=="PrescriptionSaved")
-          setLogin(<Login/>)
-      }
-      
-
+  //addInformation('withOrWithoutPrescription', withOrWithoutPrescription,withOrWithoutPrescriptionArry,'CU^')
+  const addInformation = (name, value, arry, title) => {
+    console.log(name,value,arry,arry[value],title)
+    if(name=='sizeOfGlasses'){
+      setUserEyesdata(userItem => ({
+        ...userItem,
+        [name]: sizeOfGlasses
+      }));
+    }
+    else{
       var valueInt = Number(value);
-   
-      console.log(userEyesData)
-    
-    {console.log(isButtonDisabled)}
+      setUserEyesdata(userItem => ({
+        ...userItem,
+        [name]: arry[valueInt]
+      }));
+    }
+    if (name == 'withOrWithoutPrescription') {
+      if (value == "PrescriptionSaved")
+        setLogin(<Login />)
+    }
+
     setButtonDisabled(false)
-   setPaper({title:title})
-   {console.log(isButtonDisabled)}
-   setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
-    setUserEyesdata(userItem => ({
-      ...userItem,
-      [name]: arry[valueInt]
-    }));
+    setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
+    console.log(userEyesData)
+    if (title == 'sizeOfGlasses' && value == 1) {
+      setPaper({ title: 'CU6' })
+    }
+    else {
+      setPaper({ title: title })
+    }
   };
 
-const changeStyle = (char,title) => {
-  switch(title){
-    case 'kindOfGlasses':{
-      setKindOfGlasses(char)
-      break;
+  const changeStyle = (char, title) => {
+    switch (title) {
+      case 'kindOfGlasses': {
+        setKindOfGlasses(char)
+        break;
+      }
+      case 'withOrWithoutPrescription': {
+        setWithOrWithoutPrescription(char)
+        break;
+      }
+
+      case 'CU6': {
+        // {console.log(title,char)}
+        setCU6(char)
+
+
+
+        break;
+      }
+
+
     }
-      
-    case'CU6':{
-    {console.log(title,char)}
-    setCU6(char)
-    
-
-
- break;
- }
- 
-
-  }
-  setButtonDisabled(false)
+    setButtonDisabled(false)
     switch (char) {
-    case '1': {
-      setButtonBorder({ a: "border", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
+      case '1': {
+        setButtonBorder({ a: "border", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
 
-      break;
+        break;
+      }
+      case '2': {
+        setButtonBorder({ a: "noneBorder", b: "border", c: "noneBorder", d: "noneBorder" })
+        break;
+      }
+      case '3': {
+        setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "border", d: "noneBorder" })
+        break;
+      }
+      default: {
+        setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "border" })
+      }
     }
-    case '2': {
-      setButtonBorder({ a: "noneBorder", b: "border", c: "noneBorder", d: "noneBorder" })
-      break;
-    }
-    case '3': {
-      setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "border", d: "noneBorder" })
-      break;
-    }
-    default: {
-      setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "border" })
-    }
+
   }
- 
-}
-return (
-  <React.Fragment>
-    <Button variant="outlined" onClick={handleClickOpen('paper')} startIcon={<RemoveRedEyeIcon />}>לבחירת עדשות</Button>
-    {(() => {
-        if (paper.title=='kindOfGlasses') {
+  return (
+
+    <React.Fragment>
+      <Button variant="outlined" onClick={handleClickOpen('paper')} startIcon={<RemoveRedEyeIcon />}>לבחירת עדשות</Button>
+      {(() => {
+        if (paper.title == 'kindOfGlasses') {
           return (
             <Dialog
-            open={open}
-            onClose={handleClose}
-            scroll={scroll}
-            aria-labelledby="scroll-dialog-title"
-            aria-describedby="scroll-dialog-description">
-            <DialogTitle id="scroll-dialog-title" >המשקפיים ישמשו אותי עבור</DialogTitle>
-            <DialogContent dividers={scroll === 'paper'}>
-              <DialogContentText
-              >
-                <div direction="row" spacing={2}>
-                  {/* 1 */}
-                  <div className={buttonBorder.a}>
-                    <DemoPaper onClick={() => changeStyle("1",'kindOfGlasses')}>
-                      <div className="titleContainer">
-                        <img className="glassesImage" src={glasses1} /><br />
-                        <nav className="title">ללא מרשם</nav>
-                      </div>
-                      משקפיים כאביזר אופנה למראה מתוחכם ושימושי. העדשות מגיעות עם הגנה מירבית מקרינת
-                      השמש UV400, בנוסף ניתן לשדרג לעדשות DEFENDER המגינות מפני
-                      קרינת מסכים.</DemoPaper></div>
-                  {/* 2 */}
-                  <div className={buttonBorder.b}>
-                    <DemoPaper onClick={() => changeStyle("2",'kindOfGlasses')}>
-                      <div className="titleContainer">
-                        <img className="glassesImage" src={glasses2} /><br />
-                        <nav className="title">עדשות למרחק</nav>
-                      </div>
-                      עוזרות לראות בצורה ברורה לאובייקטים
-                      במרחק ממך.הצורך בעדשות אלה יגבר בתנאי תאורה מוגבלים
-                    </DemoPaper>
+              open={open}
+              onClose={handleClose}
+              scroll={scroll}
+              aria-labelledby="scroll-dialog-title"
+              aria-describedby="scroll-dialog-description">
+              <DialogTitle id="scroll-dialog-title" >המשקפיים ישמשו אותי עבור</DialogTitle>
+              <DialogContent dividers={scroll === 'paper'}>
+                <DialogContentText
+                >
+                  <div direction="row" spacing={2}>
+                    {/* 1 */}
+                    <div className={buttonBorder.a}>
+                      <DemoPaper onClick={() => changeStyle("1", 'kindOfGlasses')}>
+                        <div className="titleContainer">
+                          <img className="glassesImage" src={glasses1} /><br />
+
+                          <nav className="title">ללא מרשם</nav>
+                        </div>
+                        משקפיים כאביזר אופנה למראה מתוחכם ושימושי. העדשות מגיעות עם הגנה מירבית מקרינת
+                        השמש UV400, בנוסף ניתן לשדרג לעדשות DEFENDER המגינות מפני
+                        קרינת מסכים.</DemoPaper></div>
+                    {/* 2 */}
+                    <div className={buttonBorder.b}>
+                      <DemoPaper onClick={() => changeStyle("2", 'kindOfGlasses')}>
+                        <div className="titleContainer">
+                          <img className="glassesImage" src={glasses2} /><br />
+                          <nav className="title">עדשות למרחק</nav>
+                        </div>
+                        עוזרות לראות בצורה ברורה לאובייקטים
+                        במרחק ממך.הצורך בעדשות אלה יגבר בתנאי תאורה מוגבלים
+                      </DemoPaper>
+                    </div>
+                    {/* 3 */}
+                    <div className={buttonBorder.c}>
+                      <DemoPaper onClick={() => changeStyle("3", 'kindOfGlasses')}>
+                        <div className="titleContainer">
+                          <img className="glassesImage" src={glasses3} /><br />
+                          <nav className="title">עדשות לקריאה</nav>
+                        </div>
+                        מיועדות לעזור לך לראותפרטים במרחק קרוב(קריאה מספר או צפייה במסך מחשב)
+                      </DemoPaper>
+                    </div>
+                    {/* 4 */}
+                    <div className={buttonBorder.d}>
+                      <DemoPaper onClick={() => changeStyle("4", 'kindOfGlasses')}>
+                        <div className="titleContainer">
+                          <img className="glassesImage" src={glasses4} /><br />
+                          <nav className="title">מולטיפוקל</nav>
+                        </div>
+                        לראות גם לרחוק וגם לקרוב בעדשה אחת,
+                        ע"י 3 מוקדים הממוקמים באיזורים שונים של העדשה
+                      </DemoPaper>
+                    </div>
                   </div>
-                  {/* 3 */}
-                  <div className={buttonBorder.c}>
-                    <DemoPaper onClick={() => changeStyle("3",'kindOfGlasses')}>
-                      <div className="titleContainer">
-                        <img className="glassesImage" src={glasses3} /><br />
-                        <nav className="title">עדשות לקריאה</nav>
-                      </div>
-                      מיועדות לעזור לך לראותפרטים במרחק קרוב(קריאה מספר או צפייה במסך מחשב)
-                    </DemoPaper>
-                  </div>
-                  {/* 4 */}
-                  <div className={buttonBorder.d}>
-                    <DemoPaper onClick={() => changeStyle("4",'kindOfGlasses')}>
-                      <div className="titleContainer">
-                        <img className="glassesImage" src={glasses4} /><br />
-                        <nav className="title">מולטיפוקל</nav>
-                      </div>
-                      לראות גם לרחוק וגם לקרוב בעדשה אחת,
-                      ע"י 3 מוקדים הממוקמים באיזורים שונים של העדשה
-                    </DemoPaper>
-                  </div>
-                </div>
-              </DialogContentText>
-            </DialogContent>
+                </DialogContentText>
+              </DialogContent>
               <Button
-                onClick={()=>addInformation('kindOfGlasses', kindOfGlasses,kindOfGlassesArry,'wthOrWithoutPrescription')}
+                onClick={() => addInformation('kindOfGlasses', kindOfGlasses, kindOfGlassesArry, 'withOrWithoutPrescription')}
                 disabled={isButtonDisabled == true}
               >אפשר להמשיך</Button>
-          </Dialog>
+            </Dialog>
           )
-          
-        } else if(paper.title=='withOrWithoutPrescription') {
+
+        } else if (paper.title == 'withOrWithoutPrescription') {
 
           return (
-           
+
 
             <Dialog
-            open={open}
-            onClose={handleClose}
-            scroll={scroll}
-            aria-labelledby="scroll-dialog-title"
-            aria-describedby="scroll-dialog-description">
-           
-            <DialogTitle id="scroll-dialog-title" >איך תרצו למלא את פרטי המרשם שלכם?</DialogTitle>
-            <DialogContent dividers={scroll === 'paper'}>
-              <DialogContentText>
-                <div direction="row" spacing={2}>
-                  {/* 1 */}
-                  <div className={buttonBorder.a}>
-                    <DemoPaper onClick={() => changeStyle("1",'kindOfGlasses')}>
-                      <div className="titleContainer">
-                        <img className="glassesImage" src={prescription1} /><br />
-                        <nav className="title">עם המרשם ששמור לי באופטיקנה</nav>
-                      </div>
-                         במידה ורכשתם בעבר משקפי קריאה באתר שלנו :
-                         או ששמור לכם באיזור האישי את המרשם שלכם:)
+              open={open}
+              onClose={handleClose}
+              scroll={scroll}
+              aria-labelledby="scroll-dialog-title"
+              aria-describedby="scroll-dialog-description">
+
+              <DialogTitle id="scroll-dialog-title" >איך תרצו למלא את פרטי המרשם שלכם?</DialogTitle>
+              <DialogContent dividers={scroll === 'paper'}>
+                <DialogContentText>
+                  <div direction="row" spacing={2}>
+                    {/* 1 */}
+                    <div className={buttonBorder.a}>
+                      <DemoPaper onClick={() => changeStyle("1", 'withOrWithoutPrescription')}>
+                        <div className="titleContainer">
+                          <img className="glassesImage" src={prescription1} /><br />
+                          <nav className="title">עם המרשם ששמור לי באופטיקנה</nav>
+                        </div>
+                        במידה ורכשתם בעבר משקפי קריאה באתר שלנו :
+                        או ששמור לכם באיזור האישי את המרשם שלכם:)
                       </DemoPaper></div>
-                  {/* 2 */}
-                  <div className={buttonBorder.b}>
-                    <DemoPaper onClick={() => changeStyle("2",'kindOfGlasses')}>
-                      <div className="titleContainer">
-                        <img className="glassesImage" src={glasses2} /><br />
-                        <nav className="title">מלוי פרטי המרשם</nav>
-                      </div>
-                      על ידי העתקת הפרטים מהמרשם הקיים שלכם                    </DemoPaper>
+                    {/* 2 */}
+                    <div className={buttonBorder.b}>
+                      <DemoPaper onClick={() => changeStyle("2", 'withOrWithoutPrescription')}>
+                        <div className="titleContainer">
+                          <img className="glassesImage" src={glasses2} /><br />
+                          <nav className="title">מלוי פרטי המרשם</nav>
+                        </div>
+                        על ידי העתקת הפרטים מהמרשם הקיים שלכם                    </DemoPaper>
+                    </div>
+
+
                   </div>
+                </DialogContentText>
+              </DialogContent>
+              <Button
+                onClick={() => addInformation('withOrWithoutPrescription', withOrWithoutPrescription, withOrWithoutPrescriptionArry, 'sizeOfGlasses')}
+                disabled={isButtonDisabled == true}
+              >אפשר להמשיך</Button>
+              {login}
+            </Dialog>
+          )
+        }
+        else if (paper.title == 'sizeOfGlasses') {
+          return (
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              scroll={scroll}
+              aria-labelledby="scroll-dialog-title"
+              aria-describedby="scroll-dialog-description">
+              <DialogTitle id="scroll-dialog-title" >נא להזין את פרטי המרשם שלך:</DialogTitle>
+              <DialogContent dividers={scroll === 'paper'}>
+                <p>עין ימין</p>
+                <Button
+                onClick={() =>{setPlusNum(true)
+                  setMinusNum(false) }
+                }>+</Button>
+              
+                <Button onClick={()=>{setMinusNum(true) 
+                  setPlusNum(false)}}>-</Button>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={plusNum?PWROptionPlus:PWROptionMinus}
+                  onChange={(event, value) =>  setSizeOfGlasses ({ ...sizeOfGlasses, 'PWRRight': value})}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="מספר PWR/SPH" />}
+                /> 
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={CYLOption}
+                  onChange={(event, value) =>  setSizeOfGlasses ({ ...sizeOfGlasses, 'CYLRight': value})}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="CYLצילינדר"/>}
+                  
+                /> 
+                <p>עין שמאל</p>
+                <Button
+                onClick={() =>{setPlusNum(true)
+                  setMinusNum(false) }
+                }>+</Button>
+              
+                <Button onClick={()=>{setMinusNum(true) 
+                  setPlusNum(false)}}>-</Button>
+                <Autocomplete
+                 onChange={(event, value) => setSizeOfGlasses ({ ...sizeOfGlasses, 'PWRLeft': value})}
                 
+                  disablePortal
+                  id="combo-box-demo"
+                  options={plusNum?PWROptionPlus:PWROptionMinus}
                  
-                </div>
-              </DialogContentText>
-            </DialogContent>
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="מספר PWR/SPH" />}
+                  
+                /> 
+              </DialogContent>
+              <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={CYLOption}
+                  onChange={(event, value) =>   setSizeOfGlasses ({ ...sizeOfGlasses, 'CYLLeft': value})}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="CYLצילינדר"/>}
+                  
+                /> 
+                <p>PD FAR : מרחק בין האישונים</p>
+                <Autocomplete 
+                 onChange={(event, value) =>  setSizeOfGlasses ({ ...sizeOfGlasses, 'PDFAR': value})}
+                  //  setSizeOfGlasses(...{"PD FAR":value})}
+                  disablePortal
+                  id="combo-box-demo"
+                  options={PDOptions}
+                  
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="PD FAR"/>}
+                  
+                /> 
+                  <p>PD NEAR : מרחק בין האישונים</p>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={PDOptions}
+                  onChange={(event, value) =>  setSizeOfGlasses ({ ...sizeOfGlasses, 'PDNEAR': value})}
+
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="PD NERA"/>}
+                  
+                /> 
               <Button
-                onClick={()=>addInformation('kindOfGlasses', kindOfGlasses,kindOfGlassesArry,'CU^')}
-                // onClick={()=>}
+                onClick={() => addInformation('sizeOfGlasses', sizeOfGlasses,"", 'CU6')
+                 
+                }
                 disabled={isButtonDisabled == true}
               >אפשר להמשיך</Button>
-        {login}
-          </Dialog>
+              { console.log(sizeOfGlasses)}
+            </Dialog>
           )
         }
-        
-        
-        
-        
-        
-        else if(paper.title=='CU6') {
-
+        else {
           return (
             <Dialog
-            open={open}
-            onClose={handleClose}
-            scroll={scroll}
-            aria-labelledby="scroll-dialog-title"
-            aria-describedby="scroll-dialog-description">
-            <DialogTitle id="scroll-dialog-title" >איכות עדשה</DialogTitle>
-            <DialogContent dividers={scroll === 'paper'}>
-              <DialogContentText
-              >
-                <div direction="row" spacing={2}>
-                  {/* 1 */}
-                  <div className={buttonBorder.a}>
-                    <DemoPaper onClick={() => changeStyle("1",'CU6')}>
-                      <div className="titleContainer">
-                        <nav className="title">1.5 עובי-CU6</nav>
-                      </div>
-                      סטנדרט ציפויים מתקדם המגינים
-                      מפני שריטות,
-                      קרינה והשתקפויות
-                      <p>כלול</p>
+              open={open}
+              onClose={handleClose}
+              scroll={scroll}
+              aria-labelledby="scroll-dialog-title"
+              aria-describedby="scroll-dialog-description">
+              <DialogTitle id="scroll-dialog-title" >איכות עדשה</DialogTitle>
+              <DialogContent dividers={scroll === 'paper'}>
+                <DialogContentText
+                >
+                  <div direction="row" spacing={2}>
+                    {/* 1 */}
+                    <div className={buttonBorder.a}>
+                      <DemoPaper onClick={() => changeStyle("1", 'CU6')}>
+                        <div className="titleContainer">
+                          <nav className="title">1.5 עובי-CU6</nav>
+                        </div>
+                        סטנדרט ציפויים מתקדם המגינים
+                        מפני שריטות,
+                        קרינה והשתקפויות
+                        <p>כלול</p>
                       </DemoPaper></div>
-                  {/* 2 */}
-                  <div className={buttonBorder.b}>
-                    <DemoPaper onClick={() => changeStyle("2",'CU6')}>
-                      <div className="titleContainer">
-                        <nav className="title">1.6 עובי-CU6</nav>
-                      </div>
-                      עובי העדשה קטן יותר בכ25%
-                      <br/>
-                      סטנדרט ציפויים מתקדם המגינים מפני שריטות,
-                      קרינה והשתקפויות
-                      <p>199$</p>
+                    {/* 2 */}
+                    <div className={buttonBorder.b}>
+                      <DemoPaper onClick={() => changeStyle("2", 'CU6')}>
+                        <div className="titleContainer">
+                          <nav className="title">1.6 עובי-CU6</nav>
+                        </div>
+                        עובי העדשה קטן יותר בכ25%
+                        <br />
+                        סטנדרט ציפויים מתקדם המגינים מפני שריטות,
+                        קרינה והשתקפויות
+                        <p>199$</p>
 
 
-                                     </DemoPaper>
+                      </DemoPaper>
+                    </div>
+                    {/* 3 */}
+                    <div className={buttonBorder.c}>
+                      <DemoPaper onClick={() => changeStyle("3", 'CU6')}>
+                        <div className="titleContainer">
+                          <nav className="title">1.67 עובי-CU6</nav>
+                        </div>
+                        עובי העדשה קטן יותר בכ35%
+                        <br />
+                        סטנדרט ציפויים מתקדם המגינים מפני שריטות,
+                        קרינה והשתקפויות
+                        <p>499$</p>
+                      </DemoPaper>
+                    </div>
+                    {/* 4 */}
+                    <div className={buttonBorder.d}>
+                      <DemoPaper onClick={() => changeStyle("4", 'CU6')}>
+                        <div className="titleContainer">
+                          <nav className="title">1.74 עובי-CU6</nav>
+                        </div>
+                        עובי העדשה קטן יותר בעד 40%
+                        <br />
+                        סטנדרט ציפויים מתקדם המגינים מפני שריטות,
+                        קרינה והשתקפויות
+                        <p>699$</p>                    </DemoPaper>
+                    </div>
                   </div>
-                  {/* 3 */}
-                  <div className={buttonBorder.c}>
-                    <DemoPaper onClick={() => changeStyle("3",'CU6')}>
-                      <div className="titleContainer">
-                        <nav className="title">1.67 עובי-CU6</nav>
-                      </div>
-                      עובי העדשה קטן יותר בכ35%
-                      <br/>
-                      סטנדרט ציפויים מתקדם המגינים מפני שריטות,
-                      קרינה והשתקפויות
-                      <p>499$</p>
-                    </DemoPaper>
-                  </div>
-                  {/* 4 */}
-                  <div className={buttonBorder.d}>
-                    <DemoPaper onClick={() => changeStyle("4",'CU6')}>
-                      <div className="titleContainer">
-                        <nav className="title">1.74 עובי-CU6</nav>
-                      </div>
-                      עובי העדשה קטן יותר בעד 40%
-                      <br/>
-                      סטנדרט ציפויים מתקדם המגינים מפני שריטות,
-                      קרינה והשתקפויות
-                      <p>699$</p>                    </DemoPaper>
-                  </div>
-                </div>
-              </DialogContentText>
-            </DialogContent>
+                </DialogContentText>
+              </DialogContent>
               <Button
-                onClick={()=>addInformation('CU6', CU6,CU6Arry,'sizeOfGlasses')}
-            
-                disabled={isButtonDisabled == true}
-              >אפשר להמשיך</Button>
-          </Dialog>
+                onClick={() => setCreditCardForm(<CreditCardForm/>)}
+
+              >לקניה</Button>
+              <Button
+                onClick={() => setCreditCardForm(<CreditCardForm/>)}
+              >להכנסה לסל</Button>
+            </Dialog>
           )
         }
-        else{
-          return (
-            <Dialog
-            open={open}
-            onClose={handleClose}
-            scroll={scroll}
-            aria-labelledby="scroll-dialog-title"
-            aria-describedby="scroll-dialog-description">
-            <DialogTitle id="scroll-dialog-title" >נא להזין את פרטי המרשם שלך:</DialogTitle>
-            <DialogContent dividers={scroll === 'paper'}>
-           <p>sxsx</p>
-            
-            </DialogContent>
-              <Button
-                onClick={()=>addInformation('CU6', CU6,CU6Arry,'sizeOfGlasses')}
-                disabled={isButtonDisabled == true}
-              >אפשר להמשיך</Button>
-          </Dialog>
-          )
-        }
-
-        {console.log(userEyesData)}
+        console.log({ user })
       })()}
-
-  </React.Fragment>
+       {CreditCardForm}
+    </React.Fragment>
   );
-}
+  }
+  const PWROptionMinus= Array.from(new Array(24 * 2)).map(
+    (_, index) =>
+      `-${Math.floor(index / 4)+index%4*0.25}
+    `,
+    );
+const PWROptionPlus = Array.from(new Array(24 * 2)).map(
+  (_, index) =>
+
+    `+${Math.floor(index / 4)+index%4*0.25}
+`,
+);
+const CYLOption=
+Array.from(new Array(8 * 2)).map(
+  (_, index) =>
+    `-${Math.floor(index / 4)+index%4*0.25}
+  `,
+  );
+  const PDOptions=
+Array.from(new Array(20)).map(
+  (_, index) =>
+    `${index+40}
+  `,
+  );
 export default Invitation;

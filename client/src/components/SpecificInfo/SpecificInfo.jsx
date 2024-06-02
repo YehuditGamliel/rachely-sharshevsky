@@ -77,7 +77,7 @@ function SpecificInfo() {
                     <p>{title} <></>
                         {displaySpecificInfo.company}</p>
                 </div>
-                <p>{price}$ </p>
+                <p>{price}₪</p>
                 <p> דגם:{model}</p>
                 <p>צבע עיקרי:{displaySpecificInfo.color}</p>
                 <p> רחוב עדשה:{displaySpecificInfo.lensWidth}</p>
@@ -86,7 +86,7 @@ function SpecificInfo() {
 
                 <div id="bottom">
                     <p>סה"כ</p>
-                    <p id="totalPrice">{toalPrice}$</p>
+                    <p id="totalPrice">{toalPrice}₪</p>
 
                     <Invitation model={model}/>
                     <ButtonGroup
