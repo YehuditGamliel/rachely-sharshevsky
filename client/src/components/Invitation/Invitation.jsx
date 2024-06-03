@@ -14,7 +14,7 @@ import Paper from '@mui/material/Paper';
 import { useState, useContext } from 'react';
 import { UserContext } from "../../UserProvider";
 import { styled } from '@mui/material/styles';
-//import ShoppingCart from '../ShoppingCart/ShoppingCart'
+import ShoppingCart from '../ShoppingCart/ShoppingCart'
 import PaymentForm from '../PaymentForm/PaymentForm'
 
 import TextField from '@mui/material/TextField';
@@ -165,9 +165,25 @@ console.log(userEyesData)
          
           return ( 
             <CU6 buttonBorder={buttonBorder} isButtonDisabled={isButtonDisabled}  changeStyle={changeStyle} addInformation={addInformation}/>
-
           )
         }
+        else if(paper.title=="ShoppingCart")
+          {
+            console.log(localStorage.getItem("ShoppingCart"))
+            if(localStorage.getItem("ShoppingCart")===
+            "undefined")
+              {
+             
+                  localStorage.setItem("ShoppingCart",JSON.stringify({userEyesData}));
+              }
+              else{
+                let  ShoppingCart = JSON.parse(localStorage.getItem("ShoppingCart"))
+
+                localStorage.setItem("ShoppingCart",JSON.stringify([...ShoppingCart,userEyesData]));;
+              }
+            {localStorage.setItem('ShoppingCart', JSON.stringify())};
+            return (<ShoppingCart/>) ;
+          }
         else{
           return(<PaymentForm/>)
         }
