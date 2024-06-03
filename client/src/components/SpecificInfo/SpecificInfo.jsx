@@ -92,8 +92,7 @@ function SpecificInfo() {
                     <ButtonGroup
                         disableElevation
                         variant="contained"
-                        aria-label="Disabled button group"
-                    >
+                        aria-label="Disabled button group">  
                         <Button onClick={removeProduct}>-</Button>
                         <input type="number" step="1"
                             value={numOfProduct} />

@@ -111,7 +111,6 @@ function Login() {
     }
     return (
         <>
-               
             {
                 registerOrLogin ? <div className='login-background'>
                     <div className='login-box'>

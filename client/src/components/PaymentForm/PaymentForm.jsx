@@ -1,46 +1,64 @@
-import React from 'react';
-import Cards from 'react-credit-cards';
- 
-export default class PaymentForm extends React.Component {
-  state = {
-    cvc: '',
-    expiry: '',
-    focus: '',
-    name: '',
+import React, { useState } from 'react';
+import Cards from 'react-credit-cards-2';
+
+const PaymentForm = () => {
+  const [state, setState] = useState({
     number: '',
-  };
- 
-  handleInputFocus = (e) => {
-    this.setState({ focus: e.target.name });
-  }
-  
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
+    expiry: '',
+    cvc: '',
+    name: '',
+    focus: '',
+  });
+
+  const handleInputChange = (evt) => {
+    const { name, value } = evt.target;
+    console.log(name,value)
     
-    this.setState({ [name]: value });
+    setState((prev) => ({ ...prev, [name]: value }));
   }
-  
-  render() {
-    return (
-      <div id="PaymentForm">
-        <Cards
-          cvc={this.state.cvc}
-          expiry={this.state.expiry}
-          focused={this.state.focus}
-          name={this.state.name}
-          number={this.state.number}
+
+  const handleInputFocus = (evt) => {
+    setState((prev) => ({ ...prev, focus: evt.target.name }));
+  }
+
+  return (
+    <div>
+      <Cards
+        number={state.number}
+        expiry={state.expiry}
+        cvc={state.cvc}
+        name={state.name}
+        focused={state.focus}
+      />
+      <form>
+        <input
+          type="number"
+          name="number"
+          placeholder="Card Number"
+          value={state.number}
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
         />
-        <form>
-        	<input
-            type="tel"
-            name="number"
-            placeholder="Card Number"
-            onChange={this.handleInputChange}
-            onFocus={this.handleInputFocus}
-          />
-          ...
-        </form>
-      </div>
-    );
-  }
+         <input
+          type="expiry"
+          name="expiry"
+          placeholder="expiry Number"
+          value={state.expiry}
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
+        />
+             <input
+          type="cvc"
+          name="cvc"
+          placeholder="cvc Number"
+          value={state.cvc}
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
+        />
+        
+      </form>
+    </div>
+  );
 }
+
+export default PaymentForm;
