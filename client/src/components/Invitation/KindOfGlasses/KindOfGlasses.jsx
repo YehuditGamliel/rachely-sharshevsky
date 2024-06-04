@@ -43,6 +43,7 @@ function KindOfClasses({addInformation ,changeStyle, buttonBorder}){
       const handleClose = () => {
         setOpen(false);
       };
+
     
     return (
        

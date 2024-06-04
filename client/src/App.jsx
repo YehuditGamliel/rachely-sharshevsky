@@ -10,6 +10,9 @@ import Eyeglasses from './components/Eyeglasses/Eyeglasses'
 import Register from "./components/Register/Register";
 import SpecificInfo from './components/SpecificInfo/SpecificInfo';
 import Main from './components/Header/header';
+import PaymentForm from './components/PaymentForm/PaymentForm';
+//import ShoppingCart from '@mui/icons-material/ShoppingCart';
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 
 function App() {
   return (
@@ -17,6 +20,12 @@ function App() {
         <Routes>
         <Route path="/" element={<Main />} >
         <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} /> 
+        <Route path="/my-account" element={<Home />} />
+        <Route path="/login" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/shoppingCart" element={<ShoppingCart />}/>
+        
         {/* <Route path='/eyeglasses' element={<Eyeglasses />} /> */}
         <Route path="eyeglasses">
               <Route index element={<Eyeglasses />} />
@@ -24,6 +33,8 @@ function App() {
               {/* <Route path=":1" element={<Home />} /> */}
             </Route>
         </Route>
+        
+        
           {/* <Route path="/" element={<Home />} />
           <Route path="/my-account" element={<Home />} />
           <Route path='/eyeglasses' element={<Eyeglasses />} />

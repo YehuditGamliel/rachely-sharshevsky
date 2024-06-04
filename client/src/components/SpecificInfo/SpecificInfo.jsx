@@ -115,8 +115,8 @@ function SpecificInfo() {
      {moreImages.length>1?<p> משקפיים נוספות ממותג זה...</p>:<></>}
     </div>     
          <div  id="moreGlasses">
-            {moreImages.map((img) =>
-            (img.model!=model) ?<SingleEyeglasses id="SingleEyeglasses" model={img.model}price={img.price} photo={img.photo} title={img.title} />
+            {moreImages.map((img,index) =>
+            (img.model!=model) ?<SingleEyeglasses key={index} id="SingleEyeglasses" model={img.model}price={img.price} photo={img.photo} title={img.title} />
              :console.log(img.model,"pp",  model)
             //    }
             )

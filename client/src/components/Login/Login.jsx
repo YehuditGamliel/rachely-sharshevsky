@@ -40,8 +40,8 @@ function Login() {
         let response = await fetch(`http://localhost:8082/authorization/login`, {
             method: 'POST',
             body: JSON.stringify({
-                "email": "rsh61047@gmail.com",
-                "password": "rS@61047"
+                email: userDetails.email,
+                password: userDetails.password
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

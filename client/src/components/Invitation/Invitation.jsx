@@ -1,6 +1,7 @@
 
 
 import * as React from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -51,6 +52,7 @@ function Invitation(model) {
   const [withOrWithoutPrescription, setWithOrWithoutPrescription] = useState('')
   const [sizeOfGlasses,setSizeOfGlasses]=useState({"PWRRight":0,"CYLRight":0,"PWRLeft":0,"CYLLeft":0,"PDFAR":62,"PDNEAR":62});
   //const [CU6, setCU6] = useState('')
+  const navigate = useNavigate();
   
  
   const withOrWithoutPrescriptionArry = ["prescriptionSaved", "fillingPrescription"]
@@ -119,11 +121,11 @@ console.log(userEyesData)
         setButtonBorder({ a: "border", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
         break;
       }
-      case 'b': {
+      case '2': {
         setButtonBorder({ a: "noneBorder", b: "border", c: "noneBorder", d: "noneBorder" })
         break;
       }
-      case 'c': {
+      case '3': {
         setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "border", d: "noneBorder" })
         break;
       }
@@ -169,25 +171,21 @@ console.log(userEyesData)
         }
         else if(paper.title=="ShoppingCart")
           {
-            console.log(localStorage.getItem("ShoppingCart"))
-            if(localStorage.getItem("ShoppingCart")===
-            "undefined")
-              {
-             
-                  localStorage.setItem("ShoppingCart",JSON.stringify({userEyesData}));
+            if(localStorage.getItem("ShoppingCart") == null){
+                localStorage.setItem("ShoppingCart",JSON.stringify([userEyesData]));
               }
               else{
                 let  ShoppingCart = JSON.parse(localStorage.getItem("ShoppingCart"))
-
                 localStorage.setItem("ShoppingCart",JSON.stringify([...ShoppingCart,userEyesData]));;
               }
-            {localStorage.setItem('ShoppingCart', JSON.stringify())};
-            return (<ShoppingCart/>) ;
+            //return (<ShoppingCart/>) ;
+            navigate(`/shoppingCart`)
           }
         else{
-          return(<PaymentForm/>)
+          
+          //return(<PaymentForm/>)
         }
-        console.log({ user })
+        // console.log({ user })
       })()}
        
     </React.Fragment>

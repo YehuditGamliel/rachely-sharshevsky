@@ -70,10 +70,6 @@ function WithOrWithoutPrescription({addInformation ,changeStyle, buttonBorder}){
                         </div>
                         {data.description}
                       </DemoPaper></div>
-                    
-                 
-                 
-               
                 )}
                  </div>
               <Button
