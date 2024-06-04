@@ -1,4 +1,5 @@
 import * as React from 'react';
+import{useContext} from 'react';
 import { useLocation } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
@@ -10,11 +11,14 @@ import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+
 import { useNavigate, Link } from 'react-router-dom';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Button from '@mui/material/Button';
 import SpecificInfo from '../SpecificInfo/SpecificInfo';
+import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+
 
 // import '../SingleEyeglassee/SingleEyeglassee.css'
 const ExpandMore = styled((props) => {
@@ -64,17 +68,14 @@ const buyEyeglasses = (id) => {
 }
 
  function SingleEyeglasses(props) {
- 
-  // const { state } = useLocation();
-  //   const { data } = state;Fstate
-  
-   
+
+ const { eyeglasses,setCurrentEyeglasses } = useContext(EyeglassesContext);
   const [expanded, setExpanded] = React.useState(false);
   const navigate = useNavigate();
  
   const displaySpecificInfo=()=>{
-
-     navigate(`/eyeglasses/${props.model}`,{state:{photo:props.photo,model:props.model,title:props.title,price:props.price}})
+    setCurrentEyeglasses({"photo":props.photo,"model":props.model,"title":props.title,"price":props.price})
+     navigate(`/eyeglasses/${props.model}`)
   
   }
   return (

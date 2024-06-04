@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import {Outlet, useParams, Link, useNavigate } from "react-router-dom";
 import './Eyeglasses.css'
-import { UserContext } from "../../UserProvider";
+import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import IconButton from '@mui/material/IconButton';
 // import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -13,13 +13,13 @@ import  SingleEyeglassee  from '../SingleEyeglasses/SingleEyeglasses.jsx';
 function Eyeglasses() {
 
   const [displayEyeglasses, setDisplayEyglasses] = useState([]);
-
   const navigate = useNavigate();
 
   useEffect(() => {
+   // {console.log("p",eyeglasses)}
     fetch(`http://localhost:8082/eyeglasses`, {
       method: 'GET',
-
+    
     })
       .then(response => response.json())
       .then((json) => {

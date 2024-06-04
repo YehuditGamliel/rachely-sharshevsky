@@ -1,7 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
 import React, { useContext, useState } from 'react';
 import { useLocation } from "react-router-dom";
-import { UserContext } from "../../UserProvider";
+//import { UserContext } from "../../EyeglassesProvider.jsx";
 import './Header.css';
 import logo from '../../img/logo.png'
 import Login from '../Login/Login';
@@ -18,7 +18,7 @@ function Header() {
   
     const [style,setStyle]=useState("activity")
     const [login,setLogin]= useState('');
-    const { user, setCurrentUser } = useContext(UserContext);
+    // const { user, setCurrentUser } = useContext(UserContext);
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -43,7 +43,7 @@ function Header() {
                         </IconButton>
                         <li> <Link to={"./posts"}>בית </Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי ראיה </Link></li>
-                        <li> <Link to={"./todos"}>משקפי שמש </Link></li>
+                        <li> <Link to={"eyeglasses"}>משקפי שמש </Link></li>
                         <li> <Link to={"./info"}>משקפי קריאה </Link></li>
                         <li> <Link to={"./posts"}>עדשות </Link></li>
                         <li> <Link to={"./todos"}>בדיקת ראיה </Link></li>

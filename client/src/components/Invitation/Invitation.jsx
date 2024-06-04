@@ -9,25 +9,20 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-
-
 import Paper from '@mui/material/Paper';
 import { useState, useContext } from 'react';
-import { UserContext } from "../../UserProvider";
+//import { UserContext } from "../../EyeglassesProvider.jsx";
 import { styled } from '@mui/material/styles';
 import ShoppingCart from '../ShoppingCart/ShoppingCart'
 import PaymentForm from '../PaymentForm/PaymentForm'
-
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import './Invitation.css'
-
-
 import KindOfClasses from './kindOfGlasses/kindOfGlasses';
 import CU6 from './CU6/CU6'
 import WithOrWithoutPrescription from './WithOrWithoutPrescription/WithOrWithoutPrescription';
 import SizeOfGlasses from './SizeOfGlasses/SizeOfGlasses';
-
+import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 250,
   height: 110,
@@ -36,16 +31,17 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
 }));
 
-function Invitation(model) {
-  const [userEyesData, setUserEyesdata] = useState({ model: model.model });
+function Invitation() {
   const [paymentForm, setPaymentForm] = useState('');
   const [shoppingCart, setShoppingCart] = useState('');
-  const { user, setCurrentUser } = useContext(UserContext);
+  const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
+  const [userEyesData, setUserEyesdata] = useState({ model: eyeglasses.model });
+
   const [disable, setDisable] = useState(1);
   const [style, setStyle] = useState("noneBorder");
-  const [paper, setPaper] = useState({ title: 'kindOfGlasses' })
+  const [paper, setPaper] = useState({ title: '' })
   const [buttonBorder, setButtonBorder] = useState({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   const [kindOfGlasses, setKindOfGlasses] = useState('')
@@ -54,7 +50,7 @@ function Invitation(model) {
   //const [CU6, setCU6] = useState('')
   const navigate = useNavigate();
   
- 
+  
   const withOrWithoutPrescriptionArry = ["prescriptionSaved", "fillingPrescription"]
   const CU6Arry = ["1.5", "1.6", "1.67", "1.74"];
   
@@ -171,10 +167,16 @@ console.log(userEyesData)
         }
         else if(paper.title=="ShoppingCart")
           {
-            if(localStorage.getItem("ShoppingCart") == null){
+            setUserEyesdata(userItem => ({
+              ...userItem,
+              [img]: photo
+            }));
+            console.log(localStorage.getItem("ShoppingCart"))
+            if(!localStorage.getItem("ShoppingCart")){
                 localStorage.setItem("ShoppingCart",JSON.stringify([userEyesData]));
               }
               else{
+                //alert("pppp")
                 let  ShoppingCart = JSON.parse(localStorage.getItem("ShoppingCart"))
                 localStorage.setItem("ShoppingCart",JSON.stringify([...ShoppingCart,userEyesData]));;
               }

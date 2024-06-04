@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
-import { UserContext } from "../../UserProvider";
+// import { UserContext } from "../../EyeglassesProvider";
 import './Home.css';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
@@ -13,7 +13,7 @@ function Home(props) {
     let location = useLocation();
     const [style,setStyle]=useState("activity")
     const [login,setLogin]= useState('');
-     const { user, setCurrentUser } = useContext(UserContext);
+    //  const { user, setCurrentUser } = useContext(UserContext);
     useEffect(() => {
        if( location.pathname.slice(1)=='my-account')
         {

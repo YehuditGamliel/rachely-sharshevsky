@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import Button from '@mui/material/Button';
 import '../SpecificInfo/SpecificInfo.css'
 import Badge from '@mui/material/Badge';
@@ -8,17 +8,18 @@ import { styled } from '@mui/material/styles';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Invitation from '../Invitation/Invitation.jsx';
 import SingleEyeglasses from "../SingleEyeglasses/SingleEyeglasses.jsx";
+import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import Alert from '@mui/material/Alert';
 
 function SpecificInfo() {
-    const { state } = useLocation();
-    const { photo, model, title, price } = state;
+    // const { state } = useLocation();
+    // const { photo, model, title, price } = state; 
+    const [alert,setAlert]=useState()
+    const { eyeglasses,setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');
     const [moreImages, setMoreImages] = useState([])
     const [numOfProduct, setNumOfProduct] = useState(1)
-    const [toalPrice, setToalPrice] = useState(price)
-
-
-
+    //const [toalPrice, setToalPrice] = useState(eyeglasses.price)
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -30,8 +31,8 @@ function SpecificInfo() {
     }));
 
     useEffect(() => {
-        // alert(model)
-        fetch(`http://localhost:8082/eyeglasses/${model}`, {
+         console.log("specific",eyeglasses)
+        fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
             method: 'GET',
 
         })
@@ -41,11 +42,22 @@ function SpecificInfo() {
                     alert(json.error)
                 }
                 else {
-                    // console.log("!!!!!!!!!!!!!!!!"+json.dat)
-                    setDisplaypecificInfo(json.data[0][0])
-                    setMoreImages([...moreImages, ...json.data[1]]) 
-                    
+                    console.log("😂",json.data[0][0])
+                //   const t=json.data[0][0];
+                //   setCurrentEyeglasses({...eyeglasses,t})
+                    setMoreImages([...moreImages, ...json.data[1]])
 
+                    setCurrentEyeglasses(eyeglasses => ({
+                        ...eyeglasses,
+                       color:json.data[0][0].color,
+                       stock:json.data[0][0].stock,
+                       BridgeWidth:json.data[0][0].BridgeWidth,
+                       company:json.data[0][0].company,
+                       description:json.data[0][0].description,
+                       lensWidth:json.data[0][0].lensWidth,
+                       material:json.data[0][0].material
+                    
+                    }));
                 }
             })
     }, [])
@@ -53,42 +65,53 @@ function SpecificInfo() {
 
     const addProduct = () => {
 
-        if (numOfProduct + 1 <= displaySpecificInfo.stock) {
-            setNumOfProduct(numOfProduct + 1);
-            setToalPrice(toalPrice + price);
-
-
+        if (numOfProduct + 1 <=eyeglasses.stock ) {
+                 setAlert(<Alert severity="error">אין מספיק במלאי!.</Alert>)
         }
+           else{
+            setCurrentEyeglasses((previous) => ({...previous, price:(previous.price/numOfProduct)*(numOfProduct+1)}));
+            setNumOfProduct(numOfProduct + 1);
+           }
+           
+           
+
+        
     };
     const removeProduct = () => {
 
         if (numOfProduct - 1 != 0) {
+
+            setCurrentEyeglasses((previous) => ({...previous, price:(previous.price/numOfProduct)*(numOfProduct-1)}));
             setNumOfProduct(numOfProduct - 1);
-            setToalPrice(toalPrice - price);
+            // setToalPrice(toalPrice - price);
         }
 
     };
 
     return (<>
-        {console.log(displaySpecificInfo)}
+    {alert}
+        {console.log("pp",eyeglasses)}
+        {/* { console.log("😊",eyeglasses.t.color */}
+
+        
+
         <div id="card">
             <div id="container">
                 <div id="title">
-                    <p>{title} <></>
+                    <p>{eyeglasses.title} <></>
                         {displaySpecificInfo.company}</p>
                 </div>
-                <p>{price}₪</p>
-                <p> דגם:{model}</p>
-                <p>צבע עיקרי:{displaySpecificInfo.color}</p>
-                <p> רחוב עדשה:{displaySpecificInfo.lensWidth}</p>
-                <p>רוחב גשר:{displaySpecificInfo.BridgeWidth}</p>
-                <p>חומר מסגרת:{displaySpecificInfo.material}</p>
+                <p>{eyeglasses.price}₪</p>
+                <p> דגם:{eyeglasses.model}</p>
+                <p>צבע עיקרי:{eyeglasses.color}</p>
+                <p> רחוב עדשה:{eyeglasses.lensWidth}</p>
+                <p>רוחב גשר:{eyeglasses.BridgeWidth}</p>
+                <p>חומר מסגרת:{eyeglasses.material}</p>
 
                 <div id="bottom">
                     <p>סה"כ</p>
-                    <p id="totalPrice">{toalPrice}₪</p>
-
-                    <Invitation model={model}/>
+                    <p id="totalPrice">{eyeglasses.price}₪</p>
+                    <Invitation   />
                     <ButtonGroup
                         disableElevation
                         variant="contained"
@@ -98,13 +121,11 @@ function SpecificInfo() {
                             value={numOfProduct} />
                         <Button onClick={addProduct}>+</Button>
                     </ButtonGroup>
-
-
                 </div>
             </div>
             {console.log(moreImages)}
 
-            <img id="img" src={photo} />
+            <img id="img" src={eyeglasses.photo} />
 
         </div>
         <div id="moreGlasses">
@@ -116,8 +137,8 @@ function SpecificInfo() {
     </div>     
          <div  id="moreGlasses">
             {moreImages.map((img,index) =>
-            (img.model!=model) ?<SingleEyeglasses key={index} id="SingleEyeglasses" model={img.model}price={img.price} photo={img.photo} title={img.title} />
-             :console.log(img.model,"pp",  model)
+            (img.model!=eyeglasses.model) ?<SingleEyeglasses key={index} id="SingleEyeglasses" model={img.model}price={img.price} photo={img.photo} title={img.title} />
+             :console.log(img.model,"pp",  eyeglasses.model)
             //    }
             )
             }
