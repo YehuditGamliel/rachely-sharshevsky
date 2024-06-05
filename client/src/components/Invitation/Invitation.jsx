@@ -37,23 +37,18 @@ function Invitation() {
   const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
-  const [userEyesData, setUserEyesdata] = useState({ model: eyeglasses.model });
-
+  const [userEyesData, setUserEyesdata] = useState({ });
   const [disable, setDisable] = useState(1);
   const [style, setStyle] = useState("noneBorder");
   const [paper, setPaper] = useState({ title: '' })
-  const [buttonBorder, setButtonBorder] = useState({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   const [kindOfGlasses, setKindOfGlasses] = useState('')
   const [withOrWithoutPrescription, setWithOrWithoutPrescription] = useState('')
-  const [sizeOfGlasses,setSizeOfGlasses]=useState({"PWRRight":0,"CYLRight":0,"PWRLeft":0,"CYLLeft":0,"PDFAR":62,"PDNEAR":62});
-  //const [CU6, setCU6] = useState('')
+  // {"PWRRight":0,"CYLRight":0,"PWRLeft":0,"CYLLeft":0,"PDFAR":62,"PDNEAR":62}
+  const [sizeOfGlasses,setSizeOfGlasses]=useState();
   const navigate = useNavigate();
-  
-  
   const withOrWithoutPrescriptionArry = ["prescriptionSaved", "fillingPrescription"]
   const CU6Arry = ["1.5", "1.6", "1.67", "1.74"];
-  
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
     setScroll(scrollType);
@@ -76,14 +71,12 @@ function Invitation() {
   //   setPaymentForm(<PaymentForm/>)
   // }
     if(name=='sizeOfGlasses'){
-      
       setUserEyesdata(userItem => ({
         ...userItem,
         [name]: id
       }));
     }
     else{
-      // var valueInt = Number(value);
       setUserEyesdata(userItem => ({
         ...userItem,
         [name]: id
@@ -95,10 +88,7 @@ console.log(userEyesData)
         setPaper({ title: 'verification' })
         //setLogin(<Login />)
     }
-
     setButtonDisabled(false)
-    setButtonBorder({ 1: "noneBorder", 2: "noneBorder", 3: "noneBorder", 4: "noneBorder" })
-    
     if (title == 'sizeOfGlasses' && id == 1) {
      alert(id)
       setPaper({ title: 'CU6' })
@@ -109,27 +99,6 @@ console.log(userEyesData)
     console.log(userEyesData)
   };
 
- 
-  const changeStyle=(char)=>{
-    // alert(char)
-    switch (char) {
-      case '1': {
-        setButtonBorder({ a: "border", b: "noneBorder", c: "noneBorder", d: "noneBorder" })
-        break;
-      }
-      case '2': {
-        setButtonBorder({ a: "noneBorder", b: "border", c: "noneBorder", d: "noneBorder" })
-        break;
-      }
-      case '3': {
-        setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "border", d: "noneBorder" })
-        break;
-      }
-      default: {
-        setButtonBorder({ a: "noneBorder", b: "noneBorder", c: "noneBorder", d: "border" })
-      }
-    }
-  }
   return (
     <React.Fragment>
       <Button variant="outlined" onClick={()=>{handleClickOpen('paper')
@@ -140,16 +109,16 @@ console.log(userEyesData)
         if (paper.title == 'kindOfGlasses') {
           return (
             <KindOfClasses 
-                addInformation={addInformation} changeStyle={changeStyle} buttonBorder={buttonBorder}/> 
+                addInformation={addInformation} /> 
           )
         } else if (paper.title == 'withOrWithoutPrescription') {
           return (
-            <WithOrWithoutPrescription buttonBorder={buttonBorder} isButtonDisabled={isButtonDisabled}  changeStyle={changeStyle} addInformation={addInformation}/> 
+            <WithOrWithoutPrescription addInformation={addInformation} /> 
           )
         }
         else if (paper.title == 'sizeOfGlasses') {
           return (
-       <SizeOfGlasses buttonBorder={buttonBorder} isButtonDisabled={isButtonDisabled}  changeStyle={changeStyle} addInformation={addInformation}/>
+       <SizeOfGlasses addInformation={addInformation} />
           )
         }
         else if(paper.title == 'verification'){
@@ -162,32 +131,29 @@ console.log(userEyesData)
         else if(paper.title == 'CU6'){
          
           return ( 
-            <CU6 buttonBorder={buttonBorder} isButtonDisabled={isButtonDisabled}  changeStyle={changeStyle} addInformation={addInformation}/>
+            <CU6  addInformation={addInformation} />
           )
         }
         else if(paper.title=="ShoppingCart")
           {
-            setUserEyesdata(userItem => ({
-              ...userItem,
-              [img]: photo
-            }));
-            console.log(localStorage.getItem("ShoppingCart"))
-            if(!localStorage.getItem("ShoppingCart")){
-                localStorage.setItem("ShoppingCart",JSON.stringify([userEyesData]));
-              }
-              else{
-                //alert("pppp")
-                let  ShoppingCart = JSON.parse(localStorage.getItem("ShoppingCart"))
-                localStorage.setItem("ShoppingCart",JSON.stringify([...ShoppingCart,userEyesData]));;
-              }
-            //return (<ShoppingCart/>) ;
+            console.log("aaaa",eyeglasses.amount)
+            // setCurrentEyeglasses(prevGlassesData => ({
+
+            //   ...prevGlassesData,
+              
+            //   numOfGlasses:  prevGlassesData.amount+prevGlassesData.numOfGlasses
+              
+            //   }));
+           
+            const shoppingCart = { ...eyeglasses, ...userEyesData };
+            const storedCart = JSON.parse(localStorage.getItem("ShoppingCart")) || [];
+            const updatedCart = [...storedCart, shoppingCart];
+            localStorage.setItem("ShoppingCart", JSON.stringify(updatedCart));
+            console.log(updatedCart);
             navigate(`/shoppingCart`)
           }
         else{
-          
-          //return(<PaymentForm/>)
         }
-        // console.log({ user })
       })()}
        
     </React.Fragment>

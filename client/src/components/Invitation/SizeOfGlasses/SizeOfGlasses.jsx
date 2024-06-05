@@ -23,7 +23,7 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
   }));
  
 
-function SizeOfGlasses({addInformation ,changeStyle, buttonBorder}){
+function SizeOfGlasses({addInformation }){
     const theme = useTheme();
     const [sizeOfGlasses,setSizeOfGlasses]=useState({"PWRRight":0,"CYLRight":0,"PWRLeft":0,"CYLLeft":0,"PDFAR":62,"PDNEAR":62});
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));

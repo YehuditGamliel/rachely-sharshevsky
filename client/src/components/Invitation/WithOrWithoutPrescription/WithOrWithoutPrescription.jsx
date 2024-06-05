@@ -10,8 +10,8 @@ import { styled } from '@mui/material/styles';
 import { useState, useContext } from 'react';
 import * as React from 'react';
 import prescription1 from '../../../img/prescription1.jpg'
-import glasses2 from '../../../img/glasses2.jpg'
-import glasses1 from '../../../img/glasses1.jpg'
+import prescription2 from '../../../img/prescription2.jpg'
+
 import jsonData from "../../../assets/data.json";
 
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -28,22 +28,28 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
   
       
 
-function WithOrWithoutPrescription({addInformation ,changeStyle, buttonBorder}){
+function WithOrWithoutPrescription({addInformation}){
     const [withOrWithoutPrescriptionId, setwithOrWithoutPrescriptionId] = useState('')
     const [isButtonDisabled,setIsButtonDisabled]=useState(true)
         const [open, setOpen] = React.useState(true);
         const theme = useTheme();
-         
+        const [selected, setSelected] = useState(null);
         const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+        const imageMapping = {
+          prescription1,
+          prescription2
+        };
       const updateStyle = (withOrWithoutPrescription) => {
           setIsButtonDisabled(false)
           //alert(withOrWithoutPrescription)
           // var valueInt = Number(kindOfGlasses);
           // console.log(jsonData.kindOfGlassesArry[valueInt])
           setwithOrWithoutPrescriptionId(withOrWithoutPrescription)
-          changeStyle(withOrWithoutPrescription)
+         
     }
-    
+      const handleClick = (index) => {
+    setSelected(index);
+  };
       
         const handleClickOpen = () => {
           setOpen(true);
@@ -62,10 +68,15 @@ function WithOrWithoutPrescription({addInformation ,changeStyle, buttonBorder}){
             <DialogContent dividers={scroll === 'paper'}></DialogContent>
                   <div direction="row" spacing={2}>
                   {jsonData.withOrWithOutPrescription.map((data, index) =>
-                    <div className={buttonBorder.a}>
-                      <DemoPaper onClick={() => updateStyle((index+1).toString())}>
+                    <div className={selected === index?"border":"noneBorder"}>
+                      <DemoPaper onClick={() =>{ handleClick(index)
+                       updateStyle((index+1).toString())}
+                        
+                      }>
                         <div className="titleContainer">
-                          <img className="glassesImage" src={"https://as2.ftcdn.net/v2/jpg/01/95/07/45/1000_F_195074504_V87ZjFo8BI1BvltAkxDJuIZ90XQjnsX8.jpg"} /><br />
+                          <img   className="glassesImage"
+                  src={imageMapping[data.img]}
+                  alt={data.title} /><br />
                           <nav className="title">{data.title}</nav>
                         </div>
                         {data.description}

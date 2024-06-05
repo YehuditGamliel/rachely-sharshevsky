@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Button from '@mui/material/Button';
 import '../SpecificInfo/SpecificInfo.css'
 import Badge from '@mui/material/Badge';
@@ -14,8 +14,8 @@ import Alert from '@mui/material/Alert';
 function SpecificInfo() {
     // const { state } = useLocation();
     // const { photo, model, title, price } = state; 
-    const [alert,setAlert]=useState()
-    const { eyeglasses,setCurrentEyeglasses } = useContext(EyeglassesContext);
+    const [alert, setAlert] = useState()
+    const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');
     const [moreImages, setMoreImages] = useState([])
     const [numOfProduct, setNumOfProduct] = useState(1)
@@ -31,7 +31,7 @@ function SpecificInfo() {
     }));
 
     useEffect(() => {
-         console.log("specific",eyeglasses)
+        console.log("specific", eyeglasses)
         fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
             method: 'GET',
 
@@ -42,59 +42,67 @@ function SpecificInfo() {
                     alert(json.error)
                 }
                 else {
-                    console.log("😂",json.data[0][0])
-                //   const t=json.data[0][0];
-                //   setCurrentEyeglasses({...eyeglasses,t})
+                    console.log("😂", json.data[0][0])
+
                     setMoreImages([...moreImages, ...json.data[1]])
 
-                    setCurrentEyeglasses(eyeglasses => ({
-                        ...eyeglasses,
-                       color:json.data[0][0].color,
-                       stock:json.data[0][0].stock,
-                       BridgeWidth:json.data[0][0].BridgeWidth,
-                       company:json.data[0][0].company,
-                       description:json.data[0][0].description,
-                       lensWidth:json.data[0][0].lensWidth,
-                       material:json.data[0][0].material
-                    
+                    setCurrentEyeglasses(glassesData => ({
+                        ...glassesData,
+                        ...json.data[0][0]
                     }));
+
+
                 }
             })
     }, [])
 
 
     const addProduct = () => {
-
-        if (numOfProduct + 1 <=eyeglasses.stock ) {
-                 setAlert(<Alert severity="error">אין מספיק במלאי!.</Alert>)
+{console.log("pppppp",eyeglasses.stock)}
+        if (numOfProduct + 1 >= eyeglasses.stock) {
+            setAlert(<Alert severity="error">אין מספיק במלאי!.</Alert>)
         }
-           else{
-            setCurrentEyeglasses((previous) => ({...previous, price:(previous.price/numOfProduct)*(numOfProduct+1)}));
+        else {
+            setCurrentEyeglasses((previous) => ({ ...previous, price: (previous.price / numOfProduct) * (numOfProduct + 1) }));
             setNumOfProduct(numOfProduct + 1);
-           }
-           
-           
+            {setCurrentEyeglasses(eyeglassesData => ({
 
-        
+                ...eyeglassesData,
+
+                "amount": numOfProduct
+
+            }))}
+        }
+
+
+
+
     };
     const removeProduct = () => {
 
+
         if (numOfProduct - 1 != 0) {
 
-            setCurrentEyeglasses((previous) => ({...previous, price:(previous.price/numOfProduct)*(numOfProduct-1)}));
+            setCurrentEyeglasses((previous) => ({ ...previous, price: (previous.price / numOfProduct) * (numOfProduct - 1) }));
             setNumOfProduct(numOfProduct - 1);
+            {setCurrentEyeglasses(eyeglassesData => ({
+
+                ...eyeglassesData,
+
+                "amount": numOfProduct
+
+            }))}
             // setToalPrice(toalPrice - price);
         }
 
     };
 
     return (<>
-    {alert}
-        {console.log("pp",eyeglasses)}
+
         {/* { console.log("😊",eyeglasses.t.color */}
 
-        
 
+        {alert}
         <div id="card">
             <div id="container">
                 <div id="title">
@@ -111,11 +119,11 @@ function SpecificInfo() {
                 <div id="bottom">
                     <p>סה"כ</p>
                     <p id="totalPrice">{eyeglasses.price}₪</p>
-                    <Invitation   />
+                    <Invitation />
                     <ButtonGroup
                         disableElevation
                         variant="contained"
-                        aria-label="Disabled button group">  
+                        aria-label="Disabled button group">
                         <Button onClick={removeProduct}>-</Button>
                         <input type="number" step="1"
                             value={numOfProduct} />
@@ -126,24 +134,25 @@ function SpecificInfo() {
             {console.log(moreImages)}
 
             <img id="img" src={eyeglasses.photo} />
-
+            
         </div>
         <div id="moreGlasses">
-        {/* {moreImages.map(function(productSpec, i){
+            {/* {moreImages.map(function(productSpec, i){
         return <span key={i}><b>Category Name:</b> {productSpec.price}</span>;
 })} */}
-<div>
-     {moreImages.length>1?<p> משקפיים נוספות ממותג זה...</p>:<></>}
-    </div>     
-         <div  id="moreGlasses">
-            {moreImages.map((img,index) =>
-            (img.model!=eyeglasses.model) ?<SingleEyeglasses key={index} id="SingleEyeglasses" model={img.model}price={img.price} photo={img.photo} title={img.title} />
-             :console.log(img.model,"pp",  eyeglasses.model)
-            //    }
-            )
-            }
+            <div>
+                {moreImages.length > 1 ? <p> משקפיים נוספות ממותג זה...</p> : <></>}
+            </div>
+            <div id="moreGlasses">
+                {moreImages.map((img, index) =>
+                    (img.model != eyeglasses.model) ? <SingleEyeglasses key={index} id="SingleEyeglasses" model={img.model} price={img.price} photo={img.photo} title={img.title} />
+                        : console.log(img.model, "pp", eyeglasses.model)
+                    //    }
+                )
+                }
             </div>
         </div>
     </>)
+    
 }
 export default SpecificInfo;

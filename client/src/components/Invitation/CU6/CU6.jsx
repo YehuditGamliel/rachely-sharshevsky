@@ -23,8 +23,8 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: 'center',
   }));
-function CU6({addInformation ,changeStyle, buttonBorder}){
-   
+function CU6({addInformation}){
+    const [selected, setSelected] = useState(null);
     const [CU6Id, setCU6Id] = useState('')
     const [isButtonDisabled,setIsButtonDisabled]=useState(true)
         const [open, setOpen] = React.useState(true);
@@ -34,10 +34,12 @@ function CU6({addInformation ,changeStyle, buttonBorder}){
       const updateStyle = (withOrWithoutPrescription) => {
           setIsButtonDisabled(false)
           setCU6Id(withOrWithoutPrescription)
-          changeStyle(withOrWithoutPrescription)
+          
     }
     
-      
+    const handleClick = (index) => {
+        setSelected(index);
+      };
         const handleClickOpen = () => {
           setOpen(true);
         };
@@ -123,8 +125,10 @@ function CU6({addInformation ,changeStyle, buttonBorder}){
     <DialogContent dividers={scroll === 'paper'}></DialogContent>
           <div direction="row" spacing={2}>
           {jsonData.CU6.map((data, index) =>
-            <div className={buttonBorder.a}>
-              <DemoPaper onClick={() => updateStyle((index+1).toString())}>
+            <div className={selected === index?"border":"noneBorder"}>
+              <DemoPaper onClick={() =>{ updateStyle((index+1).toString())
+                 handleClick(index)
+              }}>
                 <div className="titleContainer">
                   <nav className="title">{data.title}</nav>
                 </div>
