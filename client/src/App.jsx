@@ -13,7 +13,7 @@ import Main from './components/Header/header';
 import PaymentForm from './components/PaymentForm/PaymentForm';
 //import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
-
+import Payment from './components/PaymentForm/PaymentForm.jsx'
 function App() {
   return (
     <Router>
@@ -25,6 +25,7 @@ function App() {
         <Route path="/login" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/shoppingCart" element={<ShoppingCart />}/>
+        <Route path="/paymentForm" element={<PaymentForm />}/>
         
         {/* <Route path='/eyeglasses' element={<Eyeglasses />} /> */}
         <Route path="eyeglasses">

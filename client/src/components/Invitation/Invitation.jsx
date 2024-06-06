@@ -161,7 +161,7 @@ console.log(userEyesData)
             navigate(`/shoppingCart`)
           }
         else if(paper.title=="paymentForm"){
-          return (<PaymentForm/>);
+          navigate(`/paymentForm`)
         }
         else{
 
