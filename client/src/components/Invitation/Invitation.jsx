@@ -11,6 +11,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Paper from '@mui/material/Paper';
 import { useState, useContext } from 'react';
+import Alert from '@mui/material/Alert';
 //import { UserContext } from "../../EyeglassesProvider.jsx";
 import { styled } from '@mui/material/styles';
 import ShoppingCart from '../ShoppingCart/ShoppingCart'
@@ -46,6 +47,7 @@ function Invitation() {
   const [withOrWithoutPrescription, setWithOrWithoutPrescription] = useState('')
   // {"PWRRight":0,"CYLRight":0,"PWRLeft":0,"CYLLeft":0,"PDFAR":62,"PDNEAR":62}
   const [sizeOfGlasses,setSizeOfGlasses]=useState();
+  const [alert, setAlert] = useState()
   const navigate = useNavigate();
   const withOrWithoutPrescriptionArry = ["prescriptionSaved", "fillingPrescription"]
   const CU6Arry = ["1.5", "1.6", "1.67", "1.74"];
@@ -93,6 +95,7 @@ console.log(userEyesData)
      alert(id)
       setPaper({ title: 'CU6' })
     }
+    
     else {
       setPaper({ title: title })
     }
@@ -100,9 +103,14 @@ console.log(userEyesData)
   };
 
   return (
+    
     <React.Fragment>
+      {alert}
       <Button variant="outlined" onClick={()=>{handleClickOpen('paper')
-         setPaper({ title: 'kindOfGlasses' })}
+         
+         eyeglasses.stock==0?
+
+        setAlert(<Alert severity="error">אין מספיק במלאי!.</Alert>):setPaper({ title: 'kindOfGlasses' })}
 
       } startIcon={<RemoveRedEyeIcon />}>לבחירת עדשות</Button>
       {(() => {
@@ -152,10 +160,13 @@ console.log(userEyesData)
             console.log(updatedCart);
             navigate(`/shoppingCart`)
           }
+        else if(paper.title=="paymentForm"){
+          return (<PaymentForm/>);
+        }
         else{
+
         }
       })()}
-       
     </React.Fragment>
   );}
 

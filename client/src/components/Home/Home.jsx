@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import header from '../../img/header.jpg';
 //import axios from 'axios'
 import PaymentForm from '../PaymentForm/PaymentForm';
+import EmailVerification from'../EmailVerification/EmailVerification'
 
 
 function Home(props) {    
@@ -32,7 +33,7 @@ function Home(props) {
     }));
 
     return (<>
-
+             <EmailVerification/>
         <div id={style}>
             <div>
                 <img  id={style} src={header}/>

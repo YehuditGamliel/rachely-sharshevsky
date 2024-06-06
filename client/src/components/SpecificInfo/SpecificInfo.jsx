@@ -14,11 +14,11 @@ import Alert from '@mui/material/Alert';
 function SpecificInfo() {
     // const { state } = useLocation();
     // const { photo, model, title, price } = state; 
-    const [alert, setAlert] = useState()
+  
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');
     const [moreImages, setMoreImages] = useState([])
-    const [numOfProduct, setNumOfProduct] = useState(1)
+    // const [numOfProduct, setNumOfProduct] = useState(1)
     //const [toalPrice, setToalPrice] = useState(eyeglasses.price)
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -57,52 +57,47 @@ function SpecificInfo() {
     }, [])
 
 
-    const addProduct = () => {
-{console.log("pppppp",eyeglasses.stock)}
-        if (numOfProduct + 1 >= eyeglasses.stock) {
-            setAlert(<Alert severity="error">אין מספיק במלאי!.</Alert>)
-        }
-        else {
-            setCurrentEyeglasses((previous) => ({ ...previous, price: (previous.price / numOfProduct) * (numOfProduct + 1) }));
-            setNumOfProduct(numOfProduct + 1);
-            {setCurrentEyeglasses(eyeglassesData => ({
+//     const addProduct = () => {
+// {console.log("pppppp",eyeglasses.stock)}
+        // if (numOfProduct + 1 >= eyeglasses.stock) {
+           
+        // }
+        // else {
+        //     setCurrentEyeglasses((previous) => ({ ...previous, price: (previous.price / numOfProduct) * (numOfProduct + 1) }));
+        //     setNumOfProduct(numOfProduct + 1);
+        //     {setCurrentEyeglasses(eyeglassesData => ({
 
-                ...eyeglassesData,
+        //         ...eyeglassesData,
 
-                "amount": numOfProduct
+        //         "amount": numOfProduct
 
-            }))}
-        }
-
-
+        //     }))}
+        // }
 
 
-    };
-    const removeProduct = () => {
 
 
-        if (numOfProduct - 1 != 0) {
+    
+    // const removeProduct = () => {
 
-            setCurrentEyeglasses((previous) => ({ ...previous, price: (previous.price / numOfProduct) * (numOfProduct - 1) }));
-            setNumOfProduct(numOfProduct - 1);
-            {setCurrentEyeglasses(eyeglassesData => ({
 
-                ...eyeglassesData,
+    //     // if (numOfProduct - 1 != 0) {
 
-                "amount": numOfProduct
+    //     //     setCurrentEyeglasses((previous) => ({ ...previous, price: (previous.price / numOfProduct) * (numOfProduct - 1) }));
+    //     //     setNumOfProduct(numOfProduct - 1);
+    //     //     {setCurrentEyeglasses(eyeglassesData => ({
 
-            }))}
-            // setToalPrice(toalPrice - price);
-        }
+    //     //         ...eyeglassesData,
 
-    };
+    //     //         "amount": numOfProduct
+
+    //     //     }))}
+    //         // setToalPrice(toalPrice - price);
+    //     }
+
+    // };
 
     return (<>
-
-        {/* { console.log("😊",eyeglasses.t.color */}
-
-
-        {alert}
         <div id="card">
             <div id="container">
                 <div id="title">
@@ -120,7 +115,7 @@ function SpecificInfo() {
                     <p>סה"כ</p>
                     <p id="totalPrice">{eyeglasses.price}₪</p>
                     <Invitation />
-                    <ButtonGroup
+                    {/* <ButtonGroup
                         disableElevation
                         variant="contained"
                         aria-label="Disabled button group">
@@ -128,18 +123,15 @@ function SpecificInfo() {
                         <input type="number" step="1"
                             value={numOfProduct} />
                         <Button onClick={addProduct}>+</Button>
-                    </ButtonGroup>
+                    </ButtonGroup> */}
                 </div>
             </div>
-            {console.log(moreImages)}
 
             <img id="img" src={eyeglasses.photo} />
             
         </div>
         <div id="moreGlasses">
-            {/* {moreImages.map(function(productSpec, i){
-        return <span key={i}><b>Category Name:</b> {productSpec.price}</span>;
-})} */}
+
             <div>
                 {moreImages.length > 1 ? <p> משקפיים נוספות ממותג זה...</p> : <></>}
             </div>

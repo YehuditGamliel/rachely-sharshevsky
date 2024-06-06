@@ -4,19 +4,9 @@ import { DataView } from 'primereact/dataview';
 import { Rating } from 'primereact/rating';
 import { Tag } from 'primereact/tag';
 import { classNames } from 'primereact/utils';
-// import glasses1 from '../../../img/glasses1.jpg';
-// import glasses2 from '../../../img/glasses2.jpg';
-// import glasses3 from '../../../img/glasses3.jpg';
-// import glasses4 from '../../../img/glasses4.png';
 import './ShoppingCart.css';  // Import custom CSS for additional styling
 
-// Map for images
-// const imageMapping = {
-//   glasses1,
-//   glasses2,
-//   glasses3,
-//   glasses4,
-// };
+
 
 export default function ShoppingCart() {
   const [products, setProducts] = useState([]);
@@ -51,7 +41,7 @@ export default function ShoppingCart() {
     return (
       <div className="col-12" key={product.id}>
         <div className="product-item">
-        <div className="product-name">{product.model}</div>
+        {/* <div className="product-name">{product.model}</div> */}
           <img className="product-image" src={product.photo} alt={`Image of ${product.name}`} />
           <div className="product-detail">
             <div className="product-name">{product.company}</div>
@@ -68,7 +58,7 @@ export default function ShoppingCart() {
           <Button
             icon="pi pi-trash"
             className="p-button-rounded p-button-danger p-button-icon-only"
-            onClick={() => removeFromCart(product.id)}
+            onClick={() => removeFromCart(product.model)}
           />
         </div>
       </div>
@@ -76,8 +66,8 @@ export default function ShoppingCart() {
   };
 
   // Function to remove a product from the cart
-  const removeFromCart = (productId) => {
-    const updatedProducts = products.filter((product) => product.id !== productId);
+  const removeFromCart = (productModel) => {
+    const updatedProducts = products.filter((product) => product.model !== productModel);
     setProducts(updatedProducts);
     localStorage.setItem("ShoppingCart", JSON.stringify(updatedProducts));
   };

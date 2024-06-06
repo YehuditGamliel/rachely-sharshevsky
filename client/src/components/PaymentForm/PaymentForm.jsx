@@ -23,6 +23,7 @@ const PaymentForm = () => {
 
   return (
     <div>
+     
       <Cards
         number={state.number}
         expiry={state.expiry}
