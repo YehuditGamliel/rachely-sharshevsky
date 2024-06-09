@@ -6,7 +6,7 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import header from '../../img/header.jpg';
 //import axios from 'axios'
-import PaymentForm from '../PaymentForm/PaymentForm';
+// import PaymentForm from '../PaymentForm/PaymentForm';
 import EmailVerification from'../EmailVerification/EmailVerification'
 
 
@@ -18,10 +18,11 @@ function Home(props) {
     useEffect(() => {
        if( location.pathname.slice(1)=='my-account')
         {
+            alert("hi")
             setLogin('')
               setStyle("activity")
         }
-    }, [location])
+    }, [])
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {

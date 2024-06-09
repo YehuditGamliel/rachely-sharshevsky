@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import Button from '@mui/material/Button';
+
 import '../SpecificInfo/SpecificInfo.css'
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';

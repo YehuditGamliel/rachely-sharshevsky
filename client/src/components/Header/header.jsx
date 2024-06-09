@@ -29,7 +29,6 @@ function Header() {
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [style, setStyle] = useState("activity")
     const [login, setLogin] = useState('');
-    // const { user, setCurrentUser } = useContext(UserContext);
     const [cartLength, setCartLength] = useState(0);
 
     useEffect(() => {
@@ -88,7 +87,7 @@ function Header() {
                                 setStyle("notActivity")
                             }} /></li>
                         {location.pathname.slice(1) == 'my-account' ?
-                            <li><span> Hi {user.userName} </span></li>
+                            <li><span> Hi {eyeglasses.userName} </span></li>
                             : <></>}
                     </ul>
 

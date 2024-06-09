@@ -6,12 +6,14 @@ import '../Login/Login.css'
 import Register from '../Register/Register'
 import Alert from '@mui/material/Alert';
 import { Password } from 'primereact/password';
+import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+
 
 function Login() {
     const [value, setValue] = useState('');
     const [changePassword, setChangePassword] = useState(false)
     const [errorMassage, setErrorMassage] = useState("")
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [showRegister, setShowRegister] = useState('');
     const [registerOrLogin, setRegisterOrLogin] = useState(true)
     const navigate = useNavigate();
@@ -40,8 +42,8 @@ function Login() {
         let response = await fetch(`http://localhost:8082/authorization/login`, {
             method: 'POST',
             body: JSON.stringify({
-                email: userDetails.email,
-                password: userDetails.password
+                email: 'rsh61047@gmail.com',
+                password: 'Rs@61047'
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -56,7 +58,8 @@ function Login() {
         if (json.status == 200) {
             localStorage.setItem('currentUser', JSON.stringify(
                 { userName: json.data[0].userName, email: user.email }));
-            setCurrentUser({ userName: json.data[0].userName, email: user.email })
+            setCurrentEyeglasses({ userName: json.data[0].userName, email: user.email })
+           
             // navigate(`/home/my-account`,{state:{name:json.data[0].userName}})
            navigate(`/my-account`)
 

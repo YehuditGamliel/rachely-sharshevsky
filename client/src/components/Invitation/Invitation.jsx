@@ -161,6 +161,7 @@ console.log(userEyesData)
             navigate(`/shoppingCart`)
           }
         else if(paper.title=="paymentForm"){
+          setCurrentEyeglasses( { ...eyeglasses, ...userEyesData })
           navigate(`/paymentForm`)
         }
         else{

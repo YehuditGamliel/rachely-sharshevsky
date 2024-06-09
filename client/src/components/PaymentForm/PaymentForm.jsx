@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import { useState, useContext } from 'react';
 import Cards from 'react-credit-cards-2';
+import Button from '@mui/material/Button';
+import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+
 
 const PaymentForm = () => {
+  const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+
   const [state, setState] = useState({
     number: '',
     expiry: '',
@@ -9,7 +14,34 @@ const PaymentForm = () => {
     name: '',
     focus: '',
   });
+const payment=()=>{
+  console.log(eyeglasses)
+  fetch(`http://localhost:8082/todos`, {
+          method: 'POST',
+          body: JSON.stringify({
+            userEmail:eyeglasses.email,
+            price:eyeglasses.price,
+            model: eyeglasses.nodel,
+            SPHRight:eyeglasses.SPHRight,
+            SPHLeft:eyeglasses.SPHLeft,
+            CYLRight:eyeglasses.CYLRight,
+                // userId: id
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          }
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            if (json.status != 200) {
+              alert(json.error)
+            }
+            else {
+              
+            }
+          })
 
+}
   const handleInputChange = (evt) => {
     const { name, value } = evt.target;
     console.log(name,value)
@@ -23,7 +55,6 @@ const PaymentForm = () => {
 
   return (
     <div>
-     
       <Cards
         number={state.number}
         expiry={state.expiry}
@@ -56,10 +87,7 @@ const PaymentForm = () => {
           onChange={handleInputChange}
           onFocus={handleInputFocus}
         />
-        <Button>
-          
-        </Button>
-        
+        <Button onClick={payment}>ds</Button>
       </form>
     </div>
   );

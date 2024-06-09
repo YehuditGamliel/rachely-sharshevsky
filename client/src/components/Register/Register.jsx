@@ -7,10 +7,13 @@ import '../Register/Register.css'
 import Login from '../Login/Login.jsx'
 // import { Tab } from "@mui/material";
 import PersonPinIcon from '@mui/icons-material/PersonPin';
+import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+
 
 import Tab from '@mui/material/Tab';
 function Register() {
-  const { user, setCurrentUser } = useContext(UserContext);
+  const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+
   const [extraDetails, setExterDetails] = useState(false)
   const [showLogin,setShowLogin]=useState(<Login/>);
   const [loginOrRegister,setLoginOrRegister]=useState(true);
