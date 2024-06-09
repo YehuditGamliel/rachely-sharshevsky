@@ -4,6 +4,7 @@ import { eyeglassesRouter } from './router/eyeglassesRouter.js'
 import {eyesDataRouter} from './router/eyesDataRouter.js'
 import {logErrors} from './middleware/logError.js';
 import {loginRouter} from './router/logInRouter.js'
+import { purchaseRouter } from './router/purchaseRouter.js';
 
 let allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -20,6 +21,7 @@ app.use('/users', userRouter);
 app.use('/eyeglasses', eyeglassesRouter);
 app.use('/eyesData', eyesDataRouter);
 app.use('/authorization',loginRouter);
+app.use('/purchase',purchaseRouter);
 
 app.use(logErrors);
 
