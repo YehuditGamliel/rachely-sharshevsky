@@ -17,7 +17,9 @@ function Login() {
     const [showRegister, setShowRegister] = useState('');
     const [registerOrLogin, setRegisterOrLogin] = useState(true)
     const navigate = useNavigate();
-
+    // useEffect(() => {
+    //     navigate(`/my-account`);
+    // }, [navigate]);
     useEffect(() => {
         navigate(`/login`)
     }, [])
@@ -38,7 +40,7 @@ function Login() {
     });
 
     const userExist = async (userDetails) => {
-        alert(userDetails.email)
+        // alert(userDetails.email)
         let response = await fetch(`http://localhost:8082/authorization/login`, {
             method: 'POST',
             body: JSON.stringify({
@@ -57,12 +59,14 @@ function Login() {
         // navigate(`/home/my-account`)
         if (json.status == 200) {
             console.log(json)
+            navigate(`/my-account`)
             localStorage.setItem('currentUser', JSON.stringify(
                 { userName: json.data, email: user.email }));
             setCurrentEyeglasses({ userName: json.data, email: user.email })
            
             // navigate(`/home/my-account`,{state:{name:json.data[0].userName}})
-           navigate(`/my-account`)
+          
+           
 
         }
         else if (json.status == 400) {

@@ -23,14 +23,21 @@ import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 //   },
 // }));
 
-function Header() {
+function Header(props) {
 
     let location = useLocation();
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [style, setStyle] = useState("activity")
     const [login, setLogin] = useState('');
     const [cartLength, setCartLength] = useState(0);
-
+    useEffect(() => {
+       
+        if(location.pathname === '/my-account') {
+            
+            setLogin(false);
+             setStyle("activity")
+        }
+    }, [location]);
     useEffect(() => {
       // Retrieve the "ShoppingCart" array from localStorage
       const storedCart = localStorage.getItem("ShoppingCart");

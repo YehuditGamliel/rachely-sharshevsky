@@ -20,5 +20,6 @@
     "nodemon": "^3.1.0",
     "react-credit-cards": "^0.8.3"
   },
+  "devDependencies": {},
   "description": ""
 }

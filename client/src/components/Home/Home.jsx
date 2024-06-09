@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
+import { useNavigate, Link } from 'react-router-dom';
 // import { UserContext } from "../../EyeglassesProvider";
 import './Home.css';
 import Badge from '@mui/material/Badge';
@@ -10,7 +11,8 @@ import header from '../../img/header.jpg';
 import EmailVerification from'../EmailVerification/EmailVerification'
 
 
-function Home(props) {    
+function Home(props) {   
+    const navigate = useNavigate(); 
     const sendEmail = async () => {
         
         const email = '7897149@gmail.com'; // Replace with the recipient's email address
@@ -42,14 +44,27 @@ function Home(props) {
     const [style,setStyle]=useState("activity")
     const [login,setLogin]= useState('');
     //  const { user, setCurrentUser } = useContext(UserContext);
+    // useEffect(() => {
+        
+    // }, [navigate]);
     useEffect(() => {
-       if( location.pathname.slice(1)=='my-account')
-        {
-            alert("hi")
-            setLogin('')
-              setStyle("activity")
+       
+        if(location.pathname === '/my-account') {
+            
+            setLogin(false);
+             setStyle("activity")
         }
-    }, [])
+    }, [location]);
+
+    // useEffect(() => {
+    //    if( location.pathname.slice(1)=='my-account')
+    //     {
+    //        console.log("pp")
+    //         setLogin(<></>)
+    //           setStyle("activity")
+    //     }
+    // }, [navigate])
+    // 
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {

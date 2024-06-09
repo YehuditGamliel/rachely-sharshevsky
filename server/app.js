@@ -51,8 +51,11 @@ app.post('/send-basic-email', (req, res) => {
         }
     });
 });
-
-//app.use(verifyToken);
+app.use('/users', userRouter);
+app.use('/eyeglasses', eyeglassesRouter);
+app.use('/eyesData', eyesDataRouter);
+app.use('/authorization',loginRouter);
+// app.use(verifyToken);
 app.use(logErrors);
 
 app.listen(8082, (err) => {
