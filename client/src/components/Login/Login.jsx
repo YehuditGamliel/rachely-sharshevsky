@@ -42,8 +42,8 @@ function Login() {
         let response = await fetch(`http://localhost:8082/authorization/login`, {
             method: 'POST',
             body: JSON.stringify({
-                email: 'rsh61047@gmail.com',
-                password: 'Rs@61047'
+                email: userDetails.email,
+                password: userDetails.password
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -56,9 +56,10 @@ function Login() {
         let json = await userExist(user)
         // navigate(`/home/my-account`)
         if (json.status == 200) {
+            console.log(json)
             localStorage.setItem('currentUser', JSON.stringify(
-                { userName: json.data[0].userName, email: user.email }));
-            setCurrentEyeglasses({ userName: json.data[0].userName, email: user.email })
+                { userName: json.data, email: user.email }));
+            setCurrentEyeglasses({ userName: json.data, email: user.email })
            
             // navigate(`/home/my-account`,{state:{name:json.data[0].userName}})
            navigate(`/my-account`)

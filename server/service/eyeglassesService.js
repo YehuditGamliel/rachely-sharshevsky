@@ -5,18 +5,19 @@ export class EyeglassesService {
 
     async getAllEyeglasses() {
        // console.log("service")
-
         const query = getAllQuery('eyeglasses', 'model,price,photo,title');
         const result = await executeQuery(query);
         console.log(result)
         return result;
     }
+
     async getEyeglassesByModel( model) {
         const query = getByValueQuery('eyeglasses','model','color,stock,description,BridgeWidth,lensWidth,company,material');
         const result = await executeQuery(query, [model]);
         console.log(result)
         return result;
     }
+    
     async getEyeglassesByCompany( company) {
         const query = getByValueQuery('eyeglasses','company','photo,model,title,price');
         const result = await executeQuery(query, [company]);
