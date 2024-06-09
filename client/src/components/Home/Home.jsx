@@ -11,6 +11,33 @@ import EmailVerification from'../EmailVerification/EmailVerification'
 
 
 function Home(props) {    
+    const sendEmail = async () => {
+        
+        const email = '7897149@gmail.com'; // Replace with the recipient's email address
+        const message = 'Hello, this is a test email!'; // Message content
+    
+        try {
+            console.log(email,message)
+            const response = await fetch('http://localhost:8082/send-basic-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, message }),
+            });
+    
+            if (response.ok) {
+                console.log('Email sent successfully');
+            } else {
+                console.error('Error sending email');
+            }
+        } catch (error) {
+            console.error('Failed to send email:', error);
+        }
+    };
+    
+    // Call the sendEmail function when you want to trigger the email sending
+ //sendEmail();
     let location = useLocation();
     const [style,setStyle]=useState("activity")
     const [login,setLogin]= useState('');
