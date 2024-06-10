@@ -155,10 +155,21 @@ console.log(userEyesData)
            
             const shoppingCart = { ...eyeglasses, ...userEyesData };
             const storedCart = JSON.parse(localStorage.getItem("ShoppingCart")) || [];
-            const updatedCart = [...storedCart, shoppingCart];
+            let updatedCart;
+            
+            // Check if the shoppingCart item is already in storedCart
+            const itemAlreadyInCart = storedCart.find(item => item.model === shoppingCart.model);
+            
+            // If the item is not already in the cart, add it
+            if (!itemAlreadyInCart) {
+                updatedCart = [...storedCart, shoppingCart];
+            } else {
+                updatedCart = storedCart; // Do not add the item again if it already exists
+            }
+            
             localStorage.setItem("ShoppingCart", JSON.stringify(updatedCart));
             console.log(updatedCart);
-            navigate(`/shoppingCart`)
+            navigate(`/shoppingCart`);
           }
         else if(paper.title=="paymentForm"){
           setCurrentEyeglasses( { ...eyeglasses, ...userEyesData })
