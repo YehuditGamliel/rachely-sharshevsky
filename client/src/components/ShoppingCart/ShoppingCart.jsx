@@ -46,6 +46,7 @@ export default function ShoppingCart() {
           <div className="product-detail">
             <div className="product-name">{product.company}</div>
             <div className="product-description">{product.title}</div>
+            <div className="product-description">"🌞"{product.amount>1?product.amount/2+0.5:product.amount}</div>
             <div className="product-price">{formatCurrency(product.price)}</div>
             <div className="product-rating">
               <Rating value={product.rating} readOnly stars={5} cancel={false} />

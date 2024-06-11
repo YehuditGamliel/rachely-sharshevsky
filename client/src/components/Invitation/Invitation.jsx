@@ -75,8 +75,10 @@ function Invitation() {
     if(name=='sizeOfGlasses'){
       setUserEyesdata(userItem => ({
         ...userItem,
-        [name]: id
+        [name]: id,
+        // amount: 1
       }));
+      
     }
     else{
       setUserEyesdata(userItem => ({
@@ -158,14 +160,20 @@ console.log(userEyesData)
             let updatedCart;
             
             // Check if the shoppingCart item is already in storedCart
-            const itemAlreadyInCart = storedCart.find(item => item.model === shoppingCart.model);
-            
+            const itemIndex = storedCart.findIndex(item => item.model === shoppingCart.model);            
             // If the item is not already in the cart, add it
-            if (!itemAlreadyInCart) {
-                updatedCart = [...storedCart, shoppingCart];
-            } else {
-                updatedCart = storedCart; // Do not add the item again if it already exists
-            }
+            if (itemIndex !== -1) {
+              // Update the quantity of the existing item by increasing by 1 if the item and 'amount' property exist
+              if (storedCart[itemIndex].amount) {
+                
+                  storedCart[itemIndex].amount++;
+              } else {
+                  storedCart[itemIndex].amount = 1;
+              }
+              updatedCart = [...storedCart];
+          } else {
+              updatedCart = [...storedCart, shoppingCart];
+          }
             
             localStorage.setItem("ShoppingCart", JSON.stringify(updatedCart));
             console.log(updatedCart);
