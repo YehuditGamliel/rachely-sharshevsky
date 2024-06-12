@@ -13,7 +13,7 @@ import Main from './components/Header/header';
 import PaymentForm from './components/PaymentForm/PaymentForm';
 //import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
-import Payment from './components/PaymentForm/PaymentForm.jsx'
+import Payment from './components/PaymentForm/PaymentForm.jsx';
 import { useState } from 'react';
 function App() {
   const [style, setStyle] = useState("activity")

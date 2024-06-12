@@ -12,6 +12,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Tab from '@mui/material/Tab';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import WebcamGlassesOverlay from '../WebcamGlassesOverlay/WebcamGlassesOverlay.jsx';
 
 
 // const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
@@ -70,6 +71,7 @@ function Header(props) {
     return (<>
 
         <div id={style}>
+            <WebcamGlassesOverlay/>
             <div id="links">
                 <img src={logo} id="logo" />
                 <nav id="links">

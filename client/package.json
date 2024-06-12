@@ -16,7 +16,9 @@
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.18",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@tensorflow/tfjs": "^3.21.0",
     "axios": "^1.7.2",
+    "face-api.js": "^0.22.2",
     "js-sha512": "^0.9.0",
     "primereact": "^10.6.6",
     "react": "^18.2.0",
@@ -24,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
     "react-router-dom": "^6.21.2",
+    "react-webcam": "^7.2.0",
     "styled-components": "^6.1.11",
     "validator": "^13.12.0"
   },
