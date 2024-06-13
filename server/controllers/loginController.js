@@ -7,10 +7,34 @@ import { LoginService } from '../service/loginService.js'
 export class LoginController {
           
     async Authentication(req, res, next) {
-        try {            
+        try {      
+            console.log("😊")      
             const loginService = new LoginService();
             const resultItems = await loginService.Authentication(req.body)
             if (resultItems.userName) {
+                return res.cookie('x-access-token', resultItems.token, { httpOnly: true }).json({ status: 200, data: resultItems.userName,token:resultItems.token });
+                //return res.status(200).json({ status: 200, data: resultItems });
+            }
+            else {
+                const err = {}
+                err.statusCode = 400;
+                err.message = "Incorrect data";
+                next(err)
+            }
+        }
+        catch (ex) {
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
+    async AuthenticationManager(req, res, next) {
+        try {      
+            console.log("😊")      
+            const loginService = new LoginService();
+            const resultItems = await loginService.AuthenticationManager(req.body)
+            if (resultItems.email) {
                 return res.cookie('x-access-token', resultItems.token, { httpOnly: true }).json({ status: 200, data: resultItems.userName,token:resultItems.token });
                 //return res.status(200).json({ status: 200, data: resultItems });
             }

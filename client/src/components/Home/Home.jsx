@@ -20,7 +20,7 @@ function Home(props) {
     
         try {
             console.log(email,message)
-            const response = await fetch('http://localhost:8082/send-basic-email', {
+            const response = await fetch('https://localhost:8082/send-basic-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -147,13 +147,7 @@ console.log(userEyesData)
         else if(paper.title=="ShoppingCart")
           {
             console.log("aaaa",eyeglasses.amount)
-            // setCurrentEyeglasses(prevGlassesData => ({
-
-            //   ...prevGlassesData,
-              
-            //   numOfGlasses:  prevGlassesData.amount+prevGlassesData.numOfGlasses
-              
-            //   }));
+            
            
             const shoppingCart = { ...eyeglasses, ...userEyesData };
             const storedCart = JSON.parse(localStorage.getItem("ShoppingCart")) || [];

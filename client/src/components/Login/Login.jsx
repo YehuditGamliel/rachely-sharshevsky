@@ -7,9 +7,11 @@ import Register from '../Register/Register'
 import Alert from '@mui/material/Alert';
 import { Password } from 'primereact/password';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import { useLocation } from 'react-router-dom';
 
 
 function Login() {
+    let location = useLocation();
     const [value, setValue] = useState('');
     const [changePassword, setChangePassword] = useState(false)
     const [errorMassage, setErrorMassage] = useState("")
@@ -21,7 +23,8 @@ function Login() {
     //     navigate(`/my-account`);
     // }, [navigate]);
     useEffect(() => {
-        navigate(`/login`)
+        if (location.pathname !== '/manager') {
+        navigate(`/login`)}
     }, [])
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -127,7 +130,7 @@ function Login() {
                             <form onSubmit={handleSubmit(login)}>
                                 <div className='user-box'>
                                     <input type='text' name='email' {...register("email",
-                                        { required: true, minLength: 2 })} placeholder='usename' />
+                                        { required: true, minLength: 2 })} placeholder='שם משתמש' />
                                     {errors.email && errors.email.type === "minLength" &&
                                         (<span className='span'>email must be a minimum of 2 characters long!</span>)}
                                     {errors.email && errors.email.type === "required" &&
@@ -136,7 +139,7 @@ function Login() {
                                 <div className='user-box'>
                                 <Password value={value} onChange={(e) => setValue(e.target.value)} toggleMask />
                                     <input type='password' name='password' {...register("password",
-                                        { required: true, minLength: 6 })} placeholder='password' />
+                                        { required: true, minLength: 6 })} placeholder='סיסמא' />
                                     {errors.password && errors.password.type === "minLength" &&
                                         (<span className='span'>password must be a minimum of 6 characters long!</span>)}
                                     {errors.password && errors.password.type === "required" &&

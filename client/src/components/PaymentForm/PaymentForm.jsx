@@ -16,30 +16,30 @@ const PaymentForm = () => {
   });
 const payment=()=>{
   console.log(eyeglasses)
-  fetch(`http://localhost:8082/todos`, {
-          method: 'POST',
-          body: JSON.stringify({
-            userEmail:eyeglasses.email,
-            price:eyeglasses.price,
-            model: eyeglasses.nodel,
-            SPHRight:eyeglasses.SPHRight,
-            SPHLeft:eyeglasses.SPHLeft,
-            CYLRight:eyeglasses.CYLRight,
-                // userId: id
-          }),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-            if (json.status != 200) {
-              alert(json.error)
-            }
-            else {
+  // fetch(`https://localhost:8082/todos`, {
+  //         method: 'POST',
+  //         body: JSON.stringify({
+  //           userEmail:eyeglasses.email,
+  //           price:eyeglasses.price,
+  //           model: eyeglasses.nodel,
+  //           SPHRight:eyeglasses.SPHRight,
+  //           SPHLeft:eyeglasses.SPHLeft,
+  //           CYLRight:eyeglasses.CYLRight,
+  //               // userId: id
+  //         }),
+  //         headers: {
+  //           'Content-type': 'application/json; charset=UTF-8',
+  //         }
+  //       })
+  //         .then((response) => response.json())
+  //         .then((json) => {
+  //           if (json.status != 200) {
+  //             alert(json.error)
+  //           }
+  //           else {
               
-            }
-          })
+  //           }
+  //         })
 
 }
   const handleInputChange = (evt) => {

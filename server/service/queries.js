@@ -16,11 +16,13 @@ export function addQuery(tableName, itemKeys)   {
 }
 
 export function getByValues(tableName, columns,itemKeys) {
+    console.log(tableName, columns,itemKeys)
     let condition = ""
     itemKeys.forEach(element => {
         condition += element + '='+"?" + " " + "AND"+" ";
     })
     const query = `SELECT ${columns} FROM optics.${tableName}  WHERE  isActive='1'  AND ${condition.slice(0, -4)} ;`;
+    console.log(query)
     return query
 }
 

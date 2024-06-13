@@ -12,15 +12,9 @@ import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import Alert from '@mui/material/Alert';
 
 function SpecificInfo() {
-    // const { state } = useLocation();
-    // const { photo, model, title, price } = state; 
-  
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');
     const [moreImages, setMoreImages] = useState([])
-    // const [numOfProduct, setNumOfProduct] = useState(1)
-    //const [toalPrice, setToalPrice] = useState(eyeglasses.price)
-
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
             right: -3,
@@ -32,7 +26,7 @@ function SpecificInfo() {
 
     useEffect(() => {
         console.log("specific", eyeglasses)
-        fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
+        fetch(`https://localhost:8082/eyeglasses/${eyeglasses.model}`, {
             method: 'GET',
 
         })
@@ -55,47 +49,6 @@ function SpecificInfo() {
                 }
             })
     }, [])
-
-
-//     const addProduct = () => {
-// {console.log("pppppp",eyeglasses.stock)}
-        // if (numOfProduct + 1 >= eyeglasses.stock) {
-           
-        // }
-        // else {
-        //     setCurrentEyeglasses((previous) => ({ ...previous, price: (previous.price / numOfProduct) * (numOfProduct + 1) }));
-        //     setNumOfProduct(numOfProduct + 1);
-        //     {setCurrentEyeglasses(eyeglassesData => ({
-
-        //         ...eyeglassesData,
-
-        //         "amount": numOfProduct
-
-        //     }))}
-        // }
-
-
-
-
-    
-    // const removeProduct = () => {
-
-
-    //     // if (numOfProduct - 1 != 0) {
-
-    //     //     setCurrentEyeglasses((previous) => ({ ...previous, price: (previous.price / numOfProduct) * (numOfProduct - 1) }));
-    //     //     setNumOfProduct(numOfProduct - 1);
-    //     //     {setCurrentEyeglasses(eyeglassesData => ({
-
-    //     //         ...eyeglassesData,
-
-    //     //         "amount": numOfProduct
-
-    //     //     }))}
-    //         // setToalPrice(toalPrice - price);
-    //     }
-
-    // };
 
     return (<>
         <div id="card">

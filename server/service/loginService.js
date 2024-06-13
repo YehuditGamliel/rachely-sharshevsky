@@ -6,12 +6,24 @@ export class LoginService {
 
            
     async Authentication(data) {
+        console.log(data)
         const query = getByValues('users','userName',['email','password']);
         const result = await executeQuery(query, Object.values(data));
         const token = jwt.sign({ id: data.email }, "privateKey", { expiresIn: '20m' });
         return {userName:result[0].userName,token:token};
         //return result;
         //return {token ,refreshtoken};
+    }
+    // לסדר מכאן
+    async AuthenticationManager(data) {
+        console.log(data)
+        const query = getByValues('manager','email',['userName','password']);
+        const result = await executeQuery(query, Object.values(data));
+        console.log("😍",result[0].email)
+        const token = jwt.sign({ id:result[0].email }, "privateKey", { expiresIn: '20m' });
+        return {email:result[0].email,token:token};
+        // return result;
+        // //return {token ,refreshtoken};
     }
 
     async checkEmail(email){ 

@@ -36,7 +36,7 @@ const ExpandMore = styled((props) => {
 
 const buyEyeglasses = (id) => {
 
-  fetch(`http://localhost:8082/eyeglasses/${model}`, {
+  fetch(`https://localhost:8082/eyeglasses/${model}`, {
     method: 'PUT',
     body: JSON.stringify({
       // model: props.model,
