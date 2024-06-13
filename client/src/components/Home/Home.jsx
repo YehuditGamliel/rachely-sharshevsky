@@ -76,7 +76,7 @@ function Home(props) {
     }));
 
     return (<>
-             <EmailVerification/>
+             {/* <EmailVerification/> */}
         <div id={style}>
             <div>
                 <img  id={style} src={header}/>

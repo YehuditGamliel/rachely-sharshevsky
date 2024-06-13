@@ -71,7 +71,7 @@ function Header(props) {
     return (<>
 
         <div id={style}>
-            <WebcamGlassesOverlay/>
+            {/* <WebcamGlassesOverlay/> */}
             <div id="links">
                 <img src={logo} id="logo" />
                 <nav id="links">
