@@ -53,6 +53,7 @@ console.log(img)
       console.error('Error loading glasses image:', error);
       alert(`Glasses image loading error: ${error.message}`);
     };
+
   }, []);
   const drawGlasses = async () => {
     if (webcamRef.current && webcamRef.current.video.readyState === 4 && glassesImg) {

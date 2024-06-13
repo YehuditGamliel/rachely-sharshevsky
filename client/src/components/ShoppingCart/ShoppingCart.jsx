@@ -4,8 +4,10 @@ import { DataView } from 'primereact/dataview';
 import { Rating } from 'primereact/rating';
 import { Tag } from 'primereact/tag';
 import { classNames } from 'primereact/utils';
+import DeleteIcon from '@mui/icons-material/Delete';
 import './ShoppingCart.css';  // Import custom CSS for additional styling
-
+import IconButton from '@mui/material/IconButton';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 
 export default function ShoppingCart() {
@@ -40,13 +42,16 @@ export default function ShoppingCart() {
   const itemTemplate = (product) => {
     return (
       <div className="col-12" key={product.id}>
+       {/* {product.amount=(product.amount>1)?product.amount/2+0.5:product.amount} */}
+
         <div className="product-item">
         {/* <div className="product-name">{product.model}</div> */}
           <img className="product-image" src={product.photo} alt={`Image of ${product.name}`} />
           <div className="product-detail">
             <div className="product-name">{product.company}</div>
             <div className="product-description">{product.title}</div>
-            <div className="product-description">"🌞"{product.amount>1?product.amount/2+0.5:product.amount}</div>
+         
+            <div className="product-description">{product.amount>1?product.amount/2+0.5:product.amount}</div>
             <div className="product-price">{formatCurrency(product.price)}</div>
             <div className="product-rating">
               <Rating value={product.rating} readOnly stars={5} cancel={false} />
@@ -56,11 +61,11 @@ export default function ShoppingCart() {
             </div>
           </div>
           
-          <Button
-            icon="pi pi-trash"
-            className="p-button-rounded p-button-danger p-button-icon-only"
-            onClick={() => removeFromCart(product.model)}
-          />
+          <Button onClick={() => removeFromCart(product.model)}>
+        <DeleteOutlineOutlinedIcon />
+  
+</Button>
+
         </div>
       </div>
     );

@@ -111,35 +111,27 @@ function SpecificInfo() {
                 <p>רוחב גשר:{eyeglasses.BridgeWidth}</p>
                 <p>חומר מסגרת:{eyeglasses.material}</p>
 
-                <div id="bottom">
+                <div id="datas">
                     <p>סה"כ</p>
                     <p id="totalPrice">{eyeglasses.price}₪</p>
                     <Invitation />
-                    {/* <ButtonGroup
-                        disableElevation
-                        variant="contained"
-                        aria-label="Disabled button group">
-                        <Button onClick={removeProduct}>-</Button>
-                        <input type="number" step="1"
-                            value={numOfProduct} />
-                        <Button onClick={addProduct}>+</Button>
-                    </ButtonGroup> */}
+                 
                 </div>
             </div>
 
-            <img id="img" src={eyeglasses.photo} />
+            <img id="imgBig" src={eyeglasses.photo} />
             
         </div>
         <div id="moreGlasses">
 
-            <div>
+            <div className="title">
                 {moreImages.length > 1 ? <p> משקפיים נוספות ממותג זה...</p> : <></>}
             </div>
             <div id="moreGlasses">
                 {moreImages.map((img, index) =>
-                    (img.model != eyeglasses.model) ? <SingleEyeglasses key={index} id="SingleEyeglasses" model={img.model} price={img.price} photo={img.photo} title={img.title} />
+                    (img.model != eyeglasses.model) ? <SingleEyeglasses key={index} id="singleEyeglasses" model={img.model} price={img.price} photo={img.photo} title={img.title} />
                         : console.log(img.model, "pp", eyeglasses.model)
-                    //    }
+                    
                 )
                 }
             </div>

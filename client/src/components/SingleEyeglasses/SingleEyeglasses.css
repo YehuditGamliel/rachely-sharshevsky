@@ -6,3 +6,11 @@
     font-size: 16px;
     letter-spacing: 4px
 }
+.css-1ri6ub7-MuiPaper-root-MuiCard-root {
+    overflow: hidden;
+    padding:10px;
+    margin: 10px;
+}
+.cards{
+    margin:30px
+}

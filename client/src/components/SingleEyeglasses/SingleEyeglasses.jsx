@@ -79,25 +79,17 @@ const buyEyeglasses = (id) => {
   }
   return (
     <>
-    {/* {camera==''? */}
     
-    <Card sx={{ maxWidth: 345 }}>
-      {/* כותרת להוסיף מה שנרצה.... */}
-      <CardHeader
+    <Card id ="cards" sx={{ maxWidth: 300 }}>
+      <CardHeader 
         title={props.title}
         />
-{showCamera?<WebcamGlassesOverlay img={props.photo} />:
-        <CardMedia
-        
+     {showCamera?<WebcamGlassesOverlay img={props.photo} />:
+        <CardMedia id="img"
         component="img"
-
-
-        height="194"
-        
+        height="170"
         image={ props.photo}
-        
         alt="Eyeglasses"
-        
         />}
         
         {/* {showCamera && <WebcamGlassesOverlay /> } */}
@@ -107,7 +99,7 @@ const buyEyeglasses = (id) => {
               <Button  onClick={()=>displaySpecificInfo()} variant="contained" endIcon={<ChevronLeftIcon />}>
                 לפרטים
               </Button>
-              <Button onClick={() => setShowCamera(prevState => !prevState)} variant="contained" endIcon={<CameraAltIcon />}>                איך זה אלי?
+              <Button onClick={() => setShowCamera(prevState => !prevState)} variant="contained" endIcon={<CameraAltIcon />}>  איך זה עלי?
               </Button>
           </CardActions>
 
