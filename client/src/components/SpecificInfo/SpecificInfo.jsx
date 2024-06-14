@@ -53,7 +53,7 @@ function SpecificInfo() {
     }, [])
 
     return (<>
-    {alert(user)}
+    
         <div id="card">
             <div id="container">
                 <div id="title">
