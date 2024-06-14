@@ -12,7 +12,7 @@ import SingleEyeglasses from "../SingleEyeglasses/SingleEyeglasses.jsx";
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import Alert from '@mui/material/Alert';
 // const AuthContext = createContext();
-function SpecificInfo() {
+function EditingGlassesDetails() {
     const { user, loginAction, logOut } = useAuth();
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');
@@ -53,46 +53,47 @@ function SpecificInfo() {
     }, [])
 
     return (<>
-    {alert(user)}
-        <div id="card">
-            <div id="container">
-                <div id="title">
-                    <p>{eyeglasses.title} <></>
-                        {displaySpecificInfo.company}</p>
+        {alert(user)}
+            <div id="card">
+                <div id="container">
+                    <div id="title">
+                        <p>{eyeglasses.title} <></>
+                            {displaySpecificInfo.company}</p>
+                    </div>
+                   
+                    <p>{eyeglasses.price}₪</p>
+                    <p> דגם:{eyeglasses.model}</p>
+                    <p>צבע עיקרי:{eyeglasses.color}</p>
+                    <p> רחוב עדשה:{eyeglasses.lensWidth}</p>
+                    <p>רוחב גשר:{eyeglasses.BridgeWidth}</p>
+                    <p>חומר מסגרת:{eyeglasses.material}</p>
+    
+                    <div id="datas">
+                        <p>סה"כ</p>
+                        <p id="totalPrice">{eyeglasses.price}₪</p>
+                        <Invitation />
+                     
+                    </div>
                 </div>
-                <p>{eyeglasses.price}₪</p>
-                <p> דגם:{eyeglasses.model}</p>
-                <p>צבע עיקרי:{eyeglasses.color}</p>
-                <p> רחוב עדשה:{eyeglasses.lensWidth}</p>
-                <p>רוחב גשר:{eyeglasses.BridgeWidth}</p>
-                <p>חומר מסגרת:{eyeglasses.material}</p>
-
-                <div id="datas">
-                    <p>סה"כ</p>
-                    <p id="totalPrice">{eyeglasses.price}₪</p>
-                    <Invitation />
-                 
-                </div>
-            </div>
-
-            <img id="imgBig" src={eyeglasses.photo} />
-            
-        </div>
-        <div id="moreGlasses">
-
-            <div className="title">
-                {moreImages.length > 1 ? <p> משקפיים נוספות ממותג זה...</p> : <></>}
+    
+                <img id="imgBig" src={eyeglasses.photo} />
+                
             </div>
             <div id="moreGlasses">
-                {moreImages.map((img, index) =>
-                    (img.model != eyeglasses.model) ? <SingleEyeglasses key={index} id="singleEyeglasses" model={img.model} price={img.price} photo={img.photo} title={img.title} />
-                        : console.log(img.model, "pp", eyeglasses.model)
-                    
-                )
-                }
+    
+                <div className="title">
+                    {moreImages.length > 1 ? <p> משקפיים נוספות ממותג זה...</p> : <></>}
+                </div>
+                <div id="moreGlasses">
+                    {moreImages.map((img, index) =>
+                        (img.model != eyeglasses.model) ? <SingleEyeglasses key={index} id="singleEyeglasses" model={img.model} price={img.price} photo={img.photo} title={img.title} />
+                            : console.log(img.model, "pp", eyeglasses.model)
+                        
+                    )
+                    }
+                </div>
             </div>
-        </div>
-    </>)
+        </>)
     
 }
-export default SpecificInfo;
+export default EditingGlassesDetails;

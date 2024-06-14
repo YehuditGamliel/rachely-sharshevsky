@@ -12,6 +12,7 @@ import LoginManager from './components/LoginManger/LoginManager.jsx';
 import Dashboard from './components/Dashboard/Dashbord.jsx';
 import PrivateRoute from './router/PrivateRoute';
 import AuthProvider from './hook/AuthProvider';
+import EditingGlassesDetails from './components/EditingGlassesDetails/EditingGlassesDetail.jsx'
 
 function App() {
   return (
@@ -33,6 +34,10 @@ function App() {
               <Route path="eyeglasses">
                 <Route index element={<Eyeglasses />} />
                 <Route path=":eyeglassesModel" element={<SpecificInfo />} />
+              </Route>
+              <Route path="EditingGlasses">
+                <Route index element={<Eyeglasses />} />
+                <Route path=":eyeglassesModel" element={<EditingGlassesDetails />} />
               </Route>
             </Route>
           </Routes>

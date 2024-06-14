@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useAuth } from '../../hook/AuthProvider.jsx'
+
 import{useContext} from 'react';
 import { useLocation } from "react-router-dom";
 import { Navigate } from "react-router-dom";
@@ -67,6 +69,7 @@ const buyEyeglasses = (id) => {
 }
 
  function SingleEyeglasses(props) {
+  const { user, loginAction, logOut } = useAuth();
 
  const { eyeglasses,setCurrentEyeglasses } = useContext(EyeglassesContext);
   const [expanded, setExpanded] = React.useState(false);
@@ -75,6 +78,11 @@ const buyEyeglasses = (id) => {
   const displaySpecificInfo=()=>{
     setCurrentEyeglasses({"photo":props.photo,"model":props.model,"title":props.title,"price":props.price})
      navigate(`/eyeglasses/${props.model}`)
+  
+  }
+  const displayEditingGlassesDetails=()=>{
+    setCurrentEyeglasses({"photo":props.photo,"model":props.model,"title":props.title,"price":props.price})
+     navigate(`/EditingGlasses/${props.model}`)
   
   }
   return (
@@ -96,6 +104,9 @@ const buyEyeglasses = (id) => {
       <span> {props.price}</span>
       <span>ש"ח</span>
           <CardActions disableSpacing>
+            {user!=''?<Button onClick={()=>displayEditingGlassesDetails()} variant="contained" > שינוי פרטים
+              </Button>:<></>
+                           }
               <Button  onClick={()=>displaySpecificInfo()} variant="contained" endIcon={<ChevronLeftIcon />}>
                 לפרטים
               </Button>
