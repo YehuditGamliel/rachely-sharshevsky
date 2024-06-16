@@ -13,11 +13,14 @@ import  SingleEyeglassee  from '../SingleEyeglasses/SingleEyeglasses.jsx';
 function Eyeglasses() {
 
   const [displayEyeglasses, setDisplayEyglasses] = useState([]);
+  const [loadMore, setLoadMore] = useState(true)
+  const [eyeglassesPage, setEyeglassesPage] = useState(1);
   const navigate = useNavigate();
 
   useEffect(() => {
    // {console.log("p",eyeglasses)}
-    fetch(`http://localhost:8082/eyeglasses`, {
+   if(loadMore == true){
+    fetch(`http://localhost:8082/eyeglasses?_page=${eyeglassesPage}`, {
       method: 'GET',
     
     })
@@ -27,14 +30,16 @@ function Eyeglasses() {
           alert(json.error)
         }
         else {
-          // console.log(json.data[0])
-          setDisplayEyglasses(...displayEyeglasses, json.data)
-          //setLastSearch("all")
-          //seeMore.current = false;
-          //alert("oooooo")
+          console.log("json.data",json.data)
+          console.log("displayEyeglasses",displayEyeglasses)
+          setDisplayEyglasses([...displayEyeglasses, ...json.data])
         }
       })
-  }, [])
+      setLoadMore(false)
+      setEyeglassesPage(eyeglassesPage+1)
+    }
+  }, [loadMore])
+
   const glassesInfo = async (glassesId) => {
     navigate(`/home`)
   }
@@ -42,12 +47,14 @@ function Eyeglasses() {
 
   return (<>
   {/* <Mirror/> */}
+  {console.log("displayEyeglasses",displayEyeglasses)}
     <div id='container'>
       {displayEyeglasses.map((eyeglasses, index) => <div key={index} class="glasses">
         <SingleEyeglassee model={eyeglasses.model} price={eyeglasses.price} photo={eyeglasses.photo} title=
         {eyeglasses.title} />
       </div>)
       }
+      <button onClick={() => { setLoadMore(true) }}>load more</button>
       </div>
   </>)
 }

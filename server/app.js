@@ -7,6 +7,7 @@ import { logErrors } from './middleware/logError.js';
 import { loginRouter } from './router/logInRouter.js';
 import { purchaseRouter } from './router/purchaseRouter.js';
 import { verifyToken } from './middleware/verifyToken.js';
+// import {editingGlassesRouter} from './router/editingGlassesRouter.js'
 
 let allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -32,7 +33,7 @@ const transporter = nodemailer.createTransport({
 app.post('/send-basic-email', (req, res) => {
     
     const { email, message } = req.body;
-    console.log(message,email)
+    console.log("😂",message,email)
 
     const mailOptions = {
         from: 'rsh61047@gmail.com',
@@ -55,6 +56,7 @@ app.use('/users', userRouter);
 app.use('/eyeglasses', eyeglassesRouter);
 app.use('/eyesData', eyesDataRouter);
 app.use('/authorization',loginRouter);
+//  app.use('/EditingGlasses',editingGlassesRouter)
 // app.use(verifyToken);
 app.use(logErrors);
 

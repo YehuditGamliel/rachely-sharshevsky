@@ -27,18 +27,19 @@ function SpecificInfo() {
     }));
 
     useEffect(() => {
-        console.log("specific", eyeglasses)
-        fetch(`https://localhost:8082/eyeglasses/${eyeglasses.model}`, {
+        {alert(eyeglasses.model)}
+        fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
             method: 'GET',
 
         })
-            .then(response => response.json())
+            .then(response => response.json(),console.log("😍","specific"))
             .then((json) => {
                 if (json.status != 200) {
                     alert(json.error)
+                    console.log("😂🙌", json.data[0][0])
                 }
                 else {
-                    console.log("😂", json.data[0][0])
+                    console.log("😂🙌", json.data[0][0])
 
                     setMoreImages([...moreImages, ...json.data[1]])
 
@@ -53,7 +54,7 @@ function SpecificInfo() {
     }, [])
 
     return (<>
-    
+    {console.log(eyeglasses,displaySpecificInfo)}
         <div id="card">
             <div id="container">
                 <div id="title">

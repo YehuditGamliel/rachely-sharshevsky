@@ -7,9 +7,6 @@ const WebcamGlassesOverlay = ({img}) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [glassesImg, setGlassesImg] = useState(null);
-
-
-
   
   // Log the loading process step-by-step
   useEffect(() => {
@@ -19,6 +16,8 @@ const WebcamGlassesOverlay = ({img}) => {
         await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
         console.log('Tiny Face Detector Model loaded');
 
+
+        
         console.log('Loading Face Landmark 68 model...');
         await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
         console.log('Face Landmark Model loaded');
@@ -38,6 +37,9 @@ const WebcamGlassesOverlay = ({img}) => {
   useEffect(() => {
     const imgElement = new Image();
 console.log(img)
+
+
+
     imgElement.src = img;
      imgElement.crossOrigin = 'anonymous'
     // img.src = '/without.png';

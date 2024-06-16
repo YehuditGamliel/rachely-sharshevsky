@@ -23,10 +23,27 @@ function EditingGlassesDetails() {
 
     const handleConfirmChanges = () => {
         // You can add logic here to confirm the changes and update the database
+
+        fetch(`http://localhost:8082/eyeglasses/${editedEyeglasses.model}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(editedEyeglasses),
+        })
+        .then(response => response.json())
+        .then((json) => {
+            // Handle the response if needed
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error('Error updating eyeglasses data:', error);
+        });
         // Make an API call to save the editedEyeglasses data
     };
 
     const handleChange = (field, value) => {
+        
         setEditedEyeglasses({
             ...editedEyeglasses,
             [field]: value,
@@ -47,7 +64,8 @@ function EditingGlassesDetails() {
 
     useEffect(() => {
         console.log("specific", eyeglasses)
-        fetch(`https://localhost:8082/eyeglasses/${eyeglasses.model}`, {
+
+        fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
             method: 'GET',
 
         })
@@ -80,31 +98,73 @@ function EditingGlassesDetails() {
                             label="Title"
                             value={editedEyeglasses.title}
                             onChange={(e) => handleChange('title', e.target.value)}
-                            fullWidth
+                        
                             disabled={!isEditing}
                         />
-                        <p>{eyeglasses.title} <></>
-                            {displaySpecificInfo.company}</p>
+                        {/* <p>{eyeglasses.title} <></> */}
+                            {/* {displaySpecificInfo.company}</p> */}
                     </div>
-                    <p>{eyeglasses.price}₪</p>
-                    <p> דגם:{eyeglasses.model}</p>
-                    <p>צבע עיקרי:{eyeglasses.color}</p>
-                    <p> רחוב עדשה:{eyeglasses.lensWidth}</p>
-                    <p>רוחב גשר:{eyeglasses.BridgeWidth}</p>
-                    <p>חומר מסגרת:{eyeglasses.material}</p>
+                    <TextField
+                            label="Company"
+                            value={editedEyeglasses.company}
+                            onChange={(e) => handleChange('company', e.target.value)}
+                            // fullWidth
+                            disabled={!isEditing}
+                        />
+                       <TextField
+                        label="Price"
+                        value={editedEyeglasses.price}
+                        onChange={(e) => handleChange('price', e.target.value)}
+                        disabled={!isEditing}
+                    />
+                         <TextField
+                        label="דגם"
+                        value={editedEyeglasses.model}
+                        onChange={(e) => handleChange('model', e.target.value)}
+                        disabled={!isEditing}
+                    />
+                            <TextField
+                        label="צבע עיקרי:"
+                        value={editedEyeglasses.color}
+                        onChange={(e) => handleChange('color', e.target.value)}
+                        disabled={!isEditing}
+                    />
+                    {/* <p> דגם:{eyeglasses.model}</p> */}
+                    <TextField
+                        label="רוחב עדשה"
+                        value={editedEyeglasses.lensWidth}
+                        onChange={(e) => handleChange('lensWidth', e.target.value)}
+                        disabled={!isEditing}
+                    />
+                    
+                    <TextField
+                        label="רוחב גשר:"
+                        value={editedEyeglasses.BridgeWidth}
+                        onChange={(e) => handleChange('BridgeWidth', e.target.value)}
+                        disabled={!isEditing}/>
+                            <TextField
+                        label="חומר מסגרת:"
+                        value={editedEyeglasses.material}
+                        onChange={(e) => handleChange('material', e.target.value)}
+                        disabled={!isEditing}/>
     
                     <div id="datas">
-                        <p>סה"כ</p>
-                        <p id="totalPrice">{eyeglasses.price}₪</p>
-                        <Invitation />
+                        {/* <p>סה"כ</p>
+                        <p id="totalPrice">{eyeglasses.price}₪</p> */}
+                        {/* <Invitation /> */}
                      
-                    </div>
+                                    {/* Add other TextFields for model, color, lensWidth, BridgeWidth, material */}
+
+                                    {isEditing || <Button onClick={handleEdit} variant="contained">עריכת פרטים</Button>}
+                    {isEditing && <Button onClick={handleConfirmChanges} variant="contained" color="primary">אישור השינויים</Button>}
                 </div>
+            </div>
+    
     
                 <img id="imgBig" src={eyeglasses.photo} />
                 
             </div>
-            <div id="moreGlasses">
+            {/* <div id="moreGlasses">
     
                 <div className="title">
                     {moreImages.length > 1 ? <p> משקפיים נוספות ממותג זה...</p> : <></>}
@@ -117,7 +177,7 @@ function EditingGlassesDetails() {
                     )
                     }
                 </div>
-            </div>
+            </div> */}
         </>)
     
 }

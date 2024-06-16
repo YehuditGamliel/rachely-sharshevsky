@@ -1,11 +1,13 @@
 
 import { executeQuery } from './db.js';
-import {getByValueQuery, addQuery, getAllQuery } from './queries.js'
+import {getByValueQuery, addQuery, getAllQuery,updateQuery } from './queries.js'
 export class EyeglassesService {
 
-    async getAllEyeglasses() {
+
+    async getAllEyeglasses(q) {
        // console.log("service")
-        const query = getAllQuery('eyeglasses', 'model,price,photo,title');
+       console.log("q",q)
+        const query = getAllQuery('eyeglasses', 'model,price,photo,title',q);
         const result = await executeQuery(query);
         console.log(result)
         return result;
@@ -38,4 +40,15 @@ export class EyeglassesService {
         const result = await executeQuery(query, Object.values(itemDetailes));
         return result;
     }
+ 
+    async updateEyeGlasses(value, itemDetailsArray) {
+        const itemDetails = itemDetailsArray[0]; // Access the object inside the array
+        const values = Object.values(itemDetails);
+        const keys = Object.keys(itemDetails);
+        console.log("Keys:", keys, "Values:", values);
+        const query = updateQuery('eyeglasses', 'model', keys);
+        const result = await executeQuery(query, [...values, value]);
+        return result;
+    }
+    
 }
