@@ -15,9 +15,6 @@ const WebcamGlassesOverlay = ({img}) => {
         console.log('Loading Tiny Face Detector model...');
         await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
         console.log('Tiny Face Detector Model loaded');
-
-
-        
         console.log('Loading Face Landmark 68 model...');
         await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
         console.log('Face Landmark Model loaded');
@@ -37,10 +34,8 @@ const WebcamGlassesOverlay = ({img}) => {
   useEffect(() => {
     const imgElement = new Image();
 console.log(img)
-
-
-
     imgElement.src = img;
+    console.log(imgElement)
      imgElement.crossOrigin = 'anonymous'
     // img.src = '/without.png';
      // Adjust path to your glasses image
@@ -48,12 +43,9 @@ console.log(img)
       console.log('Glasses image loaded');
       setGlassesImg(imgElement);
     };
-
-
-
     imgElement.onerror = (error) => {
       console.error('Error loading glasses image:', error);
-      alert(`Glasses image loading error: ${error.message}`);
+      //alert(`Glasses image loading error: ${error.message}`);
     };
 
   }, []);
@@ -61,6 +53,7 @@ console.log(img)
 
 
   
+
   const drawGlasses = async () => {
     if (webcamRef.current && webcamRef.current.video.readyState === 4 && glassesImg) {
       const video = webcamRef.current.video;
@@ -103,6 +96,8 @@ console.log(img)
     }
   };
 
+
+
   return (
     <div style={{position: 'relative', width: 'fit-content' }}>
       <Webcam
@@ -113,15 +108,11 @@ console.log(img)
         height={200}
         videoConstraints={{ width: 440, height: 180, facingMode: 'user' }}
         // style={{ position: 'absolute' }}
-
-
-
       />
-             <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0 }} />
+      <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0 }} />
         
     </div>
   );
 };
-
 
 export default WebcamGlassesOverlay;

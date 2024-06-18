@@ -11,6 +11,7 @@ import PayPalButtonsComponent from '../../components/PayPalButtonsComponent/PayP
 //import axios from 'axios'
 // import PaymentForm from '../PaymentForm/PaymentForm';
 import EmailVerification from'../EmailVerification/EmailVerification'
+import jsonData from '../../assets/data.json'
 
 
 function Home(props) {   
@@ -78,14 +79,19 @@ function Home(props) {
         </PayPalScriptProvider>
         <div id={style}>
             <div>
-                <img  id={style} src={header}/>
-                <h1 id="title">אופטיקה אי-סנטר</h1>
+                <img  id="img" src={header}/>
+                <h1 id="title">{jsonData.dataHome[0].title}</h1>
                 <span id="text">
-                    אתר “אופטיקה אי-סנטר” הוקם בכדי לתת ללקוחות שלנו את המענה המהיר והמקצועי ביותר ובשירות ישיר עד לפתח ביתכם. באתר תוכלו למצוא מגוון מוצרי אופטיקה מובחרים: עדשות מגע, משקפי ראייה ומשקפי שמש,
-                    וכן תוכלו להשאיר את פרטיכם במידה ותרצו להתייעץ עם הצוות המקצועי שלנו.
-                    החזון של אופטיקה אי-סנטר לאפשר לכל שכבות האוכלוסייה בישראל לרכוש משקפי ראייה, משקפי שמש ועדשות מגע, במחיר השווה לכל נפש.
-                    בפעילותה שברה הרשת את המונופול שהיה קיים בתחום האופטיקה בישראל כאשר הציעה משקפיים במחירים הוגנים וזולים ומבצעים אשר גררו אחריהם הוזלת מחירים בכל הענף.
+                {jsonData.dataHome[0].description}
                 </span>
+                <p className='subtitle'>
+                {jsonData.dataHome[1].title}
+                </p>
+                <span id="text">{jsonData.dataHome[1].description}</span>
+                <p className='subtitle'>
+                {jsonData.dataHome[2].title}
+                </p>
+                <span id="text">{jsonData.dataHome[2].description}</span>
                 <div id='bottom'>
                     <span id='titleBottom'>צרו איתנו קשר</span>
                 </div>
