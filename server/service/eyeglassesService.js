@@ -1,6 +1,6 @@
 
 import { executeQuery } from './db.js';
-import {getByValueQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery } from './queries.js'
+import {getByValueQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery ,deleteQuery} from './queries.js'
 export class EyeglassesService {
 
 
@@ -56,6 +56,12 @@ export class EyeglassesService {
     //  }
 
     //
+    async deleteEyeglasses (model){
+        console.log(model)
+        const query = deleteQuery('eyeglasses');
+        const result = await executeQuery(query,model);
+        return result;
+    }
     async addEyeglasses( itemDetailes) {
         console.log(Object.values(itemDetailes))
         const query = addQuery('eyeglasses','model,price,photo,p');

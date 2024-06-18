@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useAuth } from '../../hook/AuthProvider.jsx'
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import{useContext} from 'react';
 import { useLocation } from "react-router-dom";
 import { Navigate } from "react-router-dom";
@@ -35,7 +35,25 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-
+const deleteEyeGlasses = (model,setIsExist) => {
+  fetch(`http://localhost:8082/eyeglasses/${model}`, {
+    method: 'DELETE',
+  }).then((response) => response.json())
+  .then(json => {
+    if (json.status == 200) {
+      setIsExist(false)
+      // setTodos(todos.map((todo) => {
+      //   if (todo.id == idTodo) {
+      //     return { id: id, title: valuesTodo.title, completed: valuesTodo.completed }
+      //   }
+      //   return todo
+      // }))
+    }
+    else {
+      alert(json.error)
+    }
+  })
+};
 const buyEyeglasses = (id) => {
 
   fetch(`https://localhost:8082/eyeglasses/${model}`, {
@@ -70,11 +88,20 @@ const buyEyeglasses = (id) => {
 
  function SingleEyeglasses(props) {
   const { user, loginAction, logOut } = useAuth();
-
+const [isExist,setIsExist]=React.useState(true)
  const { eyeglasses,setCurrentEyeglasses } = useContext(EyeglassesContext);
   const [expanded, setExpanded] = React.useState(false);
   const [showCamera, setShowCamera] = React.useState(false);  const navigate = useNavigate();
- 
+  const buttonsFunc=()=>{
+   return (<><Button onClick={()=>displayEditingGlassesDetails()} variant="contained" > שינוי פרטים
+   </Button>
+   {/* <button onClick={onClick} style={{ backgroundColor: 'red', color: 'white', padding: '10px 20px', borderRadius: '5px', border: 'none', cursor: 'pointer' }}>
+      Garbage Button
+    </button> */}
+  <Button onClick={()=>deleteEyeGlasses(props.model,setIsExist)}  variant="contained" > 
+  <DeleteIcon/>
+   </Button></>);
+  }
   const displaySpecificInfo=()=>{
     setCurrentEyeglasses({"photo":props.photo,"model":props.model,"title":props.title,"price":props.price})
      navigate(`/eyeglasses/${props.model}`)
@@ -87,7 +114,7 @@ const buyEyeglasses = (id) => {
   }
   return (
     <>
-    
+    {isExist?
     <Card id ="cards" sx={{ maxWidth: 300 }}>
       <CardHeader 
         title={props.title}
@@ -104,9 +131,9 @@ const buyEyeglasses = (id) => {
       <span> {props.price}</span>
       <span>ש"ח</span>
           <CardActions disableSpacing>
-            {user!=''?<Button onClick={()=>displayEditingGlassesDetails()} variant="contained" > שינוי פרטים
-              </Button>:<></>
-                           }
+            {user!=''?buttonsFunc()
+              :<></>}
+             
               <Button  onClick={()=>displaySpecificInfo()} variant="contained" endIcon={<ChevronLeftIcon />}>
                 לפרטים
               </Button>
@@ -114,7 +141,7 @@ const buyEyeglasses = (id) => {
               </Button>
           </CardActions>
 
-    </Card>
+    </Card>:<></>}
    
     </>
   );

@@ -24,23 +24,54 @@ function EditingGlassesDetails() {
     const handleConfirmChanges = () => {
         // You can add logic here to confirm the changes and update the database
 
-        fetch(`http://localhost:8082/eyeglasses/${editedEyeglasses.model}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(editedEyeglasses),
-        })
-        .then(response => response.json())
-        .then((json) => {
-            // Handle the response if needed
-        })
-        .catch(error => {
-            // Handle any errors
-            console.error('Error updating eyeglasses data:', error);
-        });
-        // Make an API call to save the editedEyeglasses data
-    };
+    //     fetch(`http://localhost:8082/eyeglasses/${editedEyeglasses.model}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(editedEyeglasses),
+    //     })
+    //     .then(response => response.json())
+    //     .then((json) => {
+    //         // Handle the response if needed
+    //     })
+    //     .catch(error => {
+    //         // Handle any errors
+    //         console.error('Error updating eyeglasses data:', error);
+    //     });
+    //     // Make an API call to save the editedEyeglasses data
+    fetch(`http://localhost:8082/eyeglasses/${editedEyeglasses.model}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify(editedEyeglasses),
+        body: JSON.stringify([
+            {
+                "color": editedEyeglasses.color,
+                "stock": editedEyeglasses.stock,
+                "description": editedEyeglasses.description,
+                "BridgeWidth": editedEyeglasses.BridgeWidth,
+                "lensWidth": editedEyeglasses.lensWidth,
+                "company": editedEyeglasses.company,
+                "material": editedEyeglasses.material
+            }
+        ]),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update eyeglasses');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Handle the response data if needed
+    })
+    .catch(error => {
+        console.error('Error updating eyeglasses data:', error);
+    });
+};
+
 
     const handleChange = (field, value) => {
         
@@ -75,14 +106,16 @@ function EditingGlassesDetails() {
                     alert(json.error)
                 }
                 else {
+
                     console.log("😂", json.data[0][0])
 
                     setMoreImages([...moreImages, ...json.data[1]])
 
-                    setCurrentEyeglasses(glassesData => ({
+                    setEditedEyeglasses(glassesData => ({
                         ...glassesData,
                         ...json.data[0][0]
                     }));
+                    console.log("😂", eyeglasses)
 
 
                 }

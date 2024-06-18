@@ -48,8 +48,9 @@ function Header(props) {
         // Check if it is indeed an array
         if (Array.isArray(parsedCart)) {
           // Get the length of the array
-          const length = parsedCart.length;
-  
+          //const length = parsedCart.length;
+         let length=0;
+         parsedCart.forEach(product=>length+=(product.amount>1)?product.amount/2+0.5:1);
           // Set the length to state
           setCartLength(length);
           console.log("popo",)

@@ -9,7 +9,12 @@ export function getAllSortedQuery(tableName,columns,q,sortedKey) {
     return query
     //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
 }
-
+export function deleteQuery(tableName) {
+    console.log("❤️❤️❤️")
+    const query = ` UPDATE optics.eyeglasses SET isActive =0 WHERE model = ${model} AND isActive =1; `;
+    return query
+    
+}
 export function addQuery(tableName, itemKeys)   {
     let keys = "", QuestionMark = "";
     itemKeys.forEach(element => {

@@ -85,11 +85,13 @@ async getEyeglassesByModel(req, res, next) {
 }
 
 
-    async deletecomment(req, res, next) {
+    async deleteEyeglasses(req, res, next) {
+        
     try {
-        const commentsService = new TableService();
-        await commentsService.deleteObject(CommentController.tableName, req.params.id);
-        res.status(200).json({ status: 200, data: req.params.id });
+        console.log("😊")
+        const eyeglassesService = new EyeglassesService();
+        await eyeglassesService.deleteEyeglasses( req.params.model);
+        res.status(200).json({ status: 200, data: req.params.model });
     }
     catch (ex) {
         const err = {}

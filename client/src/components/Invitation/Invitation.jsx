@@ -16,6 +16,7 @@ import ShoppingCart from '../ShoppingCart/ShoppingCart'
 import PaymentForm from '../PaymentForm/PaymentForm'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import Header from '../Header/header.jsx';
 import './Invitation.css'
 import KindOfClasses from './kindOfGlasses/kindOfGlasses';
 import CU6 from './CU6/CU6'
@@ -168,6 +169,7 @@ console.log(userEyesData)
           }
             
             localStorage.setItem("ShoppingCart", JSON.stringify(updatedCart));
+            <Header/>
             console.log(updatedCart);
             navigate(`/shoppingCart`);
           }

@@ -7,6 +7,7 @@ import { classNames } from 'primereact/utils';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './ShoppingCart.css';  // Import custom CSS for additional styling
 import IconButton from '@mui/material/IconButton';
+import Header from '../Header/header';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 
@@ -16,6 +17,7 @@ export default function ShoppingCart() {
   useEffect(() => {
     const storedProducts = JSON.parse(localStorage.getItem("ShoppingCart")) || [];
     setProducts(storedProducts);
+    
     console.log("😒",products)
   }, []);
 
@@ -73,6 +75,7 @@ export default function ShoppingCart() {
 
   // Function to remove a product from the cart
   const removeFromCart = (productModel) => {
+    //אם בחר כמה מאותו משקפיים למחוק את הכל?
     const updatedProducts = products.filter((product) => product.model !== productModel);
     setProducts(updatedProducts);
     localStorage.setItem("ShoppingCart", JSON.stringify(updatedProducts));
