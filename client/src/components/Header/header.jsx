@@ -42,11 +42,9 @@ function Header(props) {
     useEffect(() => {
       // Retrieve the "ShoppingCart" array from localStorage
       const storedCart = localStorage.getItem("ShoppingCart");
-  
       if (storedCart) {
         // Parse the JSON string to get the array
         const parsedCart = JSON.parse(storedCart);
-  
         // Check if it is indeed an array
         if (Array.isArray(parsedCart)) {
           // Get the length of the array

@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.18",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@paypal/react-paypal-js": "^8.5.0",
     "@tensorflow/tfjs": "^3.21.0",
     "axios": "^1.7.2",
     "face-api.js": "^0.22.2",

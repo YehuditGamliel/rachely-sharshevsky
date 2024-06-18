@@ -1,17 +1,39 @@
 
 import { executeQuery } from './db.js';
-import {getByValueQuery, addQuery, getAllQuery,updateQuery } from './queries.js'
+import {getByValueQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery } from './queries.js'
 export class EyeglassesService {
 
 
-    async getAllEyeglasses(q) {
-       // console.log("service")
-       console.log("q",q)
-        const query = getAllQuery('eyeglasses', 'model,price,photo,title',q);
+    async  getAllEyeglasses(q) {
+        let query = null;
+    
+        if (Object.keys(q)[0] === '_page') {
+            query = getAllQuery('eyeglasses', 'model,price,photo,title', q);
+        } else {
+            query = getAllSortedQuery('eyeglasses', 'model,price,photo,title', q, q.sort); 
+        }
         const result = await executeQuery(query);
-        console.log(result)
+        console.log("😒",q  ,result)
+
         return result;
     }
+    // async getAllEyeglasses  (req) {
+    //     const q = req.query; // Get query parameters
+    //     const sortedBy = q.sortedBy; // Extract 'sortedBy' from the query parameters
+    //      if(sortedBy=''){
+    //         const query = getAllQuery('eyeglasses', 'model,price,photo,title',q);
+    //      }
+    //     // Use the 'sortedBy' parameter in your query logic
+    //     // Example: Sort the data based on the 'sortedBy' parameter
+    //    else{
+    //     const query = getAllSOrtedQuery('eyeglasses', 'model,price,photo,title', q, sortedBy);
+        
+    //    } 
+    //    const result = await executeQuery(query);
+
+    //     console.log(result);
+    //     return res.json(result);
+    // };
 
     async getEyeglassesByModel( model) {
         const query = getByValueQuery('eyeglasses','model','color,stock,description,BridgeWidth,lensWidth,company,material');

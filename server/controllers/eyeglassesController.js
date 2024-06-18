@@ -9,7 +9,7 @@ export class EyeglassesController {
         //let limit = Object.values(req.query).slice(1)
         const eyeglassesService = new EyeglassesService();
         const resultItems = await eyeglassesService.getAllEyeglasses(req.query)
-       
+       console.log(resultItems)
         return res.status(200).json({ status: 200, data: resultItems });
     }
     catch (ex) {
@@ -22,11 +22,12 @@ export class EyeglassesController {
 async getEyeglassesByModel(req, res, next) {
     console.log("Controller E")
     try {
+        console.log("hi")
         //let limit = Object.values(req.query).slice(1)
         const eyeglassesService = new EyeglassesService();
         const resultItems = await eyeglassesService.getEyeglassesByModel(req.params.model)
         const result = await eyeglassesService.getEyeglassesByCompany(resultItems[0].company)
-        console.log(result)
+        console.log("by",resultItems,result)
         return res.status(200).json({ status: 200, data: [resultItems,result] });
     }
     catch (ex) {
@@ -44,7 +45,8 @@ async getEyeglassesByModel(req, res, next) {
         //let limit = Object.values(req.query).slice(1)
         const eyeglassesService = new EyeglassesService();
         const result = await eyeglassesService.updateEyeGlasses(req.params.model,req.body)
-        res.status(200).json({ status: 200 });
+        console.log("hiiiiiiiii",result)
+        res.status(200).json({ status: 200 ,data:""});
       
     }
     catch (ex) {

@@ -11,7 +11,7 @@ import  SingleEyeglassee  from '../SingleEyeglasses/SingleEyeglasses.jsx';
 
 
 function Eyeglasses() {
-
+  const [lastAction, setLastAction] = useState({ action: "", type: "" });
   const [displayEyeglasses, setDisplayEyglasses] = useState([]);
   const [loadMore, setLoadMore] = useState(true)
   const [eyeglassesPage, setEyeglassesPage] = useState(1);
@@ -43,10 +43,33 @@ function Eyeglasses() {
   const glassesInfo = async (glassesId) => {
     navigate(`/home`)
   }
+  const sortBy = (event) => {
+    // let start = seeMore.current ? todos.length : 0
+     let value =  event.target.value;
+    navigate(`/eyeglasses?sortBy=${ value}`)
+    fetch(`http://localhost:8082/eyeglasses?_page=${eyeglassesPage}&sort=${value}`, {
+      method: 'GET'
+    })
+      .then(response => response.json())
+      .then((json) => {
+        if (json.status != 200) {
+          alert(json.error)
+        }
+        else {
+          setDisplayEyglasses(json.data)
+          console.log(displayEyeglasses,json.data)
 
+          setLastAction({ action: "sort", type: `${value}` });
+        }
+      })
+  }
 
   return (<>
-  {/* <Mirror/> */}
+         <select id="sortBy" onChange={sortBy}>
+          <option value="completed">completed</option>
+          <option value="company">company</option>
+          <option value="price" >price</option>
+        </select>
   {console.log("displayEyeglasses",displayEyeglasses)}
     <div id='container'>
       {displayEyeglasses.map((eyeglasses, index) => <div key={index} class="glasses">

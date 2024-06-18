@@ -4,6 +4,11 @@ export function getAllQuery(tableName,columns,q) {
     return query
     //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
 }
+export function getAllSortedQuery(tableName,columns,q,sortedKey) {
+    const query = `SELECT ${columns} FROM optics.${tableName} LIMIT 5 OFFSET ${(q._page - 1) * 5} ORDER BY ${sortedKey};`;
+    return query
+    //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
+}
 
 export function addQuery(tableName, itemKeys)   {
     let keys = "", QuestionMark = "";

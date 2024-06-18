@@ -6,6 +6,8 @@ import './Home.css';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import header from '../../img/header.jpg';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import PayPalButtonsComponent from '../../components/PayPalButtonsComponent/PayPalButtonsComponent.jsx'
 //import axios from 'axios'
 // import PaymentForm from '../PaymentForm/PaymentForm';
 import EmailVerification from'../EmailVerification/EmailVerification'
@@ -20,7 +22,7 @@ function Home(props) {
     
         try {
             console.log(email,message)
-            const response = await fetch('http://localhost:8082/send-basic-email', {
+            const response = await fetch('https://localhost:8082/send-basic-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,7 +41,7 @@ function Home(props) {
     };
     
     // Call the sendEmail function when you want to trigger the email sending
- sendEmail();
+ //sendEmail();
     let location = useLocation();
     const [style,setStyle]=useState("activity")
     const [login,setLogin]= useState('');
@@ -55,16 +57,11 @@ function Home(props) {
              setStyle("activity")
         }
     }, [location]);
-
-    // useEffect(() => {
-    //    if( location.pathname.slice(1)=='my-account')
-    //     {
-    //        console.log("pp")
-    //         setLogin(<></>)
-    //           setStyle("activity")
-    //     }
-    // }, [navigate])
-    // 
+    const initialOptions = {
+        clientId: "test",
+        currency: "USD",
+        intent: "capture",
+    };
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -76,7 +73,9 @@ function Home(props) {
     }));
 
     return (<>
-             {/* <EmailVerification/> */}
+  <PayPalScriptProvider options={initialOptions}>
+            <PayPalButtons />
+        </PayPalScriptProvider>
         <div id={style}>
             <div>
                 <img  id={style} src={header}/>

@@ -34,6 +34,7 @@ function App() {
               <Route path="eyeglasses">
                 <Route index element={<Eyeglasses />} />
                 <Route path=":eyeglassesModel" element={<SpecificInfo />} />
+                <Route path="?sortBy" element={<Eyeglasses/>}/>
               </Route>
               <Route path="EditingGlasses">
                 <Route index element={<Eyeglasses />} />
@@ -44,6 +45,12 @@ function App() {
         </AuthProvider>
       </Router>
     </div>
+  //    <Route path="todos">
+  //    <Route index element={<Todos />} />
+  //    <Route path=":todoId" element={<Todos />} />
+  //    <Route path="search" element={<Todos />} />
+  //    <Route path="?sortBy" element={<Todos/>}/>
+  //  </Route>
   );
 }
 
