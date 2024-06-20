@@ -13,6 +13,9 @@ import EmailVerification from'../EmailVerification/EmailVerification'
 import jsonData from '../../assets/data.json'
 
 
+import SimpleMap from '../SimpleMap.jsx'
+
+
 function Home(props) {   
     const navigate = useNavigate(); 
     const sendEmail = async () => {
@@ -71,6 +74,7 @@ function Home(props) {
     return (<>
  
         <div id={style}>
+            <SimpleMap/>
             <div>
                 <img  id="img" src={header}/>
                 <h1 id="title">{jsonData.dataHome[0].title}</h1>
