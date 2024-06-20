@@ -12,19 +12,18 @@ const AuthProvider = ({ children }) => {
   const loginAction = async (data) => {
     try {
       console.log(data);
-  
-      const response = await fetch(`http://localhost:8082/authorization/loginManager`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      let response = await fetch(`http://localhost:8082/authorization/loginManager`, {
+        method: 'POST',
         body: JSON.stringify({
-          //  userName:data.userName,
-          //  password:data.password
-          userName: "Racheli",
-          password: "rS@61047"
+           userName: data.userName,
+          password: data.password
         }),
-      });
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        }
+    })
+    return response.json();
+     
   
       const res = await response.json();
   

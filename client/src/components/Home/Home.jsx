@@ -6,8 +6,7 @@ import './Home.css';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import header from '../../img/header.jpg';
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import PayPalButtonsComponent from '../../components/PayPalButtonsComponent/PayPalButtonsComponent.jsx'
+// import PayPalButtonsComponent from '../../components/PayPalButtonsComponent/PayPalButtonsComponent.jsx'
 //import axios from 'axios'
 // import PaymentForm from '../PaymentForm/PaymentForm';
 import EmailVerification from'../EmailVerification/EmailVerification'
@@ -58,11 +57,7 @@ function Home(props) {
              setStyle("activity")
         }
     }, [location]);
-    const initialOptions = {
-        clientId: "test",
-        currency: "USD",
-        intent: "capture",
-    };
+ 
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -74,9 +69,7 @@ function Home(props) {
     }));
 
     return (<>
-  <PayPalScriptProvider options={initialOptions}>
-            <PayPalButtons />
-        </PayPalScriptProvider>
+ 
         <div id={style}>
             <div>
                 <img  id="img" src={header}/>

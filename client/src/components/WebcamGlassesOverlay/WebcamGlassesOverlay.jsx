@@ -7,9 +7,11 @@ const WebcamGlassesOverlay = ({img}) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [glassesImg, setGlassesImg] = useState(null);
-  
+ 
   // Log the loading process step-by-step
   useEffect(() => {
+
+
     const loadModels = async () => {
       try {
         console.log('Loading Tiny Face Detector model...');

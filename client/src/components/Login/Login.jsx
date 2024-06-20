@@ -29,13 +29,13 @@ function Login() {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            email: '',
+            username: '',
             password: '',
         }
     });
     const { register: passwords, handleSubmit: handleSubmit2, formState: { errors: errors2 } } = useForm({
         defaultValues: {
-            email: '',
+            username: '',
             oldPassword: '',
             newPassword: '',
             verifyPassword: ''
@@ -43,11 +43,11 @@ function Login() {
     });
 
     const userExist = async (userDetails) => {
-        // alert(userDetails.email)
+        // alert(userDetails.username)
         let response = await fetch(`http://localhost:8082/authorization/login`, {
             method: 'POST',
             body: JSON.stringify({
-                email: userDetails.email,
+            userName: userDetails.userName,
                 password: userDetails.password
             }),
             headers: {
@@ -64,8 +64,8 @@ function Login() {
             console.log(json)
             navigate(`/my-account`)
             localStorage.setItem('currentUser', JSON.stringify(
-                { userName: json.data, email: user.email }));
-            setCurrentEyeglasses({ userName: json.data, email: user.email })
+                { userName: user.userName, username: json.data }));
+            setCurrentEyeglasses({ userName: user.userName, username: json.data })
            
             // navigate(`/home/my-account`,{state:{name:json.data[0].userName}})
           
@@ -73,7 +73,7 @@ function Login() {
 
         }
         else if (json.status == 400) {
-            <Alert severity="error">The email
+            <Alert severity="error">The username
                 or password you entered is incorrect, please try again or sign up..</Alert>
         }
         else {
@@ -87,13 +87,13 @@ function Login() {
             setErrorMassage("verity is not correct,try again")
         else {
             setErrorMassage(" ")
-            let json = await userExist({ email: passwords.email, password: passwords.oldPassword })
+            let json = await userExist({ username: passwords.username, password: passwords.oldPassword })
             if (json.status == 200) {
                 fetch(`http://localhost:8082/authorization/login`, {
                     method: 'PUT',
                     body: JSON.stringify({
                         userId: json.data[0].id,
-                        email: passwords.email,
+                        username: passwords.username,
                         password: passwords.newPassword
                     }),
                     headers: {
@@ -107,7 +107,7 @@ function Login() {
                     })
             }
             else if (json.status == 400) {
-                <Alert severity="error">The email or password you entered is incorrect, please try again or sign up.</Alert>
+                <Alert severity="error">The username or password you entered is incorrect, please try again or sign up.</Alert>
             }
             else {
                 alert(json.error)
@@ -129,12 +129,12 @@ function Login() {
                         {!changePassword ?
                             <form onSubmit={handleSubmit(login)}>
                                 <div className='user-box'>
-                                    <input type='text' name='email' {...register("email",
+                                    <input type='text' name='userName' {...register("userName",
                                         { required: true, minLength: 2 })} placeholder='שם משתמש' />
-                                    {errors.email && errors.email.type === "minLength" &&
-                                        (<span className='span'>email must be a minimum of 2 characters long!</span>)}
-                                    {errors.email && errors.email.type === "required" &&
-                                        (<span className='span'>email is required</span>)}
+                                    {errors.username && errors.username.type === "minLength" &&
+                                        (<span className='span'>username must be a minimum of 2 characters long!</span>)}
+                                    {errors.username && errors.username.type === "required" &&
+                                        (<span className='span'>username is required</span>)}
                                 </div>
                                 <div className='user-box'>
                                 <Password value={value} onChange={(e) => setValue(e.target.value)} toggleMask />
@@ -150,12 +150,12 @@ function Login() {
                             </form>
                             : <><p>{errorMassage}</p>
                                 <form onSubmit={handleSubmit2(handleChangePassword)}>
-                                    <input type='text' name='email' {...passwords("email",
+                                    <input type='text' name='username' {...passwords("username",
                                         { required: true, minLength: 2 })} placeholder='usename' />
-                                    {errors.email && errors.email.type === "minLength" &&
-                                        (<span className='span'>email must be a minimum of 2 characters long!</span>)}
-                                    {errors.email && errors.email.type === "required" &&
-                                        (<span className='span'>email is required</span>)}
+                                    {errors.username && errors.username.type === "minLength" &&
+                                        (<span className='span'>username must be a minimum of 2 characters long!</span>)}
+                                    {errors.username && errors.username.type === "required" &&
+                                        (<span className='span'>username is required</span>)}
                                     <input type='password' name='oldPassword'{...passwords("oldPassword",
                                         { required: true, minLength: 6 })} placeholder='old Password' />
                                     {errors2.oldPassword &&

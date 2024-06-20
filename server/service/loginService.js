@@ -7,16 +7,18 @@ export class LoginService {
            
     async Authentication(data) {
         console.log(data)
-        const query = getByValues('users','userName',['email','password']);
+        const query = getByValues('manager','email',['userName','password']);
+        console.log("result:",query)
         const result = await executeQuery(query, Object.values(data));
-        const token = jwt.sign({ id: data.email }, "privateKey", { expiresIn: '20m' });
-        return {userName:result[0].userName,token:token};
+        console.log("result:",result)
+        const token = jwt.sign({ id: data.userName }, "privateKey", { expiresIn: '20m' });
+        return {userName:result[0].email,token:token};
         //return result;
         //return {token ,refreshtoken};
     }
     // לסדר מכאן
     async AuthenticationManager(data) {
-        console.log(data)
+        console.log("data",Object.values(data),data,Object.keys(data))
         const query = getByValues('manager','email',['userName','password']);
         const result = await executeQuery(query, Object.values(data));
         console.log("😍",result[0].email)
