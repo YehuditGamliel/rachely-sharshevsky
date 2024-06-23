@@ -1,182 +1,265 @@
+//  import React, { useState, useEffect } from "react";
+//  import Autocomplete from '@mui/material/Autocomplete';
+// import opticsBranches from '../assets/data.json'
+// import TextField from '@mui/material/TextField';
+// const [currentOptics,setCurrentOptics]=useState({"lat": 31.8111189072549, 
+//           "lng": 35.21515356901045, 
+//           "address": "זולטי 9 רמת שלמה ירושלים", 
+//           "details": "אופטיקת מומחים"})
+// const shopLocations =[
 
-// // import GoogleMapReact from 'google-map-react';
-// // import React, { useState } from "react";
-// // // import { Map, Marker} from "@vis.gl/react-google-maps";
+// { lat: 31.8111189072549, lng: 35.21515356901045, address: "זולטי 7 רמת שלמה ירושלים", details: "אופטיקת מומחים" },
 
-// // const AnyReactComponent = ({ text }) => <div>{text}</div>;
+// { lat: 31.790174968679562, lng: 35.19898014288, address: "Your Second Shop Address", details: "Details about the second shop" }
 
-// // export default function SimpleMap(){
-  
-// //   const defaultProps = {
-// //     center: {
-// //       lat: 10.99835602,
-// //       lng: 77.01502627
-// //     },
-// //     zoom: 11
-// //   };
-// //   var mapOptions = {
-// //     zoom: 17,
-// //     center: new google.maps.LatLng(-34.397, 150.644),
-// //     mapTypeId: google.maps.MapTypeId.ROADMAP
-// //   };
-// //   var map = new google.maps.Map(document.getElementById('map_canvas'),
-// //       mapOptions);
-// //   var GeoMarker = new GeolocationMarker(map);
-// //   const [markerLocation, setMarkerLocation] = useState({
-// //     lat: 51.509865,
-// //     lng: -0.118092,
-// //   });
-// //   return (
-// //     // Important! Always set the container height explicitly
-// //     <div style={{ height: '100vh', width: '100%' }}>
-      
-// //       <GoogleMapReact
-// //         bootstrapURLKeys={{ key: "" }}
-// //         defaultCenter={markerLocation}
-// //         defaultZoom={defaultProps.zoom}
-// //         gestureHandling={"greedy"}
-// //         disableDefaultUI
-// //       >
-// //         <AnyReactComponent
-// //           lat={59.955413}
-// //           lng={30.337844}
-// //           text="My Marker"
-// //         />
-// //       </GoogleMapReact>
-// //         {/* <Map
-// //         style={{ borderRadius: "20px" }}
-// //         defaultZoom={13}
-// //         defaultCenter={markerLocation}
-// //         gestureHandling={"greedy"}
-// //         disableDefaultUI
-// //       >
-// //         <Marker position={markerLocation} />
-// //       </Map> */}
-// //     </div>
-    
-// //   );
-// // }
-// import React, { useState, useEffect } from "react";
-// import GoogleMapReact from 'google-map-react';
+// ];
 
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
+// // [
+
+// // { lat: 31.8111189072549, lng: 35.21515356901045, address: "זולטי 7 רמת שלמה ירושלים", details: "אופטיקת מומחים" },
+
+// // { lat: 31.790174968679562, lng: 35.19898014288, address: "Your Second Shop Address", details: "Details about the second shop" }
+
+// // ];
 
 // export default function SimpleMap(){
-//   const [markerLocation, setMarkerLocation] = useState({
-//     lat: 51.509865,
-//     lng: -0.118092,
-//   });
 
-//   useEffect(() => {
-//     const script = document.createElement('script');
-//     script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA33-COv0qHOuISWzrCxYIg_f-N7XtQOyk`;
-//     script.async = true;
-//     script.onload = initializeMap;
-//     document.head.appendChild(script);
-//   }, []);
+// useEffect(() => {
 
-//   const initializeMap = () => {
-//     var mapOptions = {
-//       zoom: 17,
-//       center: { lat: -34.397, lng: 150.644 },
-//       mapTypeId: window.google.maps.MapTypeId.ROADMAP
-//     };
-//     var map = new window.google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-//     var GeoMarker = new window.GeolocationMarker(map);
+// const script = document.createElement('script');
+
+// script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyA33-COv0qHOuISWzrCxYIg_f-N7XtQOyk';
+
+// script.async = true;
+
+// script.onload = initializeMap;
+
+// document.head.appendChild(script);
+
+// }, []);
+
+
+// // const initializeMap = () => {
+
+// // var mapOptions = {
+
+// // zoom: 13,
+
+// // center: { lat: 31.8111189072549, lng: 35.21515356901045 },
+
+// // mapTypeId: window.google.maps.MapTypeId.ROADMAP
+
+// // };
+
+// // var map = new window.google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+
+// // shopLocations.forEach((location, index) => {
+
+// // var shopMarker = new window.google.maps.Marker({
+
+// // position: location,
+
+// // map: map,
+
+// // title: ShopLocation ${index + 1}
+
+// // });
+// const [shopLocation, setShopLocation] = useState({
+//   lat: 51.509865,
+//   lng: -0.118092,
+// });
+
+// const initializeMap = () => {
+//   var mapOptions = {
+//     zoom: 17,
+//     center: { lat: shopLocation.lat, lng: shopLocation.lng },
+//     mapTypeId: window.google.maps.MapTypeId.ROADMAP
 //   };
+//   var map = new window.google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+  
+//   var shopMarker = new window.google.maps.Marker({
+//     position: shopLocation,
+//     map: map,
+//     title: 'Shop Location'
+//   });
+// var infoWindow = new window.google.maps.InfoWindow({
+//   content: `
+//     <div>
+//       <h3>Shop Name</h3>
+//       <p>Shop Address: Your Shop Address</p>
+//       <p>Shop Details: Details about your shop</p>
+//     </div>`
+// });
 
-//   return (
-//     <div style={{ height: '100vh', width: '100%' }}>
-//       <div id="map_canvas" style={{ height: '100%', width: '100%' }}></div>
-//     </div>
-//   );
+// // var infoWindow = new window.google.maps.InfoWindow({
+
+// // content: `
+
+// // <div>
+
+// // <h3>Shop Name ${index + 1}</h3>
+
+// // <p>Shop Address: ${location.address}</p>
+
+// // <p>Shop Details: ${location.details}</p>
+
+// // </div>`
+
+// // });
+
+
+// shopMarker.addListener('click', function() {
+
+// infoWindow.open(map, shopMarker);
+
+// });
+
+
+
+// };
+
+
+
+// return (
+//   <>
+//   <Autocomplete
+//       disablePortal
+//       id="combo-box-demo"
+//       options={top100Films}
+//       sx={{ width: 300 }}
+//       renderInput={(params) => <TextField {...params} label="Movie" />}
+//     />
+
+// <div style={{ height: '100vh', width: '100%' }}>
+
+// <div id="map_canvas" style={{ height: '100%', width: '100%' }}></div>
+
+// </div>
+// </>
+// );
+
 // }
 import React, { useState, useEffect } from "react";
 
+ import Autocomplete from '@mui/material/Autocomplete';
+import opticsBranches from '../assets/data.json'
+import TextField from '@mui/material/TextField';
 export default function SimpleMap(){
-  //31.8111189072549, 35.21515356901045
-  const [opticsLocation, setShopLocation] = useState({
-    lat: 31.8111189072549,
-   lng: 35.21515356901045,
-  });
 
-  useEffect(() => {
-    
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA33-COv0qHOuISWzrCxYIg_f-N7XtQOyk`;
-    script.async = true;
-    script.onload = initializeMap;
-    document.head.appendChild(script);
-  }, []);
+//31.8111189072549, 35.21515356901045
+const opticsLocation2 = [
+ 
+  { label:"ירושלים","lat": 31.8111189072549, 
+    "lng": 35.21515356901045, 
+    "address": "זולטי 9 רמת שלמה ירושלים", 
+    "details": "אופטיקת מומחים"}, 
+    {label:"p","lat": 32.8111189072549, 
+      "lng": 35.21515356901045, 
+      "address": "זולטי 9 רמת שלמה ירושלים", 
+      "details": "אופטיקת מומחים"},
+      {label:"p","lat": 31.81189072549, 
+        "lng": 35.21515356901045, 
+        "address": "זולטי 9 רמת שלמה ירושלים", 
+        "details": "אופטיקת מומחים"}]
+const [opticsLocation, setShopLocation] = useState({
 
-  const initializeMap = () => {
-    var mapOptions = {
-      zoom: 17,
-      center: { lat: opticsLocation.lat, lng: opticsLocation.lng },
-      mapTypeId: window.google.maps.MapTypeId.ROADMAP
-    };
-    var map = new window.google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-    
-    var shopMarker = new window.google.maps.Marker({
-      position: opticsLocation,
-      map: map,
-      title: 'Shop Location'
-    });
+lat: 31.8111189072549,
 
-    var infoWindow = new window.google.maps.InfoWindow({
-      content: `
-        <div>
-          <h3>Shop Name</h3>
-          <p>EyeCenter Address: זולטי 7 רמת שלמה ירושלים</p>
-          <p>EyeCenter Details: אופטיקת מומחים</p>
-        </div>`
-    });
+lng: 35.21515356901045,
 
-    shopMarker.addListener('click', function() {
-      infoWindow.open(map, shopMarker);
-    });
+});
+
+const [currentOptics,setCurrentOptics]=useState({"lat": 31.8111189072549, 
+          "lng": 35.21515356901045, 
+          "address": "זולטי 9 רמת שלמה ירושלים", 
+          "details": "אופטיקת מומחים"})
+
+useEffect(() => {
+
+const script = document.createElement('script');
+
+script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyA33-COv0qHOuISWzrCxYIg_f-N7XtQOyk';
+
+script.async = true;
+
+script.onload = initializeMap;
+
+document.head.appendChild(script);
+
+}, []);
+
+
+const initializeMap = () => {
+
+  var mapOptions = {
+  
+  zoom: 17,
+  
+  center: { lat: opticsLocation.lat, lng: opticsLocation.lng },
+  
+  mapTypeId: window.google.maps.MapTypeId.ROADMAP
+  
   };
 
-  return (
-    <div style={{ height: '100vh', width: '100%' }}>
-      <div id="map_canvas" style={{ height: '100%', width: '100%' }}></div>
-    </div>
-  );
+var map = new window.google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+var shopMarker = new window.google.maps.Marker({
+
+position: opticsLocation,
+
+map: map,
+
+title: 'Shop Location'
+
+});
+
+
+var infoWindow = new window.google.maps.InfoWindow({
+
+content: `
+
+<div>
+
+<h3>EyeCenter</h3>
+
+<p>EyeCenter Address: ${currentOptics.address}/p>
+
+<p>EyeCenter Details:${currentOptics.details}</p>
+
+</div>`
+
+});
+
+
+shopMarker.addListener('click', function() {
+
+infoWindow.open(map, shopMarker);
+
+});
+
+
+
 }
-// import React, { useState, useEffect } from "react";
-// //31.811759323159762, 35.217300964163925
-// export default function SimpleMap(){
-//   const [shopLocation, setShopLocation] = useState({
-//     lat: 31.811759323159762,
-//     lng: 35.217300964163925,
-//   });
 
-//   useEffect(() => {
-//     const script = document.createElement('script');
-//     script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA33-COv0qHOuISWzrCxYIg_f-N7XtQOyk`;
-//     script.async = true;
-//     script.onload = initializeMap;
-//     document.head.appendChild(script);
-//   }, []);
+return (
 
-//   const initializeMap = () => {
-//     var mapOptions = {
-//       zoom: 17,
-//       center: { lat: shopLocation.lat, lng: shopLocation.lng },
-//       mapTypeId: window.google.maps.MapTypeId.ROADMAP
-//     };
-//     var map = new window.google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-    
-//     var shopMarker = new window.google.maps.Marker({
-//       position: shopLocation,
-//       map: map,
-//       title: 'Shop Location'
-//     });
-//   };
+<div style={{ height: '100vh', width: '100%' }}>
+   <Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={opticsLocation2}
+      sx={{ width: 300 }}
+      onChange={(event, value) => setCurrentOptics({"lat": value.lat, 
+        "lng": value.lng, 
+        "address":value.address,
+        "details": value.details})}
+      renderInput={(params) => <TextField {...params} label="Movie" />}
+    />
+<div id="map_canvas" style={{ height: '100%', width: '100%' }}></div>
 
-//   return (
-//     <div style={{ height: '100vh', width: '100%' }}>
-//       <div id="map_canvas" style={{ height: '100%', width: '100%' }}></div>
-//     </div>
-//   );
-// }
+</div>
+
+);
+
+}

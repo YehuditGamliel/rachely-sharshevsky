@@ -74,7 +74,7 @@ function Home(props) {
     return (<>
  
         <div id={style}>
-            <SimpleMap/>
+          
             <div>
                 <img  id="img" src={header}/>
                 <h1 id="title">{jsonData.dataHome[0].title}</h1>
@@ -89,12 +89,15 @@ function Home(props) {
                 {jsonData.dataHome[2].title}
                 </p>
                 <span id="text">{jsonData.dataHome[2].description}</span>
+                <p>לסניפים שלנו :</p>
+                <SimpleMap/>
                 <div id='bottom'>
                     <span id='titleBottom'>צרו איתנו קשר</span>
                 </div>
 
             </div>
         </div>
+      
         {login}
       
     </>)
