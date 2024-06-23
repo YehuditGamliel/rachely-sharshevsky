@@ -310,6 +310,7 @@ export class GoogleMap extends Component {
 
     return (
       <div className="showmap">
+     
         <Map
           google={this.props.google}
           zoom={12}

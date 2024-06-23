@@ -23,6 +23,7 @@ import GoogleMap from '../GoogleMap.jsx';
 function Home(props) {  
       const [cities, setCities ] = useState([]); 
       const [branches,setBranches]=useState([])
+      const[googleMapDetails,setGoogleMapDetails]=useState(false)
       const [search,setSearch]=useState('city')
     const navigate = useNavigate(); 
     const sendEmail = async () => {
@@ -88,7 +89,7 @@ function Home(props) {
     }, [location]);
     const lookForCity = (event) => {
     console.log(event.target.value)
-        fetch(`http://localhost:8082/branch?city=${event.target.value}`, {
+        fetch(`http://localhost:8082/branch/${event.target.value}`, {
             method: 'GET',
           
           })
@@ -107,13 +108,13 @@ function Home(props) {
             })
           
           };
-          const showDetails=(event)=>{
-            console.log("🥻",event.target.value)
-            return (
+          const showDetails = (event) => {
+            console.log("🥻", event.target.value);
+            setGoogleMapDetails([...event.target.value])
+                // <GoogleMap lat={event.target.value.lat} lng={event.target.value.lng} address={"זולטי 9 רמת שלמה ירושלים"} />
+
            
-                <p>פלאפון:${event.target.value}</p>
-            );
-          }
+        }
       
     
 
@@ -135,7 +136,9 @@ function Home(props) {
  })}
 </select>:<select className="branches-chooseCity" onChange={showDetails}>     
 <option selected>בחירת סניף</option>
- {cities.map((branch) => {
+
+ {branches.map((branch) => {
+    {console.log("p",branch)}
    return <option>{branch.street}</option>;
  })}
 </select>
@@ -149,9 +152,17 @@ function Home(props) {
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} label="Movie" />}
     /> */}
-<GoogleMap/>
+
         <div id={style}>
-          
+        {console.log("😍",googleMapDetails)}
+            {(googleMapDetails!=false)?
+               console.log("😍🤷‍♀️",googleMapDetails)
+            :
+             <></>
+            }
+             
+
+
             <div>
                 <img  id="img" src={header}/>
                 <h1 id="title">{jsonData.dataHome[0].title}</h1>
@@ -167,7 +178,6 @@ function Home(props) {
                 </p>
                 <span id="text">{jsonData.dataHome[2].description}</span>
                 <p>לסניפים שלנו :</p>
-                <GoogleMap lat={31.8111189072549} lng={35.21515356901045} address={ "זולטי 9 רמת שלמה ירושלים"}   description={"אופטיקת מומחים"}/>
                 <div id='bottom'>
                     <span id='titleBottom'>צרו איתנו קשר</span>
                 </div>

@@ -8,6 +8,7 @@ import { loginRouter } from './router/logInRouter.js';
 import {branchRouter} from './router/branchRouter.js'
 import { purchaseRouter } from './router/purchaseRouter.js';
 import { verifyToken } from './middleware/verifyToken.js';
+
 // import {editingGlassesRouter} from './router/editingGlassesRouter.js'
 
 let allowCrossDomain = function(req, res, next) {
@@ -21,38 +22,32 @@ const app = express();
 app.use(express.json());
 app.use(allowCrossDomain);
 
-// Nodemailer setup
+
+// Create a transporter object
 const transporter = nodemailer.createTransport({
-    service: 'Gmail', // Update with your email service
-    auth: {
-        user: 'rsh61047@gmail.com', // Update with your email account credentials
-        pass: '0583261047'
-    }
+service:'gmail',
+ secure: false, // use SSL
+ auth: {
+ user:'michalla37@gmail.com',
+ pass: 'kqjf zowc lqej cqbi',
+}
 });
-
-// Sending a basic email without a token
-app.post('/send-basic-email', (req, res) => {
-    
-    const { email, message } = req.body;
-    console.log("😂",message,email)
-
-    const mailOptions = {
-        from: 'rsh61047@gmail.com',
-        to: email,
-        subject: 'A Message from Your Application',
-        text: message // Simple text message in the email body
-    };
-
-    transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-            console.log(error);
-            res.status(500).send('Error sending email');
-        } else {
-            console.log('Email sent: ' + info.response);
-            res.status(200).send('Email sent successfully');
-        }
-    });
+// Configure the mailoptions object
+const mailOptions = {
+ from: 'michalla37@gmail.com',
+ to: 'rsh61047@gmail.com',
+ subject: 'Sending Email using Node.js',
+ text: 'That was easy!'
+};
+// Send the email
+transporter.sendMail(mailOptions, function(error, info){
+ if (error) {
+ console.log('Error:', error);
+ } else {
+ console.log('Email sent:', info.response);
+ }
 });
+// Nodemailer setup
 app.use('/users', userRouter);
 app.use('/eyeglasses', eyeglassesRouter);
 app.use('/eyesData', eyesDataRouter);

@@ -4,7 +4,7 @@ export function getAllElementsQuery(tableName,columns) {
     return query
     //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
 }
-export function getAllQuery(tableName,columns,) {
+export function getAllQuery(tableName,columns,q) {
     const query = `SELECT ${columns} FROM optics.${tableName} LIMIT 5 OFFSET ${(q._page - 1) * 5};`;
     return query
     //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
