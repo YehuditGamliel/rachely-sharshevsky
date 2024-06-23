@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import Login from '../Login/Login.jsx'
-import SimpleMap from '../SimpleMap.jsx';
+import SimpleMap from '../GoogleMap.jsx';
 const PaymentForm = () => {
   const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
   const initialOptions = {

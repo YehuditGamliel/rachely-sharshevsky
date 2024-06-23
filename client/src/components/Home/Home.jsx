@@ -11,12 +11,19 @@ import header from '../../img/header.jpg';
 // import PaymentForm from '../PaymentForm/PaymentForm';
 import EmailVerification from'../EmailVerification/EmailVerification'
 import jsonData from '../../assets/data.json'
+import BranchDetails from '../BranchDetailes.jsx'
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 
-import SimpleMap from '../SimpleMap.jsx'
+// import SimpleMap from '../GoogleMap.jsx'
+import GoogleMap from '../GoogleMap.jsx';
 
 
-function Home(props) {   
+function Home(props) {  
+      const [cities, setCities ] = useState([]); 
+      const [branches,setBranches]=useState([])
+      const [search,setSearch]=useState('city')
     const navigate = useNavigate(); 
     const sendEmail = async () => {
         
@@ -48,10 +55,29 @@ function Home(props) {
     let location = useLocation();
     const [style,setStyle]=useState("activity")
     const [login,setLogin]= useState('');
-    //  const { user, setCurrentUser } = useContext(UserContext);
-    // useEffect(() => {
-        
-    // }, [navigate]);
+    //  const { branches, setBranches } = useContext(UserContext);
+    useEffect(() => {
+       
+            fetch(`http://localhost:8082/branch`, {
+              method: 'GET',
+            
+            })
+              .then(response => response.json())
+              .then((json) => {
+                if (json.status != 200) {
+                  alert(json.error)
+                }
+                else {
+                //   console.log("json.data",json.data)
+                //   console.log("displayEyeglasses",displayEyeglasses)
+                  setCities([...json.data])
+                  console.log('city',cities)
+                  setSearch('city')
+                }
+              })
+            
+            },
+          [])
     useEffect(() => {
        
         if(location.pathname === '/my-account') {
@@ -60,7 +86,36 @@ function Home(props) {
              setStyle("activity")
         }
     }, [location]);
- 
+    const lookForCity = (event) => {
+    console.log(event.target.value)
+        fetch(`http://localhost:8082/branch?city=${event.target.value}`, {
+            method: 'GET',
+          
+          })
+            .then(response => response.json())
+            .then((json) => {
+              if (json.status != 200) {
+                alert(json.error)
+              }
+              else {
+              //   console.log("json.data",json.data)
+              //   console.log("displayEyeglasses",displayEyeglasses)
+                setBranches([...json.data])
+                console.log("branch",branches)
+                setSearch('branch')
+              }
+            })
+          
+          };
+          const showDetails=(event)=>{
+            console.log("🥻",event.target.value)
+            return (
+           
+                <p>פלאפון:${event.target.value}</p>
+            );
+          }
+      
+    
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -72,7 +127,29 @@ function Home(props) {
     }));
 
     return (<>
+    {
+(search=='city')?<select className="branches-chooseCity" onChange={lookForCity}>     
+<option selected>בחירת עיר</option>
+ {cities.map((city) => {
+   return <option>{city.city}</option>;
+ })}
+</select>:<select className="branches-chooseCity" onChange={showDetails}>     
+<option selected>בחירת סניף</option>
+ {cities.map((branch) => {
+   return <option>{branch.street}</option>;
+ })}
+</select>
+
+    }
  
+     {/* <Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={branches}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Movie" />}
+    /> */}
+<GoogleMap/>
         <div id={style}>
           
             <div>
@@ -90,7 +167,7 @@ function Home(props) {
                 </p>
                 <span id="text">{jsonData.dataHome[2].description}</span>
                 <p>לסניפים שלנו :</p>
-                <SimpleMap/>
+                <GoogleMap lat={31.8111189072549} lng={35.21515356901045} address={ "זולטי 9 רמת שלמה ירושלים"}   description={"אופטיקת מומחים"}/>
                 <div id='bottom'>
                     <span id='titleBottom'>צרו איתנו קשר</span>
                 </div>
@@ -100,6 +177,6 @@ function Home(props) {
       
         {login}
       
-    </>)
+    </>);
 }
 export default Home
