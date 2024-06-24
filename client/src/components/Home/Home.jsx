@@ -6,6 +6,7 @@ import './Home.css';
 // import useSound from 'use-sound';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
+import useSound from 'use-sound';
 import header from '../../img/header.jpg';
 // import PayPalButtonsComponent from '../../components/PayPalButtonsComponent/PayPalButtonsComponent.jsx'
 //import axios from 'axios'
@@ -16,11 +17,14 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import SingleBranchDetailes from '../Login/SingleBranchDetailes.jsx';
 
+import r from '../r.mp3'
+
 // import SimpleMap from '../GoogleMap.jsx'
 // import GoogleMap from '../GoogleMap.jsx';
 
 
 function Home(props) {  
+    const [play, { stop }] = useSound(r);
       const [cities, setCities ] = useState([]); 
       const [branches,setBranches]=useState([])
       const [search,setSearch]=useState('city')
@@ -61,6 +65,7 @@ function Home(props) {
     
     useEffect(() => {
        
+        
             fetch(`http://localhost:8082/branch`, {
               method: 'GET',
             
@@ -132,6 +137,7 @@ function Home(props) {
     }));
 //city, street, phoneNumber, days,hours
     return (<>
+   < button onMouseEnter={() => play()} onMouseLeave={() => stop()}></button>
 {search === 'map' ? (
     <>
       <singleBranchDetailes city={branch.city} street={branch.street} number={branch.number} days={branch.days} hours={branch.hours}/>
