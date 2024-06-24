@@ -262,7 +262,7 @@
 // }
 import React, { Component,useState } from 'react';
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
-
+import FmdGoodIcon from '@mui/icons-material/FmdGood';
 const mapStyles = {
   right: "0%",
   left: "0%",
@@ -322,6 +322,7 @@ export class GoogleMap extends Component {
             name={"צימר " + this.props.address }
           />
           <InfoWindow
+         
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}
             onClose={this.onClose}

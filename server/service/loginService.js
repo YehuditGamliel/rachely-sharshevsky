@@ -1,7 +1,10 @@
 
 import { executeQuery } from './db.js';
 import {getByValues,getByValueQuery, addQuery } from './queries.js'
-import jwt from "jsonwebtoken"
+// import jwt from "jsonwebtoken"
+// import sensEmail from '../sendEmail.js'
+import { sendStyledEmail } from '../emailSender.js';
+
 export class LoginService {
 
            
@@ -36,8 +39,11 @@ export class LoginService {
    }
 
     async addUser(itemDetailes) {
+
+        
         const query = addQuery('users',Object.keys(itemDetailes));
         const result = await executeQuery(query, Object.values(itemDetailes));
+
         return result;
     }
 }

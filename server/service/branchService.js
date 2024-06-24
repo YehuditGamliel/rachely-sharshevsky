@@ -2,8 +2,9 @@
 import { executeQuery } from './db.js';
 
 import {getByValueQuery,getAllElementsQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery ,deleteQuery} from './queries.js'
-export class BranchService {
 
+export class BranchService {
+   
 
     async  getAllCitiesBranches(q) {
         let query = null;

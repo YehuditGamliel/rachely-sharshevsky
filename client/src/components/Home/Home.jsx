@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate, Link } from 'react-router-dom';
 // import { UserContext } from "../../EyeglassesProvider";
 import './Home.css';
+import useSound from 'use-sound';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import header from '../../img/header.jpg';
@@ -11,10 +12,9 @@ import header from '../../img/header.jpg';
 // import PaymentForm from '../PaymentForm/PaymentForm';
 import EmailVerification from'../EmailVerification/EmailVerification'
 import jsonData from '../../assets/data.json'
-import BranchDetails from '../BranchDetailes.jsx'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-
+import SingleBranchDetailes from '../Login/SingleBranchDetailes.jsx';
 
 // import SimpleMap from '../GoogleMap.jsx'
 import GoogleMap from '../GoogleMap.jsx';
@@ -23,8 +23,8 @@ import GoogleMap from '../GoogleMap.jsx';
 function Home(props) {  
       const [cities, setCities ] = useState([]); 
       const [branches,setBranches]=useState([])
-      const[googleMapDetails,setGoogleMapDetails]=useState(false)
       const [search,setSearch]=useState('city')
+      const [branch,setBranch]=useState({})
     const navigate = useNavigate(); 
     const sendEmail = async () => {
         
@@ -57,6 +57,8 @@ function Home(props) {
     const [style,setStyle]=useState("activity")
     const [login,setLogin]= useState('');
     //  const { branches, setBranches } = useContext(UserContext);
+
+    
     useEffect(() => {
        
             fetch(`http://localhost:8082/branch`, {
@@ -64,7 +66,7 @@ function Home(props) {
             
             })
               .then(response => response.json())
-              .then((json) => {
+              .then((json) => {''
                 if (json.status != 200) {
                   alert(json.error)
                 }
@@ -108,13 +110,15 @@ function Home(props) {
             })
           
           };
-          const showDetails = (event) => {
-            console.log("🥻", event.target.value);
-            setGoogleMapDetails([...event.target.value])
-                // <GoogleMap lat={event.target.value.lat} lng={event.target.value.lng} address={"זולטי 9 רמת שלמה ירושלים"} />
-
-           
-        }
+       const showDetails = (event) => {
+    console.log("🥻", event.target.value);
+    const singleBranch = branches.find(t => `${t.street}${t.number}` === event.target.value);
+    setBranch(singleBranch);
+    setSearch('map')
+    // return (
+    // );
+    console.log(singleBranch,branch,"🤦‍♂️🤦‍♂️")
+}
       
     
 
@@ -126,8 +130,14 @@ function Home(props) {
             padding: '0 4px',
         },
     }));
-
+//city, street, phoneNumber, days,hours
     return (<>
+{search === 'map' ? (
+    <>
+      <singleBranchDetailes city={branch.city} street={branch.street} number={branch.number} days={branch.days} hours={branch.hours}/>
+      <GoogleMap lat={branch.lat} lng={branch.lng} address={branch.street} />
+    </>
+  ) : null}
     {
 (search=='city')?<select className="branches-chooseCity" onChange={lookForCity}>     
 <option selected>בחירת עיר</option>
@@ -139,7 +149,7 @@ function Home(props) {
 
  {branches.map((branch) => {
     {console.log("p",branch)}
-   return <option>{branch.street}</option>;
+   return <option>{branch.street}{branch.number}</option>;
  })}
 </select>
 
@@ -154,15 +164,7 @@ function Home(props) {
     /> */}
 
         <div id={style}>
-        {console.log("😍",googleMapDetails)}
-            {(googleMapDetails!=false)?
-               console.log("😍🤷‍♀️",googleMapDetails)
-            :
-             <></>
-            }
-             
-
-
+          
             <div>
                 <img  id="img" src={header}/>
                 <h1 id="title">{jsonData.dataHome[0].title}</h1>

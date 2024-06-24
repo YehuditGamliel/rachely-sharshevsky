@@ -24,29 +24,29 @@ app.use(allowCrossDomain);
 
 
 // Create a transporter object
-const transporter = nodemailer.createTransport({
-service:'gmail',
- secure: false, // use SSL
- auth: {
- user:'michalla37@gmail.com',
- pass: 'kqjf zowc lqej cqbi',
-}
-});
-// Configure the mailoptions object
-const mailOptions = {
- from: 'michalla37@gmail.com',
- to: 'rsh61047@gmail.com',
- subject: 'Sending Email using Node.js',
- text: 'That was easy!'
-};
-// Send the email
-transporter.sendMail(mailOptions, function(error, info){
- if (error) {
- console.log('Error:', error);
- } else {
- console.log('Email sent:', info.response);
- }
-});
+// const transporter = nodemailer.createTransport({
+// service:'gmail',
+//  secure: false, // use SSL
+//  auth: {
+//  user:'michalla37@gmail.com',
+//  pass: 'kqjf zowc lqej cqbi',
+// }
+// });
+// // Configure the mailoptions object
+// const mailOptions = {
+//  from: 'michalla37@gmail.com',
+//  to: 'rsh61047@gmail.com',
+//  subject: 'Sending Email using Node.js',
+//  text: 'That was easy!'
+// };
+// // Send the email
+// transporter.sendMail(mailOptions, function(error, info){
+//  if (error) {
+//  console.log('Error:', error);
+//  } else {
+//  console.log('Email sent:', info.response);
+//  }
+// });
 // Nodemailer setup
 app.use('/users', userRouter);
 app.use('/eyeglasses', eyeglassesRouter);

@@ -56,6 +56,8 @@ export class LoginController {
 
     async addUser(req, res, next) {
         try {
+
+            
             const loginService = new LoginService();
             const resultItem = await loginService.addUser(req.body);
             res.status(200).json({ status: 200, data: resultItem });
