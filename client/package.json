@@ -26,7 +26,6 @@
     "face-api.js": "^0.22.2",
     "geolocation-marker": "^2.0.5",
     "google-map-react": "^2.2.1",
-    "google-maps-react": "^2.0.6",
     "js-sha512": "^0.9.0",
     "primereact": "^10.6.6",
     "react": "^18.2.0",
@@ -39,6 +38,7 @@
     "react-router-dom": "^6.23.1",
     "react-webcam": "^7.2.0",
     "styled-components": "^6.1.11",
+    "use-sound": "^4.0.1",
     "validator": "^13.12.0"
   },
   "devDependencies": {
@@ -52,5 +52,9 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "vite": "^5.0.8"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": ".js",
+  "author": "",
+  "license": "ISC"
 }

@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate, Link } from 'react-router-dom';
 // import { UserContext } from "../../EyeglassesProvider";
 import './Home.css';
-import useSound from 'use-sound';
+// import useSound from 'use-sound';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import header from '../../img/header.jpg';
@@ -17,7 +17,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import SingleBranchDetailes from '../Login/SingleBranchDetailes.jsx';
 
 // import SimpleMap from '../GoogleMap.jsx'
-import GoogleMap from '../GoogleMap.jsx';
+// import GoogleMap from '../GoogleMap.jsx';
 
 
 function Home(props) {  
@@ -135,7 +135,7 @@ function Home(props) {
 {search === 'map' ? (
     <>
       <singleBranchDetailes city={branch.city} street={branch.street} number={branch.number} days={branch.days} hours={branch.hours}/>
-      <GoogleMap lat={branch.lat} lng={branch.lng} address={branch.street} />
+      {/* <GoogleMap lat={branch.lat} lng={branch.lng} address={branch.street} /> */}
     </>
   ) : null}
     {
