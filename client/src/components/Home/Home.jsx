@@ -3,75 +3,65 @@ import { useLocation } from "react-router-dom";
 import { useNavigate, Link } from 'react-router-dom';
 // import { UserContext } from "../../EyeglassesProvider";
 import './Home.css';
-// import useSound from 'use-sound';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
-import useSound from 'use-sound';
 import header from '../../img/header.jpg';
 // import PayPalButtonsComponent from '../../components/PayPalButtonsComponent/PayPalButtonsComponent.jsx'
 //import axios from 'axios'
 // import PaymentForm from '../PaymentForm/PaymentForm';
 import EmailVerification from'../EmailVerification/EmailVerification'
 import jsonData from '../../assets/data.json'
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import SingleBranchDetailes from '../Login/SingleBranchDetailes.jsx';
-
-import r from '../r.mp3'
-
+// import BranchDetails from '../BranchDetailes.jsx'
+// import TextField from '@mui/material/TextField';
+// import Autocomplete from '@mui/material/Autocomplete';
 // import SimpleMap from '../GoogleMap.jsx'
-// import GoogleMap from '../GoogleMap.jsx';
-
-
+import GoogleMap from '../GoogleMap.jsx';
 function Home(props) {  
-    const [play, { stop }] = useSound(r);
       const [cities, setCities ] = useState([]); 
       const [branches,setBranches]=useState([])
+      const[googleMapDetails,setGoogleMapDetails]=useState(false)
       const [search,setSearch]=useState('city')
-      const [branch,setBranch]=useState({})
     const navigate = useNavigate(); 
-    const sendEmail = async () => {
+//     const sendEmail = async () => {
         
-        const email = '7897149@gmail.com'; // Replace with the recipient's email address
-        const message = 'Hello, this is a test email!'; // Message content
+//         const email = '7897149@gmail.com'; // Replace with the recipient's email address
+//         const message = 'Hello, this is a test email!'; // Message content
     
-        try {
-            console.log(email,message)
-            const response = await fetch('https://localhost:8082/send-basic-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, message }),
-            });
+//         try {
+//             console.log(email,message)
+//             const response = await fetch('https://localhost:8082/send-basic-email', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({ email, message }),
+//             });
     
-            if (response.ok) {
-                console.log('Email sent successfully');
-            } else {
-                console.error('Error sending email');
-            }
-        } catch (error) {
-            console.error('Failed to send email:', error);
-        }
-    };
+//             if (response.ok) {
+//                 console.log('Email sent successfully');
+//             } else {
+//                 console.error('Error sending email');
+//             }
+//         } catch (error) {
+//             console.error('Failed to send email:', error);
+//         }
+//     };
     
-    // Call the sendEmail function when you want to trigger the email sending
- //sendEmail();
-    let location = useLocation();
-    const [style,setStyle]=useState("activity")
-    const [login,setLogin]= useState('');
-    //  const { branches, setBranches } = useContext(UserContext);
-
-    
-    useEffect(() => {
+//     // Call the sendEmail function when you want to trigger the email sending
+//  //sendEmail();
+     let location = useLocation();
+     const [style,setStyle]=useState("activity")
+     const [login,setLogin]= useState('');
+     const [branch,setBranch]=useState({})
+     // const { branches, setBranches } = useContext(UserContext);
+     useEffect(() => {
        
-        
             fetch(`http://localhost:8082/branch`, {
               method: 'GET',
             
             })
               .then(response => response.json())
-              .then((json) => {''
+              .then((json) => {
                 if (json.status != 200) {
                   alert(json.error)
                 }
@@ -84,8 +74,10 @@ function Home(props) {
                 }
               })
             
-            },
-          [])
+             },
+           [])
+
+
     useEffect(() => {
        
         if(location.pathname === '/my-account') {
@@ -94,11 +86,14 @@ function Home(props) {
              setStyle("activity")
         }
     }, [location]);
+
+
     const lookForCity = (event) => {
     console.log(event.target.value)
+        //fetch(`http://localhost:8082/branch?city=${event.target.value}`, {
         fetch(`http://localhost:8082/branch/${event.target.value}`, {
             method: 'GET',
-          
+
           })
             .then(response => response.json())
             .then((json) => {
@@ -113,19 +108,35 @@ function Home(props) {
                 setSearch('branch')
               }
             })
-          
+
           };
-       const showDetails = (event) => {
-    console.log("🥻", event.target.value);
-    const singleBranch = branches.find(t => `${t.street}${t.number}` === event.target.value);
-    setBranch(singleBranch);
-    setSearch('map')
-    // return (
-    // );
-    console.log(singleBranch,branch,"🤦‍♂️🤦‍♂️")
-}
-      
-    
+
+          const showDetails = (event) => {
+            console.log("🥻", event.target.value);
+            const singleBranch = branches.find(t => `${t.street}${t.number}` === event.target.value);
+            setBranch(singleBranch);
+            setSearch('map')
+            // return (
+            // );
+            console.log(singleBranch,branch,"🤦‍♂️🤦‍♂️")
+        }
+
+
+        //    const showDetails=(event)=>{
+        //      console.log("🥻",event.target.value)
+        //      return (
+        //   //const showDetails = (event) => {
+        //     console.log("🥻", event.target.value);
+        //     setGoogleMapDetails([...event.target.value])
+        //         // <GoogleMap lat={event.target.value.lat} lng={event.target.value.lng} address={"זולטי 9 רמת שלמה ירושלים"} />
+
+
+        //         <p>פלאפון:${event.target.value}</p>
+        //     );
+        //   }
+        // }
+
+
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -135,16 +146,10 @@ function Home(props) {
             padding: '0 4px',
         },
     }));
-//city, street, phoneNumber, days,hours
+
+    
     return (<>
-   < button onMouseEnter={() => play()} onMouseLeave={() => stop()}></button>
-{search === 'map' ? (
-    <>
-      <singleBranchDetailes city={branch.city} street={branch.street} number={branch.number} days={branch.days} hours={branch.hours}/>
-      {/* <GoogleMap lat={branch.lat} lng={branch.lng} address={branch.street} /> */}
-    </>
-  ) : null}
-    {
+       {
 (search=='city')?<select className="branches-chooseCity" onChange={lookForCity}>     
 <option selected>בחירת עיר</option>
  {cities.map((city) => {
@@ -160,7 +165,8 @@ function Home(props) {
 </select>
 
     }
- 
+
+
      {/* <Autocomplete
       disablePortal
       id="combo-box-demo"
@@ -168,9 +174,19 @@ function Home(props) {
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} label="Movie" />}
     /> */}
+        {/* <GoogleMap/> */}
 
         <div id={style}>
-          
+
+        {/* {console.log("😍",googleMapDetails)}
+            {(googleMapDetails!=false)?
+               console.log("😍🤷‍♀️",googleMapDetails)
+            :
+             <></>
+            } */}
+
+
+
             <div>
                 <img  id="img" src={header}/>
                 <h1 id="title">{jsonData.dataHome[0].title}</h1>
@@ -186,10 +202,10 @@ function Home(props) {
                 </p>
                 <span id="text">{jsonData.dataHome[2].description}</span>
                 <p>לסניפים שלנו :</p>
+                <GoogleMap lat={31.8111189072549} lng={35.21515356901045} address={ "זולטי 9 רמת שלמה ירושלים"}   description={"אופטיקת מומחים"}/>
                 <div id='bottom'>
                     <span id='titleBottom'>צרו איתנו קשר</span>
                 </div>
-
             </div>
         </div>
       
@@ -197,4 +213,4 @@ function Home(props) {
       
     </>);
 }
-export default Home
+export default Home;

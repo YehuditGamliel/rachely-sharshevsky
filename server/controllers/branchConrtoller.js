@@ -22,6 +22,7 @@ export class BranchController {
             next(err)
         }
     }
+    
     async geAllBranchesByCity(req, res, next) {
         console.log("Controller E")
         try {
