@@ -104,7 +104,7 @@ function Home(props) {
               //   console.log("json.data",json.data)
               //   console.log("displayEyeglasses",displayEyeglasses)
                 setBranches([...json.data])
-                console.log("branch",branches)
+                console.log("branch❤️❤️❤️❤️❤️❤️❤️",json.data)
                 setSearch('branch')
               }
             })
@@ -112,13 +112,13 @@ function Home(props) {
           };
 
           const showDetails = (event) => {
-            console.log("🥻", event.target.value);
+            console.log("🥻sdddsdsds", branches);
             const singleBranch = branches.find(t => `${t.street}${t.number}` === event.target.value);
             setBranch(singleBranch);
             setSearch('map')
             // return (
             // );
-            console.log(singleBranch,branch,"🤦‍♂️🤦‍♂️")
+            console.log(singleBranch,"🤦‍♂️🤦‍♂️")
         }
 
 
@@ -149,7 +149,9 @@ function Home(props) {
 
     
     return (<>
-     {(search=='map')? <GoogleMap lat={31.8111189072549} lng={35.21515356901045} address={ "זולטי 9 רמת שלמה ירושלים"}   description={"אופטיקת מומחים"}/>:<></>}
+    {console.log(branch.lat)}
+    {console.log(branch,"🤦‍♂️🤦‍♂️")}
+     {(search=='map')? <GoogleMap lat={branch.lat} lng={branch.lng} address={ "זולטי 9 רמת שלמה ירושלים"}   description={"אופטיקת מומחים"}/>:<></>}
     
                  
 
