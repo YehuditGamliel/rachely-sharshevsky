@@ -149,6 +149,12 @@ function Home(props) {
 
     
     return (<>
+     {(search=='map')? <GoogleMap lat={31.8111189072549} lng={35.21515356901045} address={ "זולטי 9 רמת שלמה ירושלים"}   description={"אופטיקת מומחים"}/>:<></>}
+    
+                 
+
+
+
        {
 (search=='city')?<select className="branches-chooseCity" onChange={lookForCity}>     
 <option selected>בחירת עיר</option>
@@ -202,7 +208,6 @@ function Home(props) {
                 </p>
                 <span id="text">{jsonData.dataHome[2].description}</span>
                 <p>לסניפים שלנו :</p>
-                <GoogleMap lat={31.8111189072549} lng={35.21515356901045} address={ "זולטי 9 רמת שלמה ירושלים"}   description={"אופטיקת מומחים"}/>
                 <div id='bottom'>
                     <span id='titleBottom'>צרו איתנו קשר</span>
                 </div>
