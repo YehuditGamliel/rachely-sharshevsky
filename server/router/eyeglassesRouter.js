@@ -8,7 +8,6 @@ eyeglassesRouter.get("/:model", eyeglassesController.getEyeglassesByModel)
 eyeglassesRouter.put("/:model", eyeglassesController.updateEyeGlasses)
 eyeglassesRouter.post("/", eyeglassesController.addEyeglasses)
 eyeglassesRouter.get("/", eyeglassesController.getAllEyeglasses)
-
 eyeglassesRouter.delete("/:model", eyeglassesController.deleteEyeglasses)
 
 export {

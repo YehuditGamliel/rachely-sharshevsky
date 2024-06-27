@@ -21,6 +21,23 @@ let allowCrossDomain = function(req, res, next) {
 const app = express();
 app.use(express.json());
 app.use(allowCrossDomain);
+app.use('/img', express.static('img'));
+
+app.use('/users', userRouter);
+app.use('/eyeglasses', eyeglassesRouter);
+app.use('/eyesData', eyesDataRouter);
+app.use('/authorization',loginRouter);
+app.use('/branch',branchRouter);
+app.use('./purchase',purchaseRouter)
+//  app.use('/EditingGlasses',editingGlassesRouter)
+// app.use(verifyToken);
+app.use(logErrors);
+
+app.listen(8082, (err) => {
+    console.log("pp")
+    if (err) console.error(err);
+    console.log("Server listening on PORT", 8082);
+});
 
 
 // Create a transporter object
@@ -48,17 +65,3 @@ app.use(allowCrossDomain);
 //  }
 // });
 // Nodemailer setup
-app.use('/users', userRouter);
-app.use('/eyeglasses', eyeglassesRouter);
-app.use('/eyesData', eyesDataRouter);
-app.use('/authorization',loginRouter);
-app.use('/branch',branchRouter);
-//  app.use('/EditingGlasses',editingGlassesRouter)
-// app.use(verifyToken);
-app.use(logErrors);
-
-app.listen(8082, (err) => {
-    console.log("pp")
-    if (err) console.error(err);
-    console.log("Server listening on PORT", 8082);
-});

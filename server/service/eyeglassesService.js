@@ -6,15 +6,13 @@ export class EyeglassesService {
 
     async  getAllEyeglasses(q) {
         let query = null;
-    
+
         if (Object.keys(q)[0] === '_page') {
-            query = getAllQuery('eyeglasses', 'model,price,photo,title', q);
+            query = getAllQuery('eyeglasses', 'model,price,title,imgDisplay,imgCamara', q);
         } else {
-            query = getAllSortedQuery('eyeglasses', 'model,price,photo,title', q, q.sort); 
+            query = getAllSortedQuery('eyeglasses', 'model,price,title,imgDisplay,imgCamara', q, q.sort); 
         }
         const result = await executeQuery(query);
-        console.log("😒",q  ,result)
-
         return result;
     }
     // async getAllEyeglasses  (req) {
@@ -41,9 +39,16 @@ export class EyeglassesService {
         console.log(result)
         return result;
     }
+
+    // async getEyeglassesByUrl(url) {
+    //     const query = getByValueQuery('url');
+    //     const result = await executeQuery(query, [url]);
+    //     console.log(result)
+    //     return result;
+    // }
     
-    async getEyeglassesByCompany( company) {
-        const query = getByValueQuery('eyeglasses','company','photo,model,title,price');
+    async getEyeglassesByCompany(company) {
+        const query = getByValueQuery('eyeglasses','company','model,title,price');
         const result = await executeQuery(query, [company]);
         console.log(result)
         return result;
@@ -64,7 +69,7 @@ export class EyeglassesService {
     }
     async addEyeglasses( itemDetailes) {
         console.log(Object.values(itemDetailes))
-        const query = addQuery('eyeglasses','model,price,photo,p');
+        const query = addQuery('eyeglasses','model,price,p');
         const result = await executeQuery(query, Object.values(itemDetailes));
         return result;
     }

@@ -99,8 +99,9 @@ function Eyeglasses() {
   {console.log("displayEyeglasses",displayEyeglasses)}
     <div id='container'>
       {displayEyeglasses.map((eyeglasses, index) => <div key={index} class="glasses">
-        <SingleEyeglassee model={eyeglasses.model} price={eyeglasses.price} photo={eyeglasses.photo} title=
-        {eyeglasses.title} />
+        <SingleEyeglassee model={eyeglasses.model} price={eyeglasses.price} title=
+        {eyeglasses.title} imgDisplay={eyeglasses.imgDisplay} imgCamara={eyeglasses.imgCamara}/>
+        
       </div>)
       }
       <button onClick={() => { setLoadMore(true) }}>load more</button>
