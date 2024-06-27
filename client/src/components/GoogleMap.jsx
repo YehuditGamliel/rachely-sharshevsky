@@ -9,7 +9,7 @@ const mapStyles = {
 };
 
 export class GoogleMap extends Component {
-  _isMounted = false; // Flag to track component mounting status
+  _isMounted = false;
 
   state = {
     showingInfoWindow: false,
@@ -21,8 +21,9 @@ export class GoogleMap extends Component {
   componentDidMount() {
     this._isMounted = true;
 
-    if (isNaN(this.props.lat) || isNaN(this.props.lng)) {
-      this._isMounted && (this.state.validLocation = false);
+    const { lat, lng } = this.props;
+    if (isNaN(lat) || isNaN(lng)) {
+      this.setState({ validLocation: false });
     }
   }
 
@@ -60,12 +61,12 @@ export class GoogleMap extends Component {
           google={this.props.google}
           zoom={12}
           style={mapStyles}
-          initialCenter={{ lat: parseFloat(31.790174968679562), lng: parseFloat(35.19898014288) }}
+          initialCenter={{ lat: 31.790174968679562, lng: 35.19898014288 }}
         >
           <Marker
             onClick={this.onMarkerClick}
-            name='optics' 
-            position={{ lat:parseFloat(31.790174968679562), lng: parseFloat(35.19898014288) }} // Set the position for the marker
+            name={'optics'} 
+            position={{ lat: this.props.lat, lng: this.props.lng }}
           />
           <InfoWindow
             marker={this.state.activeMarker}
@@ -74,7 +75,7 @@ export class GoogleMap extends Component {
           >
             <div>
               <h4>{this.state.selectedPlace.name}</h4>
-              <p>{this.props.street} {this.props.number}</p> {/* Fixed typo in props */}
+              <p>{this.props.street} {this.props.number}</p>
               <p>{this.props.hours}</p>
               <p>{this.props.days}</p>
               <p>{this.props.phone}</p>
