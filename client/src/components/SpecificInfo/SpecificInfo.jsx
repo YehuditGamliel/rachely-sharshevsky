@@ -1,60 +1,41 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import { useAuth } from '../../hook/AuthProvider.jsx'
-
-import '../SpecificInfo/SpecificInfo.css'
-import Badge from '@mui/material/Badge';
-import { styled } from '@mui/material/styles';
-import ButtonGroup from '@mui/material/ButtonGroup';
+import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import Invitation from '../Invitation/Invitation.jsx';
 import SingleEyeglasses from "../SingleEyeglasses/SingleEyeglasses.jsx";
-import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
-import Alert from '@mui/material/Alert';
-// const AuthContext = createContext();
+import '../SpecificInfo/SpecificInfo.css'
+
+
+
 function SpecificInfo() {
-    const { user, loginAction, logOut } = useAuth();
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');
     const [moreImages, setMoreImages] = useState([])
-    const StyledBadge = styled(Badge)(({ theme }) => ({
-        '& .MuiBadge-badge': {
-            right: -3,
-            top: 13,
-            border: `2px solid ${theme.palette.background.paper}`,
-            padding: '0 4px',
-        },
-    }));
-
     useEffect(() => {
-        {alert(eyeglasses.model)}
+        // { alert(eyeglasses.model) }
         fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
             method: 'GET',
 
         })
-            .then(response => response.json(),console.log("😍","specific"))
+            .then(response => response.json())
             .then((json) => {
                 if (json.status != 200) {
                     alert(json.error)
-                    console.log("😂🙌", json.data[0][0])
                 }
                 else {
-                    console.log("😂🙌", json.data[0][0])
-
-                    setMoreImages([...moreImages, ...json.data[1]])
+                    console.log("json", json.data[0])
+                    setMoreImages([...moreImages, ...json.data[0]])
 
                     setCurrentEyeglasses(glassesData => ({
                         ...glassesData,
                         ...json.data[0][0]
                     }));
-
-
                 }
             })
     }, [])
 
     return (<>
-    {console.log(eyeglasses,displaySpecificInfo)}
+        {console.log("@@", eyeglasses, displaySpecificInfo)}
         <div id="card">
             <div id="container">
                 <div id="title">
@@ -72,28 +53,46 @@ function SpecificInfo() {
                     <p>סה"כ</p>
                     <p id="totalPrice">{eyeglasses.price}₪</p>
                     <Invitation />
-                 
+
                 </div>
             </div>
+           {console.log("!!!!!!!!!!!1",eyeglasses.imgDisplay)}
+            <img id="imgBig" src={eyeglasses.imgDisplay} alt="Eyeglasses"/>
 
-            <img id="imgBig" src={eyeglasses.photo} />
-            
         </div>
         <div id="moreGlasses">
-
+            {console.log("##########", moreImages)}
             <div className="title">
-                {moreImages.length > 1 ? <p> משקפיים נוספות ממותג זה...</p> : <></>}
+                {moreImages.length > 1 ?
+                    <div>
+                        <p> משקפיים נוספות ממותג זה...</p>
+                        <div id="moreGlasses">
+                            {moreImages.map((img, index) =>
+                                (img.model != eyeglasses.model) ? <SingleEyeglasses key={index} id="singleEyeglasses" model={img.model} price={img.price} imgDisplay={img.imgDisplay} imgCamara={img.imgCamara} title={img.title} />
+                                    : console.log(img.model, "pp", eyeglasses.model)
+                            )
+                            }</div>
+                    </div>
+                    : <></>}
             </div>
-            <div id="moreGlasses">
-                {moreImages.map((img, index) =>
-                    (img.model != eyeglasses.model) ? <SingleEyeglasses key={index} id="singleEyeglasses" model={img.model} price={img.price} photo={img.photo} title={img.title} />
-                        : console.log(img.model, "pp", eyeglasses.model)
-                    
-                )
-                }
-            </div>
+
         </div>
     </>)
-    
+
 }
 export default SpecificInfo;
+
+
+//import { div } from "@tensorflow/tfjs";
+//import { useAuth } from '../../hook/AuthProvider.jsx'
+// import { styled } from '@mui/material/styles';
+// import Badge from '@mui/material/Badge';
+
+// const StyledBadge = styled(Badge)(({ theme }) => ({
+//     '& .MuiBadge-badge': {
+//         right: -3,
+//         top: 13,
+//         border: `2px solid ${theme.palette.background.paper}`,
+//         padding: '0 4px',
+//     },
+// }));

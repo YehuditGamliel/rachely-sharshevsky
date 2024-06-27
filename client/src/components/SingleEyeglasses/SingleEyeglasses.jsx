@@ -34,7 +34,7 @@ const buyEyeglasses = (id) => {
     body: JSON.stringify({
       // model: props.model,
       price: props.price,
-      photo: props.photo,
+      imgDisplay: props.imgDisplay,
       p: props.stock
     }),
     headers: {
@@ -95,13 +95,14 @@ function SingleEyeglasses(props) {
   }
 
   const displaySpecificInfo = () => {
-    setCurrentEyeglasses({ "photo": glassesDisplay, "model": props.model, "title": props.title, "price": props.price })
-    navigate(`/eyeglasses/${props.model}`)
+    console.log("glassesDisplay!!!!!!!!!!!!!!!1",glassesDisplay)
 
+    setCurrentEyeglasses({ "imgDisplay": glassesDisplay, "model": props.model, "title": props.title, "price": props.price })
+    navigate(`/eyeglasses/${props.model}`)
   }
 
   const displayEditingGlassesDetails = () => {
-    setCurrentEyeglasses({ "photo": glassesDisplay, "model": props.model, "title": props.title, "price": props.price })
+    setCurrentEyeglasses({ "imgDisplay": glassesDisplay, "model": props.model, "title": props.title, "price": props.price })
     navigate(`/EditingGlasses/${props.model}`)
 
   }

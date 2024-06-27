@@ -8,11 +8,11 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import glasses1 from '../../../img/glasses1.jpg';
-import glasses2 from '../../../img/glasses2.jpg';
-import glasses3 from '../../../img/glasses3.jpg';
-import glasses4 from '../../../img/glasses4.png';
-import jsonData from "../../../assets/data.json";
+import glasses1 from '../../img/glasses1.jpg';
+import glasses2 from '../../img/glasses2.jpg';
+import glasses3 from '../../img/glasses3.jpg';
+import glasses4 from '../../img/glasses4.png';
+import jsonData from "../../assets/data.json";
 
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 250,

@@ -8,11 +8,12 @@ console.log("🤷‍♀️")
 const loginController = new LoginController()
 //const userController =new UserController();
 
-loginRouter.post("/login", loginController.Authentication)
-loginRouter.post("/loginManager", loginController.AuthenticationManager)
-loginRouter.get("/signUp",loginController.checkEmail)
-
-loginRouter.post("/signUp", loginController.addUser)
+loginRouter.post('/', loginController.signUpUser);
+loginRouter.post('/verify', loginController.verifyUserName);
+// loginRouter.post("/login", loginController.Authentication)
+// loginRouter.post("/loginManager", loginController.AuthenticationManager)
+// loginRouter.get("/signUp",loginController.checkUserName)
+// loginRouter.post("/signUp", loginController.addUser)
 
 // loginRouter.post("/signUp", userController.addUser);
 // loginRouter.put("/login",loginController.updatePassword)

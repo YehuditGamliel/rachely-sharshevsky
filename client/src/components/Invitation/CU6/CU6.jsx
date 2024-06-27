@@ -17,73 +17,75 @@ import jsonData from "../../../assets/data.json";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 const DemoPaper = styled(Paper)(({ theme }) => ({
-    width: 250,
-    height: 110,
-    padding: theme.spacing(3),
-    ...theme.typography.body2,
-    textAlign: 'center',
-  }));
-function CU6({addInformation}){
-    const [selected, setSelected] = useState(null);
-    const [CU6Id, setCU6Id] = useState('')
-    const [isButtonDisabled,setIsButtonDisabled]=useState(true)
-        const [open, setOpen] = React.useState(true);
-        const theme = useTheme();
-         
-        const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-      const updateStyle = (withOrWithoutPrescription) => {
-          setIsButtonDisabled(false)
-          setCU6Id(withOrWithoutPrescription)
-          
-    }
-    
-    const handleClick = (index) => {
-        setSelected(index);
-      };
-        const handleClickOpen = () => {
-          setOpen(true);
-        };
-      
-        const handleClose = () => {
-          setOpen(false);
-        };
-    
- 
-    return (   <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-      >
-         <DialogTitle id="scroll-dialog-title" >איך תרצו למלא את פרטי המרשם שלכם?</DialogTitle>
+  width: 250,
+  height: 110,
+  padding: theme.spacing(3),
+  ...theme.typography.body2,
+  textAlign: 'center',
+}));
+
+function CU6({ addInformation }) {
+  const [selected, setSelected] = useState(null);
+  const [CU6Id, setCU6Id] = useState('')
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+  const [open, setOpen] = React.useState(true);
+  const theme = useTheme();
+
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const updateStyle = (withOrWithoutPrescription) => {
+    setIsButtonDisabled(false)
+    setCU6Id(withOrWithoutPrescription)
+
+  }
+
+  const handleClick = (index) => {
+    setSelected(index);
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  return (<Dialog
+    fullScreen={fullScreen}
+    open={open}
+    onClose={handleClose}
+    aria-labelledby="responsive-dialog-title"
+  >
+    <DialogTitle id="scroll-dialog-title" >איך תרצו למלא את פרטי המרשם שלכם?</DialogTitle>
     <DialogContent dividers={scroll === 'paper'}></DialogContent>
-          <div direction="row" spacing={2}>
-          {jsonData.CU6.map((data, index) =>
-            <div className={selected === index?"border":"noneBorder"}>
-              <DemoPaper onClick={() =>{ updateStyle((index+1).toString())
-                 handleClick(index)
-              }}>
-                <div className="titleContainer">
-                  <nav className="title">{data.title}</nav>
-                </div>
-               <p> {data.description}</p>
-               <p id="price">{data.price}₪</p>
-              </DemoPaper></div>
-            
-         
-         
-       
-        )}
-         </div>
-                    <Button
-                 onClick={() =>  addInformation('CU6Id', CU6Id , 'paymentForm')
-                  
-                 }>לקניה</Button>
-             <Button onClick={() => addInformation('CU6Id', CU6Id , 'ShoppingCart')}>להכנסה לסל</Button>
-      {/* {login} */}
-    </Dialog>
-);
-    }
+    <div direction="row" spacing={2}>
+      {jsonData.CU6.map((data, index) =>
+        <div className={selected === index ? "border" : "noneBorder"}>
+          <DemoPaper onClick={() => {
+            updateStyle((index + 1).toString())
+            handleClick(index)
+          }}>
+            <div className="titleContainer">
+              <nav className="title">{data.title}</nav>
+            </div>
+            <p> {data.description}</p>
+            <p id="price">{data.price}₪</p>
+          </DemoPaper></div>
+
+
+
+
+      )}
+    </div>
+    <Button
+      onClick={() => addInformation('CU6Id', CU6Id, 'paymentForm')
+
+      }>לקניה</Button>
+    <Button onClick={() => addInformation('CU6Id', CU6Id, 'ShoppingCart')}>להכנסה לסל</Button>
+    {/* {login} */}
+  </Dialog>
+  );
+}
 export default CU6;
 
 

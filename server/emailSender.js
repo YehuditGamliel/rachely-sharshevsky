@@ -5,8 +5,9 @@ import nodemailer from 'nodemailer';
     service: 'gmail',
     secure: false,
     auth: {
-      user: 'michalla37@gmail.com',
-      pass: 'kqjfzowclqejcqbi',
+      user:'michalla37@gmail.com',
+   
+      pass: 'kqjf zowc lqej cqbi'
     }
   });
 
@@ -55,8 +56,8 @@ import nodemailer from 'nodemailer';
 };
 
 // Example of sending an email with styled content obtained from props
-const emailAddress = 'rsh61047@gmail.com'; // Replace with recipient's email address
-const emailSubject = 'Email Subject';
-const emailBody = 'Example email body content'; // Replace with actual body content from props
+// const emailAddress = 'rsh61047@gmail.com'; // Replace with recipient's email address
+// const emailSubject = 'Email Subject';
+// const emailBody = 'Example email body content'; // Replace with actual body content from props
 
-sendStyledEmail(emailAddress, emailSubject, emailBody);
+// sendStyledEmail(emailAddress, emailSubject, emailBody);

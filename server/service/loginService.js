@@ -1,13 +1,35 @@
 
 import { executeQuery } from './db.js';
-import {getByValues,getByValueQuery, addQuery } from './queries.js'
+import {getByValues,getByValueQuery, addQuery,updateSpecificFieldQuery,addaspecialQuery } from './queries.js'
+
+import { generateOTP } from'../service/generateOTP.js';
+// const { encrypt } = require('../services/crypto');
+// const { generateOTP } = require('../services/OTP'); 
+
 // import jwt from "jsonwebtoken"
 // import sensEmail from '../sendEmail.js'
 import { sendStyledEmail } from '../emailSender.js';
 
 export class LoginService {
 
+    async validateUserSignUp(userName, otp){
+        console.log(userName, otp)  
+          const query = getByValueQuery('users',  'userName','*');
+        const user = await executeQuery(query, [userName]);
+       console.log("😊",user,user.length === 0)
+       if(user.length === 0){
+            return [false, 'User not found'];
+        }
+         if (user[0].otp!==otp) {
            
+            return [false, 'Invalid OTP'];
+        }
+          const query2 =  updateSpecificFieldQuery('users', 'userName', 'active=1') 
+          const result = await executeQuery(query, [userName]);
+         
+          return [true, result];
+    
+    }
     async Authentication(data) {
         console.log(data)
         const query = getByValues('manager','email',['userName','password']);
@@ -30,20 +52,44 @@ export class LoginService {
         // return result;
         // //return {token ,refreshtoken};
     }
-
-    async checkEmail(email){ 
-       const query = getByValueQuery('users', 'email', 'userName');
-       const result = await executeQuery(query, [email]);
+ 
+    async checkUserName(userName){ 
+       const query = getByValueQuery('users',  'userName','email');
+       const result = await executeQuery(query, [userName]);
        console.log(result)
        return result;
    }
 
-    async addUser(itemDetailes) {
+  
+//   
+   
+
+    // async validateUserSignUp(userName, otp) {
 
         
-        const query = addQuery('users',Object.keys(itemDetailes));
-        const result = await executeQuery(query, Object.values(itemDetailes));
+      
+    // }
+    createUser = async (itemDetailes) => {
 
+       
+        // const hashedPassword = await encrypt(itemDetailes.password);
+        const otpGenerated = generateOTP();
+        const query = addaspecialQuery('users',Object.keys(itemDetailes),'otp');
+        const newUser = await executeQuery(query, [...Object.values(itemDetailes),otpGenerated]);
+        console.log(Object.values(itemDetailes),otpGenerated)
+        // try {
+            sendStyledEmail(itemDetailes.email,"ppp",otpGenerated)
+        // }
+        if (!newUser) {
+            return [false, 'Unable to sign you up'];
+          }
+          return [true, newUser];
+        // catch{
+            
+        // }
+        // return {email:result[0].email,token:token};
         return result;
     }
+      
+     
 }

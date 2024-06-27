@@ -34,7 +34,7 @@ export class EyeglassesService {
     // };
 
     async getEyeglassesByModel( model) {
-        const query = getByValueQuery('eyeglasses','model','color,stock,description,BridgeWidth,lensWidth,company,material');
+        const query = getByValueQuery('eyeglasses','model','color,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara');
         const result = await executeQuery(query, [model]);
         console.log(result)
         return result;

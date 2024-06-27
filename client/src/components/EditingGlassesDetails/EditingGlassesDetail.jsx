@@ -194,7 +194,7 @@ function EditingGlassesDetails() {
             </div>
     
     
-                <img id="imgBig" src={eyeglasses.photo} />
+                <img id="imgBig" src={eyeglasses.imgDisplay} />
                 
             </div>
             {/* <div id="moreGlasses">

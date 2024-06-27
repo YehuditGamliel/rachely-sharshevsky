@@ -42,13 +42,14 @@ export default function ShoppingCart() {
 
   // Template for rendering each product
   const itemTemplate = (product) => {
+    console.log("$$$$$$$$$$",product.imgDisplay)
     return (
       <div className="col-12" key={product.id}>
        {/* {product.amount=(product.amount>1)?product.amount/2+0.5:product.amount} */}
 
         <div className="product-item">
         {/* <div className="product-name">{product.model}</div> */}
-          <img className="product-image" src={product.photo} alt={`Image of ${product.name}`} />
+          <img className="product-image" src={product.photo} alt={`Image of ${product.imgDisplay}`} />
           <div className="product-detail">
             <div className="product-name">{product.company}</div>
             <div className="product-description">{product.title}</div>
