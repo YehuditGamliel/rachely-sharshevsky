@@ -1,8 +1,12 @@
 import nodemailer from 'nodemailer';
 //  import  {jsonData} from'../client/src/assets/data.json'
-// import {logo}from '../client/src/img/logo.png'
+import fs from 'fs';
+
+// Read the logo image file
+
  export const sendStyledEmail = (emailAddress, emailBody,params) => {
-  const body=null;
+  // const logoPath = "C:\Users\The user\rachely-sharshevsky-11\client\src\img\logo.png"; // Update the path to your logo image
+  // const logoData = fs.readFileSync(logoPath);
   // switch(emailType) {
   //   case 'otp':
      
@@ -30,27 +34,34 @@ import nodemailer from 'nodemailer';
     <html>
       <head>
         <style>
-          body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            padding: 20px;
+          p {
+            
+           font-family: Arial, sans-serif;
+           font-size: 30px;
+             text-align: right;
 
           }
           h1 {
-            color: #007bff;
+          font-family: Arial, sans-serif;
+           color: #41c1ba;
+             text-align: right;
 
           }
-          p {
-            font-size: 20px;
+          header {
+            font-size: 60px;
+             text-align: right;
+              background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
           }
         </style>
       </head>
       
       <body>
-         <p>ברוכים הבאים לEyeCenter רשת אופטיקה המובילה בישראל</p>
-        <img src="${'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7O1samPbhPQ7BdbWItMidc47gFHvQMXnqd7Sd_Vt&s'}" alt="Image" style="max-width: 100%;" />
-        <h1>${emailBody}${params}</h1>
+      <img src="${'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7O1samPbhPQ7BdbWItMidc47gFHvQMXnqd7Sd_Vt&s'}" alt="Image" style="max-width: 100%;" />
+         <header>ברוכים הבאים לEyeCenter רשת אופטיקה המובילה בישראל</header>
+ 
+       <h1>${emailBody}${params}</h1>
         <p> נשמח לשרת אתכם במידה ונתקלתם בבעיה נא ליצור קשר :0583261047 או במייל ${process.env.MAIL_EMAIL}</p>
       </body>
     </html>
@@ -58,11 +69,13 @@ import nodemailer from 'nodemailer';
 
   // Define the mail options with styled content
   const mailOptions = {
-    from:process.env.MAIL_EMAIL,
+    from: process.env.MAIL_EMAIL,
     to: emailAddress,
     subject: 'EyeCenter',
-    html: styledEmailContent
+    html: styledEmailContent,
+   
   };
+  
 
   // Send the styled email
   transporter.sendMail(mailOptions, function(error, info) {
