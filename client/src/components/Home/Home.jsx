@@ -120,8 +120,8 @@ function Home(props) {
     {console.log("❤️",branches[0].lat)}
     {/* <GoogleMaps/> */}
       {/* <singleBranchDetailes city={branch.city} street={branch.street} number={branch.number} days={branch.days} hours={branch.hours}/> */}
-      <GoogleMaps lat={branches.lat} lng={branches.lng} street={branches.street} number={branches.number}
-      phone={branches.phone}hours={branches.hours}days={branches.days}/>
+      <GoogleMaps lat={branches[0].lat} lng={branches[0].lng} street={branches[0].street} number={branches[0].number}
+      phone={branches[0].phone}hours={branches[0].hours}days={branches[0].days}/>
     </>
   ) : null}
     {

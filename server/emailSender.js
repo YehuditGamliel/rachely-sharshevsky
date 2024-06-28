@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
- import  {jsonData} from'../client/src/assets/data.json'
+//  import  {jsonData} from'../client/src/assets/data.json'
 // import {logo}from '../client/src/img/logo.png'
  export const sendStyledEmail = (emailAddress, emailBody,params) => {
   const body=null;

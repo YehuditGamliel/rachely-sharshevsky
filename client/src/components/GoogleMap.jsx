@@ -57,6 +57,7 @@ export class GoogleMap extends Component {
 
     return (
       <div className="showmap">
+      {console.log("🙌",this.props)}
         <Map
           google={this.props.google}
           zoom={12}
@@ -66,7 +67,7 @@ export class GoogleMap extends Component {
           <Marker
             onClick={this.onMarkerClick}
             name={'optics'} 
-            position={{ lat: this.props.lat, lng: this.props.lng }}
+            position={{  lat: 31.790174968679562, lng: 35.19898014288 }}
           />
           <InfoWindow
             marker={this.state.activeMarker}
