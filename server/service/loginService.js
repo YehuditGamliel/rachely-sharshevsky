@@ -1,11 +1,11 @@
 
 import { executeQuery } from './db.js';
 import {getByValues,getByValueQuery, addQuery,updateSpecificFieldQuery,addaspecialQuery } from './queries.js'
-
+//import jsonData from '../../client/src/assets/data.json'
 import { generateOTP } from'../service/generateOTP.js';
 // const { encrypt } = require('../services/crypto');
 // const { generateOTP } = require('../services/OTP'); 
-
+import jwt from 'jsonwebtoken';
 // import jwt from "jsonwebtoken"
 // import sensEmail from '../sendEmail.js'
 import { sendStyledEmail } from '../emailSender.js';
@@ -56,7 +56,7 @@ export class LoginService {
     async checkUserName(userName){ 
        const query = getByValueQuery('users',  'userName','email');
        const result = await executeQuery(query, [userName]);
-       console.log(result)
+       console.log(result,userName)
        return result;
    }
 
@@ -77,8 +77,9 @@ export class LoginService {
         const query = addaspecialQuery('users',Object.keys(itemDetailes),'otp');
         const newUser = await executeQuery(query, [...Object.values(itemDetailes),otpGenerated]);
         console.log(Object.values(itemDetailes),otpGenerated)
+        console.log(itemDetailes.email,"ppp",otpGenerated)
         // try {
-            sendStyledEmail(itemDetailes.email,"ppp",otpGenerated)
+             sendStyledEmail(itemDetailes.email,"ppppp",otpGenerated)
         // }
         if (!newUser) {
             return [false, 'Unable to sign you up'];

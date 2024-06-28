@@ -5,71 +5,104 @@ import { LoginService } from '../service/loginService.js'
 // //imconst { encrypt, compare } = require('../services/crypto');
 
  export class LoginController {
-    async signUpUser(req, res, next) {
-    const { userName } = req.body; 
-    console.log(userName,req.body)
-    const loginService = new LoginService();
-     try {
-                  
-                    // const loginService = new LoginService();
-                    const resultItems = await loginService.checkUserName(userName)
-                    // const isExisting = await findUserByEmail(email);
-                    
-                    if (resultItems.length) {
-                       
+    async AuthenticationForSignUpOrLogin(req, res, next) {
+        const loginService = new LoginService();
+        if(req.body.email==undefined)
+            {
+                try {      
+                    console.log("😊")      
+                    const loginService = new LoginService();
+                    const resultItems = await loginService.Authentication(req.body)
+                    if (resultItems.userName) {
+                        return res.cookie('x-access-token', resultItems.token, { httpOnly: true }).json({ status: 200, data: resultItems.userName,token:resultItems.token });
+                        //return res.status(200).json({ status: 200, data: resultItems });
+                    }
+                    else {
                         const err = {}
                         err.statusCode = 400;
-                        err.message = "Already Exist";
+                        err.message = "Incorrect data";
                         next(err)
                     }
-                       else{
-                        try {
+                }
+                catch (ex) {
+                    const err = {}
+                    err.statusCode = 500;
+                    err.message = ex;
+                    next(err)
+                }
+            
+               console.log("ppppppppppppp") 
+               
+            }
+            else{
+                const { userName } = req.body; 
+                console.log(userName,req.body)
+               
+                 try {
+                              
+                                // const loginService = new LoginService();
+                                const resultItems = await loginService.checkUserName(userName)
+                                // const isExisting = await findUserByEmail(email);
+                                
+                                if (resultItems.length) {
+                                   
+                                    const err = {}
+                                    err.statusCode = 400;
+                                    err.message = "Already Exist";
+                                    next(err)
+                                }
+                                   else{
+                                    try {
+                                 
+                                        const newUser = await loginService.createUser(req.body);
+                                           res.status(200).json({ status: 200, data: newUser });
+                                }
+                                catch (ex) {
+                                    const err = {}
+                                    err.statusCode = 400;
+                                    err.message = 'faild in sending email';
+                                    next(err)
+                                }
+            
+                                    
+                                   } 
+                                }  
+                        catch (ex) {
+                                        const err = {}
+                                        err.statusCode = 500;
+                                        err.message = ex;
+                                        next(err)
+                                    }
+                  };
+            
+                 
+              
+    }
+            
+    verifyUserName = async (req, res) => {
+        const { userName, otp } = req.body;
+  
+   try{
+ 
+     const loginService = new LoginService();
+     const user = await loginService.validateUserSignUp(userName, otp);
+     res.status(200).json({ status: 200, data: user });
+     
+   }
+   catch (ex) {
+     const err = {}
+     err.statusCode = 500;
+     err.message = ex;
+     next(err)
+ }
+   
+ };
+//  async Authentication(req, res, next) {
                      
-                            const newUser = await loginService.createUser(req.body);
-                               res.status(200).json({ status: 200, data: newUser });
-                    }
-                    catch (ex) {
-                        const err = {}
-                        err.statusCode = 400;
-                        err.message = 'faild in sending email';
-                        next(err)
-                    }
 
-                        
-                       } 
-                    }  
-            catch (ex) {
-                            const err = {}
-                            err.statusCode = 500;
-                            err.message = ex;
-                            next(err)
-                        }
-      };
-
-        verifyUserName = async (req, res) => {
-       const { userName, otp } = req.body;
  
-  try{
-
-    const loginService = new LoginService();
-    const user = await loginService.validateUserSignUp(userName, otp);
-    res.status(200).json({ status: 200, data: user });
-    
+  
   }
-  catch (ex) {
-    const err = {}
-    err.statusCode = 500;
-    err.message = ex;
-    next(err)
-}
-  
-};
-
-
-
- 
-  
-}
 
 
 // export class LoginController {

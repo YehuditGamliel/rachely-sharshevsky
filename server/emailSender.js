@@ -1,6 +1,20 @@
 import nodemailer from 'nodemailer';
-
- export const sendStyledEmail = (emailAddress, emailSubject, emailBody) => {
+ import  {jsonData} from'../client/src/assets/data.json'
+// import {logo}from '../client/src/img/logo.png'
+ export const sendStyledEmail = (emailAddress, emailBody,params) => {
+  const body=null;
+  // switch(emailType) {
+  //   case 'otp':
+     
+  //     break;
+  //   case y:
+  //     // code block
+  //     break;
+  //   default:
+  //     // code block
+  // }
+  
+  console.log("begin sending")
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     secure: false,
@@ -21,18 +35,23 @@ import nodemailer from 'nodemailer';
             background-color: #f9f9f9;
             color: #333;
             padding: 20px;
+
           }
           h1 {
             color: #007bff;
+
           }
           p {
-            font-size: 16px;
+            font-size: 20px;
           }
         </style>
       </head>
+      
       <body>
-        <h1>${emailSubject}</h1>
-        <p>${emailBody}</p>
+         
+        <img src="${'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7O1samPbhPQ7BdbWItMidc47gFHvQMXnqd7Sd_Vt&s'}" alt="Image" style="max-width: 100%;" />
+        <h1>${emailBody}${params}</h1>
+        <p>${body}</p>
       </body>
     </html>
   `;
@@ -41,7 +60,7 @@ import nodemailer from 'nodemailer';
   const mailOptions = {
     from: 'michalla37@gmail.com',
     to: emailAddress,
-    subject: 'Styled Email using Node.js',
+    subject: 'EyeCenter',
     html: styledEmailContent
   };
 

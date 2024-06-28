@@ -9,8 +9,6 @@ import Login from '../Login/Login.jsx'
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import OtpInput from 'react-otp-input';
-
-
 import Tab from '@mui/material/Tab';
 function Register() {
   const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
@@ -32,7 +30,6 @@ function Register() {
   useEffect(() => {
     if (otp.length === 6) {
       verificationOtp();
-      // Call your function here to begin after the user enters all 6 digits of the OTP
       console.log('Starting function after OTP entry:', otp);
     }
   }, [otp]);
@@ -44,19 +41,11 @@ function Register() {
         body: JSON.stringify({
           userName: eyeglasses.userName,
             otp:otp
-          // email: user.email,
-          // userName: user.userName,
-          // password: user.password,
-          // isActive:1
         }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
       })
-      // "data": [
-    //     false,
-    //     "User not found"
-    // ]
         .then(response => response.json())
         .then((json) => {
           // alert("ppp")
@@ -70,11 +59,8 @@ function Register() {
             }
             else {
                alert("pp")
-              // setCurrentEyeglasses({ userName: currentUser.userName, email: currentUser.email })
               localStorage.setItem('currentUser', JSON.stringify({ userName: eyeglasses.userName, email: eyeglasses.email }))
               navigate(`/my-account`)
-               
-
             }
           }
         
@@ -91,16 +77,20 @@ function Register() {
   }
 
   const checkRegister = (user) => {
-
+   
+    if (!VerifyPassword(user))
+      {alert("Password verification is incorrect,try again!")
+       return;}
+      
     //לבדוק איך צריך להראות ה url
     fetch(`http://localhost:8082/authorization`
     , {
       method: 'POST',
       body: JSON.stringify({
-        // email: user.email,
+       email: user.email,
         userName: user.userName,
         password: user.password,
-        // isActive:1
+         isActive:1
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -108,14 +98,14 @@ function Register() {
     })
       .then(response => response.json())
       .then((json) => {
+        alert(json.status)
         console.log(json)
         if (json.status == 200) {
-          if (!VerifyPassword(user))
-            alert("Password verification is incorrect,try again!")
-          else {
+         
+         
             setAuthorization(true)
             setCurrentEyeglasses({ userName: user.userName, email: user.email,password:user.password })
-          }
+          
         }
         else if (json.status == 400) {
           alert("userName is already taken. Please choose another!")
@@ -127,31 +117,6 @@ function Register() {
       })
   };
 
-  // const addNewUser = (currentUser) => {
-  //   fetch(`http://localhost:8082/authorization`, {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       email: currentUser.email,
-  //       userName: currentUser.userName,
-  //       password: currentUser.password,
-  //       isActive:1
-  //     }),
-  //     headers: {
-  //       'Content-type': 'application/json; charset=UTF-8',
-  //     },
-  //   }).then(response => response.json())
-  //     .then((json) => {
-  //       if (json.status != 200) {
-  //         alert(json.error)
-  //       }
-  //       else {
-  //         setCurrentEyeglasses({ userName: currentUser.userName, email: currentUser.email })
-  //         localStorage.setItem('currentUser', JSON.stringify({ userName: currentUser.userName, email: currentUser.email }))
-  //         navigate(`/my-account`)
-  //       }
-
-  //     })
-  // }
 
 const setLogin=()=>{
   setShowLogin(<Login/>)

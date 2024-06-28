@@ -44,11 +44,13 @@ function Login() {
 
     const userExist = async (userDetails) => {
         // alert(userDetails.username)
-        let response = await fetch(`http://localhost:8082/authorization/login`, {
+        let response = await fetch(`http://localhost:8082/authorization`, {
             method: 'POST',
             body: JSON.stringify({
-            userName: userDetails.userName,
-                password: userDetails.password
+                // email: userDetails.email,
+                userName: userDetails.userName,
+                password: userDetails.password,
+                // isActive:1
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -65,7 +67,7 @@ function Login() {
             navigate(`/my-account`)
             localStorage.setItem('currentUser', JSON.stringify(
                 { userName: user.userName, username: json.data }));
-            setCurrentEyeglasses({ userName: user.userName, username: json.data })
+            setCurrentEyeglasses({ userName: user.userName, email: json.data })
            
             // navigate(`/home/my-account`,{state:{name:json.data[0].userName}})
           

@@ -8,7 +8,7 @@ console.log("🤷‍♀️")
 const loginController = new LoginController()
 //const userController =new UserController();
 
-loginRouter.post('/', loginController.signUpUser);
+loginRouter.post('/', loginController.AuthenticationForSignUpOrLogin);
 loginRouter.post('/verify', loginController.verifyUserName);
 // loginRouter.post("/login", loginController.Authentication)
 // loginRouter.post("/loginManager", loginController.AuthenticationManager)
