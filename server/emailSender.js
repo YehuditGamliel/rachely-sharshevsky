@@ -19,9 +19,9 @@ import nodemailer from 'nodemailer';
     service: 'gmail',
     secure: false,
     auth: {
-      user:'michalla37@gmail.com',
+      user:process.env.MAIL_EMAIL,
    
-      pass: 'kqjf zowc lqej cqbi'
+      pass: process.env.MAIL_PASSWORD,
     }
   });
 
@@ -48,17 +48,17 @@ import nodemailer from 'nodemailer';
       </head>
       
       <body>
-         
+         <p>ברוכים הבאים לEyeCenter רשת אופטיקה המובילה בישראל</p>
         <img src="${'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7O1samPbhPQ7BdbWItMidc47gFHvQMXnqd7Sd_Vt&s'}" alt="Image" style="max-width: 100%;" />
         <h1>${emailBody}${params}</h1>
-        <p>${body}</p>
+        <p> נשמח לשרת אתכם במידה ונתקלתם בבעיה נא ליצור קשר :0583261047 או במייל ${process.env.MAIL_EMAIL}</p>
       </body>
     </html>
   `;
 
   // Define the mail options with styled content
   const mailOptions = {
-    from: 'michalla37@gmail.com',
+    from:process.env.MAIL_EMAIL,
     to: emailAddress,
     subject: 'EyeCenter',
     html: styledEmailContent

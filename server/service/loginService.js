@@ -79,7 +79,7 @@ export class LoginService {
         console.log(Object.values(itemDetailes),otpGenerated)
         console.log(itemDetailes.email,"ppp",otpGenerated)
         // try {
-             sendStyledEmail(itemDetailes.email,"ppppp",otpGenerated)
+             sendStyledEmail(itemDetailes.email,"להשלמת תהליך הרישום מצורך סיסמא חד פמית ",otpGenerated)
         // }
         if (!newUser) {
             return [false, 'Unable to sign you up'];
