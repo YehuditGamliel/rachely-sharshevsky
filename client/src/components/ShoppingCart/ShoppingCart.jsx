@@ -77,7 +77,7 @@ export default function ShoppingCart() {
       <h2>Your Shopping Cart</h2>
       <DataView value={products} itemTemplate={itemTemplate} layout="list" />
     </div>
-    <button onClick={() => { navigate(`/paymentForm`) }}>לתשלום</button>
+    <button onClick={() => { navigate('/paymentForm') }}>לתשלום</button>
   </>
   );
 }

@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 import React, { useContext, useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import './Header.css';
 import logo from '../../img/logo.png'
 import Login from '../Login/Login';
@@ -18,10 +18,18 @@ function Header(props) {
     const [login, setLogin] = useState('');
     const [cartLength, setCartLength] = useState(0);
     let location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        if (currentUser) {
+            setCurrentEyeglasses({ userName: currentUser.userName, email: currentUser.email })
+            navigate('/my-account');
+        }
+    }, [])
 
     useEffect(() => {
         if (location.pathname === '/my-account') {
-
             setLogin(false);
             setStyle("activity")
         }
@@ -43,7 +51,7 @@ function Header(props) {
                 setCartLength(length);
             }
         }
-    }, []);
+    }, [location]);
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -69,7 +77,7 @@ function Header(props) {
                         <li> <Link to={"./todos"}>בדיקת ראיה </Link></li>
                         <li> <Link to={"./info"}>יצירת קשר </Link></li>
                         <li>
-                            <li><IconButton aria-label="cart">
+                            <li><IconButton onClick={()=>navigate('/ShoppingCart')} aria-label="cart">
                                 <StyledBadge badgeContent={cartLength} color="secondary">
                                     <ShoppingCartIcon />
                                 </StyledBadge>
@@ -79,6 +87,7 @@ function Header(props) {
                                 setLogin(<Login />)
                                 setStyle("notActivity")
                             }} /></li>
+                        {console.log("eyeglasses", eyeglasses)}
                         {location.pathname.slice(1) == 'my-account' ?
                             <li><span> Hi {eyeglasses.userName} </span></li>
                             : <></>}

@@ -77,10 +77,7 @@ function CU6({ addInformation }) {
 
       )}
     </div>
-    <Button
-      onClick={() => addInformation('CU6Id', CU6Id, 'paymentForm')
-
-      }>לקניה</Button>
+    <Button onClick={() => addInformation('CU6Id', CU6Id, 'paymentForm') }>לקניה</Button>
     <Button onClick={() => addInformation('CU6Id', CU6Id, 'ShoppingCart')}>להכנסה לסל</Button>
     {/* {login} */}
   </Dialog>

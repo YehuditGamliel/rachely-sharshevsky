@@ -19,6 +19,7 @@ function Home(props) {
   // Call the sendEmail function when you want to trigger the email sending
   //sendEmail();
   //  const { branches, setBranches } = useContext(UserContext);
+  
 
   useEffect(() => {
     fetch(`http://localhost:8082/branch`, {
