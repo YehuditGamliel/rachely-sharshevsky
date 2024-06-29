@@ -6,7 +6,6 @@ import SingleEyeglasses from "../SingleEyeglasses/SingleEyeglasses.jsx";
 import '../SpecificInfo/SpecificInfo.css'
 
 
-
 function SpecificInfo() {
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');

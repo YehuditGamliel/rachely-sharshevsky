@@ -23,12 +23,12 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
   }));
  
 
-function SizeOfGlasses({addInformation }){
+function SizeOfGlasses({addInformation}){
     const theme = useTheme();
     const [sizeOfGlasses,setSizeOfGlasses]=useState({"PWRRight":0,"CYLRight":0,"PWRLeft":0,"CYLLeft":0,"PDFAR":62,"PDNEAR":62});
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     // const [withOrWithoutPrescriptionId, setwithOrWithoutPrescriptionId] = useState('')
-    const [isButtonDisabled,setIsButtonDisabled]=useState(true)
+    //const [isButtonDisabled,setIsButtonDisabled]=useState(true)
         const [open, setOpen] = React.useState(true);
         const [plusNum,setPlusNum]=useState(false)
 
@@ -120,12 +120,15 @@ function SizeOfGlasses({addInformation }){
 }
 const PWROptionMinus= Array.from(new Array(24 * 2)).map(
   (_, index) =>`-${Math.floor(index / 4)+index%4*0.25}   `,);
+
 const PWROptionPlus = Array.from(new Array(24 * 2)).map(
 (_, index) =>
   `+${Math.floor(index / 4)+index%4*0.25}`,);
+
 const CYLOption=Array.from(new Array(8 * 2)).map(
 (_, index) =>
   `-${Math.floor(index / 4)+index%4*0.25}`,);
+
 const PDOptions= Array.from(new Array(20)).map(
 (_, index) =>
   `${index+40}`,);

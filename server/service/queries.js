@@ -67,7 +67,7 @@ export function getByValueQuery(tableName, value, columns) {
 export function addPurchaseQuery(columnsPurchase,columnsEyeData, date, status){
     const queries = [
             { query: `INSERT INTO purchase (${columnsPurchase}) VALUES (?, ${date},?, ${status},?, ?)`},
-            { query: `INSERT INTO eyesdata (${columnsEyeData}) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`},
+            { query: `INSERT INTO eyesdata (${columnsEyeData}) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`},
         ];
         return queries;
 }

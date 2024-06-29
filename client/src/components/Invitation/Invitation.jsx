@@ -6,7 +6,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Alert from '@mui/material/Alert';
 import Header from '../Header/header.jsx';
 import './Invitation.css'
- import KindOfGlasses from './KindOfGlasses.jsx'
+import KindOfGlasses from './KindOfGlasses.jsx'
 import CU6 from './CU6/CU6'
 import WithOrWithoutPrescription from './WithOrWithoutPrescription/WithOrWithoutPrescription';
 import SizeOfGlasses from './SizeOfGlasses/SizeOfGlasses';
@@ -47,17 +47,11 @@ function Invitation() {
   }, [open]);
 
   const addInformation = (name, id, title) => {
-    console.log("pppp", name, id, title)
-    // if(title=='paymentForm'){
-    //   setPaymentForm(<PaymentForm/>)
-    // }
     if (name == 'sizeOfGlasses') {
       setUserEyesdata(userItem => ({
         ...userItem,
         [name]: id,
-        // amount: 1
       }));
-
     }
     else {
       setUserEyesdata(userItem => ({
@@ -65,18 +59,15 @@ function Invitation() {
         [name]: id
       }));
     }
-    console.log(userEyesData)
     if (name == 'withOrWithoutPrescription') {
       if (id == "1")
         setPaper({ title: 'verification' })
-      //setLogin(<Login />)
     }
     setButtonDisabled(false)
     if (title == 'sizeOfGlasses' && id == 1) {
       alert(id)
       setPaper({ title: 'CU6' })
     }
-
     else {
       setPaper({ title: title })
     }
@@ -84,14 +75,11 @@ function Invitation() {
   };
 
   return (
-
     <React.Fragment>
       {alert}
       <Button variant="outlined" onClick={() => {
         handleClickOpen('paper')
-
         eyeglasses.stock == 0 ?
-
           setAlert(<Alert severity="error">אין מספיק במלאי!.</Alert>) : setPaper({ title: 'kindOfGlasses' })
       }
 
@@ -99,8 +87,8 @@ function Invitation() {
       {(() => {
         if (paper.title == 'kindOfGlasses') {
           return (
-            <KindOfClasses
-             addInformation={addInformation} />
+            <KindOfGlasses
+              addInformation={addInformation} />
           )
         } else if (paper.title == 'withOrWithoutPrescription') {
           return (
@@ -120,15 +108,12 @@ function Invitation() {
           )
         }
         else if (paper.title == 'CU6') {
-
           return (
             <CU6 addInformation={addInformation} />
           )
         }
         else if (paper.title == "ShoppingCart") {
           console.log("aaaa", eyeglasses.amount)
-
-
           const shoppingCart = { ...eyeglasses, ...userEyesData };
           const storedCart = JSON.parse(localStorage.getItem("ShoppingCart")) || [];
           let updatedCart;
@@ -139,7 +124,6 @@ function Invitation() {
           if (itemIndex !== -1) {
             // Update the quantity of the existing item by increasing by 1 if the item and 'amount' property exist
             if (storedCart[itemIndex].amount) {
-
               storedCart[itemIndex].amount++;
             } else {
               storedCart[itemIndex].amount = 1;

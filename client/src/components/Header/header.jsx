@@ -1,7 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
-import React, { useContext, useState ,useEffect} from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
-//import { UserContext } from "../../EyeglassesProvider.jsx";
 import './Header.css';
 import logo from '../../img/logo.png'
 import Login from '../Login/Login';
@@ -12,50 +11,38 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Tab from '@mui/material/Tab';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
-import WebcamGlassesOverlay from '../WebcamGlassesOverlay/WebcamGlassesOverlay.jsx';
-
-
-// const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-//   '& .MuiBadge-badge': {
-//     right: -3,
-//     top: 13,
-//     border: `2px solid ${theme.palette.background.paper}`,
-//     padding: '0 4px',
-//   },
-// }));
 
 function Header(props) {
-
-    let location = useLocation();
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [style, setStyle] = useState("activity")
     const [login, setLogin] = useState('');
     const [cartLength, setCartLength] = useState(0);
+    let location = useLocation();
+
     useEffect(() => {
-       
-        if(location.pathname === '/my-account') {
-            
+        if (location.pathname === '/my-account') {
+
             setLogin(false);
-             setStyle("activity")
+            setStyle("activity")
         }
     }, [location]);
+
     useEffect(() => {
-      // Retrieve the "ShoppingCart" array from localStorage
-      const storedCart = localStorage.getItem("ShoppingCart");
-      if (storedCart) {
-        // Parse the JSON string to get the array
-        const parsedCart = JSON.parse(storedCart);
-        // Check if it is indeed an array
-        if (Array.isArray(parsedCart)) {
-          // Get the length of the array
-          //const length = parsedCart.length;
-         let length=0;
-         parsedCart.forEach(product=>length+=(product.amount>1)?product.amount/2+0.5:1);
-          // Set the length to state
-          setCartLength(length);
-          console.log("popo",)
+        // Retrieve the "ShoppingCart" array from localStorage
+        const storedCart = localStorage.getItem("ShoppingCart");
+        if (storedCart) {
+            // Parse the JSON string to get the array
+            const parsedCart = JSON.parse(storedCart);
+            // Check if it is indeed an array
+            if (Array.isArray(parsedCart)) {
+                // Get the length of the array
+                //const length = parsedCart.length;
+                let length = 0;
+                parsedCart.forEach(product => length += (product.amount > 1) ? product.amount / 2 + 0.5 : 1);
+                // Set the length to state
+                setCartLength(length);
+            }
         }
-      }
     }, []);
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -70,12 +57,10 @@ function Header(props) {
     return (<>
 
         <div id={style}>
-            {/* <WebcamGlassesOverlay/> */}
             <div id="links">
                 <img src={logo} id="logo" />
                 <nav id="links">
                     <ul>
-                   
                         <li> <Link to={"./posts"}>בית </Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי ראיה </Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי שמש </Link></li>
@@ -84,12 +69,12 @@ function Header(props) {
                         <li> <Link to={"./todos"}>בדיקת ראיה </Link></li>
                         <li> <Link to={"./info"}>יצירת קשר </Link></li>
                         <li>
-                           <li><IconButton aria-label="cart">
+                            <li><IconButton aria-label="cart">
                                 <StyledBadge badgeContent={cartLength} color="secondary">
                                     <ShoppingCartIcon />
                                 </StyledBadge>
                             </IconButton>
-                            </li> 
+                            </li>
                             <Tab icon={<PersonPinIcon />} onClick={() => {
                                 setLogin(<Login />)
                                 setStyle("notActivity")
@@ -98,7 +83,6 @@ function Header(props) {
                             <li><span> Hi {eyeglasses.userName} </span></li>
                             : <></>}
                     </ul>
-
                 </nav>
                 <Outlet />
             </div>
@@ -107,3 +91,13 @@ function Header(props) {
     </>)
 }
 export default Header;
+
+
+// const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+//   '& .MuiBadge-badge': {
+//     right: -3,
+//     top: 13,
+//     border: `2px solid ${theme.palette.background.paper}`,
+//     padding: '0 4px',
+//   },
+// }));

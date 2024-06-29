@@ -3,22 +3,19 @@ import { Button } from 'primereact/button';
 import { DataView } from 'primereact/dataview';
 import { Rating } from 'primereact/rating';
 import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 import './ShoppingCart.css';  // Import custom CSS for additional styling
-import IconButton from '@mui/material/IconButton';
-import Header from '../Header/header';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
 
 
 export default function ShoppingCart() {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedProducts = JSON.parse(localStorage.getItem("ShoppingCart")) || [];
     setProducts(storedProducts);
-    
-    console.log("😒",products)
   }, []);
 
   // Function to format price and rating
@@ -42,19 +39,14 @@ export default function ShoppingCart() {
 
   // Template for rendering each product
   const itemTemplate = (product) => {
-    console.log("$$$$$$$$$$",product.imgDisplay)
     return (
       <div className="col-12" key={product.id}>
-       {/* {product.amount=(product.amount>1)?product.amount/2+0.5:product.amount} */}
-
         <div className="product-item">
-        {/* <div className="product-name">{product.model}</div> */}
           <img className="product-image" src={product.photo} alt={`Image of ${product.imgDisplay}`} />
           <div className="product-detail">
             <div className="product-name">{product.company}</div>
             <div className="product-description">{product.title}</div>
-         
-            <div className="product-description">{product.amount>1?product.amount/2+0.5:product.amount}</div>
+            <div className="product-description">{product.amount > 1 ? product.amount / 2 + 0.5 : product.amount}</div>
             <div className="product-price">{formatCurrency(product.price)}</div>
             <div className="product-rating">
               <Rating value={product.rating} readOnly stars={5} cancel={false} />
@@ -63,11 +55,9 @@ export default function ShoppingCart() {
               <Tag value={product.model} severity={getSeverity(product.inventoryStatus)} />
             </div>
           </div>
-          
           <Button onClick={() => removeFromCart(product.model)}>
-        <DeleteOutlineOutlinedIcon />
-  
-</Button>
+            <DeleteOutlineOutlinedIcon />
+          </Button>
 
         </div>
       </div>
@@ -82,10 +72,12 @@ export default function ShoppingCart() {
     localStorage.setItem("ShoppingCart", JSON.stringify(updatedProducts));
   };
 
-  return (
+  return (<>
     <div className="shopping-cart">
       <h2>Your Shopping Cart</h2>
       <DataView value={products} itemTemplate={itemTemplate} layout="list" />
     </div>
+    <button onClick={() => { navigate(`/paymentForm`) }}>לתשלום</button>
+  </>
   );
 }

@@ -28,7 +28,7 @@ app.use('/eyeglasses', eyeglassesRouter);
 app.use('/eyesData', eyesDataRouter);
 app.use('/authorization',loginRouter);
 app.use('/branch',branchRouter);
-app.use('./purchase',purchaseRouter)
+app.use('/purchase',purchaseRouter)
 //  app.use('/EditingGlasses',editingGlassesRouter)
 // app.use(verifyToken);
 app.use(logErrors);

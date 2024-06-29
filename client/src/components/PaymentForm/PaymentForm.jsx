@@ -1,17 +1,15 @@
-import { useState, useContext } from 'react';
-import Cards from 'react-credit-cards-2';
-import Button from '@mui/material/Button';
-import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import { useState } from 'react';
+
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import Login from '../Login/Login.jsx'
-// import SimpleMap from '../GoogleMap.jsx';
+
 const PaymentForm = () => {
-  const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+
   const initialOptions = {
     clientId: "test",
     currency: "USD",
     intent: "capture",
-};
+  };
+
   const [state, setState] = useState({
     number: '',
     expiry: '',
@@ -19,56 +17,71 @@ const PaymentForm = () => {
     name: '',
     focus: '',
   });
-const payment=()=>{
-  console.log(eyeglasses)
-  // fetch(`https://localhost:8082/todos`, {
-  //         method: 'POST',
-  //         body: JSON.stringify({
-  //           userEmail:eyeglasses.email,
-  //           price:eyeglasses.price,
-  //           model: eyeglasses.nodel,
-  //           SPHRight:eyeglasses.SPHRight,
-  //           SPHLeft:eyeglasses.SPHLeft,
-  //           CYLRight:eyeglasses.CYLRight,
-  //               // userId: id
-  //         }),
-  //         headers: {
-  //           'Content-type': 'application/json; charset=UTF-8',
-  //         }
-  //       })
-  //         .then((response) => response.json())
-  //         .then((json) => {
-  //           if (json.status != 200) {
-  //             alert(json.error)
-  //           }
-  //           else {
-              
-  //           }
-  //         })
 
-}
-  const handleInputChange = (evt) => {
-    const { name, value } = evt.target;
-    console.log(name,value)
-    
-    setState((prev) => ({ ...prev, [name]: value }));
+  const addingPurchaseDetails = () => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const arrPurchaseDetails = JSON.parse(localStorage.getItem('ShoppingCart'));
+    for (const dataPurchase of arrPurchaseDetails) {
+      fetch(`http://localhost:8082/purchase`, {
+        method: 'POST',
+        body: JSON.stringify([{
+          userName: currentUser.userName,
+          price: dataPurchase.price,
+          model: dataPurchase.model,
+          idEyeData: 1
+        },
+        {
+          SPHRight: dataPurchase.sizeOfGlasses.PWRRight,
+          SPHLeft: dataPurchase.sizeOfGlasses.PWRLeft,
+          CYLRight: dataPurchase.sizeOfGlasses.CYLRight,
+          CYLLeft: dataPurchase.sizeOfGlasses.CYLLeft,
+          PDFAR: dataPurchase.sizeOfGlasses.PDFAR,
+          PDNEAR: dataPurchase.sizeOfGlasses.PDNEAR,
+          idKindOfGlasses: 1,
+          idCU6: 1,
+          idKindOfPrescription: 1
+        }]),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }).then(response => response.json())
+        .then((json) => {
+          if (json.status != 200) {
+            alert(json.error)
+          }
+          else {
+          }
+        })
+
+    }
   }
 
-  const handleInputFocus = (evt) => {
-    setState((prev) => ({ ...prev, focus: evt.target.name }));
-  }
-
-  return ( 
+  
+  return (
     <>
-       {/* eyeglasses.userName?(<Login/>): */}
-    <> <></>
-    <PayPalScriptProvider options={initialOptions}>
-    <PayPalButtons />
- </PayPalScriptProvider></>
- {/* ?<></> */}
-   
- </>
+      {/* eyeglasses.userName?(<Login/>): */}
+      <> <></>
+        <PayPalScriptProvider options={initialOptions}>
+          <PayPalButtons onClick={() => addingPurchaseDetails()} />
+        </PayPalScriptProvider></>
+      {/* ?<></> */}
+
+    </>
   );
 }
 
 export default PaymentForm;
+
+
+  //const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+//import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+// const handleInputChange = (evt) => {
+  //   const { name, value } = evt.target;
+  //   console.log(name, value)
+
+  //   setState((prev) => ({ ...prev, [name]: value }));
+  // }
+
+  // const handleInputFocus = (evt) => {
+  //   setState((prev) => ({ ...prev, focus: evt.target.name }));
+  // }

@@ -5,6 +5,7 @@ import { addPurchaseQuery } from './queries.js'
 export class PurchaseService {
 
     async addPurchase(itemDetailes) {
+        console.log("itemDetailes",itemDetailes)
         let date_ob = new Date();
         let date = ("0" + date_ob.getDate()).slice(-2);
         let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
@@ -13,8 +14,12 @@ export class PurchaseService {
         let minutes = date_ob.getMinutes();
         let seconds = date_ob.getSeconds();
         let currentDate = (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
-        const query = addPurchaseQuery(`userEmail, date, price, status, model, idEyeData`,`SPHRight, SPHLeft, CYLRight, CYLLeft, addLeft, addRight, PDFAR, PDNERAR,idKindOfGlasses, idCU6, idKindOfPrescription`,currentDate,"Invitation");
+        let dateToString = `"${currentDate}"`;
+        let statusToString = `"${"Invitation"}"`;
+        const query = addPurchaseQuery(`userName, date, price, status, model, idEyeData`,`SPHRight, SPHLeft, CYLRight, CYLLeft, PDFAR, PDNEAR,idKindOfGlasses, idCU6, idKindOfPrescription`,dateToString,statusToString);
         const result = await executeQuery(query, Object.values(itemDetailes));
+        console.log("service")
         return result;
+
     }
 }
