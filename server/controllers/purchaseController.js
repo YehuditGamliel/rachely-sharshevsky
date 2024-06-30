@@ -16,6 +16,20 @@ export class PurchaseController {
             next(err)
         }
     }
+    async getStatus(req, res, next) {
+        try {
+            const purchaseService = new PurchaseService()
+            const resultItem = await purchaseService.getStatus(req.body);
+            res.status(200).json({ status: 200, data: resultItem });
+            console.log(resultItem)
+        }
+        catch (ex) {
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
 
 
 

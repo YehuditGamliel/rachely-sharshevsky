@@ -3,23 +3,29 @@ import '../StatusCheck/StatusCheck.css'
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 
 const StatusCheck = () => {
+  const [status,setStatus]=useState()
 const [numOfInvitation,setnumOfInvitation]=useState();
   
 const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
 const checkStatusCheck=()=>{
+  
   fetch(`http://localhost:8082/purchase/getStatut`, {
     method: 'POST',
     body: JSON.stringify({
       userName:eyeglasses.userName,
-      status:numOfInvitation
+      id:numOfInvitation
     }),
     headers: {
         'Content-type': 'application/json; charset=UTF-8',
     }
 }).then(response => response.json())
     .then((json) => {
+      console.log(json.data[0].status)
         if (json.status != 200) {
-            alert(json.error)
+            alert("נתונים לא נכונים!")
+        }
+        else{
+         setStatus(json.data[0].status) 
         }
     })
 
@@ -37,7 +43,8 @@ const handleInputChange = (event) => {
       <input type="number"  placeholder="מספר הזמנה" min="100000" max="999999" onChange={handleInputChange}/>
       <button onClick={checkStatusCheck()}></button>
        <p>סטטוס ההזמנה שלך:</p>
-
+       {status?<p id="status">{status}</p>:<></>}
+      
       </div>
      
       </div>

@@ -6,6 +6,7 @@ const purchaseRouter = express.Router();
 const purchaseController = new PurchaseController()
 
 purchaseRouter.post("/", purchaseController.addPurchase)
+purchaseRouter.post("/getStatut", purchaseController.getStatus)
 
 
 export {
