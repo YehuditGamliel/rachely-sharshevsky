@@ -9,7 +9,6 @@ import Main from './components/Header/header';
 import PaymentForm from './components/PaymentForm/PaymentForm';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import LoginManager from './components/LoginManger/LoginManager.jsx';
-import Dashboard from './components/Dashboard/Dashbord.jsx';
 import PrivateRoute from './router/PrivateRoute';
 import AuthProvider from './hook/AuthProvider';
 import EditingGlassesDetails from './components/EditingGlassesDetails/EditingGlassesDetail.jsx'
@@ -22,7 +21,7 @@ function App() {
           <Routes>
             <Route path="/loginManager" element={<LoginManager />} />
             <Route element={<PrivateRoute />}>
-              <Route path="dashboard" element={<Dashboard />} />
+              
             </Route>
             <Route path="/" element={<Main />}>
               <Route index element={<Home />} />

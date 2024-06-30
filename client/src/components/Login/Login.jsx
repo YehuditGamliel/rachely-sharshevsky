@@ -9,6 +9,16 @@ import Alert from '@mui/material/Alert';
 import { Password } from 'primereact/password';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import { useLocation } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+
+
 
 
 function Login() {
@@ -19,11 +29,37 @@ function Login() {
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [showRegister, setShowRegister] = useState('');
     const [registerOrLogin, setRegisterOrLogin] = useState(true)
+    const [open, setOpen] = React.useState(false);
+    const[showDialog,setShowDialog]=useState(false)
+    const theme = useTheme();
+     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = (id) => {
+        if(id==0){
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            currentUser.role = 0; 
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            setCurrentEyeglasses(prevState => {
+                return {
+                    ...prevState,
+                    role: 0,
+                };
+            });
+        }
+    
+        
+      setOpen(false);
+      navigate('./home')
+    };
     const navigate = useNavigate();
-    useEffect(() => {
-        if (location.pathname !== '/manager') {
-        navigate(`/login`)}
-    }, [])
+    // useEffect(() => {
+    //     if (location.pathname !== '/manager') {
+    //     navigate(`/login`)}
+    // }, [])
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -55,13 +91,24 @@ function Login() {
     }
 
     const login = async (user) => {
+        
         let json = await userExist(user)
         if (json.status == 200) {
-            console.log(json)
-            navigate(`/my-account`)
-            localStorage.setItem('currentUser', JSON.stringify(
-                { userName: user.userName, username: json.data }));
-            setCurrentEyeglasses({ userName: user.userName, email: json.data })
+            console.log("🥻",json.role)
+            if(json.role==1)
+                {
+                   setShowDialog(true)
+                   setOpen(true);
+                 
+                }
+           
+              
+                localStorage.setItem('currentUser', JSON.stringify(
+                    { userName: user.userName, role:json.role }));
+                   
+                setCurrentEyeglasses({ userName: user.userName,role:json.role })
+              
+                
                     }
                 else {if (json.status == 400) {
             return (
@@ -115,7 +162,36 @@ function Login() {
         setRegisterOrLogin(false)
     }
     return (
-        <>{console.log(eyeglasses.userName)}
+        <>
+        {(setShowDialog&&open)?
+    //   <Button variant="outlined" onClick={handleClickOpen}>
+    //     Open responsive dialog
+    //   </Button>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            איך ברצונך להמשיך?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={()=>handleClose(1)}>
+           כמנהל
+          </Button>
+          <Button onClick={()=>handleClose(0)} autoFocus>
+            כלקוח
+          </Button>
+        </DialogActions>
+      </Dialog>
+   :<>
+     
         {!eyeglasses.userName?
             <>{
                 registerOrLogin ? <div className='login-background'>
@@ -171,7 +247,7 @@ function Login() {
 
                 </div>
                     : showRegister
-            }</>:<StatusCheck/>}
+            }</>:<StatusCheck/>}</>}
         </>
 
     )

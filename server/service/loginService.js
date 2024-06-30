@@ -31,11 +31,11 @@ export class LoginService {
     
     }
     async Authentication(data) {
-        const query = getByValue('users', 'hashPassword,userName', 'userName');
+        const query = getByValue('users', 'hashPassword,role,email', 'userName');
         console.log("query",query)
         const resultData = await executeQuery(query, [data.userName]);
-        console.log("resultData",resultData)
-        console.log("result:", resultData[0].userName);
+        console.log("❤️","resultData",resultData)
+        console.log("result:", data.userName);
         
         const comparePasswords = new Promise((resolve, reject) => {
             bcrypt.compare(data.password, resultData[0].hashPassword, function(err, result) {
@@ -50,7 +50,7 @@ export class LoginService {
         
         const [verificationResult, token] = await comparePasswords;
         
-        return [verificationResult, token];        
+         return [verificationResult, token, resultData[0].role,resultData[0].email];   
         //return result;
         //return {token ,refreshtoken};
     }

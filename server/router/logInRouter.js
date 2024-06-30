@@ -16,7 +16,7 @@ loginRouter.post('/verify', loginController.verifyUserName);
 // loginRouter.post("/signUp", loginController.addUser)
 
 // loginRouter.post("/signUp", userController.addUser);
-// loginRouter.put("/login",loginController.updatePassword)
+//loginRouter.put("/",loginController.updatePassword)
 
 
 export {

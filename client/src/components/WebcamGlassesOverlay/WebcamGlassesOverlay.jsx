@@ -2,14 +2,20 @@ import React, { useRef, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
 import * as faceapi from 'face-api.js';
 import '@tensorflow/tfjs';
+import useSound from 'use-sound';
+import r from '../img/r.mp3'
 
 const WebcamGlassesOverlay = ({ img }) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [glassesImg, setGlassesImg] = useState(null);
+  const [play, { stop }] = useSound(r);
+  // const [play, { stop }] = useSound(r);
 
   // Log the loading process step-by-step
   useEffect(() => {
+    () => play()
+
     const loadModels = async () => {
       try {
         console.log('Loading Tiny Face Detector model...');
@@ -97,10 +103,13 @@ const WebcamGlassesOverlay = ({ img }) => {
   };
 
 
+  
 
 
   return (
     <div style={{ position: 'relative', width: 'fit-content' }}>
+      < button onMouseEnter={() => play()} onMouseLeave={() => stop()}>לשמיעת ההוראות</button>
+ {/* < button onMouseEnter={() => play()} onMouseLeave={() => stop()}></button> */}
       <Webcam
         ref={webcamRef}
         audio={false}

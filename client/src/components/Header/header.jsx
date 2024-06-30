@@ -68,7 +68,7 @@ function Header(props) {
                         <li> <Link to={"eyeglasses"}>סניפים</Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי ספורט</Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי שמש </Link></li>
-                        <li> <Link to={"my-account/eyeglasses"}>משקפי נשים </Link></li>
+                        <li> <Link to={"eyeglasses"}>משקפי נשים </Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי גברים</Link></li>
                         <li> <Link  to={"/"}>אודותינו </Link></li>
                         <li>

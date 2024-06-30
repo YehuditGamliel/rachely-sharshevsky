@@ -24,23 +24,24 @@ const PaymentForm = () => {
     for (const dataPurchase of arrPurchaseDetails) {
       fetch(`http://localhost:8082/purchase`, {
         method: 'POST',
-        body: JSON.stringify([{
+        body: JSON.stringify([
+          {
+            SPHRight: dataPurchase.sizeOfGlasses.PWRRight,
+            SPHLeft: dataPurchase.sizeOfGlasses.PWRLeft,
+            CYLRight: dataPurchase.sizeOfGlasses.CYLRight,
+            CYLLeft: dataPurchase.sizeOfGlasses.CYLLeft,
+            PDFAR: dataPurchase.sizeOfGlasses.PDFAR,
+            PDNEAR: dataPurchase.sizeOfGlasses.PDNEAR,
+            idKindOfGlasses: 1,
+            idCU6: 1,
+            idKindOfPrescription: 1
+          },
+          {
           userName: currentUser.userName,
           price: dataPurchase.price,
           model: dataPurchase.model,
-          idEyeData: 1
-        },
-        {
-          SPHRight: dataPurchase.sizeOfGlasses.PWRRight,
-          SPHLeft: dataPurchase.sizeOfGlasses.PWRLeft,
-          CYLRight: dataPurchase.sizeOfGlasses.CYLRight,
-          CYLLeft: dataPurchase.sizeOfGlasses.CYLLeft,
-          PDFAR: dataPurchase.sizeOfGlasses.PDFAR,
-          PDNEAR: dataPurchase.sizeOfGlasses.PDNEAR,
-          idKindOfGlasses: 1,
-          idCU6: 1,
-          idKindOfPrescription: 1
-        }]),
+        }
+        ]),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },

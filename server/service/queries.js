@@ -74,10 +74,11 @@ export function getByValueQuery(tableName, value, columns) {
     return query
 }
 
-export function addPurchaseQuery(tableName,columnsPurchase,columnsEyeData, date, status){
+export function addPurchaseQuery(columnsPurchase,columnsEyeData, date, status){
     const queries = [
-            { query: `INSERT INTO tableName (${columnsPurchase}) VALUES (?, ${date},?, ${status},?, ?)`},
             { query: `INSERT INTO eyesdata (${columnsEyeData}) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`},
+            { query: `INSERT INTO purchase (${columnsPurchase}) VALUES (?, ${date},?, ${status},?, ?)`},
+            
         ];
         return queries;
 }

@@ -7,7 +7,7 @@ import header from '../../img/header.jpg';
 import jsonData from '../../assets/data.json'
 import GoogleMaps from '../GoogleMap/GoogleMap.jsx'
 import useSound from 'use-sound';
-import r from '../r.mp3'
+import r from '../img/r.mp3'
 
 function Home(props) {
   const [cities, setCities] = useState([]);
