@@ -82,6 +82,7 @@ export function addPurchaseQuery(columnsPurchase,columnsEyeData, date, status){
         ];
         return queries;
 }
+
 export function updateQuery(tableName, value, itemKeys) {
     console.log("🤣");
     console.log(tableName, value, itemKeys)

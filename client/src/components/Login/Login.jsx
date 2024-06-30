@@ -19,8 +19,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
 
-
-
 function Login() {
     let location = useLocation();
     const [value, setValue] = useState('');
@@ -30,14 +28,13 @@ function Login() {
     const [showRegister, setShowRegister] = useState('');
     const [registerOrLogin, setRegisterOrLogin] = useState(true)
     const [open, setOpen] = React.useState(false);
-    const[showDialog,setShowDialog]=useState(false)
+    const [loginOrNot,setLoginOrNot]=useState(true);
+    // const[showDialog,setShowDialog]=useState(false)
     const theme = useTheme();
      const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
     const handleClickOpen = () => {
       setOpen(true);
     };
-  
     const handleClose = (id) => {
         if(id==0){
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -51,9 +48,12 @@ function Login() {
             });
         }
     
-        
       setOpen(false);
-      navigate('./')
+      
+    //   setLoginOrNot(false)
+      navigate('./home')
+
+      
     };
     const navigate = useNavigate();
     // useEffect(() => {
@@ -97,9 +97,7 @@ function Login() {
             console.log("🥻",json.role)
             if(json.role==1)
                 {
-                   setShowDialog(true)
                    setOpen(true);
-                 
                 }
            
               
@@ -163,7 +161,7 @@ function Login() {
     }
     return (
         <>
-        {(setShowDialog&&open)?
+        {(open)?
     //   <Button variant="outlined" onClick={handleClickOpen}>
     //     Open responsive dialog
     //   </Button>
@@ -191,7 +189,6 @@ function Login() {
         </DialogActions>
       </Dialog>
    :<>
-     
         {!eyeglasses.userName?
             <>{
                 registerOrLogin ? <div className='login-background'>
@@ -247,7 +244,10 @@ function Login() {
 
                 </div>
                     : showRegister
-            }</>:<StatusCheck/>}</>}
+            }</>:<StatusCheck/>
+            
+            
+            }</>}
         </>
 
     )
@@ -255,5 +255,49 @@ function Login() {
 }
 export default Login;
 
+
+
+
+
+
+
+
+// const handleChangePassword = async (passwords) => {
+//     if (passwords.newPassword != passwords.verifyPassword)
+//         setErrorMassage("verity is not correct,try again")
+//     else {
+//         setErrorMassage(" ")
+//         let json = await userExist({ username: passwords.username, password: passwords.oldPassword })
+//         if (json.status == 200) {
+//             fetch(`http://localhost:8082/authorization`, {
+//                 method: 'PUT',
+//                 body: JSON.stringify({
+//                     username: passwords.username,
+//                     password: passwords.newPassword
+//                 }),
+//                 headers: {
+//                     'Content-type': 'application/json; charset=UTF-8',
+//                 }
+//             }).then(response => response.json())
+//                 .then((json) => {
+//                     if (json.status != 200) {
+//                         alert(json.error)
+//                     }
+//                 })
+//         }
+//         else if (json.status == 400) {
+//             <Alert severity="error">The username or password you entered is incorrect, please try again or sign up.</Alert>
+//         }
+//         else {
+//             alert(json.error)
+
+//         }
+//     }
+// }
+// const userExist = async (userDetails) => {
+//     const response = await APIRequest.postRequest(`/authorization`, { userName: userDetails.userName, password: userDetails.password });
+//     const json = await response.json();
+//     return json;
+// }
 
 

@@ -20,6 +20,7 @@ function App() {
        
           <Routes>
             <Route path="/" element={<Main />}>
+            <Route path="home" element={<Home />} />
               <Route index element={<Home />} />
               <Route path="my-account" element={<Home />} />
               <Route path="login" element={<Login />} />
@@ -37,6 +38,8 @@ function App() {
                 <Route path=":eyeglassesModel" element={<EditingGlassesDetails />} />
               </Route>
             </Route>
+            <Route path='*' element={<p>not found</p>}/> 
+
           </Routes>
        
       </Router>

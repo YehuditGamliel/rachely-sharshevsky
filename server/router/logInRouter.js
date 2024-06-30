@@ -10,13 +10,14 @@ const loginController = new LoginController()
 
 loginRouter.post('/', loginController.AuthenticationForSignUpOrLogin);
 loginRouter.post('/verify', loginController.verifyUserName);
+loginRouter.put("/",loginController.updatePassword)
 // loginRouter.post("/login", loginController.Authentication)
 // loginRouter.post("/loginManager", loginController.AuthenticationManager)
 // loginRouter.get("/signUp",loginController.checkUserName)
 // loginRouter.post("/signUp", loginController.addUser)
 
 // loginRouter.post("/signUp", userController.addUser);
-//loginRouter.put("/",loginController.updatePassword)
+
 
 
 export {
