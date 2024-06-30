@@ -6,6 +6,8 @@ import { styled } from '@mui/material/styles';
 import header from '../../img/header.jpg';
 import jsonData from '../../assets/data.json'
 import GoogleMaps from '../GoogleMap.jsx';
+import useSound from 'use-sound';
+import r from '../r.mp3'
 
 function Home(props) {
   const [cities, setCities] = useState([]);
@@ -15,6 +17,7 @@ function Home(props) {
   const [style, setStyle] = useState("activity")
   const [login, setLogin] = useState('');
   let location = useLocation();
+  const [play, { stop }] = useSound(r);
 
   // Call the sendEmail function when you want to trigger the email sending
   //sendEmail();
@@ -80,6 +83,7 @@ function Home(props) {
     },
   }));
   return (<>
+  < button onMouseEnter={() => play()} onMouseLeave={() => stop()}></button>
     {search === 'map' ?
       (<>
         <GoogleMaps lat={branches[0].lat} lng={branches[0].lng} street={branches[0].street} number={branches[0].number}

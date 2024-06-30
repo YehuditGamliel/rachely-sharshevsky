@@ -4,37 +4,35 @@ import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import Invitation from '../Invitation/Invitation.jsx';
 import SingleEyeglasses from "../SingleEyeglasses/SingleEyeglasses.jsx";
 import '../SpecificInfo/SpecificInfo.css'
+import { APIRequests } from "../../APIRequests.js";
 
 
 function SpecificInfo() {
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');
     const [moreImages, setMoreImages] = useState([])
+    const APIRequest = new APIRequests()
+    
     useEffect(() => {
-        // { alert(eyeglasses.model) }
-        fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
-            method: 'GET',
-
-        })
-            .then(response => response.json())
-            .then((json) => {
-                if (json.status != 200) {
-                    alert(json.error)
-                }
-                else {
-                    console.log("json", json.data[0])
-                    setMoreImages([...moreImages, ...json.data[0]])
-
-                    setCurrentEyeglasses(glassesData => ({
-                        ...glassesData,
-                        ...json.data[0][0]
-                    }));
-                }
-            })
+        const fetchData = async () => {
+            const response = await APIRequest.getRequest(`/eyeglasses/${eyeglasses.model}`)
+            const json = await response.json();
+            if (json.status != 200) {
+                alert(json.error)
+            }
+            else {
+                setMoreImages([...moreImages, ...json.data[1]])
+                console.log("json.data[1]",json.data[1])
+                setEditedEyeglasses(glassesData => ({
+                    ...glassesData,
+                    ...json.data[0][0]
+                }));
+            }
+        }
+        fetchData();
     }, [])
 
     return (<>
-        {console.log("@@", eyeglasses, displaySpecificInfo)}
         <div id="card">
             <div id="container">
                 <div id="title">
@@ -47,20 +45,16 @@ function SpecificInfo() {
                 <p> רחוב עדשה:{eyeglasses.lensWidth}</p>
                 <p>רוחב גשר:{eyeglasses.BridgeWidth}</p>
                 <p>חומר מסגרת:{eyeglasses.material}</p>
-
                 <div id="datas">
                     <p>סה"כ</p>
                     <p id="totalPrice">{eyeglasses.price}₪</p>
                     <Invitation />
-
                 </div>
             </div>
-           {console.log("!!!!!!!!!!!1",eyeglasses.imgDisplay)}
             <img id="imgBig" src={eyeglasses.imgDisplay} alt="Eyeglasses"/>
 
         </div>
         <div id="moreGlasses">
-            {console.log("##########", moreImages)}
             <div className="title">
                 {moreImages.length > 1 ?
                     <div>
@@ -95,3 +89,24 @@ export default SpecificInfo;
 //         padding: '0 4px',
 //     },
 // }));
+
+
+// { alert(eyeglasses.model) }
+        // fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
+        //     method: 'GET',
+
+        // })
+        //     .then(response => response.json())
+        //     .then((json) => {
+        //         if (json.status != 200) {
+        //             alert(json.error)
+        //         }
+        //         else {
+        //             console.log("json", json.data[0])
+        //             setMoreImages([...moreImages, ...json.data])
+        //             setCurrentEyeglasses(glassesData => ({
+        //                 ...glassesData,
+        //                 ...json.data[0][0]
+        //             }));
+        //         }
+        //     })

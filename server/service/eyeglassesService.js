@@ -4,15 +4,29 @@ import {getByValueQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery ,de
 export class EyeglassesService {
 
 
-    async  getAllEyeglasses(q) {
-        let query = null;
+    // async  getAllEyeglasses(q) {
+    //     let query = null;
 
+    //     if (Object.keys(q)[0] === '_page') {
+    //         query = getAllQuery('eyeglasses', 'model,price,title,imgDisplay,imgCamara', q);
+    //     } else {
+    //         query = getAllSortedQuery('eyeglasses', 'model,price,title,imgDisplay,imgCamara', q, q.sort); 
+    //     }
+    //     const result = await executeQuery(query);
+    //     return result;
+    // }
+    async  getAllEyeglasses(q) {
+        console.log("Controller ddE")
+        let query = null;
+    
         if (Object.keys(q)[0] === '_page') {
-            query = getAllQuery('eyeglasses', 'model,price,title,imgDisplay,imgCamara', q);
+            query = getAllQuery('eyeglasses', 'model,price,photo,title', q);
         } else {
-            query = getAllSortedQuery('eyeglasses', 'model,price,title,imgDisplay,imgCamara', q, q.sort); 
+            query = getAllSortedQuery('eyeglasses', 'model,price,photo,title', q, q.sort); 
         }
         const result = await executeQuery(query);
+        console.log("😒",q  ,result)
+
         return result;
     }
     // async getAllEyeglasses  (req) {

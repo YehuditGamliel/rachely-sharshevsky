@@ -1,0 +1,63 @@
+import {useContext, useState } from 'react';
+import '../StatusCheck/StatusCheck.css'
+import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+
+const StatusCheck = () => {
+const [numOfInvitation,setnumOfInvitation]=useState();
+  
+const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+const checkStatusCheck=()=>{
+  fetch(`http://localhost:8082/purchase/getStatut`, {
+    method: 'POST',
+    body: JSON.stringify({
+      userName:eyeglasses.userName,
+      status:numOfInvitation
+    }),
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+    }
+}).then(response => response.json())
+    .then((json) => {
+        if (json.status != 200) {
+            alert(json.error)
+        }
+    })
+
+}
+const handleInputChange = (event) => {
+  setnumOfInvitation(event.target.value);
+};
+  
+  return (
+    <>
+    <div className='status-background'>
+    <div className='status-box'>
+      <p>מה עם ההזמנה שלי?</p>
+      <p>אנא הכנס מספר הזמנה </p>
+      <input type="number"  placeholder="מספר הזמנה" min="100000" max="999999" onChange={handleInputChange}/>
+      <button onClick={checkStatusCheck()}></button>
+       <p>סטטוס ההזמנה שלך:</p>
+
+      </div>
+     
+      </div>
+
+    </>
+  );
+}
+
+export default StatusCheck;
+
+
+  //const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+//import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+// const handleInputChange = (evt) => {
+  //   const { name, value } = evt.target;
+  //   console.log(name, value)
+
+  //   setState((prev) => ({ ...prev, [name]: value }));
+  // }
+
+  // const handleInputFocus = (evt) => {
+  //   setState((prev) => ({ ...prev, focus: evt.target.name }));
+  // }

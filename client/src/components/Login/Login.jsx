@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, Link } from 'react-router-dom';
 //import { UserContext } from "../../EyeglassesProvider.jsx";
 import '../Login/Login.css'
+import StatusCheck  from '../StatusCheck/StatusCheck.jsx';
 import Register from '../Register/Register'
 import Alert from '@mui/material/Alert';
 import { Password } from 'primereact/password';
@@ -74,13 +75,16 @@ function Login() {
            
 
         }
-        else if (json.status == 400) {
-            <Alert severity="error">The username
-                or password you entered is incorrect, please try again or sign up..</Alert>
+        else {if (json.status == 400) {
+            return (
+                <Alert severity="error">The username or password you entered is incorrect, please try again or sign up.</Alert>
+            );
         }
         else {
             alert(json.error)
         }
+    }
+       
         // alert(currentUser)
     }
 
@@ -123,8 +127,8 @@ function Login() {
         setRegisterOrLogin(false)
     }
     return (
-        <>
-            {
+        <>{!eyeglasses?
+            <>{
                 registerOrLogin ? <div className='login-background'>
                     <div className='login-box'>
                         <button onClick={() => setRegister()}>Register</button>
@@ -178,7 +182,7 @@ function Login() {
 
                 </div>
                     : showRegister
-            }
+            }</>:<StatusCheck/>}
         </>
 
     )
