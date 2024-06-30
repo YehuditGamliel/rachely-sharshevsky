@@ -1,4 +1,6 @@
 import express from 'express';
+//import cors from 'cors';
+
 import nodemailer from 'nodemailer';
 import { userRouter } from './router/userRouter.js';
 import { eyeglassesRouter } from './router/eyeglassesRouter.js';
@@ -18,9 +20,25 @@ let allowCrossDomain = function(req, res, next) {
     next();
 }
 
+// app.use(cors({
+//     origin: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // מתודות המורשות
+//     //allowedHeaders: ['Content-Type', 'Authorization'] ,// כותרות מותרות
+//     credentials: true
+// }));
+
+
 const app = express();
 app.use(express.json());
 app.use(allowCrossDomain);
+
+// app.use(cors({
+//     origin: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // מתודות המורשות
+//     allowedHeaders: ['Content-Type', 'Authorization'] ,// כותרות מותרות
+//     credentials: true
+// }));
+
 app.use('/img', express.static('img'));
 
 app.use('/users', userRouter);

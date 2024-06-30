@@ -22,16 +22,16 @@ export function deleteQuery(tableName) {
     
 }
 
-export function  addaspecialQuery(tableName,itemKeys,inadditional){
-    let keys = "", QuestionMark = "";
-    itemKeys.forEach(element => {
-        keys += element + ',';
-        QuestionMark += "?,"
-    })
-    const query = `INSERT INTO optics.${tableName} (${keys}${inadditional}) VALUES (${QuestionMark} ?);`;
-    console.log(query)
-    return query
-}
+// export function  addaspecialQuery(tableName,itemKeys){
+//     let keys = "", QuestionMark = "";
+//     itemKeys.forEach(element => {
+//         keys += element + ',';
+//         QuestionMark += "?,"
+//     })
+//     const query = `INSERT INTO optics.${tableName} (${keys}) VALUES (${QuestionMark});`;
+//     console.log(query)
+//     return query
+// }
 export function addQuery(tableName, itemKeys)   {
     let keys = "", QuestionMark = "";
     itemKeys.forEach(element => {
@@ -40,9 +40,11 @@ export function addQuery(tableName, itemKeys)   {
     })
     
     const query = `INSERT INTO optics.${tableName} (${keys.slice(0, -1)}) VALUES (${QuestionMark.slice(0, -1)});`;
+   console.log(query)
     return query
 }
 
+//('optics','hashPassword','userName')
 export function getByValues(tableName, columns,itemKeys) {
     // console.log(itemKeys)
     let condition = ""
@@ -52,6 +54,14 @@ export function getByValues(tableName, columns,itemKeys) {
    //const query = `SELECT email FROM optics.manager  WHERE  isActive='1'  AND ${condition.slice(0, -4)} ;`;
 //    console.log("🥻",query)
     const query = `SELECT ${columns} FROM optics.${tableName}  WHERE  isActive='1'  AND ${condition.slice(0, -4)} ;`;
+    console.log("🥻",query)
+    return query
+}
+export function getByValue(tableName, columns,itemKey) {
+   
+   //const query = `SELECT email FROM optics.manager  WHERE  isActive='1'  AND ${condition.slice(0, -4)} ;`;
+//    console.log("🥻",query)
+    const query = `SELECT ${columns} FROM optics.${tableName}  WHERE  isActive='1'  AND ${itemKey}=?;`;
     console.log("🥻",query)
     return query
 }
@@ -92,6 +102,7 @@ export function updateSpecificFieldQuery(tableName, value, update) {
     const query=`UPDATE optics.${tableName} SET${update} active=1 WHERE ${value} = ? AND isActive = 1`;
     console.log( query);
     return query;}
+
 
 
 

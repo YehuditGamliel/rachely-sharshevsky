@@ -13,6 +13,7 @@ import { LoginService } from '../service/loginService.js'
                     console.log("😊")      
                     const loginService = new LoginService();
                     const resultItems = await loginService.Authentication(req.body)
+                    console.log("resultItems",resultItems)
                     if (resultItems.userName) {
                         return res.cookie('x-access-token', resultItems.token, { httpOnly: true }).json({ status: 200, data: resultItems.userName,token:resultItems.token });
                         //return res.status(200).json({ status: 200, data: resultItems });

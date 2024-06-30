@@ -2,68 +2,60 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './Eyeglasses.css'
 import SingleEyeglassee from '../SingleEyeglasses/SingleEyeglasses.jsx';
+import { APIRequests } from "../../APIRequests.js";
 
 function Eyeglasses() {
   const [selectedValue, setSelectedValue] = useState('everyOne');
   const [displayEyeglasses, setDisplayEyglasses] = useState([]);
   const [loadMore, setLoadMore] = useState(true)
   const [eyeglassesPage, setEyeglassesPage] = useState(1);
+  const APIRequest = new APIRequests()
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loadMore == true) {
-      fetch(`http://localhost:8082/eyeglasses?_page=${eyeglassesPage}`, {
-        method: 'GET',
-      })
-        .then(response => response.json())
-        .then((json) => {
-          if (json.status != 200) {
-            alert(json.error)
-          }
-          else {
-            setDisplayEyglasses([...displayEyeglasses, ...json.data])
-          }
-        })
+    const fetchData = async () => {
+      if (loadMore == true) {
+        const response = await APIRequest.getRequest(`/eyeglasses?_page=${eyeglassesPage}`)
+        const json = await response.json();
+        if (response.status != 200) {
+          alert(json.error)
+        }
+        else {
+          setDisplayEyglasses([...displayEyeglasses, ...json.data])
+        }
+      }
       setLoadMore(false)
       setEyeglassesPage(eyeglassesPage + 1)
     }
+    fetchData();
   }, [loadMore])
 
-  const handleSortByChange = (event) => {
-    // let start = seeMore.current ? todos.length : 0
+  const handleSortByChange = async (event) => {
     let value = event.target.value;
     setSelectedValue(event.target.value);
     if (event.target.value == 'everyOne') {
       navigate(`/eyeglasses`)
-      fetch(`http://localhost:8082/eyeglasses?_page=${1}`, {
-        method: 'GET',
-
-      })
-        .then(response => response.json())
-        .then((json) => {
-          if (json.status != 200) {
-            alert(json.error)
-          }
-          else {
-            setDisplayEyglasses([...json.data])
-            setEyeglassesPage(eyeglassesPage + 1)
-          }
-        })
+      const response = await APIRequest.getRequest(`/eyeglasses?_page=${1}`)
+      const json = await response.json();
+      if (json.status != 200) {
+        alert(json.error)
+      }
+      else {
+        setDisplayEyglasses([...json.data])
+        setEyeglassesPage(eyeglassesPage + 1)
+      }
+      
     }
     else {
       navigate(`/eyeglasses?sortBy=${value}`)
-      fetch(`http://localhost:8082/eyeglasses?_page=${eyeglassesPage}&sort=${value}`, {
-        method: 'GET'
-      })
-        .then(response => response.json())
-        .then((json) => {
-          if (json.status != 200) {
-            alert(json.error)
-          }
-          else {
-            setDisplayEyglasses(json.data)
-          }
-        })
+      const response = await APIRequest.getRequest(`/eyeglasses?_page=${eyeglassesPage}&sort=${value}`)
+      const json = await response.json();
+      if (json.status != 200) {
+        alert(json.error)
+      }
+      else {
+        setDisplayEyglasses(json.data)
+      }
     }
   }
 
@@ -84,4 +76,48 @@ function Eyeglasses() {
   </>)
 }
 export default Eyeglasses;
+
+
+// fetch(`http://localhost:8082/eyeglasses?_page=${eyeglassesPage}`, {
+//   method: 'GET',
+// })
+//   .then(response => response.json())
+//   .then((json) => {
+//     if (json.status != 200) {
+//       alert(json.error)
+//     }
+//     else {
+//       setDisplayEyglasses([...displayEyeglasses, ...json.data])
+//     }
+//   })
+
+
+// fetch(`http://localhost:8082/eyeglasses?_page=${1}`, {
+      //   method: 'GET',
+
+      // })
+      //   .then(response => response.json())
+      //   .then((json) => {
+      //     if (json.status != 200) {
+      //       alert(json.error)
+      //     }
+      //     else {
+      //       setDisplayEyglasses([...json.data])
+      //       setEyeglassesPage(eyeglassesPage + 1)
+      //     }
+      //   })
+
+
+// fetch(`http://localhost:8082/eyeglasses?_page=${eyeglassesPage}&sort=${value}`, {
+      //   method: 'GET'
+      // })
+      //   .then(response => response.json())
+      //   .then((json) => {
+      //     if (json.status != 200) {
+      //       alert(json.error)
+      //     }
+      //     else {
+      //       setDisplayEyglasses(json.data)
+      //     }
+      //   })
 
