@@ -21,6 +21,7 @@ function Header(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
+        
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         if (currentUser) {
             setCurrentEyeglasses({ userName: currentUser.userName, email: currentUser.email })
@@ -63,8 +64,8 @@ function Header(props) {
                 <nav id="links">
                     <ul>
                         
-                        
                         {/* <li> <Link to={"./info"}>משקפי קריאה </Link></li> */}
+                        {eyeglasses.role==1?<li> <Link to={"updateStatus"}>עדכון סטטוס הזמנה </Link></li>:<></>}
                         <li> <Link to={"eyeglasses"}>סניפים</Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי ספורט</Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי שמש </Link></li>

@@ -64,9 +64,10 @@ function Register() {
       return;
     }
     const response = await APIRequest.postRequest(`/authorization`, { email: user.email, userName: user.userName, password: user.password, isActive: 1 });
+    console.log(response,"🤷‍♀️")
     if (response.status == 200) {
       setAuthorization(true)
-      setCurrentEyeglasses({ userName: user.userName, email: user.email, password: user.password })
+     // setCurrentEyeglasses({ userName: user.userName, email: user.email, password: user.password })
     }
     else if (response.status == 400) {
       alert("userName is already taken. Please choose another!")
@@ -85,6 +86,7 @@ function Register() {
   return (
     <>
       {authorization ?
+       
         <OtpInput
           value={otp}
           onChange={setOtp}

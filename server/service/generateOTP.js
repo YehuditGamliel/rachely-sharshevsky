@@ -1,8 +1,0 @@
-import otpGenerator from 'otp-generator';
-
-const generateOTP = () => {
-  const OTP = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
-  return OTP;
-};
-
-export { generateOTP };

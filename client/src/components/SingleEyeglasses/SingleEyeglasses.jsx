@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect ,useState, useContext } from 'react'
-import { useAuth } from '../../hook/AuthProvider.jsx'
+
 import { useNavigate } from 'react-router-dom';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -52,7 +52,7 @@ const buyEyeglasses = (id) => {
 }
 
 function SingleEyeglasses(props) {
-  const { user } = useAuth();
+
   const [isExist, setIsExist] = useState(true)
   const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
   const [showCamera, setShowCamera] = useState(false); const navigate = useNavigate();
@@ -124,7 +124,7 @@ function SingleEyeglasses(props) {
           <span> {props.price}</span>
           <span>ש"ח</span>
           <CardActions disableSpacing>
-            {user != '' ? buttonsFunc()
+            {eyeglasses.role==1 != '' ? buttonsFunc()
               : <></>}
             <Button onClick={() => displaySpecificInfo()} variant="contained" endIcon={<ChevronLeftIcon />}>
               לפרטים

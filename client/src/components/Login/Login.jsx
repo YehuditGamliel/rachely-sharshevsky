@@ -53,7 +53,7 @@ function Login() {
     
         
       setOpen(false);
-      navigate('./home')
+      navigate('./')
     };
     const navigate = useNavigate();
     // useEffect(() => {
