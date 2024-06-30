@@ -60,6 +60,7 @@ function Eyeglasses() {
   }
 
   return (<>
+
     <select id="sortBy" value={selectedValue} onChange={handleSortByChange}>
       <option value="everyOne">evert one</option>
       <option value="price" >price</option>
@@ -76,48 +77,3 @@ function Eyeglasses() {
   </>)
 }
 export default Eyeglasses;
-
-
-// fetch(`http://localhost:8082/eyeglasses?_page=${eyeglassesPage}`, {
-//   method: 'GET',
-// })
-//   .then(response => response.json())
-//   .then((json) => {
-//     if (json.status != 200) {
-//       alert(json.error)
-//     }
-//     else {
-//       setDisplayEyglasses([...displayEyeglasses, ...json.data])
-//     }
-//   })
-
-
-// fetch(`http://localhost:8082/eyeglasses?_page=${1}`, {
-      //   method: 'GET',
-
-      // })
-      //   .then(response => response.json())
-      //   .then((json) => {
-      //     if (json.status != 200) {
-      //       alert(json.error)
-      //     }
-      //     else {
-      //       setDisplayEyglasses([...json.data])
-      //       setEyeglassesPage(eyeglassesPage + 1)
-      //     }
-      //   })
-
-
-// fetch(`http://localhost:8082/eyeglasses?_page=${eyeglassesPage}&sort=${value}`, {
-      //   method: 'GET'
-      // })
-      //   .then(response => response.json())
-      //   .then((json) => {
-      //     if (json.status != 200) {
-      //       alert(json.error)
-      //     }
-      //     else {
-      //       setDisplayEyglasses(json.data)
-      //     }
-      //   })
-

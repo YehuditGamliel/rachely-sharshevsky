@@ -5,7 +5,7 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import header from '../../img/header.jpg';
 import jsonData from '../../assets/data.json'
-import GoogleMaps from '../GoogleMap.jsx';
+import GoogleMaps from '../GoogleMap/GoogleMap.jsx'
 import useSound from 'use-sound';
 import r from '../r.mp3'
 
@@ -17,12 +17,8 @@ function Home(props) {
   const [style, setStyle] = useState("activity")
   const [login, setLogin] = useState('');
   let location = useLocation();
+  let navigate = useNavigate()
   const [play, { stop }] = useSound(r);
-
-  // Call the sendEmail function when you want to trigger the email sending
-  //sendEmail();
-  //  const { branches, setBranches } = useContext(UserContext);
-  
 
   useEffect(() => {
     fetch(`http://localhost:8082/branch`, {
@@ -42,6 +38,11 @@ function Home(props) {
   },[])
     
   useEffect(() => {
+    // const storedProducts = JSON.parse(localStorage.getItem("ShoppingCart")) || [];
+
+    // if(storedProducts){
+    //   navigate('/my-account')
+    // }
     if (location.pathname === '/my-account') {
       setLogin(false);
       setStyle("activity")
@@ -59,10 +60,8 @@ function Home(props) {
           alert(json.error)
         }
         else {
-          //   console.log("json.data",json.data)
-          //   console.log("displayEyeglasses",displayEyeglasses)
           setBranches([...json.data])
-          console.log("branch", branches)
+          // console.log("branch", branches)
           setSearch('branch')
         }
       })
@@ -86,6 +85,7 @@ function Home(props) {
   < button onMouseEnter={() => play()} onMouseLeave={() => stop()}></button>
     {search === 'map' ?
       (<>
+      {/* {console.log(branches[0].lat ,branches[0].lng)} */}
         <GoogleMaps lat={branches[0].lat} lng={branches[0].lng} street={branches[0].street} number={branches[0].number}
           phone={branches[0].phone} hours={branches[0].hours} days={branches[0].days} />
       </>
@@ -100,7 +100,7 @@ function Home(props) {
         <option selected>בחירת סניף</option>
 
         {branches.map((branch) => {
-          { console.log("p", branch) }
+          // { console.log("p", branch) }
           return <option>{branch.street}{branch.number}</option>;
         })}
       </select>
@@ -133,11 +133,3 @@ function Home(props) {
   </>);
 }
 export default Home
-
-    {/* <Autocomplete
-      disablePortal
-      id="combo-box-demo"
-      options={branches}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Movie" />}
-    /> */}

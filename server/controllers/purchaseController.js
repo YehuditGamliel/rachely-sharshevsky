@@ -20,10 +20,21 @@ export class PurchaseController {
         try {
             const purchaseService = new PurchaseService()
             const resultItem = await purchaseService.getStatus(req.body);
-            res.status(200).json({ status: 200, data: resultItem });
-            console.log(resultItem)
+            console.log(resultItem.length)
+            if(resultItem.length!=0){
+                res.status(200).json({ status: 200, data: resultItem });
+            }
+            else {
+                const err = {}
+                err.statusCode = 400;
+                err.message = "Incorrect data";
+                next(err)
+            }
+            
+           
         }
         catch (ex) {
+            console.log("catch")
             const err = {}
             err.statusCode = 500;
             err.message = ex;

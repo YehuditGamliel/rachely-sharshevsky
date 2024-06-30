@@ -20,9 +20,6 @@ function Login() {
     const [showRegister, setShowRegister] = useState('');
     const [registerOrLogin, setRegisterOrLogin] = useState(true)
     const navigate = useNavigate();
-    // useEffect(() => {
-    //     navigate(`/my-account`);
-    // }, [navigate]);
     useEffect(() => {
         if (location.pathname !== '/manager') {
         navigate(`/login`)}
@@ -44,14 +41,11 @@ function Login() {
     });
 
     const userExist = async (userDetails) => {
-        // alert(userDetails.username)
         let response = await fetch(`http://localhost:8082/authorization`, {
             method: 'POST',
             body: JSON.stringify({
-                // email: userDetails.email,
                 userName: userDetails.userName,
                 password: userDetails.password,
-                // isActive:1
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -62,20 +56,14 @@ function Login() {
 
     const login = async (user) => {
         let json = await userExist(user)
-        // navigate(`/home/my-account`)
         if (json.status == 200) {
             console.log(json)
             navigate(`/my-account`)
             localStorage.setItem('currentUser', JSON.stringify(
                 { userName: user.userName, username: json.data }));
             setCurrentEyeglasses({ userName: user.userName, email: json.data })
-           
-            // navigate(`/home/my-account`,{state:{name:json.data[0].userName}})
-          
-           
-
-        }
-        else {if (json.status == 400) {
+                    }
+                else {if (json.status == 400) {
             return (
                 <Alert severity="error">The username or password you entered is incorrect, please try again or sign up.</Alert>
             );
@@ -127,7 +115,8 @@ function Login() {
         setRegisterOrLogin(false)
     }
     return (
-        <>{!eyeglasses?
+        <>{console.log(eyeglasses.userName)}
+        {!eyeglasses.userName?
             <>{
                 registerOrLogin ? <div className='login-background'>
                     <div className='login-box'>

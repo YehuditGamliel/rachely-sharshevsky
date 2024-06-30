@@ -1,12 +1,16 @@
-import {useContext, useState } from 'react';
+import {useContext, useState,useEffect } from 'react';
 import '../StatusCheck/StatusCheck.css'
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 
 const StatusCheck = () => {
-  const [status,setStatus]=useState()
+  
+  const [status,setStatus]=useState('')
 const [numOfInvitation,setnumOfInvitation]=useState();
   
 const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+// useEffect(() => {
+//  setStatus('')
+// }, []);
 const checkStatusCheck=()=>{
   
   fetch(`http://localhost:8082/purchase/getStatut`, {
@@ -20,7 +24,7 @@ const checkStatusCheck=()=>{
     }
 }).then(response => response.json())
     .then((json) => {
-      console.log(json.data[0].status)
+      // console.log(json.data[0].status)
         if (json.status != 200) {
             alert("נתונים לא נכונים!")
         }
@@ -41,9 +45,9 @@ const handleInputChange = (event) => {
       <p>מה עם ההזמנה שלי?</p>
       <p>אנא הכנס מספר הזמנה </p>
       <input type="number"  placeholder="מספר הזמנה" min="100000" max="999999" onChange={handleInputChange}/>
-      <button onClick={checkStatusCheck()}></button>
+      <button onClick={()=>checkStatusCheck()}></button>
        <p>סטטוס ההזמנה שלך:</p>
-       {status?<p id="status">{status}</p>:<></>}
+       {status!=''?<p id="status">{status}</p>:<></>}
       
       </div>
      

@@ -36,18 +36,12 @@ function Header(props) {
     }, [location]);
 
     useEffect(() => {
-        // Retrieve the "ShoppingCart" array from localStorage
         const storedCart = localStorage.getItem("ShoppingCart");
         if (storedCart) {
-            // Parse the JSON string to get the array
             const parsedCart = JSON.parse(storedCart);
-            // Check if it is indeed an array
             if (Array.isArray(parsedCart)) {
-                // Get the length of the array
-                //const length = parsedCart.length;
                 let length = 0;
                 parsedCart.forEach(product => length += (product.amount > 1) ? product.amount / 2 + 0.5 : 1);
-                // Set the length to state
                 setCartLength(length);
             }
         }
@@ -63,19 +57,20 @@ function Header(props) {
     }));
 
     return (<>
-
         <div id={style}>
             <div id="links">
                 <img src={logo} id="logo" />
                 <nav id="links">
                     <ul>
-                        <li> <Link to={"./posts"}>בית </Link></li>
-                        <li> <Link to={"eyeglasses"}>משקפי ראיה </Link></li>
+                        
+                        
+                        {/* <li> <Link to={"./info"}>משקפי קריאה </Link></li> */}
+                        <li> <Link to={"eyeglasses"}>סניפים</Link></li>
+                        <li> <Link to={"eyeglasses"}>משקפי ספורט</Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי שמש </Link></li>
-                        <li> <Link to={"./info"}>משקפי קריאה </Link></li>
-                        <li> <Link to={"./posts"}>עדשות </Link></li>
-                        <li> <Link to={"./todos"}>בדיקת ראיה </Link></li>
-                        <li> <Link to={"./info"}>יצירת קשר </Link></li>
+                        <li> <Link to={"my-account/eyeglasses"}>משקפי נשים </Link></li>
+                        <li> <Link to={"eyeglasses"}>משקפי גברים</Link></li>
+                        <li> <Link  to={"/"}>אודותינו </Link></li>
                         <li>
                             <li><IconButton onClick={()=>navigate('/ShoppingCart')} aria-label="cart">
                                 <StyledBadge badgeContent={cartLength} color="secondary">
@@ -87,7 +82,7 @@ function Header(props) {
                                 setLogin(<Login />)
                                 setStyle("notActivity")
                             }} /></li>
-                        {console.log("eyeglasses", eyeglasses)}
+                        {/* {console.log("eyeglasses", eyeglasses)} */}
                         {location.pathname.slice(1) == 'my-account' ?
                             <li><span> Hi {eyeglasses.userName} </span></li>
                             : <></>}
@@ -102,11 +97,3 @@ function Header(props) {
 export default Header;
 
 
-// const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-//   '& .MuiBadge-badge': {
-//     right: -3,
-//     top: 13,
-//     border: `2px solid ${theme.palette.background.paper}`,
-//     padding: '0 4px',
-//   },
-// }));

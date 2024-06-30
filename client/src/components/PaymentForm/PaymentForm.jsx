@@ -59,29 +59,13 @@ const PaymentForm = () => {
   
   return (
     <>
-      {/* eyeglasses.userName?(<Login/>): */}
       <> <></>
         <PayPalScriptProvider options={initialOptions}>
           <PayPalButtons onClick={() => addingPurchaseDetails()} />
         </PayPalScriptProvider></>
-      {/* ?<></> */}
-
     </>
   );
 }
 
 export default PaymentForm;
 
-
-  //const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
-//import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
-// const handleInputChange = (evt) => {
-  //   const { name, value } = evt.target;
-  //   console.log(name, value)
-
-  //   setState((prev) => ({ ...prev, [name]: value }));
-  // }
-
-  // const handleInputFocus = (evt) => {
-  //   setState((prev) => ({ ...prev, focus: evt.target.name }));
-  // }

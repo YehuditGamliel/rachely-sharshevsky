@@ -4,11 +4,9 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  //לשנות לnull
   const [user, setUser] = useState('racheli');
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();
- 
   const loginAction = async (data) => {
     try {
       console.log(data);

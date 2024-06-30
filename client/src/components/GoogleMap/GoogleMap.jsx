@@ -67,7 +67,7 @@ export class GoogleMap extends Component {
           <Marker
             onClick={this.onMarkerClick}
             name={'optics'} 
-            position={{  lat: 31.790174968679562, lng: 35.19898014288 }}
+            position={{  lat: this.props.lat, lng: this.props.lng}}
           />
           <InfoWindow
             marker={this.state.activeMarker}
@@ -75,6 +75,7 @@ export class GoogleMap extends Component {
             onClose={this.onClose}
           >
             <div>
+              {console.log("😊",this.props.lat)}
               <h4>{this.state.selectedPlace.name}</h4>
               <p>{this.props.street} {this.props.number}</p>
               <p>{this.props.hours}</p>
