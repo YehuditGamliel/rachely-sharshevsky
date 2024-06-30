@@ -21,6 +21,7 @@ export class LoginService {
         if (user.length === 0) {
             return [false, 'User not found'];
         }
+        console.log("begin")
         return new Promise((resolve, reject) => {
             bcrypt.compare(otp, user[0].otp, async function (err, result) {
                 if (err || !result) {
@@ -36,7 +37,8 @@ export class LoginService {
  
     async Authentication(data) {
         const query = getByValue('users', 'hashPassword,role,email', 'userName');
-        const resultData = await executeQuery(query, [data.userName]);        
+        const resultData = await executeQuery(query, [data.userName]); 
+        console.log("begin")       
         const comparePasswords = new Promise((resolve, reject) => {
             bcrypt.compare(data.password, resultData[0].hashPassword, function(err, result) {
                 if (!err && result) {
@@ -48,6 +50,7 @@ export class LoginService {
             });
         });
         const [verificationResult, token] = await comparePasswords;
+        console.log("after")      
         return [verificationResult, token, resultData[0].role,resultData[0].email];   
     }
     
