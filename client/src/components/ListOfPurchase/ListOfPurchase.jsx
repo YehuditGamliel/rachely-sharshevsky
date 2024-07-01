@@ -14,6 +14,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 // import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Select from '@mui/material/Select';
+import jsonData from '../../assets/data.json'
 
 
 export default function ListOfPurchase() {
@@ -21,10 +22,10 @@ export default function ListOfPurchase() {
   const [anchorEl, setAnchorEl] = React.useState(0);
   const [sortedPurchases, setSortedPurchases] = useState(0)
   const [editStatus,setEditStatus]=useState()
-  const [age, setAge] = React.useState('');
+  const [status, setStatus] = React.useState('');
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setStatus(event.target.value);
   };
 
   const open = Boolean(anchorEl);
@@ -137,21 +138,21 @@ export default function ListOfPurchase() {
       </FormControl> */}
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <Select
-          value={age}
+          value={status}
           onChange={handleChange}
           displayEmpty
           inputProps={{ 'aria-label': 'Without label' }}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>{jsonData.statusValue[purchase.status-1].status}</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={1}>{jsonData.statusValue[0].status}</MenuItem>
+          <MenuItem value={2}>{jsonData.statusValue[1].status}</MenuItem>
+          <MenuItem value={3}>{jsonData.statusValue[2].status}</MenuItem>
         </Select>
-        <FormHelperText>Without label</FormHelperText>
+        <FormHelperText>עדכון סטטוס</FormHelperText>
       </FormControl>
-
+          {/* {console.log("🌞",jsonData.statusValue[0].status)} */}
 
           </div>
         </div>

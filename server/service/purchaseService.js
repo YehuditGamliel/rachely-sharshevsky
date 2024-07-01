@@ -1,6 +1,6 @@
 
 import { executeQuery } from './db.js';
-import { transactionQueries } from './transactionQueries.js';
+// import { transactionQueries } from './transactionQueries.js';
 import { addPurchaseQuery ,getAllSortedQuery,getByValues,getAllElementsQuery,getByValueQuery} from './queries.js'
 
 export class PurchaseService {
