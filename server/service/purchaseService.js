@@ -1,7 +1,7 @@
 
 import { executeQuery } from './db.js';
 import { executeQueryPurchase } from './purchaseQuery.js';
-import { addPurchaseQuery ,getByValues} from './queries.js'
+import { addPurchaseQuery ,getByValues,getAllElementsQuery,getByValueQuery} from './queries.js'
 
 export class PurchaseService {
 
@@ -25,6 +25,25 @@ export class PurchaseService {
     async getStatus(itemDetailes) {
             const query =  getByValues('purchase', 'status',Object.keys(itemDetailes)) ;
             const result = await executeQuery(query, Object.values(itemDetailes));
+        return result;
+    }
+    
+    async  getAllPurchase(q) {
+        
+        const query =  getAllElementsQuery('purchase', '*') ;
+        const result = await executeQuery(query);
+     return result;
+    }
+    async getPurchaseByOrder( order) {
+        const query = getByValueQuery('purchase','order','*');
+        const result = await executeQuery(query, [order]);
+        console.log(result)
+        return result;
+    }
+    async getPurchaseByDate( date) {
+        const query = getByValueQuery('purchase','date','*');
+        const result = await executeQuery(query, [date]);
+        console.log(result)
         return result;
     }
 }
