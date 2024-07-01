@@ -27,5 +27,12 @@
           "details": "Details about the second shop"
         }
       ]
+      ,
+      "status":[{"index":1,"status":"הוזמן"},{
+        "index":2,"status":"במעבדה"
+      },{
+        "index":3,"status":"מוכן"
+      }]
+   
 
  }

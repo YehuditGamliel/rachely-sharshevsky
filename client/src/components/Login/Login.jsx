@@ -95,9 +95,9 @@ function Login() {
         let json = await userExist(user)
         if (json.status == 200) {
             localStorage.setItem('currentUser', JSON.stringify(
-                { userName: user.userName, role:json.role }));
+                { userName: user.userName,email: json.email, role:json.role}));
                
-            setCurrentEyeglasses({ userName: user.userName,role:json.role })
+            setCurrentEyeglasses({userName: user.userName,email: json.email, role:json.role })
             console.log("🥻",json.role)
             if(json.role==1)
                 {

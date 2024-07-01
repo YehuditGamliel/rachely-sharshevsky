@@ -7,7 +7,7 @@ import { sendStyledEmail } from '../emailSender.js';
 
 const generateOTP = () => {
     const OTP = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
-    var salt = bcrypt.genSaltSync(4);
+    var salt = bcrypt.genSaltSync(10);
     var hashOtp = bcrypt.hashSync(OTP, salt);
     return [OTP,hashOtp];
 };
@@ -64,7 +64,7 @@ export class LoginService {
     }
     
     createUser = async (itemDetailes) => { 
-        var salt = bcrypt.genSaltSync(4);
+        var salt = bcrypt.genSaltSync(10);
         var hash = bcrypt.hashSync(itemDetailes.password, salt);
         const { password, ...itemDetailsWithoutPassword } = itemDetailes;
         const keysWithoutPassword = Object.keys(itemDetailsWithoutPassword);

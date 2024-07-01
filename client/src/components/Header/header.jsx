@@ -24,10 +24,12 @@ function Header(props) {
         
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         if (currentUser) {
-            setCurrentEyeglasses({ userName: currentUser.userName, email: currentUser.email })
-            navigate('/my-account');
+            setCurrentEyeglasses({ userName: currentUser.userName, email: currentUser.email,role:currentUser.role })
+            // if(currentUser.role!=1)
+            //navigate('/my-account');
         }
-    }, [])
+    }, [location])
+
 
     useEffect(() => {
        
@@ -85,7 +87,9 @@ function Header(props) {
                                 setStyle("notActivity")
                             }} /></li>
                         {/* {console.log("eyeglasses", eyeglasses)} */}
-                        {location.pathname.slice(1) == 'my-account' ?
+                        {/* {location.pathname.slice(1) == 'my-account' ?
+                            <li><span> Hi {eyeglasses.userName} </span></li>
+                            : <></>} */}{eyeglasses.userName ?
                             <li><span> Hi {eyeglasses.userName} </span></li>
                             : <></>}
                     </ul>

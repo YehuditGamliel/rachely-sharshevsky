@@ -21,6 +21,7 @@ const PaymentForm = () => {
   const addingPurchaseDetails = () => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const arrPurchaseDetails = JSON.parse(localStorage.getItem('ShoppingCart'));
+    console.log("!!!!!!!!!!!!!!!!!",arrPurchaseDetails.price,arrPurchaseDetails.model)
     for (const dataPurchase of arrPurchaseDetails) {
       fetch(`http://localhost:8082/purchase`, {
         method: 'POST',
@@ -38,8 +39,11 @@ const PaymentForm = () => {
           },
           {
           userName: currentUser.userName,
-          price: dataPurchase.price,
-          model: dataPurchase.model,
+          price: 12,
+          model: "1",
+        },{
+          stock:5,
+          model:"1",
         }
         ]),
         headers: {
@@ -50,8 +54,7 @@ const PaymentForm = () => {
           if (json.status != 200) {
             alert(json.error)
           }
-          else {
-          }
+          
         })
 
     }

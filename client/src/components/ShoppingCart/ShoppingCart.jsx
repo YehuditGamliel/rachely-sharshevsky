@@ -42,7 +42,7 @@ export default function ShoppingCart() {
     return (
       <div className="col-12" key={product.id}>
         <div className="product-item">
-          <img className="product-image" src={product.photo} alt={`Image of ${product.imgDisplay}`} />
+          <img className="product-image" src={product.imgDisplay} alt={`Image of ${product.imgDisplay}`} />
           <div className="product-detail">
             <div className="product-name">{product.company}</div>
             <div className="product-description">{product.title}</div>
