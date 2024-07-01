@@ -19,5 +19,22 @@ export class EyesDataController {
     }
 }
 
+async getEyeDataByUsername(req, res, next) {
+    try {
+        const purchaseService = new EyesDataService();
+        const resultItems = await purchaseService.getEyeDataByUsername(req.params.userName)
+        if(resultItems){
+            return res.status(200).json({ status: 200, data: resultItems });
+        }
+    }
+    catch (ex) {
+        const err = {}
+        err.statusCode = 500;
+        err.message = ex;
+        next(err)
+    }
+}
+
+
 
 }

@@ -1,10 +1,29 @@
 
 import { executeQuery } from './db.js';
 // import { transactionQueries } from './transactionQueries.js';
-import { addPurchaseQuery ,getAllSortedQuery,getByValues,getAllElementsQuery,getByValueQuery} from './queries.js'
-
+import { addPurchaseQuery,updateOneFieldQuery,getFromTwoTables ,getAllSortedQuery,getByValues,getAllElementsQuery,getByValueQuery} from './queries.js'
+import { sendStyledEmail } from '../emailSender.js';
 export class PurchaseService {
 
+
+    async updatePurchase(value, itemDetails) {
+        console.log(itemDetails)
+        // const itemDetails = itemDetailsArray; // Access the object inside the array
+        // const values = Object.values(itemDetails);
+        // const keys = Object.keys(itemDetails);
+        // console.log("Keys:", keys, "Values:", values);
+        const query = updateOneFieldQuery('purchase', 'id', 'status');
+        const result = await executeQuery(query, [itemDetails.status,value]);
+        // (tableName1,tableName2, value, columns) {
+        const query2 = getFromTwoTables('users','purchase', 'userName','email','id') 
+        const result2 = await executeQuery(query, [value]);
+        // //
+        // const query3 = getByValue('users', 'email','id') 
+        // const result3 = await executeQuery(query, [value]);
+        console.log(result2);
+        sendStyledEmail(result2,"להשלמת תהליך הרישום מצורך סיסמא חד פמית ","pppp")
+        return result;
+    }
     async addPurchase(itemDetailes) {
         console.log("itemDetailes",itemDetailes)
         let date_ob = new Date();

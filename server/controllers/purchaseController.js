@@ -17,6 +17,7 @@ export class PurchaseController {
             next(err)
         }
     }
+
     async addPurchase(req, res, next) {
         try {
             const purchaseService = new PurchaseService()
@@ -80,6 +81,30 @@ export class PurchaseController {
             next(err)
         }
     }
+
+
+    async updatePurchase(req, res, next) {
+        console.log("❤️", req.params.id, req.body)
+        try {
+            //let limit = Object.values(req.query).slice(1)
+            const purchaseService = new PurchaseService();
+            const result = await purchaseService.updatePurchase(req.params.id, req.body)
+              
+        
+                // console.log("hiiiiiiiii", result)
+                res.status(200).json({ status: 200, data: "" });
+           
+            
+              
+
+        }
+        catch (ex) {
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
     async getPurchaseByDate(req, res, next) {
         try {
             const purchaseService = new PurchaseService();
@@ -103,6 +128,8 @@ export class PurchaseController {
             next(err)
         }
     }
+
+    
 
 
 }

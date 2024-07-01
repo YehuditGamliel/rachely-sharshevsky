@@ -1,0 +1,48 @@
+.shopping-cart {
+    padding: 20px;
+}
+
+.purchase-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #d7d7d7;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    gap: 20px;
+}
+
+.purchase-image {
+    max-width: 100px;
+    border-radius: 5px;
+}
+
+.purchase-detail {
+    flex: 1;
+}
+
+.purchase-name {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.purchase-date ,product-model,product-userName{
+    margin: 10px 0;
+    color: #666;
+}
+
+.purchase-price {
+    font-size: 1.2em;
+    color: #888;
+}
+
+.purchase-rating {
+    margin-top: 10px;
+}
+
+.purchase-tags {
+    margin-top: 10px;
+}

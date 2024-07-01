@@ -56,7 +56,7 @@ export class EyeglassesController {
         try {
             //let limit = Object.values(req.query).slice(1)
             const eyeglassesService = new EyeglassesService();
-            const result = await eyeglassesService.updateEyeGlasses(req.params.model, req.body)
+                        const result = await eyeglassesService.updateEyeGlasses(req.params.model, req.body)
             console.log("hiiiiiiiii", result)
             res.status(200).json({ status: 200, data: "" });
 

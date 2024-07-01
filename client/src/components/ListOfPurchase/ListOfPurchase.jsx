@@ -15,18 +15,13 @@ import FormControl from '@mui/material/FormControl';
 // import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Select from '@mui/material/Select';
 import jsonData from '../../assets/data.json'
-
+import EditPurchase from '../EditPurchase/EditPurchase.jsx';
 
 export default function ListOfPurchase() {
   const [purchases, setPurchases] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(0);
   const [sortedPurchases, setSortedPurchases] = useState(0)
-  const [editStatus,setEditStatus]=useState()
-  const [status, setStatus] = React.useState('');
-
-  const handleChange = (event) => {
-    setStatus(event.target.value);
-  };
+ 
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -76,7 +71,7 @@ export default function ListOfPurchase() {
 
       // console.log("👌", json.data);
       if (response.status !== 200) {
-        alert(json.error);
+        alert("אין הזמנות כאלו ברשימת רכישות!");
       } else {
         setPurchases([...json.data]);
       }
@@ -86,87 +81,15 @@ export default function ListOfPurchase() {
 
   }, [sortedPurchases]);
 
-  const itemTemplate = (purchase) => {
-    return (
-      <>
-      { setEditStatus(purchase.status)}
-        <div className="col-12" >
-          <div className="purchase-item" >
-            {/* <img className="product-image" src={product.status} alt={`Image of ${product.imgDisplay}`} /> */}
-            <div className="purchase-detail">
-               <div className="purchase-name">מחיר:{purchase.price}</div>
-              
-            <div className="product-date"> תאריך: {purchase.date && new Date(purchase.date).toISOString().split('T')[0]}</div>
-          <div className="product-model">מודל:{ purchase.model}</div>
-              <div className="product-userName">שם:{purchase.userName}</div> 
-              {/* <TextField
-                        label="סטטוס"
-                        value={editStatus.status}
-                        onChange={(e) => handleChange("status",e.target.value)}
-
-                        disabled={false}
-                    /> */}
-                   
-
-              {/* <div className="purchase-rating"> */}
-                {/* <Rating value={product.rating} readOnly stars={5} cancel={false} /> */}
-              {/* </div> */}
-              <div className="purchase-tags">
-                {/* <Tag value={product.model} severity={getSeverity(product.inventoryStatus)} /> */}
-              </div>
-            </div>
-            {/* <Button onClick={() => removeFromCart(product.model)}>
-            <DeleteOutlineOutlinedIcon />
-          </Button> */}
-                {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>With label + helper text</FormHelperText>
-      </FormControl> */}
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <Select
-          value={status}
-          onChange={handleChange}
-          displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
-        >
-          <MenuItem value="">
-            <em>{jsonData.statusValue[purchase.status-1].status}</em>
-          </MenuItem>
-          <MenuItem value={1}>{jsonData.statusValue[0].status}</MenuItem>
-          <MenuItem value={2}>{jsonData.statusValue[1].status}</MenuItem>
-          <MenuItem value={3}>{jsonData.statusValue[2].status}</MenuItem>
-        </Select>
-        <FormHelperText>עדכון סטטוס</FormHelperText>
-      </FormControl>
-          {/* {console.log("🌞",jsonData.statusValue[0].status)} */}
-
-          </div>
-        </div>
-      </>
-    );
-  };
+ 
 
   // Function to remove a product from the cart
-  const removeFromCart = (productModel) => {
-    //אם בחר כמה מאותו משקפיים למחוק את הכל?
-    const updatedProducts = purchases.filter((product) => product.model !== productModel);
-    setPurchases(updatedProducts);
-    localStorage.setItem("ShoppingCart", JSON.stringify(updatedProducts));
-  };
+  // const removeFromCart = (productModel) => {
+  //   //אם בחר כמה מאותו משקפיים למחוק את הכל?
+  //   const updatedProducts = purchases.filter((product) => product.model !== productModel);
+  //   setPurchases(updatedProducts);
+  //   localStorage.setItem("ShoppingCart", JSON.stringify(updatedProducts));
+  // };
 
   return (<>
     <div className="ListOfPurchase">
@@ -195,12 +118,18 @@ export default function ListOfPurchase() {
         }}
       >
         <MenuItem onClick={() => handleClose(1)}>הזמנות חדשות</MenuItem>
-        <MenuItem onClick={() => handleClose(2)}>הזמנות מוכנות</MenuItem>
+        <MenuItem onClick={() => handleClose(2)}>הזמנות במעבדה</MenuItem>
+        <MenuItem onClick={() => handleClose(3)}>הזמנות מוכנות</MenuItem>
         <MenuItem onClick={() => handleClose(0)}>כל ההזמנות </MenuItem>
       </Menu>
       {console.log("👌", purchases)}
       <h2>ההזמנות שלנו</h2>
-      <DataView value={purchases} itemTemplate={itemTemplate} layout="list" />
+
+      {purchases.map((purchase, index) => <div key={index} class="glasses">
+        <EditPurchase purchase={purchase} />
+      </div>)
+      }
+      {/* <DataView value={purchases} itemTemplate={itemTemplate} layout="list" /> */}
     </div>
 
 

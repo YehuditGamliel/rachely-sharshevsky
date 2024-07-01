@@ -7,6 +7,8 @@ console.log("RouterE");
 // eyesDataRouter.get("/:model", eyeglassesController.getEyeglassesByModel)
 
 eyesDataRouter.post("/", eyesDataController.addEyesData)
+eyesDataRouter.get("/userName/:userName", eyesDataController.getEyeDataByUsername)
+
 // eyesDataRouter.get("/", eyeglassesController.getAllEyeglasses)
 
 

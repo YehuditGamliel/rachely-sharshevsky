@@ -63,6 +63,7 @@ export function getByValue(tableName, columns,itemKey) {
    //const query = `SELECT email FROM optics.manager  WHERE  isActive='1'  AND ${condition.slice(0, -4)} ;`;
 //    console.log("🥻",query)
     const query = `SELECT ${columns} FROM optics.${tableName}  WHERE  isActive='1'  AND ${itemKey}=?;`;
+    console.log(query)
     return query
 }
 
@@ -72,6 +73,27 @@ export function getByValueQuery(tableName, value, columns) {
     // const query=` SELECT email FROM optics.users where userName='Yehudit';`
     console.log(query)
     return query
+}
+export function updateOneFieldQuery(tableName, value, columns) {
+    // const query = updateOneFieldQuery('purchase', 'id', itemDetails);
+    // const result = await executeQuery(query, [value]);
+    const query = `UPDATE optics.purchase SET ${columns}=? WHERE  ${value} =? AND isActive = 1`;
+    // const query=`UPDATE optics.${tableName} SET active=1 WHERE ${value} = 'Yehudit' AND isActive = 1`;
+    console.log( query);
+    return query;
+
+}
+export function getFromTwoTables(tableName1,tableName2, value, columns,valueToCheck) {
+    // const query = updateOneFieldQuery('purchase', 'id', itemDetails);
+    // const result = await executeQuery(query, [value]);
+    const query = `SELECT ${columns} 
+    FROM optics.${tableName1} u INNER JOIN optics.${tableName2} p 
+    ON u.${value}=p.${value}
+    WHERE ${valueToCheck}= ?  AND u.isActive=1;`;
+
+    console.log( query);
+    return query;
+
 }
 
 export function addPurchaseQuery(columnsPurchase,columnsEyeData, date, status){
@@ -83,8 +105,10 @@ export function addPurchaseQuery(columnsPurchase,columnsEyeData, date, status){
         return queries;
 }
 
+
+
 export function updateQuery(tableName, value, itemKeys) {
-    console.log("🤣");
+    console.log("🤣",itemKeys);
     console.log(tableName, value, itemKeys)
     let keys = "";
     itemKeys.forEach((element, index) => {
@@ -93,8 +117,8 @@ export function updateQuery(tableName, value, itemKeys) {
             keys += ', ';
         }
     });
-    // const query = `UPDATE optics.${tableName} SET ${keys} WHERE ${value} = ? AND isActive = 1`;
-    const query=`UPDATE optics.${tableName} SET active=1 WHERE ${value} = 'Yehudit' AND isActive = 1`;
+    const query = `UPDATE optics.${tableName} SET ${keys} WHERE ${value} = ? AND isActive = 1`;
+    // const query=`UPDATE optics.${tableName} SET active=1 WHERE ${value} = 'Yehudit' AND isActive = 1`;
     console.log( query);
     return query;
 }
