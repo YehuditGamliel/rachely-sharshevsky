@@ -31,41 +31,54 @@ import fs from 'fs';
 
   // Styled email content with inline CSS
   const styledEmailContent = `
-    <html>
-      <head>
-        <style>
-          p {
-            
-           font-family: Arial, sans-serif;
-           font-size: 30px;
-             text-align: right;
-
-          }
-          h1 {
-          font-family: Arial, sans-serif;
-           color: #41c1ba;
-             text-align: right;
-
-          }
-          header {
-            font-size: 60px;
-             text-align: right;
-              background-color: #f9f9f9;
-            color: #333;
-            padding: 20px;
-          }
-        </style>
-      </head>
-      
-      <body>
-      <img src="${'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7O1samPbhPQ7BdbWItMidc47gFHvQMXnqd7Sd_Vt&s'}" alt="Image" style="max-width: 100%;" />
-         <header>ברוכים הבאים לEyeCenter רשת אופטיקה המובילה בישראל</header>
- 
-       <h1>${emailBody}${params}</h1>
-        <p> נשמח לשרת אתכם במידה ונתקלתם בבעיה נא ליצור קשר :0583261047 או במייל ${process.env.MAIL_EMAIL}</p>
-      </body>
-    </html>
-  `;
+  <html>
+    <head>
+      <style>
+        body {
+          font-family: 'Arial', sans-serif;
+          font-size: 16px;
+          direction: rtl; /* Right-to-left text direction */
+        }
+        .container {
+          max-width: 600px;
+          margin: 20px auto;
+          padding: 20px;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+        }
+        .title {
+          background-color: #41c1ba;
+          color: white;
+          padding: 10px;
+          border-radius: 8px 8px 0 0;
+          text-align: center;
+          font-size: 20px;
+        }
+        .letter {
+          color: #333;
+          text-align: right; /* Align text to the right side */
+          font-size: 16px;
+          line-height: 1.6;
+          padding: 10px;
+        }
+        .signature {
+          text-align: right;
+          margin-top: 20px;
+          font-style: italic;
+          color: #888;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="title">  EyeCenter ברוכים הבאים לרשת אופטיקה המובילה בישראל</div>
+        <p class="letter">${emailBody}${params}</p>
+        <p class="letter">נשמח לשרת אתכם, במידה ונתקלתם בבעיה או צרכים נוספים, אנא אל תהססו ליצור קשר באמצעות המייל ${process.env.MAIL_EMAIL} בטלפון: 0583261047</p>
+        
+        <p class="signature"> EyeCenter בברכה, צוות </p>
+      </div>
+    </body>
+  </html>`
 
   // Define the mail options with styled content
   const mailOptions = {
