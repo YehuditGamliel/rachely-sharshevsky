@@ -39,20 +39,20 @@ export class LoginService {
         const query = getByValue('users', 'hashPassword,role,email', 'userName');
         const resultData = await executeQuery(query, [data.userName]); 
         console.log("begin")       
-        const comparePasswords = new Promise((resolve, reject) => {
-            bcrypt.compare(data.password, resultData[0].hashPassword, function(err, result) {
-                if (!err && result) {
-                    const token = jwt.sign({ id: data.userName }, "privateKey", { expiresIn: '20m' });
-                    resolve([true, token]);
-                } else {
-                    resolve([false, 'Incorrect Password']);
-                }
-            });
-        });
-        const [verificationResult, token] = await comparePasswords;
-        console.log("after")      
-        return [verificationResult, token, resultData[0].role,resultData[0].email];   
+        const verificationResult = await bcrypt.compare(data.password, resultData[0].hashPassword);
+        if(verificationResult){
+            const token = jwt.sign({ id: data.userName }, "privateKey", { expiresIn: '20m' });
+             console.log("after")  
+            return [verificationResult, token, resultData[0].role,resultData[0].email]; 
+          
+        }
+         else {
+            [false, 'Incorrect Password']
+         }
+
+
     }
+
     
     async checkUserName(userName){ 
        const query = getByValueQuery('users',  'userName','email');

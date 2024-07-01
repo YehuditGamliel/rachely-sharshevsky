@@ -62,7 +62,6 @@ export function getByValue(tableName, columns,itemKey) {
    //const query = `SELECT email FROM optics.manager  WHERE  isActive='1'  AND ${condition.slice(0, -4)} ;`;
 //    console.log("🥻",query)
     const query = `SELECT ${columns} FROM optics.${tableName}  WHERE  isActive='1'  AND ${itemKey}=?;`;
-    console.log("🥻",query)
     return query
 }
 

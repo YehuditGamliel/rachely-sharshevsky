@@ -12,9 +12,10 @@ export class LoginController {
         if (req.body.email == undefined) {
             try {
                 const loginService = new LoginService();
-                const resultItems = await loginService.Authentication(req.body)
-                if (resultItems[0] == true) {
-                    return res.cookie('x-access-token', resultItems.token, { httpOnly: true }).json({ status: 200, email: resultItems[3], role: resultItems[2], token: resultItems.token });
+                const result = await loginService.Authentication(req.body)
+                console.log("result.token",result[1])
+                if (result[0] == true) {
+                    return res.cookie('x-access-token', result[1], { httpOnly: true }).json({ status: 200, email: result[3], role: result[2], token: result[1] });
                     //return res.status(200).json({ status: 200, data: resultItems });
                 }
                 else {
@@ -30,7 +31,6 @@ export class LoginController {
                 err.message = ex;
                 next(err)
             }
-
         }
         else {
             const { userName } = req.body;

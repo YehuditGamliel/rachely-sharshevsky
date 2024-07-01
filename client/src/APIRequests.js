@@ -4,7 +4,7 @@ export class APIRequests {
         try {
             const response = await fetch('http://localhost:8082' + url, {
                 method: 'POST',
-                //'credentials': 'include',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -20,6 +20,7 @@ export class APIRequests {
         try {
             const response = await fetch('http://localhost:8082' + url, {
                 method: 'GET',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
