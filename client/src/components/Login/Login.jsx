@@ -33,7 +33,7 @@ function Login() {
     const theme = useTheme();
      const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const handleClickOpen = () => {
-      setOpen(true);
+     
     };
     const handleClose = (id) => {
         if(id==0){
@@ -159,11 +159,13 @@ function Login() {
     }
 
     const setRegister = () => {
+        
         setShowRegister(<Register />)
         setRegisterOrLogin(false)
     }
     return (
         <>
+        {/* {alert("pp")} */}
         {(open)?
     //   <Button variant="outlined" onClick={handleClickOpen}>
     //     Open responsive dialog

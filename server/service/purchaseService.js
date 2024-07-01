@@ -1,7 +1,7 @@
 
 import { executeQuery } from './db.js';
 import { executeQueryPurchase } from './purchaseQuery.js';
-import { addPurchaseQuery ,getByValues,getAllElementsQuery,getByValueQuery} from './queries.js'
+import { addPurchaseQuery ,getAllSortedQuery,getByValues,getAllElementsQuery,getByValueQuery} from './queries.js'
 
 export class PurchaseService {
 
@@ -30,19 +30,38 @@ export class PurchaseService {
     
     async  getAllPurchase(q) {
         
-        const query =  getAllElementsQuery('purchase', '*') ;
-        const result = await executeQuery(query);
-     return result;
+        let query = null;
+
+            if (Object.keys(q)[0] !== 'sort') {
+                 query =  getAllElementsQuery('purchase', '*') ;
+
+            } else {
+                query = getAllSortedQuery('eyeglasses', '*', q, q.sort); 
+            }
+            const result = await executeQuery(query);
+            return result;
+  
     }
-    async getPurchaseByOrder( order) {
-        const query = getByValueQuery('purchase','order','*');
-        const result = await executeQuery(query, [order]);
+    // async  getAllEyeglasses(q) {
+    //     let query = null;
+
+    //     if (Object.keys(q)[0] === '_page') {
+    //         query = getAllQuery('eyeglasses', 'model,price,title,imgDisplay,imgCamara', q);
+    //     } else {
+    //         query = getAllSortedQuery('eyeglasses', 'model,price,title,imgDisplay,imgCamara', q, q.sort); 
+    //     }
+    //     const result = await executeQuery(query);
+    //     return result;
+    // }
+    async getPurchaseByStatus( status) {
+        const query = getByValueQuery('purchase','status','*');
+        const result = await executeQuery(query, [status]);
         console.log(result)
         return result;
     }
     async getPurchaseByDate( date) {
         const query = getByValueQuery('purchase','date','*');
-        const result = await executeQuery(query, [date]);
+        const result = await executeQuery(query, [date.toISOString()]);
         console.log(result)
         return result;
     }

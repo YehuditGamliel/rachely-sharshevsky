@@ -7,7 +7,7 @@ import { sendStyledEmail } from '../emailSender.js';
 
 const generateOTP = () => {
     const OTP = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
-    var salt = bcrypt.genSaltSync(16);
+    var salt = bcrypt.genSaltSync(4);
     var hashOtp = bcrypt.hashSync(OTP, salt);
     return [OTP,hashOtp];
 };
@@ -18,15 +18,18 @@ export class LoginService {
         console.log(userName, otp);
         const query = getByValueQuery('users', 'userName', '*');
         const user = await executeQuery(query, [userName]);
+        console.log(user,userName,"💕💕💕")
         if (user.length === 0) {
             return [false, 'User not found'];
         }
         console.log("begin")
         return new Promise((resolve, reject) => {
             bcrypt.compare(otp, user[0].otp, async function (err, result) {
+                console.log("rs",result)
                 if (err || !result) {
                     resolve([false, 'Invalid OTP']);
                 } else {
+                    
                     const query2 = updateSpecificFieldQuery('users', 'userName', 'active=1');
                     const result = await executeQuery(query2, [userName]);
                     resolve([true, result]);
@@ -61,15 +64,17 @@ export class LoginService {
     }
     
     createUser = async (itemDetailes) => { 
-        var salt = bcrypt.genSaltSync(16);
+        var salt = bcrypt.genSaltSync(4);
         var hash = bcrypt.hashSync(itemDetailes.password, salt);
         const { password, ...itemDetailsWithoutPassword } = itemDetailes;
         const keysWithoutPassword = Object.keys(itemDetailsWithoutPassword);
         const valuesWithoutPassword=Object.values(itemDetailsWithoutPassword); 
         const [otpGenerated,hashOtp] = generateOTP();
+        console.log("createUser",hash,hashOtp)
         const query = addQuery('users',[...keysWithoutPassword,'otp','hashPassword']);
         const newUser = await executeQuery(query, [...valuesWithoutPassword,hashOtp,hash]);
         sendStyledEmail(itemDetailes.email,"להשלמת תהליך הרישום מצורך סיסמא חד פמית ",otpGenerated)
+        console.log(newUser,"🥻")
         if (!newUser) {
             return [false, 'Unable to sign you up'];
         }

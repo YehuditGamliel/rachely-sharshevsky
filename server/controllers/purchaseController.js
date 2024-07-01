@@ -56,14 +56,46 @@ export class PurchaseController {
         }
     }
 
-    async getPurchaseByOrder(req, res, next) {
+    async getPurchaseByStatus(req, res, next) {
         try {
-            const eyeglassesService = new PurchaseService();
-            const resultItems = await eyeglassesService.getEyeglassesByModel(req.params.model)
-            const result = await eyeglassesService.getEyeglassesByCompany(resultItems[0].company)
-            console.log("by", resultItems, result)
-            return res.status(200).json({ status: 200, data: [resultItems, result] });
+            const purchaseService = new PurchaseService();
+            const resultItems = await purchaseService.getPurchaseByStatus(req.params.status)
+          
+            console.log("by", resultItems)
+            if(resultItems.length!=0){
+                return res.status(200).json({ status: 200, data: resultItems });
+            }
+            else {
+                const err = {}
+                err.statusCode = 400;
+                err.message = "Incorrect data";
+                next(err)
+            }
+            
         }
+        catch (ex) {
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
+    async getPurchaseByDate(req, res, next) {
+        try {
+            const purchaseService = new PurchaseService();
+            const resultItems = await purchaseService.getPurchaseByDate(req.params.date)
+          
+            console.log("by", resultItems)
+            console.log("by", resultItems)
+            if(resultItems.length!=0){
+                return res.status(200).json({ status: 200, data: resultItems });
+            }
+            else {
+                const err = {}
+                err.statusCode = 400;
+                err.message = "Incorrect data";
+                next(err)
+            }        }
         catch (ex) {
             const err = {}
             err.statusCode = 500;

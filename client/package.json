@@ -41,7 +41,8 @@
     "react-webcam": "^7.2.0",
     "styled-components": "^6.1.11",
     "use-sound": "^4.0.1",
-    "validator": "^13.12.0"
+    "validator": "^13.12.0",
+    "vue3-otp-input": "^0.5.21"
   },
   "devDependencies": {
     "@iconify/icons-mdi": "^1.2.48",
