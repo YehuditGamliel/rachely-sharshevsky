@@ -6,8 +6,8 @@ export class EyeglassesService {
 
     async  getAllEyeglasses(q) {
         let query = null;
-
-        if (Object.keys(q)[0] === '_page') {
+          console.log( "👍",Object.keys(q)[1])
+        if (Object.keys(q)[1] !== 'sort') {
             query = getAllQuery('eyeglasses', 'model,price,title,imgDisplay,imgCamara', q);
         } else {
             query = getAllSortedQuery('eyeglasses', 'model,price,title,imgDisplay,imgCamara', q, q.sort); 

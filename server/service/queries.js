@@ -11,7 +11,8 @@ export function getAllQuery(tableName,columns,q) {
 }
 //ORDER BY ${sortedKey}
 export function getAllSortedQuery(tableName,columns,q,sortedKey) {
-    const query = `SELECT ${columns} FROM optics.${tableName} LIMIT 5 OFFSET ${(q._page - 1) * 5} ;`;
+    const query = `SELECT ${columns} FROM optics.${tableName}   ORDER BY ${sortedKey};`;
+     console.log(query)
     return query
     //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
 }

@@ -1,7 +1,10 @@
 import nodemailer from 'nodemailer';
 //  import  {jsonData} from'../client/src/assets/data.json'
 import fs from 'fs';
+// import template
 
+
+import path from 'path'
 // Read the logo image file
 
  export const sendStyledEmail = (emailAddress, emailBody,params) => {
@@ -30,62 +33,15 @@ import fs from 'fs';
   });
 
   // Styled email content with inline CSS
-  const styledEmailContent = `
-  <html>
-    <head>
-      <style>
-        body {
-          font-family: 'Arial', sans-serif;
-          font-size: 16px;
-          direction: rtl; /* Right-to-left text direction */
-        }
-        .container {
-          max-width: 600px;
-          margin: 20px auto;
-          padding: 20px;
-          border: 1px solid #ccc;
-          border-radius: 10px;
-        }
-        .title {
-          background-color: #41c1ba;
-          color: white;
-          padding: 10px;
-          border-radius: 8px 8px 0 0;
-          text-align: center;
-          font-size: 20px;
-        }
-        .letter {
-          color: #333;
-          text-align: right; /* Align text to the right side */
-          font-size: 16px;
-          line-height: 1.6;
-          padding: 10px;
-        }
-        .signature {
-          text-align: right;
-          margin-top: 20px;
-          font-style: italic;
-          color: #888;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <div class="title">  EyeCenter ברוכים הבאים לרשת אופטיקה המובילה בישראל</div>
-        <p class="letter">${emailBody}${params}</p>
-        <p class="letter">נשמח לשרת אתכם, במידה ונתקלתם בבעיה או צרכים נוספים, אנא אל תהססו ליצור קשר באמצעות המייל ${process.env.MAIL_EMAIL} בטלפון: 0583261047</p>
-        
-        <p class="signature"> EyeCenter בברכה, צוות </p>
-      </div>
-    </body>
-  </html>`
-
+  
+  const styledEmailContent = fs.readFileSync('C:\\Users\\The user\\rachely-sharshevsky-5\\server\\templates\\templates.html', 'utf8');
+  const replacedEmailContent = styledEmailContent.replace('${emailBody}', emailBody).replace('${params}', params).replace('${mail}', process.env.MAIL_EMAIL);
   // Define the mail options with styled content
   const mailOptions = {
     from: process.env.MAIL_EMAIL,
     to: emailAddress,
     subject: 'EyeCenter',
-    html: styledEmailContent,
+    html: replacedEmailContent,
    
   };
   

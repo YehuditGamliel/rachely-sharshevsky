@@ -77,6 +77,7 @@ const WebcamGlassesOverlay = ({ img }) => {
             height: video.videoHeight,
           });
 
+
           const landmarks = resizedDetection.landmarks;
           const leftEye = landmarks.getLeftEye();
           const rightEye = landmarks.getRightEye();

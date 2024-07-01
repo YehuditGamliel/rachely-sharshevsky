@@ -60,32 +60,6 @@ function SingleEyeglasses(props) {
   const [glassesCamara , setGlassesCamara] = useState("")
 
 
-  useEffect(() => {
-    fetch(`http://localhost:8082/img/${props.imgDisplay}`, {
-      method: 'GET',
-    }).then((response) => {
-      if(!response.ok) {
-      throw new Error('Failed to fetch image');
-  }
-    return response.blob();})
-    .then(blob => {
-      setGlassesDisplay(URL.createObjectURL(blob))
-      })
-  });
-
-  useEffect(() => {
-    fetch(`http://localhost:8082/img/${props.imgCamara}`, {
-      method: 'GET',
-    }).then((response) => {
-      if(!response.ok) {
-      throw new Error('Failed to fetch image');
-  }
-    return response.blob();})
-    .then(blob => {
-      setGlassesCamara(URL.createObjectURL(blob))
-      })
-  });
-
   const buttonsFunc = () => {
     return (<><Button onClick={() => displayEditingGlassesDetails()} variant="contained" > שינוי פרטים
     </Button>
@@ -97,12 +71,12 @@ function SingleEyeglasses(props) {
   const displaySpecificInfo = () => {
     console.log("glassesDisplay!!!!!!!!!!!!!!!1",glassesDisplay)
 
-    setCurrentEyeglasses({ "imgDisplay": glassesDisplay, "model": props.model, "title": props.title, "price": props.price })
+    setCurrentEyeglasses({ "imgDisplay": props.imgDisplay, "model": props.model, "title": props.title, "price": props.price })
     navigate(`/eyeglasses/${props.model}`)
   }
 
   const displayEditingGlassesDetails = () => {
-    setCurrentEyeglasses({ "imgDisplay": glassesDisplay, "model": props.model, "title": props.title, "price": props.price })
+    setCurrentEyeglasses({ "imgDisplay": props.imgDisplay, "model": props.model, "title": props.title, "price": props.price })
     navigate(`/EditingGlasses/${props.model}`)
 
   }
@@ -114,11 +88,11 @@ function SingleEyeglasses(props) {
           <CardHeader
             title={props.title}
           />
-          {showCamera ? <WebcamGlassesOverlay img={glassesCamara} /> :
+          {showCamera ? <WebcamGlassesOverlay img={props.imgCamara} /> :
             <CardMedia id="img"
               component="img"
               height="170"
-              image={glassesDisplay}
+              image={props.imgDisplay}
               alt="Eyeglasses"
             />}
           <span> {props.price}</span>
