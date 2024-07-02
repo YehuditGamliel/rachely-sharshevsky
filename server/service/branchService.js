@@ -6,11 +6,11 @@ import {getByValueQuery,getAllElementsQuery, addQuery, getAllQuery,updateQuery,g
 export class BranchService {
    
 
-    async  getAllCitiesBranches(q) {
-        let query = null;
-    console.log("🙌",q)
+    async  getAllBranches(q) {
+        console.log("😒",q )
         // if (Object.keys(q)[0] !== 'sorted') {
-            query = getAllElementsQuery('branches','city');
+           const query = getAllElementsQuery('branches','*');
+           
         // } else {
         //     query = getAllSortedQuery('eyeglasses', 'model,price,photo,title', q, q.sort); 
         // }
@@ -19,12 +19,12 @@ export class BranchService {
 
         return result;
     }
-      async getEyeglassesByCity( city) {
-        const query = getByValueQuery('branches','city','street,number,lng,lat,phone,hours,days,id');
-        const result = await executeQuery(query, [city]);
-        console.log(result)
-        return result;
-    }
+    //   async getEyeglassesByCity( city) {
+    //     const query = getByValueQuery('branches','city','street,number,lng,lat,phone,hours,days,id');
+    //     const result = await executeQuery(query, [city]);
+    //     console.log(result)
+    //     return result;
+    // }
 }
     // async getAllEyeglasses  (req) {
     //     const q = req.query; // Get query parameters

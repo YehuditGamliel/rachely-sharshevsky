@@ -1,24 +1,29 @@
-//IsActive to add to every one
 export function getAllElementsQuery(tableName,columns) {
     
     const query = `SELECT ${columns} FROM optics.${tableName} where isActive=1 ;`;
     console.log(query)
     return query
-    //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
 }
+
 export function getAllQuery(tableName,columns,q) {
     const query = `SELECT ${columns} FROM optics.${tableName}  where isActive=1 LIMIT 5 OFFSET ${(q._page - 1) * 5};`;
     console.log(query)
     return query
-    //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
 }
-//ORDER BY ${sortedKey}
+
 export function getAllSortedQuery(tableName,columns,q,sortedKey) {
     const query = `SELECT ${columns} FROM optics.${tableName}  where isActive=1  ORDER BY ${sortedKey}  ;`;
      console.log(query)
     return query
-    //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
 }
+
+export function getSortFromTwoTablesByTwoValues(tableName1,tableName2, value1,value2, columns,valueToCheck,q) {
+    const query = `SELECT ${columns} FROM optics.${tableName1} u INNER JOIN optics.${tableName2} p ON u.${value1}=p.${value2} WHERE p.${valueToCheck}= ? ORDER BY ${q.sort} LIMIT ${(q._page) * 5} OFFSET 0;`;
+    console.log("begin")
+     console.log(query)
+    return query
+}
+
 export function deleteQuery(tableName,value) {
     console.log("❤️❤️❤️")
     
@@ -32,6 +37,7 @@ export function deleteQuery(tableName,value) {
 }
 
 export function getFromTwoTablesByTwoValues(tableName1,tableName2, value1,value2, columns,valueToCheck,q) {
+    console.log("(q._page - 1) * 5",(q._page - 1) * 5)
     const query = `SELECT ${columns} FROM optics.${tableName1} u INNER JOIN optics.${tableName2} p ON u.${value1}=p.${value2} WHERE p.${valueToCheck}= ? LIMIT 5 OFFSET ${(q._page - 1) * 5};`;
     console.log(query);
     return query;

@@ -1,0 +1,126 @@
+import React, { useState, useEffect } from 'react';
+
+import { Button } from 'primereact/button';
+import { DataView } from 'primereact/dataview';
+import { Rating } from 'primereact/rating';
+import { Tag } from 'primereact/tag';
+
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
+import GoogleMaps from '../GoogleMap/GoogleMap.jsx'
+import '../Branches/Branches.css'
+function Branches() {
+
+    // const [cities, setBranches] = useState([]);
+    const [branches, setBranches] = useState([])
+    const [search, setSearch] = useState('city')
+    const [branch, setBranch] = useState({});
+    const [branchMap,setBranchMap]=useState('');
+    
+    useEffect(() => {
+        fetch(`http://localhost:8082/branch`, {
+          method: 'GET',
+        })
+          .then(response => response.json())
+          .then((json) => {
+            console.log("😊",json)
+            if (json.status != 200) {
+              alert(json.error)
+            }
+            else {
+              setBranches([...json.data])
+              // setSearch('city')
+            }
+          })
+      },[])
+      const lookForCity = (event) => {
+        fetch(`http://localhost:8082/branch/${event.target.value}`, {
+          method: 'GET',
+    
+        })
+          .then(response => response.json())
+          .then((json) => {
+            console.log(json.data)
+            if (json.status != 200) {
+              alert(json.error)
+            }
+            else {
+              setBranches([...json.data])
+              // console.log("branch", branches)
+              // setSearch('branch')
+            }
+          })
+      };
+    
+      
+
+      const itemTemplate = (branch) => {
+        const handleClickBranch = () => {
+          setBranchMap(branch); // Set branchMap to the selected branch
+        };
+        return (
+          <div className="branch-item"  onClick={handleClickBranch}>
+            <div className="branch-detail">
+               <div className="branch-address"> סניף:{branch.number}{branch.strreא}{branch.city}</div>
+            <div className="branch-hours">  שעות פעילות:{branch.hours}</div>
+          <div className="branch-days"> ימי פתיחה:{branch.days}</div>
+              <div className="branch-phone">טלפון :{branch.phone}</div> 
+            </div>
+            </div>
+        );
+      };
+      
+    
+    
+      return (
+        <>
+        <h id="title">הסניפים שלנו:</h>
+          <div className="brances">
+            
+         
+            <DataView value={branches} itemTemplate={itemTemplate} layout="list" />
+            <div id="map">{branchMap ? (
+              <GoogleMaps
+                lat={branchMap.lat}
+                lng={branchMap.lng}
+                street={branchMap.street}
+                number={branchMap.number}
+                phone={branchMap.phone}
+                hours={branchMap.hours}
+                days={branchMap.days}
+              />
+            ) : null}
+            </div>
+          </div>
+        </>
+      );
+
+}
+export default Branches;
+
+
+
+// {search === 'map' ?
+//   (<>
+
+// <div className="shopping-cart">
+//   <h2>Your Shopping Cart</h2>
+//   {/* <DataView value={branch} itemTemplate={itemTemplate} layout="list" /> */}
+// </div>
+//   {/* {console.log(branches[0].lat ,branches[0].lng)} */}
+//     <GoogleMaps lat={branches[0].lat} lng={branches[0].lng} street={branches[0].street} number={branches[0].number}
+//       phone={branches[0].phone} hours={branches[0].hours} days={branches[0].days} />
+//   </>
+//   ) : null}
+// {
+//   (search == 'city') ? <select className="branches-chooseCity" onChange={lookForCity}>
+//     <option selected>בחירת עיר</option>
+//     {cities.map((city) => {
+//       return <option>{city.city}</option>;
+//     })}
+//   </select> : <select className="branches-chooseCity" onChange={showDetails}>
+//   <option selected>בחירת כתובת</option>
+//     {branches.map((branch) => {
+//       return <option>{branch.street}{branch.number}</option>;
+//     })}
+//     </select> }

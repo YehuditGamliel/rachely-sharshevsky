@@ -115,12 +115,14 @@ export class EyeglassesController {
 
     async getEyeglassesByKind(req, res, next) {
         console.log("!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("req.query",req.query)
         try {
             const eyeglassesService = new EyeglassesService();
             const resultItems = await eyeglassesService.getEyeglassesByKind(req.params.kind,req.query)
             console.log("by", resultItems)
             return res.status(200).json({ status: 200, data: resultItems });
         }
+
         catch (ex) {
             const err = {}
             err.statusCode = 500;

@@ -8,7 +8,7 @@ import SpecificInfo from './components/SpecificInfo/SpecificInfo';
 import Main from './components/Header/header';
 import PaymentForm from './components/PaymentForm/PaymentForm';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
-import Branches from './components/Branches/Branchec.jsx';
+import Branches from './components/Branches/Branches.jsx';
 import Instructions from './components/Instructions/Instructions.jsx';
 import ListOfPurchase from './components/ListOfPurchase/ListOfPurchase.jsx'
 import EditingGlassesDetails from './components/EditingGlassesDetails/EditingGlassesDetail.jsx'
@@ -36,21 +36,6 @@ function App() {
                 <Route path=":eyeglassesModel" element={<SpecificInfo />} />
                 <Route path="?sortBy" element={<Eyeglasses/>}/>
               </Route>
-              {/* <Route path="eyeglasses/women">
-                <Route index element={<Eyeglasses />} />
-                <Route path=":eyeglassesModel" element={<SpecificInfo />} />
-                <Route path="?sortBy" element={<Eyeglasses/>}/>
-              </Route>
-              <Route path="eyeglasses/children">
-                <Route index element={<Eyeglasses />} />
-                <Route path=":eyeglassesModel" element={<SpecificInfo />} />
-                <Route path="?sortBy" element={<Eyeglasses/>}/>
-              </Route>
-              <Route path="eyeglasses/sport">
-                <Route index element={<Eyeglasses />} />
-                <Route path=":eyeglassesModel" element={<SpecificInfo />} />
-                <Route path="?sortBy" element={<Eyeglasses/>}/>
-              </Route> */}
               <Route path="EditingGlasses">
                 <Route index element={<Eyeglasses />} />
                 <Route path=":eyeglassesModel" element={<EditingGlassesDetails />} />

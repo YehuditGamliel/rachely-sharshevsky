@@ -1,6 +1,6 @@
 
 import { executeQuery } from './db.js';
-import {getFromTwoTablesByTwoValues,getByValueQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery ,deleteQuery,getFromTwoTables} from './queries.js'
+import {getFromTwoTablesByTwoValues,getByValueQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery ,deleteQuery,getFromTwoTables,getSortFromTwoTablesByTwoValues} from './queries.js'
 export class EyeglassesService {
 
 
@@ -89,7 +89,16 @@ export class EyeglassesService {
     }
 
     async getEyeglassesByKind(kind,q) {
-        const query = getFromTwoTablesByTwoValues('eyeglasses','glassestype',"idGlassesType","id",'color,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara',"glassesType",q);      
+        let query;
+        console.log("Object.keys(q)",Object.keys(q)[0],Object.keys(q)[1])
+        if (Object.keys(q)[1] != 'sort') {
+            console.log("notSort_____________")
+            query = getFromTwoTablesByTwoValues('eyeglasses','glassestype',"idGlassesType","id",'color,price,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara',"glassesType",q);
+        } else {
+            console.log("sort")
+            query = getSortFromTwoTablesByTwoValues('eyeglasses','glassestype',"idGlassesType","id",'color,price,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara',"glassesType",q); 
+        }
+        //const query = getFromTwoTablesByTwoValues('eyeglasses','glassestype',"idGlassesType","id",'color,price,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara',"glassesType",q);      
           const result = await executeQuery(query, [kind]);
         console.log(result)
         return result;

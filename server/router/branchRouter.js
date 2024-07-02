@@ -7,8 +7,8 @@ const branchRouter = express.Router();
 const branchConrtoller = new BranchController();
 // const branchController = new BranchController();
 console.log("RouterE");
-branchRouter.get("/", branchConrtoller.getAllCitiesBranches)
-branchRouter.get("/:city", branchConrtoller.geAllBranchesByCity)
+branchRouter.get("/", branchConrtoller.getAllBranches)
+// branchRouter.get("/:city", branchConrtoller.geAllBranchesByCity)
 
 // branchRouter.post("/", async (req, res) => {
 //     let closeBranches = [];

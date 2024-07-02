@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect ,useState, useContext } from 'react'
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Card from '@mui/material/Card';
@@ -59,7 +59,6 @@ function SingleEyeglasses(props) {
   const [glassesDisplay ,setGlassesDisplay] = useState("")
   const [glassesCamara , setGlassesCamara] = useState("")
 
-
   const buttonsFunc = () => {
     return (<><Button onClick={() => displayEditingGlassesDetails()} variant="contained" > שינוי פרטים
     </Button>
@@ -67,22 +66,24 @@ function SingleEyeglasses(props) {
         <DeleteIcon />
       </Button></>);
   }
-
+  
   const displaySpecificInfo = () => {
     console.log("glassesDisplay!!!!!!!!!!!!!!!1",glassesDisplay)
 
     setCurrentEyeglasses({ "imgDisplay": props.imgDisplay, "model": props.model, "title": props.title, "price": props.price })
-    navigate(`/eyeglasses/${props.model}`)
+
+    navigate(`/eyeglasses/${location.pathname.split('/')[2]}/${props.model}`)
   }
 
   const displayEditingGlassesDetails = () => {
     setCurrentEyeglasses({ "imgDisplay": props.imgDisplay, "model": props.model, "title": props.title, "price": props.price })
-    navigate(`/EditingGlasses/${props.model}`)
+    navigate(`/EditingGlasses/${location.pathname.split('/')[2]}/${props.model}`)
 
   }
 
   return (
     <>
+
       {isExist ?
         <Card id="cards" sx={{ maxWidth: 300 }}>
           <CardHeader
