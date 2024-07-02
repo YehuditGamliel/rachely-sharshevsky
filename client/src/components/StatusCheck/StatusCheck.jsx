@@ -1,4 +1,5 @@
 import {useContext, useState,useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import '../StatusCheck/StatusCheck.css'
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import jsonData from '../../assets/data.json'
@@ -7,7 +8,7 @@ const StatusCheck = () => {
   
   const [status,setStatus]=useState('')
 const [numOfInvitation,setnumOfInvitation]=useState();
-  
+const navigate = useNavigate();
 const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
 // useEffect(() => {
 //  setStatus('')
@@ -37,6 +38,8 @@ const checkStatusCheck=()=>{
 }
 const handleClick=(event)=>{
   localStorage.clear()
+  navigate('./home')
+   setCurrentEyeglasses({})
 }
 const handleInputChange = (event) => {
   setnumOfInvitation(event.target.value);
@@ -44,10 +47,12 @@ const handleInputChange = (event) => {
   
 return (
   <>
+ 
     {eyeglasses.role === 0 ? (
       <>
-        <Button onClick={handleClick}> יציאה</Button>
+       
         <div className='status-background'>
+        <Button onClick={handleClick}> יציאה</Button>
           <div className='status-box'>
             <p>מה עם ההזמנה שלי?</p>
             <p>אנא הכנס מספר הזמנה </p>
@@ -58,7 +63,7 @@ return (
           </div>
         </div>
       </>
-    ) :  <Button onClick={handleClick}>יציאה</Button>}
+    ) :   <div className='status-background'><Button className='buttonExit' onClick={handleClick}>יציאה</Button></div>}
   </>
 );
 }

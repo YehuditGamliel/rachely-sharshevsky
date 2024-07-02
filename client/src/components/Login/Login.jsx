@@ -279,7 +279,7 @@ function Login() {
                     </div>
 
                 </div>
-                    : showRegister
+                    : <Register/>
             }</>:<StatusCheck/>
             
             

@@ -33,7 +33,7 @@ function Header(props) {
 
     useEffect(() => {
        
-        if (location.pathname === '/my-account'||location.pathname === '/home') {
+        if (location.pathname === '/home') {
             setLogin(false);
             setStyle("activity")
         }
