@@ -12,12 +12,16 @@ import CU6 from './CU6/CU6'
 import WithOrWithoutPrescription from './WithOrWithoutPrescription/WithOrWithoutPrescription';
 import SizeOfGlasses from './SizeOfGlasses/SizeOfGlasses';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import { UserContext } from '../../UserProvider.jsx';
+import Login from '../Login/Login.jsx';
 
 
 function Invitation() {
 
   const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+  const {user,setCurrentUser}=useContext(UserContext);
   const [open, setOpen] = useState(false);
+  // const [register,setRegister]=useState(false)
   const [scroll, setScroll] = useState('paper');
   const [userEyesData, setUserEyesdata] = useState({});
   const [paper, setPaper] = useState({ title: '' })
@@ -53,14 +57,35 @@ function Invitation() {
   },[])
 
   const addInformation = (name, id, title) => {
+    if(name=='withOrWithoutPrescription'&&id==1){
+     if(!user.userName)
+      console.log('Register')
+     setUserEyesdata(userItem => ({
+      ...userItem,
+      [name]: id,
+    }));
+    setPaper({ title: 'login' })
+    return;
+    }
    
-   console.log("😂",CU6[id])
+   console.log("😂",)
      if(name=='CU6'){
-     
-      console.log("price",eyeglasses.price)
-      setCurrentEyeglasses(prevState => {
-        return { ...prevState, price: price+JsonData.CU6[id].price }; // Update field2 with newValue
-      });
+     // Convert price to a number with validation
+// const priceNumber = !isNaN(parseFloat(price)) ? parseFloat(price) : 0;
+
+// Convert JsonData.CU6[1].price to a number with validation
+const additionalPrice = !isNaN(parseFloat(JsonData.CU6[1].price)) ? parseFloat(JsonData.CU6[1].price) : 0;
+
+// Perform addition if both values are valid numbers
+if (!isNaN(additionalPrice)) {
+  console.log("price", eyeglasses.price  + additionalPrice, additionalPrice);
+
+  setCurrentEyeglasses(prevState => {
+    return { ...prevState, price: eyeglasses.price  + additionalPrice };
+  });
+} else {
+  console.log("Invalid price values. Could not perform addition.");
+}
      }
     if (name == 'sizeOfGlasses') {
       setUserEyesdata(userItem => ({
@@ -107,7 +132,7 @@ function Invitation() {
     }
     setButtonDisabled(false)
     if (title == 'sizeOfGlasses' && id == 1) {
-      alert(id)
+      
       setPaper({ title: 'CU6' })
     }
   
@@ -128,11 +153,9 @@ function Invitation() {
 
       } startIcon={<RemoveRedEyeIcon />}>לבחירת עדשות</Button>
       {(() => {
-        if (paper.title == 'kindOfGlasses') {
-          return (
-            <KindOfGlasses
-              addInformation={addInformation} />
-          )
+        {console.log("dd",paper.title)}
+        if (paper.title == 'login') {
+         return (<Login  paper={'invition'}/>)
         } else if (paper.title == 'withOrWithoutPrescription') {
           return (
             <WithOrWithoutPrescription addInformation={addInformation} />
@@ -193,7 +216,10 @@ function Invitation() {
           navigate(`/paymentForm`)
         }
         else {
-
+          return (
+            <KindOfGlasses
+              addInformation={addInformation} />
+          )
         }
       })()}
     </React.Fragment>

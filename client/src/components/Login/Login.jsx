@@ -21,7 +21,7 @@ import { APIRequests } from "../../APIRequests.js";
 
 
 
-function Login() {
+function Login({ paper = 'defaultPaperValue' }) {
     let location = useLocation();
     const [value, setValue] = useState('');
     const [changePassword, setChangePassword] = useState(false)
@@ -58,9 +58,14 @@ function Login() {
       setOpen(false);
       
     //   setLoginOrNot(false)
-      navigate('./home')
 
-      
+    if(paper == 'defaultPaperValue' ){
+        navigate('./home')
+    } 
+    else{
+        // alert("pp")
+         navigate('./')
+    }
     };
     const navigate = useNavigate();
     useEffect(() => {

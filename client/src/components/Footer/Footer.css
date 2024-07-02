@@ -5,7 +5,7 @@ body {
   font-family: "Rubik", sans-serif;
   
   /* background: #455a64; */
-  height: 12vw !important;
+  height: 13vw !important;
 }
 
 .container-fluid {
@@ -41,6 +41,7 @@ body {
   ) !important;
 }
 .row {
+  
   padding: 0%;
   margin: 0%;
 }
@@ -52,7 +53,7 @@ body {
   height: 5px;
 }
 footer{
-  height: 40%;
+  height: 50%;
 }
 .mt-55 {
   margin-top: calc(
