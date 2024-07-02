@@ -1,7 +1,7 @@
 import {useContext, useState,useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../StatusCheck/StatusCheck.css'
-import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import { UserContext } from "../../UserProvider.jsx";
 import jsonData from '../../assets/data.json'
 import { Button } from '@mui/material';
 const StatusCheck = () => {
@@ -9,7 +9,7 @@ const StatusCheck = () => {
   const [status,setStatus]=useState('')
 const [numOfInvitation,setnumOfInvitation]=useState();
 const navigate = useNavigate();
-const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+const { user, setCurrentUser } = useContext(UserContext);
 // useEffect(() => {
 //  setStatus('')
 // }, []);
@@ -18,7 +18,7 @@ const checkStatusCheck=()=>{
   fetch(`http://localhost:8082/purchase/getStatut`, {
     method: 'POST',
     body: JSON.stringify({
-      userName:eyeglasses.userName,
+      userName:user.userName,
       id:numOfInvitation
     }),
     headers: {
@@ -39,7 +39,7 @@ const checkStatusCheck=()=>{
 const handleClick=(event)=>{
   localStorage.clear()
   navigate('./home')
-   setCurrentEyeglasses({})
+   setCurrentUser({})
 }
 const handleInputChange = (event) => {
   setnumOfInvitation(event.target.value);
@@ -48,7 +48,7 @@ const handleInputChange = (event) => {
 return (
   <>
  
-    {eyeglasses.role === 0 ? (
+    {user.role === 0 ? (
       <>
        
         <div className='status-background'>

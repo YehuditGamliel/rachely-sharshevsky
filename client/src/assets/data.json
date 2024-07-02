@@ -21,7 +21,13 @@
       "index":2,"status":"במעבדה"
     },{
       "index":3,"status":"מוכן"
-    }]
+    }],
+    "idInvition":[
+
+    {
+      "lastIndex":0
+    }
+    ]
  
 
 }

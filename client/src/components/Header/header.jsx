@@ -10,11 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Tab from '@mui/material/Tab';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
-import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import {  UserContext } from '../../UserProvider.jsx'
 import Footer from '../Footer/Footer.jsx';
 
 function Header(props) {
-    const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+    const { user,  setCurrentUser } = useContext(UserContext);
     const [style, setStyle] = useState("activity")
     const [login, setLogin] = useState('');
     const [cartLength, setCartLength] = useState(0);
@@ -25,7 +25,7 @@ function Header(props) {
         
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         if (currentUser) {
-            setCurrentEyeglasses({ userName: currentUser.userName, email: currentUser.email,role:currentUser.role })
+            setCurrentUser({ userName: currentUser.userName, email: currentUser.email,role:currentUser.role })
             // if(currentUser.role!=1)
             //navigate('/my-account');
         }
@@ -69,7 +69,7 @@ function Header(props) {
                     <ul>
                         
                         {/* <li> <Link to={"./info"}>משקפי קריאה </Link></li> */}
-                        {eyeglasses.role==1?<li> <Link to={"updateStatus"}>עדכון סטטוס הזמנה </Link></li>:<></>}
+                        {user.role==1?<li> <Link to={"updateStatus"}>עדכון סטטוס הזמנה </Link></li>:<></>}
                         <li> <Link to={"branches"}>סניפים</Link></li>
                         <li> <Link to={"eyeglasses/sport"}>משקפי ספורט</Link></li>
                         <li> <Link to={"eyeglasses/children"}>משקפי שמש </Link></li>
@@ -92,8 +92,8 @@ function Header(props) {
                         {/* {console.log("eyeglasses", eyeglasses)} */}
                         {/* {location.pathname.slice(1) == 'my-account' ?
                             <li><span> Hi {eyeglasses.userName} </span></li>
-                            : <></>} */}{eyeglasses.userName ?
-                            <li><span> Hi {eyeglasses.userName} </span></li>
+                            : <></>} */}{user.userName ?
+                            <li><span> Hi {user.userName} </span></li>
                             : <></>}
                     </ul>
                 </nav>

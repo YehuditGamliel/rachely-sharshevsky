@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Alert from '@mui/material/Alert';
 import Header from '../Header/header.jsx';
+import JsonData from '../../assets/data.json'
 import './Invitation.css'
 import KindOfGlasses from './KindOfGlasses.jsx'
 import CU6 from './CU6/CU6'
@@ -22,6 +23,7 @@ function Invitation() {
   const [paper, setPaper] = useState({ title: '' })
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   const [alert, setAlert] = useState()
+  // const [counter,setCounter]=useState(0)
 
   const navigate = useNavigate();
   const withOrWithoutPrescriptionArry = ["prescriptionSaved", "fillingPrescription"]
@@ -44,9 +46,22 @@ function Invitation() {
         descriptionElement.focus();
       }
     }
+    
   }, [open]);
+  React.useEffect(()=>{
+    console.log("😁",eyeglasses)
+  },[])
 
   const addInformation = (name, id, title) => {
+   
+   console.log("😂",CU6[id])
+     if(name=='CU6'){
+     
+      console.log("price",eyeglasses.price)
+      setCurrentEyeglasses(prevState => {
+        return { ...prevState, price: price+JsonData.CU6[id].price }; // Update field2 with newValue
+      });
+     }
     if (name == 'sizeOfGlasses') {
       setUserEyesdata(userItem => ({
         ...userItem,
@@ -59,6 +74,33 @@ function Invitation() {
         [name]: id
       }));
     }
+
+    if (title == 'CU6'||(name == 'kindOfGlasses' && id == 1)) {
+      console.log("😊", JsonData.idInvition[0].lastIndex++)
+      // alert("ppppppp")
+      setUserEyesdata(userItem => ({
+        ...userItem,
+        ['id']:JsonData.idInvition[0].lastIndex++
+        
+        
+      }));
+     
+      if (name == 'kindOfGlasses' && id == 1) {
+        setPaper({ title: 'CU6' })
+        setUserEyesdata(userItem => ({
+          ...userItem,
+          ['withOrWithoutPrescription']: 0,
+          ['sizeOfGlasses']: {}
+        }));
+        alert("pp")
+      }
+      else{
+        setPaper({ title: title })
+      }
+     
+      
+    }
+   
     if (name == 'withOrWithoutPrescription') {
       if (id == "1")
         setPaper({ title: 'verification' })
@@ -68,6 +110,7 @@ function Invitation() {
       alert(id)
       setPaper({ title: 'CU6' })
     }
+  
     else {
       setPaper({ title: title })
     }
@@ -113,30 +156,37 @@ function Invitation() {
           )
         }
         else if (paper.title == "ShoppingCart") {
-          console.log("aaaa", eyeglasses.amount)
-          const shoppingCart = { ...eyeglasses, ...userEyesData };
-          const storedCart = JSON.parse(localStorage.getItem("ShoppingCart")) || [];
-          let updatedCart;
 
-          // Check if the shoppingCart item is already in storedCart
-          const itemIndex = storedCart.findIndex(item => item.model === shoppingCart.model);
-          // If the item is not already in the cart, add it
-          if (itemIndex !== -1) {
-            // Update the quantity of the existing item by increasing by 1 if the item and 'amount' property exist
-            if (storedCart[itemIndex].amount) {
-              storedCart[itemIndex].amount++;
+
+            console.log("aaaa", eyeglasses.amount)
+            const shoppingCart = { ...eyeglasses, ...userEyesData };
+            const storedCart = JSON.parse(localStorage.getItem("ShoppingCart")) || [];
+            let updatedCart;
+  
+            // Check if the shoppingCart item is already in storedCart
+            const itemIndex = storedCart.findIndex(item => item.id === shoppingCart.id);
+            // If the item is not already in the cart, add it
+            if (itemIndex !== -1) {
+              // Update the quantity of the existing item by increasing by 1 if the item and 'amount' property exist
+              if (storedCart[itemIndex].amount) {
+                storedCart[itemIndex].amount++;
+              } else {
+                storedCart[itemIndex].amount = 1;
+              }
+              updatedCart = [...storedCart];
             } else {
-              storedCart[itemIndex].amount = 1;
+              updatedCart = [...storedCart, shoppingCart];
             }
-            updatedCart = [...storedCart];
-          } else {
-            updatedCart = [...storedCart, shoppingCart];
-          }
+  
+            localStorage.setItem("ShoppingCart", JSON.stringify(updatedCart));
+            
+            console.log(updatedCart);
+            setCurrentEyeglasses({ ...eyeglasses, ...userEyesData })
+            navigate(`/shoppingCart`);
+          
+  
 
-          localStorage.setItem("ShoppingCart", JSON.stringify(updatedCart));
-          <Header />
-          console.log(updatedCart);
-          navigate(`/shoppingCart`);
+
         }
         else if (paper.title == "paymentForm") {
           setCurrentEyeglasses({ ...eyeglasses, ...userEyesData })
@@ -153,31 +203,3 @@ function Invitation() {
 export default Invitation;
 
 
-// const [paymentForm, setPaymentForm] = useState('');
-// const [shoppingCart, setShoppingCart] = useState('');
-// import Dialog from '@mui/material/Dialog';
-// import DialogActions from '@mui/material/DialogActions';
-// import DialogContent from '@mui/material/DialogContent';
-// import DialogContentText from '@mui/material/DialogContentText';
-// import DialogTitle from '@mui/material/DialogTitle';
-// import ShoppingCart from '../ShoppingCart/ShoppingCart'
-// import PaymentForm from '../PaymentForm/PaymentForm'
-// import TextField from '@mui/material/TextField';
-// import Autocomplete from '@mui/material/Autocomplete';
-// const [kindOfGlasses, setKindOfGlasses] = useState('')
-//   const [withOrWithoutPrescription, setWithOrWithoutPrescription] = useState('')
-//import Paper from '@mui/material/Paper';
-//  const [sizeOfGlasses,setSizeOfGlasses]=useState();
-//import { styled } from '@mui/material/styles';
-
-
-
-// const [disable, setDisable] = useState(1);
-//   const [style, setStyle] = useState("noneBorder");
-// const DemoPaper = styled(Paper)(({ theme }) => ({
-//   width: 250,
-//   height: 110,
-//   padding: theme.spacing(3),
-//   ...theme.typography.body2,
-//   textAlign: 'center',
-// }));

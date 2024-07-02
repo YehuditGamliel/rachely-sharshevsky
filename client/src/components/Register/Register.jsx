@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useContext, useEffect } from "react";
 import '../Register/Register.css'
 import Login from '../Login/Login.jsx'
-import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import { UserContext } from "../../UserProvider.jsx";
 // import OtpInput from 'react-otp-input';
 // import OtpInput1 from "../OtpInput1/OtpInput1.jsx";
 import OTPInput, { ResendOTP } from "otp-input-react";
@@ -12,7 +12,7 @@ import { APIRequests } from "../../APIRequests";
 
 
 function Register() {
-  const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+  const { user, setCurrentUser } = useContext(UserContext);
   // const [otp, setOtp] = useState('');
   const [extraDetails, setExterDetails] = useState(false)
   const [showLogin, setShowLogin] = useState(<Login />);

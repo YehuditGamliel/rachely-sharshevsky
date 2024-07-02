@@ -8,6 +8,8 @@ export class LoginController {
 
 
     async AuthenticationForSignUpOrLogin(req, res, next) {
+
+        console.log(req.body)
         const loginService = new LoginService();
         if (req.body.email == undefined) {
             try {

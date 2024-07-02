@@ -7,7 +7,7 @@ import StatusCheck  from '../StatusCheck/StatusCheck.jsx';
 import Register from '../Register/Register'
 import Alert from '@mui/material/Alert';
 import { Password } from 'primereact/password';
-import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import { UserContext } from "../../UserProvider.jsx";
 import { useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -26,7 +26,7 @@ function Login() {
     const [value, setValue] = useState('');
     const [changePassword, setChangePassword] = useState(false)
     const [errorMassage, setErrorMassage] = useState("")
-    const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+    const {  user, setCurrentUser } = useContext(UserContext);
     const [showRegister, setShowRegister] = useState('');
     const [registerOrLogin, setRegisterOrLogin] = useState(true)
     const [open, setOpen] = React.useState(false);
@@ -47,7 +47,7 @@ function Login() {
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
             currentUser.role = 0; 
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            setCurrentEyeglasses(prevState => {
+            setCurrentUser(prevState => {
                 return {
                     ...prevState,
                     role: 0,
@@ -117,11 +117,12 @@ function Login() {
     const login = async (user) => {
         
         let json = await userExist(user)
+        console.log("json",json)
         if (json.status == 200) {
             localStorage.setItem('currentUser', JSON.stringify(
                 { userName: user.userName,email: json.email, role:json.role}));
                
-            setCurrentEyeglasses({userName: user.userName,email: json.email, role:json.role })
+            setCurrentUser({userName: user.userName,email: json.email, role:json.role })
             console.log("🥻",json.role)
             if(json.role==1)
                 {
@@ -225,7 +226,7 @@ function Login() {
         </DialogActions>
       </Dialog>
    :<>
-        {!eyeglasses.userName?
+        {!user.userName?
             <>{
                 registerOrLogin ? <div className='login-background'>
                     <div className='login-box'>

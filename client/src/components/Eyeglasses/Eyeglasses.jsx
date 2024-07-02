@@ -14,7 +14,6 @@ function Eyeglasses() {
   const navigate = useNavigate();
   let location = useLocation();
 
-
   useEffect(() => {
     if (location.pathname.split('/')[1] == 'eyeglasses') {
       setChangeTypeGlasses("change")
@@ -24,47 +23,68 @@ function Eyeglasses() {
 
   useEffect(() => {
     const kindOfGlasses = location.pathname.split('/')[2];
-    const fetchData = async () => {
-      if (loadMore && location.search == "") {
-        const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}/?_page=${eyeglassesPage[kindOfGlasses]}`);
-        const json = await response.json();
-        if (response.status !== 200) {
-          alert(json.error);
-        } else {
-          if (changeTypeGlasses === "notChange") {
-            setDisplayEyglasses([...displayEyeglasses, ...json.data]);
-          } else {
-            setDisplayEyglasses([...json.data]);
-          }
-        }
-        setChangeTypeGlasses("notChange");
-        setEyeglassesPage(prevState => {
-          const updatedState = { ...prevState };
-          Object.keys(updatedState).forEach(key => {
-            updatedState[key] = key === kindOfGlasses ? prevState[key] + 1 : 1;
-          });
-          return updatedState;
-        });
-        setLoadMore(false);
-      }
-    };
-    fetchData();
+    fetchData(kindOfGlasses);
   }, [changeTypeGlasses, loadMore]);
+
 
   const handleSortByChange = async (event) => {
     const kindOfGlasses = location.pathname.split('/')[2];
     let value = event.target.value;
     setSelectedValue(event.target.value);
     if (event.target.value == 'everyOne') {
-      setLoadMore(false);
+      setChangeTypeGlasses("notChange")
       navigate(`/eyeglasses/${kindOfGlasses}`)
-      alert(eyeglassesPage[kindOfGlasses]-2)
-      const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}?_page=${eyeglassesPage[kindOfGlasses]-2}`)
+      const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}/?_page=${eyeglassesPage[kindOfGlasses]}`);
+      const json = await response.json();
+      if (response.status !== 200) {
+        alert(json.error);
+      }
+       else {
+        setDisplayEyglasses([...displayEyeglasses, ...json.data]);
+      }
+      setChangeTypeGlasses("notChange");
+      setEyeglassesPage(prevState => {
+        const updatedState = { ...prevState };
+        Object.keys(updatedState).forEach(key => {
+          updatedState[key] = key === kindOfGlasses ? prevState[key] + 1 : 1;
+        });
+        return updatedState;
+      });
+      setLoadMore(false);
+      
+    }
+    else {
+      navigate(`/eyeglasses/${kindOfGlasses}?sortBy=${value}`)
+      const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}?_page=${eyeglassesPage[kindOfGlasses] - 2}&sort=${value}`);
+      const json = await response.json();
+      if (json.status != 200) {
+        alert(json.error)
+      }
+      else {
+        console.log("json.data", json.data)
+        setLoadMore(false);
+        setDisplayEyglasses(json.data)
+
+        setEyeglassesPage(prevState => {
+        const updatedState = { ...prevState };
+        Object.keys(updatedState).forEach(key => {
+          updatedState[key] = key === kindOfGlasses ? prevState[key] - 1 : 1;
+        });
+        return updatedState;
+      });
+      }
+    }
+  }
+
+  const fetchData = async (kindOfGlasses) => {
+    if (loadMore && location.search == "") {
+      const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}/?_page=${eyeglassesPage[kindOfGlasses]}`);
       const json = await response.json();
       if (response.status !== 200) {
         alert(json.error);
       } else {
-        if (changeTypeGlasses === "notChange") {
+
+        if (changeTypeGlasses == "notChange" || selectedValue == "everyOne") {
           setDisplayEyglasses([...displayEyeglasses, ...json.data]);
         } else {
           setDisplayEyglasses([...json.data]);
@@ -79,37 +99,38 @@ function Eyeglasses() {
         return updatedState;
       });
       setLoadMore(false);
-        //setDisplayEyglasses([...json.data])
-        // setEyeglassesPage(prevState => {
-        //   const updatedState = { ...prevState };
-        //   Object.keys(updatedState).forEach(key => {
-        //     updatedState[key] = key === kindOfGlasses ? prevState[key] + 1 : 1;
-        //   });
-        //   return updatedState;
-        // });
-        //setEyeglassesPage(eyeglassesPage + 1)
     }
-    else {
-      navigate(`/eyeglasses/${kindOfGlasses}?sortBy=${value}`)
-      alert(eyeglassesPage[kindOfGlasses] - 2)
-      const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}?_page=${eyeglassesPage[kindOfGlasses] - 2}&sort=${value}`);
+  };
+
+  const cheackLocation = async () => {
+    const kindOfGlasses = location.pathname.split('/')[2];
+    if(location.search != ""){
+      const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}?_page=${eyeglassesPage[kindOfGlasses]}&sort=price`);
       const json = await response.json();
       if (json.status != 200) {
         alert(json.error)
       }
       else {
-        console.log("json.data", json.data)
         setLoadMore(false);
-
-        setDisplayEyglasses(json.data)
+        setDisplayEyglasses([...json.data])
+        setEyeglassesPage(prevState => {
+          const updatedState = { ...prevState };
+          Object.keys(updatedState).forEach(key => {
+            updatedState[key] = key === kindOfGlasses ? prevState[key] + 1 : 1;
+          });
+          return updatedState;
+        });
       }
     }
-  }
+  };
+
 
   return (<>
 {console.log("displayEyeglasses",displayEyeglasses)}
+{console.log("eyeglassesPage",eyeglassesPage)}
+{console.log("changeTypeGlasses",changeTypeGlasses)}
     <select id="sortBy" value={selectedValue} onChange={handleSortByChange}>
-      <option value="everyOne">evert one</option>
+      <option value="everyOne">every one</option>
       <option value="price" >price</option>
     </select>
     {console.log("displayEyeglasses", displayEyeglasses)}
@@ -119,8 +140,47 @@ function Eyeglasses() {
           {eyeglasses.title} imgDisplay={eyeglasses.imgDisplay} imgCamara={eyeglasses.imgCamara} />
       </div>)
       }
-      <button onClick={() => { setLoadMore(true) }}>load more</button>
+      <button onClick={() => { setLoadMore(true); 
+        setChangeTypeGlasses("notChange")
+        cheackLocation();
+      }}>load more</button>
     </div>
   </>)
 }
 export default Eyeglasses;
+
+
+
+    //fetchData(kindOfGlasses)
+      // setLoadMore(false);
+      
+      // alert(eyeglassesPage[kindOfGlasses]-2)
+      // const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}?_page=${eyeglassesPage[kindOfGlasses]-2}`)
+      // const json = await response.json();
+      // if (response.status !== 200) {
+      //   alert(json.error);
+      // } else {
+      //   if (changeTypeGlasses === "notChange") {
+      //     setDisplayEyglasses([...displayEyeglasses, ...json.data]);
+      //   } else {
+      //     setDisplayEyglasses([...json.data]);
+      //   }
+      // }
+      // setChangeTypeGlasses("notChange");
+      // setEyeglassesPage(prevState => {
+      //   const updatedState = { ...prevState };
+      //   Object.keys(updatedState).forEach(key => {
+      //     updatedState[key] = key === kindOfGlasses ? prevState[key] + 1 : 1;
+      //   });
+      //   return updatedState;
+      // });
+      // setLoadMore(false);
+        //setDisplayEyglasses([...json.data])
+        // setEyeglassesPage(prevState => {
+        //   const updatedState = { ...prevState };
+        //   Object.keys(updatedState).forEach(key => {
+        //     updatedState[key] = key === kindOfGlasses ? prevState[key] + 1 : 1;
+        //   });
+        //   return updatedState;
+        // });
+        //setEyeglassesPage(eyeglassesPage + 1)

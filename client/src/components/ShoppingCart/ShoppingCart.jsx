@@ -46,7 +46,7 @@ export default function ShoppingCart() {
           <div className="product-detail">
             <div className="product-name">{product.company}</div>
             <div className="product-description">{product.title}</div>
-            <div className="product-description">{product.amount > 1 ? product.amount / 2 + 0.5 : product.amount}</div>
+            {/* <div className="product-description">{product.amount > 1 ? product.amount / 2 + 0.5 : product.amount}</div> */}
             <div className="product-price">{formatCurrency(product.price)}</div>
             <div className="product-rating">
               <Rating value={product.rating} readOnly stars={5} cancel={false} />
@@ -66,10 +66,17 @@ export default function ShoppingCart() {
 
   // Function to remove a product from the cart
   const removeFromCart = (productModel) => {
-    //אם בחר כמה מאותו משקפיים למחוק את הכל?
-    const updatedProducts = products.filter((product) => product.model !== productModel);
+    let removedOne = false;
+    const updatedProducts = products.filter((product) => {
+      if (!removedOne && product.model === productModel) {
+        removedOne = true;
+        return false; // Skip this item
+      }
+      return true; // Keep other items
+    });
     setProducts(updatedProducts);
     localStorage.setItem("ShoppingCart", JSON.stringify(updatedProducts));
+    navigate('./')
   };
 
   return (<>

@@ -10,18 +10,18 @@ import PaymentForm from './components/PaymentForm/PaymentForm';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import Branches from './components/Branches/Branches.jsx';
 import Instructions from './components/Instructions/Instructions.jsx';
-import ListOfPurchase from './components/ListOfPurchase/ListOfPurchase.jsx'
-import EditingGlassesDetails from './components/EditingGlassesDetails/EditingGlassesDetail.jsx'
+import ListOfPurchase from './components/ListOfPurchase/ListOfPurchase.jsx';
+import EditingGlassesDetails from './components/EditingGlassesDetails/EditingGlassesDetail.jsx';
+import UserProvider from './UserProvider';
 
 function App() {
   return (
-    
     <div className="App">
       <Router>
-       
+        <UserProvider>
           <Routes>
             <Route path="/" element={<Main />}>
-            <Route path="home" element={<Home />} />
+              <Route path="home" element={<Home />} />
               <Route index element={<Home />} />
               <Route path="my-account" element={<Home />} />
               <Route path="login" element={<Login />} />
@@ -42,17 +42,10 @@ function App() {
               </Route>
             </Route>
             <Route path='*' element={<p>not found</p>}/> 
-
           </Routes>
-       
+        </UserProvider>
       </Router>
     </div>
-  //    <Route path="todos">
-  //    <Route index element={<Todos />} />
-  //    <Route path=":todoId" element={<Todos />} />
-  //    <Route path="search" element={<Todos />} />
-  //    <Route path="?sortBy" element={<Todos/>}/>
-  //  </Route>
   );
 }
 
