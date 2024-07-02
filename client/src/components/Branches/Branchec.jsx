@@ -30,6 +30,7 @@ function Branches() {
         })
           .then(response => response.json())
           .then((json) => {
+            console.log(json.data)
             if (json.status != 200) {
               alert(json.error)
             }
@@ -65,7 +66,10 @@ function Branches() {
           return <option>{city.city}</option>;
         })}
       </select> : <select className="branches-chooseCity" onChange={showDetails}>
-        <option selected>בחירת סניף</option>
+      <option selected>בחירת כתובת</option>
+        {branches.map((branch) => {
+          return <option>{branch.street}{branch.number}</option>;
+        })}
         </select> }
 
           </>
