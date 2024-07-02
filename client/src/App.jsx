@@ -31,11 +31,26 @@ function App() {
               <Route path="paymentForm" element={<PaymentForm />} />
               <Route path="instructions" element={<Instructions />} />
               <Route path="updateStatus" element={<ListOfPurchase />} />
-              <Route path="eyeglasses">
+              <Route path="eyeglasses/:type">
                 <Route index element={<Eyeglasses />} />
                 <Route path=":eyeglassesModel" element={<SpecificInfo />} />
                 <Route path="?sortBy" element={<Eyeglasses/>}/>
               </Route>
+              {/* <Route path="eyeglasses/women">
+                <Route index element={<Eyeglasses />} />
+                <Route path=":eyeglassesModel" element={<SpecificInfo />} />
+                <Route path="?sortBy" element={<Eyeglasses/>}/>
+              </Route>
+              <Route path="eyeglasses/children">
+                <Route index element={<Eyeglasses />} />
+                <Route path=":eyeglassesModel" element={<SpecificInfo />} />
+                <Route path="?sortBy" element={<Eyeglasses/>}/>
+              </Route>
+              <Route path="eyeglasses/sport">
+                <Route index element={<Eyeglasses />} />
+                <Route path=":eyeglassesModel" element={<SpecificInfo />} />
+                <Route path="?sortBy" element={<Eyeglasses/>}/>
+              </Route> */}
               <Route path="EditingGlasses">
                 <Route index element={<Eyeglasses />} />
                 <Route path=":eyeglassesModel" element={<EditingGlassesDetails />} />

@@ -113,6 +113,22 @@ export class EyeglassesController {
         }
     }
 
+    async getEyeglassesByKind(req, res, next) {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!")
+        try {
+            const eyeglassesService = new EyeglassesService();
+            const resultItems = await eyeglassesService.getEyeglassesByKind(req.params.kind,req.query)
+            console.log("by", resultItems)
+            return res.status(200).json({ status: 200, data: resultItems });
+        }
+        catch (ex) {
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
+
     async updatecomment(req, res, next) {
         try {
             const commentService = new TableService();

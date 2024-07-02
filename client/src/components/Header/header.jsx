@@ -70,10 +70,10 @@ function Header(props) {
                         {/* <li> <Link to={"./info"}>משקפי קריאה </Link></li> */}
                         {eyeglasses.role==1?<li> <Link to={"updateStatus"}>עדכון סטטוס הזמנה </Link></li>:<></>}
                         <li> <Link to={"eyeglasses"}>סניפים</Link></li>
-                        <li> <Link to={"eyeglasses"}>משקפי ספורט</Link></li>
-                        <li> <Link to={"eyeglasses"}>משקפי שמש </Link></li>
-                        <li> <Link to={"eyeglasses"}>משקפי נשים </Link></li>
-                        <li> <Link to={"eyeglasses"}>משקפי גברים</Link></li>
+                        <li> <Link to={"eyeglasses/sport"}>משקפי ספורט</Link></li>
+                        <li> <Link to={"eyeglasses/children"}>משקפי שמש </Link></li>
+                        <li> <Link to={"eyeglasses/women"}>משקפי נשים </Link></li>
+                        <li> <Link to={"eyeglasses/men"}>משקפי גברים</Link></li>
                         <li> <Link to={"branches"}>סניפים</Link></li>
                         <li> <Link to={"instructions"}>חדש! מדידת משקפיים</Link></li>
                         <li> <Link  to={"/"}>אודותינו </Link></li>

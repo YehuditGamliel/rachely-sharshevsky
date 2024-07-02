@@ -16,6 +16,7 @@ export class UserController {
             next(err)
         }
     }
+   
 
     async addUser(req, res, next) {
         try {

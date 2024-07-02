@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import './Eyeglasses.css'
 import SingleEyeglassee from '../SingleEyeglasses/SingleEyeglasses.jsx';
 import { APIRequests } from "../../APIRequests.js";
@@ -11,12 +11,17 @@ function Eyeglasses() {
   const [eyeglassesPage, setEyeglassesPage] = useState(1);
   const APIRequest = new APIRequests()
   const navigate = useNavigate();
+  let location = useLocation();
 
   useEffect(() => {
+    console.log("loctaion",location.pathname.split('/')[2])
+    const kindOfGlasses = location.pathname.split('/')[2]
     const fetchData = async () => {
       if (loadMore == true) {
-        const response = await APIRequest.getRequest(`/eyeglasses?_page=${eyeglassesPage}`)
+        const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}/?_page=${eyeglassesPage}`)
         const json = await response.json();
+        // const response = await APIRequest.getRequest(`/eyeglasses/?_page=${eyeglassesPage}`)
+        // const json = await response.json();
         if (response.status != 200) {
           alert(json.error)
         }
@@ -28,7 +33,7 @@ function Eyeglasses() {
       setEyeglassesPage(eyeglassesPage + 1)
     }
     fetchData();
-  }, [loadMore])
+  }, [location,loadMore])
 
   const handleSortByChange = async (event) => {
     let value = event.target.value;
@@ -47,7 +52,7 @@ function Eyeglasses() {
       
     }
     else {
-      navigate(`/eyeglasses?sortBy=${value}`)
+      navigate(`/eyeglasses/${location.pathname.split('/')[2]}?sortBy=${value}`)
       const response = await APIRequest.getRequest(`/eyeglasses?_page=${eyeglassesPage}&sort=${value}`)
       const json = await response.json();
       if (json.status != 200) {

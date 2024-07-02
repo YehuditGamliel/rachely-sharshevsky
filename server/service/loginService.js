@@ -1,5 +1,5 @@
 import { executeQuery } from './db.js';
-import { getByValue,getByValueQuery, addQuery,updateSpecificFieldQuery,updateQuery } from './queries.js'
+import { getAllElementsQuery,getByValue,getByValueQuery, addQuery,updateSpecificFieldQuery,updateQuery } from './queries.js'
 import otpGenerator from 'otp-generator';
 import jwt from 'jsonwebtoken';
 import bcrypt from'bcryptjs';
@@ -62,7 +62,7 @@ export class LoginService {
        const result = await executeQuery(query, [userName]);
        return result;
     }
-    
+ 
     createUser = async (itemDetailes) => { 
         var salt = bcrypt.genSaltSync(10);
         var hash = bcrypt.hashSync(itemDetailes.password, salt);

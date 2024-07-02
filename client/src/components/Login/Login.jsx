@@ -17,6 +17,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { APIRequests } from "../../APIRequests.js";
+
 
 
 function Login() {
@@ -29,6 +31,9 @@ function Login() {
     const [registerOrLogin, setRegisterOrLogin] = useState(true)
     const [open, setOpen] = React.useState(false);
     const [loginOrNot,setLoginOrNot]=useState(true);
+    const [roles,setRoles]=useState([]);
+    const APIRequest = new APIRequests()
+
     // const[showDialog,setShowDialog]=useState(false)
     const theme = useTheme();
      const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -56,10 +61,20 @@ function Login() {
       
     };
     const navigate = useNavigate();
-    // useEffect(() => {
-    //     if (location.pathname !== '/manager') {
-    //     navigate(`/login`)}
-    // }, [])
+    useEffect(() => {
+        alert("pp")
+        const fetchData = async () => {
+        const response = await APIRequest.getRequest(`/roles`)
+        const json = await response.json();
+        console.log("🌞",json,json.data)
+        if (response.status != 200) {
+          alert(json.error)
+        }
+        else {
+          setRoles([...roles, ...json.data])
+        }
+    }
+    }, [open])
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -185,12 +200,19 @@ function Login() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={()=>handleClose(1)}>
+
+            {console.log(roles)}
+        {roles.map((role, index) =>
+        <Button autoFocus onClick={()=>handleClose(role.index)}>
+       {role.roleDescription}
+       </Button>)
+      }
+          {/* <Button autoFocus onClick={()=>handleClose(1)}>
            כמנהל
           </Button>
           <Button onClick={()=>handleClose(0)} autoFocus>
             כלקוח
-          </Button>
+          </Button> */}
         </DialogActions>
       </Dialog>
    :<>

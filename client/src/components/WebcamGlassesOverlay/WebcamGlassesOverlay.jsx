@@ -2,28 +2,27 @@ import React, { useRef, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
 import * as faceapi from 'face-api.js';
 import '@tensorflow/tfjs';
-// import useSound from 'use-sound';
-// import r from '../img/r.mp3'
 
-const WebcamGlassesOverlay = ({ img }) => {
+const WebcamGlassesOverlay = ({img}) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [glassesImg, setGlassesImg] = useState(null);
-  // const [play, { stop }] = useSound(r);
-  // const [play, { stop }] = useSound(r);
 
+
+
+  
   // Log the loading process step-by-step
   useEffect(() => {
-    // () => play()
-
     const loadModels = async () => {
       try {
         console.log('Loading Tiny Face Detector model...');
         await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
         console.log('Tiny Face Detector Model loaded');
+
         console.log('Loading Face Landmark 68 model...');
         await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
         console.log('Face Landmark Model loaded');
+
         setInterval(async () => {
           await drawGlasses();
         }, 100);
@@ -38,28 +37,28 @@ const WebcamGlassesOverlay = ({ img }) => {
   // Load glasses image with logging
   useEffect(() => {
     const imgElement = new Image();
-    console.log("img",img)
+console.log(img)
     imgElement.src = img;
-    console.log(imgElement)
-    imgElement.crossOrigin = 'anonymous'
+     imgElement.crossOrigin = 'anonymous'
     // img.src = '/without.png';
-    // Adjust path to your glasses image
+     // Adjust path to your glasses image
     imgElement.onload = () => {
       console.log('Glasses image loaded');
       setGlassesImg(imgElement);
     };
 
+
+
     imgElement.onerror = (error) => {
       console.error('Error loading glasses image:', error);
-      //alert(`Glasses image loading error: ${error.message}`);
+      alert(`Glasses image loading error: ${error.message}`);
     };
 
   }, []);
 
 
 
-
-
+  
   const drawGlasses = async () => {
     if (webcamRef.current && webcamRef.current.video.readyState === 4 && glassesImg) {
       const video = webcamRef.current.video;
@@ -76,7 +75,6 @@ const WebcamGlassesOverlay = ({ img }) => {
             width: video.videoWidth,
             height: video.videoHeight,
           });
-
 
           const landmarks = resizedDetection.landmarks;
           const leftEye = landmarks.getLeftEye();
@@ -103,26 +101,22 @@ const WebcamGlassesOverlay = ({ img }) => {
     }
   };
 
-
-  
-
-
   return (
-    <div style={{ position: 'relative', width: 'fit-content' }}>
-      {/* < button onMouseEnter={() => play()} onMouseLeave={() => stop()}>לשמיעת ההוראות</button> */}
- {/* < button onMouseEnter={() => play()} onMouseLeave={() => stop()}></button> */}
+    <div style={{position: 'relative', width: 'fit-content' }}>
       <Webcam
         ref={webcamRef}
         audio={false}
         screenshotFormat="image/jpeg"
-        width={390}
-        height={180}
-
+        width={400}
+        height={200}
         videoConstraints={{ width: 440, height: 180, facingMode: 'user' }}
-      // style={{ position: 'absolute' }}
-      />
-      <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0 }} />
+        // style={{ position: 'absolute' }}
 
+
+
+      />
+             <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0 }} />
+        
     </div>
   );
 };

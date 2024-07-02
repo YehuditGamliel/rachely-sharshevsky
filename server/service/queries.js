@@ -1,5 +1,6 @@
 //IsActive to add to every one
 export function getAllElementsQuery(tableName,columns) {
+    
     const query = `SELECT ${columns} FROM optics.${tableName} where isActive=1 ;`;
     console.log(query)
     return query
@@ -28,6 +29,13 @@ export function deleteQuery(tableName,value) {
     console.log(query)
     return query
     
+}
+
+export function getFromTwoTablesByTwoValues(tableName1,tableName2, value1,value2, columns,valueToCheck,q) {
+    const query = `SELECT ${columns} FROM optics.${tableName1} u INNER JOIN optics.${tableName2} p ON u.${value1}=p.${value2} WHERE p.${valueToCheck}= ? LIMIT 5 OFFSET ${(q._page - 1) * 5};`;
+    console.log(query);
+    return query;
+
 }
 
 // export function  addaspecialQuery(tableName,itemKeys){

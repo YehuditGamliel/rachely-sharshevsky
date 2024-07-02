@@ -102,8 +102,6 @@ export class PurchaseController {
                 // console.log("hiiiiiiiii", result)
                 
            
-            
-              
 
         }
         catch (ex) {

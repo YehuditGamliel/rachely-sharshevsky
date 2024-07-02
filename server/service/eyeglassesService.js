@@ -1,6 +1,6 @@
 
 import { executeQuery } from './db.js';
-import {getByValueQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery ,deleteQuery} from './queries.js'
+import {getFromTwoTablesByTwoValues,getByValueQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery ,deleteQuery,getFromTwoTables} from './queries.js'
 export class EyeglassesService {
 
 
@@ -85,6 +85,13 @@ export class EyeglassesService {
         console.log(Object.values(itemDetailes))
         const query = addQuery('eyeglasses','model,price,p');
         const result = await executeQuery(query, [...Object.values(itemDetailes)]);
+        return result;
+    }
+
+    async getEyeglassesByKind(kind,q) {
+        const query = getFromTwoTablesByTwoValues('eyeglasses','glassestype',"idGlassesType","id",'color,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara',"glassesType",q);      
+          const result = await executeQuery(query, [kind]);
+        console.log(result)
         return result;
     }
  

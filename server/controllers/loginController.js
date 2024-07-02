@@ -77,6 +77,8 @@ export class LoginController {
 
     }
 
+ 
+
     verifyUserName = async (req, res) => {
         const { userName, otp } = req.body;
 
