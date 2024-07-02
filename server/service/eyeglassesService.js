@@ -77,14 +77,14 @@ export class EyeglassesService {
     //
     async deleteEyeglasses (model){
         console.log(model)
-        const query = deleteQuery('eyeglasses');
-        const result = await executeQuery(query,model);
+        const query = deleteQuery('eyeglasses','model');
+        const result = await executeQuery(query,[model]);
         return result;
     }
     async addEyeglasses( itemDetailes) {
         console.log(Object.values(itemDetailes))
         const query = addQuery('eyeglasses','model,price,p');
-        const result = await executeQuery(query, Object.values(itemDetailes));
+        const result = await executeQuery(query, [...Object.values(itemDetailes)]);
         return result;
     }
  
@@ -92,7 +92,9 @@ export class EyeglassesService {
         const itemDetails = itemDetailsArray[0]; // Access the object inside the array
         const values = Object.values(itemDetails);
         const keys = Object.keys(itemDetails);
-        console.log("Keys:", keys, "Values:", values);
+        console.log("Keys:",keys);
+
+        // console.log("Keys:", keys, "Values:", values);
         const query = updateQuery('eyeglasses', 'model', keys);
         const result = await executeQuery(query, [...values, value]);
         return result;

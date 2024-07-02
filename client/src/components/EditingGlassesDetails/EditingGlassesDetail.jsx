@@ -19,6 +19,7 @@ function EditingGlassesDetails() {
             },
             body: JSON.stringify([
                 {
+                    "title":editedEyeglasses.title,
                     "color": editedEyeglasses.color,
                     "stock": editedEyeglasses.stock,
                     "description": editedEyeglasses.description,
@@ -30,6 +31,7 @@ function EditingGlassesDetails() {
             ]),
         })
             .then(response => {
+                console.log(response)
                 if (!response.ok) {
                     throw new Error('Failed to update eyeglasses');
                 }

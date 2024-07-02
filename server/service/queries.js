@@ -1,24 +1,31 @@
 //IsActive to add to every one
 export function getAllElementsQuery(tableName,columns) {
-    const query = `SELECT ${columns} FROM optics.${tableName} ;`;
+    const query = `SELECT ${columns} FROM optics.${tableName} where isActive=1 ;`;
+    console.log(query)
     return query
     //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
 }
 export function getAllQuery(tableName,columns,q) {
-    const query = `SELECT ${columns} FROM optics.${tableName} LIMIT 5 OFFSET ${(q._page - 1) * 5};`;
+    const query = `SELECT ${columns} FROM optics.${tableName}  where isActive=1 LIMIT 5 OFFSET ${(q._page - 1) * 5};`;
+    console.log(query)
     return query
     //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
 }
 //ORDER BY ${sortedKey}
 export function getAllSortedQuery(tableName,columns,q,sortedKey) {
-    const query = `SELECT ${columns} FROM optics.${tableName}   ORDER BY ${sortedKey};`;
+    const query = `SELECT ${columns} FROM optics.${tableName}  where isActive=1  ORDER BY ${sortedKey}  ;`;
      console.log(query)
     return query
     //LIMIT ${limit[0]} , ${limit[1] - limit[0]}
 }
-export function deleteQuery(tableName) {
+export function deleteQuery(tableName,value) {
     console.log("❤️❤️❤️")
-    const query = ` UPDATE optics.eyeglasses SET isActive =0 WHERE model = ${model} AND isActive =1; `;
+    
+    // const query = ` SET SQL_SAFE_UPDATES = 0;
+    //  UPDATE optics.eyeglasses SET isActive =0 WHERE ${value} = ? AND isActive =1 SET
+    //   SQL_SAFE_UPDATES = 1;; `;
+    const query = `UPDATE optics.eyeglasses SET isActive =false WHERE model = 12; `;
+    console.log(query)
     return query
     
 }
@@ -83,13 +90,19 @@ export function updateOneFieldQuery(tableName, value, columns) {
     return query;
 
 }
+// const query2 = getFromTwoTables('users','purchase', 'userName','email','id')
 export function getFromTwoTables(tableName1,tableName2, value, columns,valueToCheck) {
     // const query = updateOneFieldQuery('purchase', 'id', itemDetails);
     // const result = await executeQuery(query, [value]);
     const query = `SELECT ${columns} 
     FROM optics.${tableName1} u INNER JOIN optics.${tableName2} p 
     ON u.${value}=p.${value}
-    WHERE ${valueToCheck}= ?  AND u.isActive=1;`;
+    WHERE p.${valueToCheck}= ?  ;`;
+
+    //  const query = `SELECT email
+    // FROM optics.users u INNER JOIN optics.purchase p
+    // ON u.userName=p.userName
+    //  WHERE p.id=100001;`;
 
     console.log( query);
     return query;

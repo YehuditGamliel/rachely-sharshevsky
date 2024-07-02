@@ -74,6 +74,7 @@ function Header(props) {
                         <li> <Link to={"eyeglasses"}>משקפי שמש </Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי נשים </Link></li>
                         <li> <Link to={"eyeglasses"}>משקפי גברים</Link></li>
+                        <li> <Link to={"branches"}>סניפים</Link></li>
                         <li> <Link  to={"/"}>אודותינו </Link></li>
                         <li>
                             <li><IconButton onClick={()=>navigate('/ShoppingCart')} aria-label="cart">

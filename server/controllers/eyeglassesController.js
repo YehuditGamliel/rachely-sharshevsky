@@ -100,7 +100,7 @@ export class EyeglassesController {
     async deleteEyeglasses(req, res, next) {
 
         try {
-            console.log("😊")
+            console.log("😊",req.params.model)
             const eyeglassesService = new EyeglassesService();
             await eyeglassesService.deleteEyeglasses(req.params.model);
             res.status(200).json({ status: 200, data: req.params.model });

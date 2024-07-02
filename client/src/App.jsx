@@ -8,6 +8,7 @@ import SpecificInfo from './components/SpecificInfo/SpecificInfo';
 import Main from './components/Header/header';
 import PaymentForm from './components/PaymentForm/PaymentForm';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
+import Branches from './components/Branches/Branchec.jsx';
 
 import ListOfPurchase from './components/ListOfPurchase/ListOfPurchase.jsx'
 import EditingGlassesDetails from './components/EditingGlassesDetails/EditingGlassesDetail.jsx'
@@ -26,6 +27,7 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
               <Route path="shoppingCart" element={<ShoppingCart />} />
+              <Route path="branches" element={<Branches />} />
               <Route path="paymentForm" element={<PaymentForm />} />
               <Route path="updateStatus" element={<ListOfPurchase />} />
               <Route path="eyeglasses">

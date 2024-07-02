@@ -14,15 +14,24 @@ export class PurchaseService {
         // console.log("Keys:", keys, "Values:", values);
         const query = updateOneFieldQuery('purchase', 'id', 'status');
         const result = await executeQuery(query, [itemDetails.status,value]);
+        
         // (tableName1,tableName2, value, columns) {
-        const query2 = getFromTwoTables('users','purchase', 'userName','email','id') 
-        const result2 = await executeQuery(query, [value]);
+        if(itemDetails.status==3){
+            
+            const query2 = getFromTwoTables('users','purchase', 'userName','email','id') 
+        const result2 = await executeQuery(query2, [value]);
+        if(!result2)
+            return [false,"IncorretData"]
         // //
         // const query3 = getByValue('users', 'email','id') 
         // const result3 = await executeQuery(query, [value]);
-        console.log(result2);
-        sendStyledEmail(result2,"להשלמת תהליך הרישום מצורך סיסמא חד פמית ","pppp")
-        return result;
+        console.log(result2[0].email);
+         
+        sendStyledEmail(result2[0].email,"המשקפים שלך מוכנות מספר הזמנתך הוא:",value)
+        
+        }
+        return   [true,"statusUpdate"];
+        
     }
     async addPurchase(itemDetailes) {
         console.log("itemDetailes",itemDetailes)
