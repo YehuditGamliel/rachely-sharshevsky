@@ -41,6 +41,8 @@ function Login() {
      
     };
     const handleClose = (id) => {
+
+        console.log(id,"id")
         if(id==0){
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
             currentUser.role = 0; 
@@ -62,18 +64,25 @@ function Login() {
     };
     const navigate = useNavigate();
     useEffect(() => {
-        alert("pp")
+        // alert("before")
         const fetchData = async () => {
-        const response = await APIRequest.getRequest(`/roles`)
-        const json = await response.json();
-        console.log("🌞",json,json.data)
-        if (response.status != 200) {
-          alert(json.error)
-        }
-        else {
-          setRoles([...roles, ...json.data])
-        }
-    }
+            // alert("in")
+            try {
+                const response = await APIRequest.getRequest('/roles');
+                const json = await response.json();
+
+                if (response.status !== 200) {
+                    alert(json.error);
+                } else {
+                    setRoles([ ...json.data]);
+                }
+            } catch (error) {
+                alert('An error occurred while fetching data');
+                console.error(error);
+            }
+        };
+
+        fetchData();
     }, [open])
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -203,7 +212,7 @@ function Login() {
 
             {console.log(roles)}
         {roles.map((role, index) =>
-        <Button autoFocus onClick={()=>handleClose(role.index)}>
+        <Button autoFocus onClick={()=>handleClose(role.id)}>
        {role.roleDescription}
        </Button>)
       }

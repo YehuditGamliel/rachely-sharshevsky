@@ -52,7 +52,7 @@ function Eyeglasses() {
       
     }
     else {
-      navigate(`/eyeglasses/${location.pathname.split('/')[2]}?sortBy=${value}`)
+      navigate(`/eyeglasses/${location.location.pathname.split('/')[2]}?sortBy=${value}`)
       const response = await APIRequest.getRequest(`/eyeglasses?_page=${eyeglassesPage}&sort=${value}`)
       const json = await response.json();
       if (json.status != 200) {

@@ -39,7 +39,7 @@ const handleInputChange = (event) => {
 };
   
   return (
-    <>
+    <>{}
     <div className='status-background'>
     <div className='status-box'>
       <p>מה עם ההזמנה שלי?</p>
