@@ -2,6 +2,7 @@ import {useContext, useState,useEffect } from 'react';
 import '../StatusCheck/StatusCheck.css'
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import jsonData from '../../assets/data.json'
+import { Button } from '@mui/material';
 const StatusCheck = () => {
   
   const [status,setStatus]=useState('')
@@ -34,27 +35,32 @@ const checkStatusCheck=()=>{
     })
 
 }
+const handleClick=(event)=>{
+  localStorage.clear()
+}
 const handleInputChange = (event) => {
   setnumOfInvitation(event.target.value);
 };
   
-  return (
-    <>{}
-    <div className='status-background'>
-    <div className='status-box'>
-      <p>מה עם ההזמנה שלי?</p>
-      <p>אנא הכנס מספר הזמנה </p>
-      <input type="number"  placeholder="מספר הזמנה" min="100000" max="999999" onChange={handleInputChange}/>
-      <button onClick={()=>checkStatusCheck()}></button>
-       <p>סטטוס ההזמנה שלך:</p>
-       {status!=''?<p id="status">{jsonData.statusValue[1].status}</p>:<></>}
-      
-      </div>
-     
-      </div>
-
-    </>
-  );
+return (
+  <>
+    {eyeglasses.role === 0 ? (
+      <>
+        <Button onClick={handleClick}> יציאה</Button>
+        <div className='status-background'>
+          <div className='status-box'>
+            <p>מה עם ההזמנה שלי?</p>
+            <p>אנא הכנס מספר הזמנה </p>
+            <input type="number" placeholder="מספר הזמנה" min="100000" max="999999" onChange={handleInputChange}/>
+            <button onClick={() => checkStatusCheck()}></button>
+            <p>סטטוס ההזמנה שלך:</p>
+            {status !== '' ? <p id="status">{jsonData.statusValue[1].status}</p> : <></>}
+          </div>
+        </div>
+      </>
+    ) :  <Button onClick={handleClick}>יציאה</Button>}
+  </>
+);
 }
 
 export default StatusCheck;
