@@ -92,11 +92,10 @@ export class EyeglassesService {
         let query;
         console.log("Object.keys(q)",Object.keys(q)[0],Object.keys(q)[1])
         if (Object.keys(q)[1] != 'sort') {
-            console.log("notSort_____________")
-            query = getFromTwoTablesByTwoValues('eyeglasses','glassestype',"idGlassesType","id",'color,price,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara',"glassesType",q);
+            query = getFromTwoTablesByTwoValues('eyeglasses','glassestype',"idGlassesType","id",'color,price,model,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara',"glassesType",q);
         } else {
             console.log("sort")
-            query = getSortFromTwoTablesByTwoValues('eyeglasses','glassestype',"idGlassesType","id",'color,price,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara',"glassesType",q); 
+            query = getSortFromTwoTablesByTwoValues('eyeglasses','glassestype',"idGlassesType","id",'color,price,model,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara',"glassesType",q); 
         }
         //const query = getFromTwoTablesByTwoValues('eyeglasses','glassestype',"idGlassesType","id",'color,price,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara',"glassesType",q);      
           const result = await executeQuery(query, [kind]);

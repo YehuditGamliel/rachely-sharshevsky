@@ -4,10 +4,12 @@ import { Button } from 'primereact/button';
 import { DataView } from 'primereact/dataview';
 import { Rating } from 'primereact/rating';
 import { Tag } from 'primereact/tag';
-
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import GoogleMaps from '../GoogleMap/GoogleMap.jsx'
+import dataJson from '../../assets/data.json'
 import '../Branches/Branches.css'
 function Branches() {
 
@@ -61,10 +63,11 @@ function Branches() {
         return (
           <div className="branch-item"  onClick={handleClickBranch}>
             <div className="branch-detail">
-               <div className="branch-address"> סניף:{branch.number}{branch.strreא}{branch.city}</div>
-            <div className="branch-hours">  שעות פעילות:{branch.hours}</div>
-          <div className="branch-days"> ימי פתיחה:{branch.days}</div>
-              <div className="branch-phone">טלפון :{branch.phone}</div> 
+             
+               <div className="branch-address"> EyeCenter  סניף{branch.number}{branch.strre}{branch.city}</div>
+            <div className="branch-hours"> <AccessTimeIcon/> שעות פעילות:{branch.hours}</div>
+          <div className="branch-days"><CalendarTodayIcon/> ימי פתיחה:{branch.days}</div>
+              <div className="branch-phone"><PhoneEnabledIcon/>טלפון :{branch.phone}</div> 
             </div>
             </div>
         );
@@ -74,7 +77,10 @@ function Branches() {
     
       return (
         <>
-        <h id="title">הסניפים שלנו:</h>
+        <div id="titles">
+        <h id="title" >{dataJson.Branches[0].title}</h>
+        <p>{dataJson.Branches[0].description}</p>
+        </div>
           <div className="brances">
             
          

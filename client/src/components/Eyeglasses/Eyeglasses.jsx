@@ -107,7 +107,7 @@ function Eyeglasses() {
   }
 
   return (<>
-
+{console.log("displayEyeglasses",displayEyeglasses)}
     <select id="sortBy" value={selectedValue} onChange={handleSortByChange}>
       <option value="everyOne">evert one</option>
       <option value="price" >price</option>

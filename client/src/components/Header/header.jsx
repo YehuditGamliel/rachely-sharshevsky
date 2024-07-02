@@ -11,6 +11,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Tab from '@mui/material/Tab';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import Footer from '../Footer/Footer.jsx';
 
 function Header(props) {
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
@@ -69,7 +70,7 @@ function Header(props) {
                         
                         {/* <li> <Link to={"./info"}>משקפי קריאה </Link></li> */}
                         {eyeglasses.role==1?<li> <Link to={"updateStatus"}>עדכון סטטוס הזמנה </Link></li>:<></>}
-                        <li> <Link to={"eyeglasses"}>סניפים</Link></li>
+                        <li> <Link to={"branches"}>סניפים</Link></li>
                         <li> <Link to={"eyeglasses/sport"}>משקפי ספורט</Link></li>
                         <li> <Link to={"eyeglasses/children"}>משקפי שמש </Link></li>
                         <li> <Link to={"eyeglasses/women"}>משקפי נשים </Link></li>
@@ -97,6 +98,7 @@ function Header(props) {
                     </ul>
                 </nav>
                 <Outlet />
+                <Footer/>
             </div>
         </div>
         {login}
