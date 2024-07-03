@@ -83,13 +83,6 @@ export default function ListOfPurchase() {
 
  
 
-  // Function to remove a product from the cart
-  // const removeFromCart = (productModel) => {
-  //   //אם בחר כמה מאותו משקפיים למחוק את הכל?
-  //   const updatedProducts = purchases.filter((product) => product.model !== productModel);
-  //   setPurchases(updatedProducts);
-  //   localStorage.setItem("ShoppingCart", JSON.stringify(updatedProducts));
-  // };
 
   return (<>
     <div className="ListOfPurchase">

@@ -6,9 +6,11 @@ import jsonData from '../../assets/data.json'
 import { Button } from '@mui/material';
 import { APIRequests } from '../../APIRequests.js';
 import Invitation from '../Invitation/Invitation.jsx';
-
+import { useCookies } from 'react-cookie';
 
 const StatusCheck = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+
   const [status, setStatus] = useState('')
   const [numOfInvitation, setnumOfInvitation] = useState();
   const[currentNavigate,setCurrentNavigate]=useState(false);
@@ -60,6 +62,7 @@ const StatusCheck = () => {
   }
   const handleClick = (event) => {
     localStorage.clear()
+    removeCookie('token', { path: '/' });
     navigate('./home')
     setCurrentUser({})
   }

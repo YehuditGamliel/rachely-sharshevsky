@@ -24,18 +24,18 @@ export default function ShoppingCart() {
   };
 
   // Function to get severity for the Tag component
-  const getSeverity = (inventoryStatus) => {
-    switch (inventoryStatus) {
-      case 'INSTOCK':
-        return 'success';
-      case 'LOWSTOCK':
-        return 'warning';
-      case 'OUTOFSTOCK':
-        return 'danger';
-      default:
-        return null;
-    }
-  };
+  // const getSeverity = (inventoryStatus) => {
+  //   switch (inventoryStatus) {
+  //     case 'INSTOCK':
+  //       return 'success';
+  //     case 'LOWSTOCK':
+  //       return 'warning';
+  //     case 'OUTOFSTOCK':
+  //       return 'danger';
+  //     default:
+  //       return null;
+  //   }
+  // };
 
   // Template for rendering each product
   const itemTemplate = (product) => {
@@ -52,7 +52,7 @@ export default function ShoppingCart() {
               <Rating value={product.rating} readOnly stars={5} cancel={false} />
             </div>
             <div className="product-tags">
-              <Tag value={product.model} severity={getSeverity(product.inventoryStatus)} />
+              <Tag value={product.model}  />
             </div>
           </div>
           <Button onClick={() => removeFromCart(product.model)}>

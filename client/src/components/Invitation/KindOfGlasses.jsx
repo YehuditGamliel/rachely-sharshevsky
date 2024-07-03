@@ -9,10 +9,6 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import glasses1 from '../../img/glasses1.jpg';
-import glasses2 from '../../img/glasses2.jpg';
-import glasses3 from '../../img/glasses3.jpg';
-import glasses4 from '../../img/glasses4.png';
 import { useLocation } from 'react-router-dom';
 import { PaperContext } from "./../../../src/PaperProvider.jsx"
 
@@ -23,14 +19,6 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   textAlign: 'center',
 }));
-
-// Map for images
-const imageMapping = {
-  glasses1,
-  glasses2,
-  glasses3,
-  glasses4,
-};
 
 function KindOfClasses() {
   const [kindOfGlassesId, setKindOfGlassesId] = useState('');
@@ -53,7 +41,6 @@ function KindOfClasses() {
   setUpdateEyeData(data => ({
     ...data,
     ['kindOfGlasses']: kindOfGlassesId,
-    
   })); 
   if(kindOfGlassesId==1)
     {
@@ -63,11 +50,9 @@ function KindOfClasses() {
             ['withOrWithoutPrescription']: 2,
             ['sizeOfGlasses']: {}
           }));
-           
     }
     else{
       setCurrentPaper({"title":'withOrWithoutPrescription'}) 
-       
     }
  }
   const fetchData = async () => {
@@ -79,7 +64,6 @@ function KindOfClasses() {
       console.log("kindOfGlasses",json.data)
       setKindOfGlasses([...json.data])
     }
-  
 };
 useEffect(()=>{
   fetchData();
@@ -123,7 +107,7 @@ useEffect(()=>{
               <div className="titleContainer">
                 <img
                   className="glassesImage"
-                  src={imageMapping[data.img]}
+                  src={data.img}
                   alt={data.title}
                 />
                 <br />
@@ -138,8 +122,7 @@ useEffect(()=>{
         onClick={() =>
           addInformation()
         }
-        disabled={isButtonDisabled}
-      >
+        disabled={isButtonDisabled}>
         אפשר להמשיך
       </Button>
     </Dialog>
