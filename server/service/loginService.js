@@ -26,7 +26,7 @@ export class LoginService {
                     resolve([false, 'Invalid OTP']);
                 } else {
                     
-                    const query2 = updateSpecificFieldQuery('users', 'userName', 'active=1');
+                    const query2 = updateSpecificFieldQuery('users', 'userName', 'isActive=1');
                     const result = await executeQuery(query2, [userName]);
                     resolve([true, result]);
                 }

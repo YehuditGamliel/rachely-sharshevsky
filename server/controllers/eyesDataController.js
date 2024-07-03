@@ -27,6 +27,7 @@ export class EyesDataController {
     }
 
     async getEyeDataByUsername(req, res, next) {
+        console.log(req.params.userName)
         try {
             const purchaseService = new EyesDataService();
             const resultItems = await purchaseService.getEyeDataByUsername(req.params.userName)

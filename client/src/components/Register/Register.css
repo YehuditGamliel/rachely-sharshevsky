@@ -9,7 +9,18 @@
   color: #03e9f4;
   opacity: 1; 
 }
-
+#otpP{
+  color:aqua;
+  font-size: 100%;
+  margin-bottom:20%;
+  text-align: center;
+}
+#otpTitle{
+  color:aqua;
+  font-size: 140%;
+  margin-bottom:5%;
+  text-align: center;
+}
 .register-box {
   height: 56%;
   position: absolute;

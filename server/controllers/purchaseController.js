@@ -14,7 +14,6 @@ export class PurchaseController {
                 const err = {}
                 err.statusCode = 404;
                 err.message = ex;
-                next(err)
             }
         }
         catch (ex) {

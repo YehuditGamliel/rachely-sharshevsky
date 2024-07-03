@@ -30,10 +30,12 @@ function Branches() {
       }
       else {
         setBranches([...json.data])
-        // setSearch('city')
+        if(json.data[1])
+        setBranchMap(json.data[1]);
       } 
     }
     fetchData()
+    
     // fetch(`http://localhost:8082/branch`, {
     //   method: 'GET',
     // })

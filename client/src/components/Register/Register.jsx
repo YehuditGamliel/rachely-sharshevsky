@@ -9,7 +9,7 @@ import { UserContext } from "../../UserProvider.jsx";
 // import OtpInput1 from "../OtpInput1/OtpInput1.jsx";
 import OTPInput, { ResendOTP } from "otp-input-react";
 import { APIRequests } from "../../APIRequests";
-
+import JsonData from '../../assets/data.json'
 
 function Register() {
   const { user, setCurrentUser } = useContext(UserContext);
@@ -73,7 +73,7 @@ function Register() {
       alert("Password verification is incorrect,try again!")
       return;
     }
-    const response = await APIRequest.postRequest(`/authorization`, { email: user.email, userName: user.userName, password: user.password, isActive: 1 });
+    const response = await APIRequest.postRequest(`/authorization`, { email: user.email, userName: user.userName, password: user.password });
     if (response.status == 200) {
       setAuthorization(true)
            // setCurrentEyeglasses({ userName: user.userName, email: user.email, password: user.password })
@@ -99,7 +99,8 @@ function Register() {
   
       {authorization ? (
        <> 
-       
+       <p id="otpTitle"> {JsonData.otpMessage.title}</p>
+       <p id="otpP">{JsonData.otpMessage.p}</p>
        <OTPInput value={OTP} onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} secure />
        
         </> 

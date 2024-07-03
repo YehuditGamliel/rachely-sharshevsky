@@ -8,7 +8,7 @@ const eyesDataController = new EyesDataController();
 // eyesDataRouter.get("/:model", eyeglassesController.getEyeglassesByModel)
 
 eyesDataRouter.post("/", eyesDataController.addEyesData)
-eyesDataRouter.get("/userName/:userName", eyesDataController.getEyeDataByUsername)
+eyesDataRouter.get("/:userName", eyesDataController.getEyeDataByUsername)
 
 // eyesDataRouter.get("/", eyeglassesController.getAllEyeglasses)
 

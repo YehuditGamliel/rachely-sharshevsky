@@ -23,7 +23,8 @@ export class EyesDataService {
             sortedPurchase = purchaseOfUser.sort((a, b) => new Date(b.date) - new Date(a.date));
             console.log("sortedPurchase",sortedPurchase)
         }
-        const queryEyesData = getByValueQuery('eyesdata', 'id', '*');
+       
+        const queryEyesData = getByValueQuery('eyesdata', 'id', 'SPHRight,SPHLeft,CYLRight,CYLLeft,PDFAR,PDFAR');
         const eyesdata = await executeQuery(queryEyesData, [sortedPurchase[0].idEyeData]);
         return eyesdata;
     }

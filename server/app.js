@@ -11,6 +11,7 @@ import {branchRouter} from './router/branchRouter.js'
 import { purchaseRouter } from './router/purchaseRouter.js';
 import { roleRouter } from './router/roleRouter.js';
 import { verifyToken } from './middleware/verifyToken.js';
+import {invitationRouter} from './router/invitationRoutr.js'
 
 // import {editingGlassesRouter} from './router/editingGlassesRouter.js'
 
@@ -43,6 +44,7 @@ app.use('/authorization',loginRouter);
 app.use('/branch',branchRouter);
 app.use('/purchase',purchaseRouter)
 app.use('/roles',roleRouter)
+app.use('/invitation',invitationRouter)
 //  app.use('/EditingGlasses',editingGlassesRouter)
 app.use(verifyToken);
 app.use(logErrors);

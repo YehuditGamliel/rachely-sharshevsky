@@ -6,13 +6,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-import { useState, useContext } from 'react';
+import { useState, useContext,useEffect } from 'react';
 import * as React from 'react';
+import { PaperContext } from "../../../PaperProvider.jsx"
+
 import prescription1 from '../../../img/prescription1.jpg'
 import glasses2 from '../../../img/glasses2.jpg'
 import glasses1 from '../../../img/glasses1.jpg'
-import jsonData from "../../../assets/data.json";
-
+// import jsonData from "../../../assets/data.json";
+import { APIRequests } from "../../../APIRequests.js";
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -27,9 +29,12 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 function CU6({ addInformation }) {
   const [selected, setSelected] = useState(null);
   const [CU6Id, setCU6Id] = useState('')
+  const [CU6, setCU6] = useState([])
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
   const [open, setOpen] = React.useState(true);
+  const { paper, setCurrentPaper } = useContext(PaperContext);
   const theme = useTheme();
+  const APIRequest = new APIRequests()
 
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const updateStyle = (withOrWithoutPrescription) => {
@@ -37,6 +42,29 @@ function CU6({ addInformation }) {
     setCU6Id(withOrWithoutPrescription)
 
   }
+
+  const fetchData = async () => {
+   
+      const response = await APIRequest.getRequest(`/invitation/CU6`);
+      const json = await response.json();
+      
+      if (response.status !== 200) {
+        alert(json.error);
+      } else {
+        console.log("cu6",json.data)
+      setCU6([...json.data])
+          //setDisplayEyglasses([...displayEyeglasses, ...json.data]);
+       
+      }
+   
+    
+  };
+
+
+  useEffect(()=>{
+    fetchData();
+  
+  },[])
 
   const handleClick = (index) => {
     setSelected(index);
@@ -59,14 +87,14 @@ function CU6({ addInformation }) {
     <DialogTitle id="scroll-dialog-title" >איך תרצו למלא את פרטי המרשם שלכם?</DialogTitle>
     <DialogContent dividers={scroll === 'paper'}></DialogContent>
     <div direction="row" spacing={2}>
-      {jsonData.CU6.map((data, index) =>
-        <div className={selected === index ? "border" : "noneBorder"}>
+      {CU6.map((data, id) =>
+        <div className={selected === id ? "border" : "noneBorder"}>
           <DemoPaper onClick={() => {
-            updateStyle((index + 1).toString())
-            handleClick(index)
+            updateStyle(id )
+            handleClick(id)
           }}>
             <div className="titleContainer">
-              <nav className="title">{data.title}</nav>
+            <nav className="title" dir="rtl"> CU6-עובי {data.CU6.replace(/^"(.*)"$/, '$1')}</nav>
             </div>
             <p> {data.description}</p>
             <p id="price">{data.price}₪</p>

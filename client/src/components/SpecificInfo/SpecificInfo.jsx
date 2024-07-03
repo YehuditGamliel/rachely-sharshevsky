@@ -5,13 +5,17 @@ import Invitation from '../Invitation/Invitation.jsx';
 import SingleEyeglasses from "../SingleEyeglasses/SingleEyeglasses.jsx";
 import '../SpecificInfo/SpecificInfo.css'
 import { APIRequests } from "../../APIRequests.js";
-
+import Button from '@mui/material/Button';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import Alert from '@mui/material/Alert';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function SpecificInfo() {
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');
     const [moreImages, setMoreImages] = useState([])
     const APIRequest = new APIRequests()
+    const navigate = useNavigate();
     
     useEffect(() => {
         const kindOfGlasses = location.pathname.split('/')[2];
@@ -50,7 +54,13 @@ function SpecificInfo() {
                 <div id="datas">
                     <p>סה"כ</p>
                     <p id="totalPrice">{eyeglasses.price}₪</p>
-                    <Invitation />
+                    <Button variant="outlined" onClick={() => {
+                        navigate('./invitation')
+    // handleClickOpen('paper');
+    // eyeglasses.stock == 0 ?
+    //   setAlert(<Alert severity="error">אין מספיק במלאי!.</Alert>) : setPaper({ title: 'kindOfGlasses' });
+  }} startIcon={<RemoveRedEyeIcon />}>לבחירת עדשות</Button>
+
                 </div>
             </div>
             <img id="imgBig" src={eyeglasses.imgDisplay} alt="Eyeglasses"/>
