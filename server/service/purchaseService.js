@@ -2,6 +2,7 @@
 import { executeQuery } from './db.js';
 import { executeTransactionQuery } from './transactionQueries.js';
 import { updateOneFieldQuery, getFromTwoTables, getAllSortedQuery, getByValues, getAllElementsQuery, getByValueQuery } from './queries.js'
+import{getAllFromStatusAndPueches}from './purchaceQueries.js'
 import { sendStyledEmail } from '../emailSender.js';
 export class PurchaseService {
 
@@ -49,12 +50,18 @@ export class PurchaseService {
         return result;
     }
 
+    async getAllPurchaseStatus(itemDetailes) {
+        const query = getAllElementsQuery('status', 'id,title');
+        const result = await executeQuery(query);
+        return result;
+    }
+
     async getAllPurchase(q) {
         let query = null;
         if (Object.keys(q)[0] !== 'sort') {
-            query = getAllElementsQuery('purchase', '*');
+            query = getAllFromStatusAndPueches( '*');
         } else {
-            query = getAllSortedQuery('eyeglasses', '*', q, q.sort);
+            query = getSortedFromStatusAndPueches('eyeglasses', '*', q, q.sort);
         }
         const result = await executeQuery(query);
         return result;

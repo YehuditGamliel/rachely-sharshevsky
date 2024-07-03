@@ -7,6 +7,7 @@ const purchaseController = new PurchaseController()
 
 purchaseRouter.post("/", purchaseController.addPurchase)
 purchaseRouter.get("/", purchaseController.getAllPurchase)
+purchaseRouter.get("/status", purchaseController.getAllPurchaseStatus)
 purchaseRouter.post("/getStatut", purchaseController.getStatus)
 purchaseRouter.get("/date/:date", purchaseController.getPurchaseByDate)
 purchaseRouter.put("/:id", purchaseController.updatePurchase)

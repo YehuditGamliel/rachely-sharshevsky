@@ -84,8 +84,11 @@ function Register({paper1= 'defaultPaperValue' }) {
       alert("Password verification is incorrect,try again!")
       return;
     }
-    const response = await APIRequest.postRequest(`/authorization`, { email: user.email, userName: user.userName, password: user.password });
-    if (response.status == 200) {
+    const response = await APIRequest.postRequest(`/authorization/signUp`, { email: user.email, userName: user.userName, password: user.password });
+    
+    console.log("response",response)
+    if (response.status === 200) {
+      const json = await response.json()
       setCookie('token', json.token, { path: '/' });
       setAuthorization(true)
            // setCurrentEyeglasses({ userName: user.userName, email: user.email, password: user.password })
@@ -93,7 +96,7 @@ function Register({paper1= 'defaultPaperValue' }) {
       setTempUse({userName: user.userName, email: user.email})
     }
     else if (response.status == 400) {
-      alert("userName is already taken. Please choose another!")
+      alert(json.error)
       setLogin(<Login />)
     }
     else {

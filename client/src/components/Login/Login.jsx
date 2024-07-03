@@ -106,7 +106,7 @@ function Login({ paper = 'defaultPaperValue' }) {
     });
 
     const userExist = async (userDetails) => {
-        const response = await APIRequest.postRequest(`/authorization`, { userName: userDetails.userName, password: userDetails.password })
+        const response = await APIRequest.postRequest(`/authorization/login`, { userName: userDetails.userName, password: userDetails.password })
         const json = await response.json();
         return json;
         // let response = await fetch(`http://localhost:8082/authorization`, {
@@ -129,9 +129,7 @@ function Login({ paper = 'defaultPaperValue' }) {
             setCookie('token', json.token, { path: '/' });
             localStorage.setItem('currentUser', JSON.stringify(
                 { userName: user.userName, email: json.email, role: json.role }));
-
             setCurrentUser({ userName: user.userName, email: json.email, role: json.role })
-            console.log("🥻", json.role)
             if (json.role == 1) {
                 setOpen(true);
             }

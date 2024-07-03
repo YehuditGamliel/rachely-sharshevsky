@@ -1,6 +1,7 @@
 import { executeQuery } from './db.js';
 import { getByValue,getByValueQuery, addQuery,updateSpecificFieldQuery,updateQuery } from './queries.js'
 import otpGenerator from 'otp-generator';
+// import jwt, { verify } from 'jsonwebtoken';
 import jwt from 'jsonwebtoken';
 import bcrypt from'bcryptjs';
 import { sendStyledEmail } from '../emailSender.js';
@@ -36,22 +37,16 @@ export class LoginService {
  
     async Authentication(data) {
         const query = getByValue('users', 'hashPassword,role,email', 'userName');
-        console.log("query",query)
         const resultData = await executeQuery(query, [data.userName]); 
-        console.log("resultData",resultData)
         const verificationResult = await bcrypt.compare(data.password, resultData[0].hashPassword);
-        console.log("verificationResult",verificationResult)
         if(verificationResult){
-            console.log(">>>>>>>>>>>>>>>>>")
-            const token = jwt.sign({ id: data.userName }, "privateKey", { expiresIn: '20m' });
-            return [verificationResult, token, resultData[0].role,resultData[0].email]; 
+            const token = jwt.sign({ username: data.userName }, "privateKey", { expiresIn: '20m' });
+            return {verifyPassword:verificationResult,token:token,role: resultData[0].role,email:resultData[0].email}; 
         }
-         else {
-            console.log("PPPPPPPPPPPPPPPPPPPPPPPP")
-            [false, 'Incorrect Password']
+        else {
+            return {verifyPassword:verificationResult}
+            // [false, 'Incorrect Password']
         }
-
-
     }
 
     async checkUserName(userName){ 
@@ -65,7 +60,7 @@ export class LoginService {
         var hash = bcrypt.hashSync(itemDetailes.password, salt);
         const { password, ...itemDetailsWithoutPassword } = itemDetailes;
         const keysWithoutPassword = Object.keys(itemDetailsWithoutPassword);
-        const valuesWithoutPassword=Object.values(itemDetailsWithoutPassword); 
+        const valuesWithoutPassword = Object.values(itemDetailsWithoutPassword); 
         const [otpGenerated,hashOtp] = generateOTP();
         const query = addQuery('users',[...keysWithoutPassword,'otp','hashPassword']);
         const newUser = await executeQuery(query, [...valuesWithoutPassword,hashOtp,hash]);
@@ -75,7 +70,6 @@ export class LoginService {
         }
         return [true, newUser];
     }
-
 
     async updatePassword(body){ 
         const query = updateQuery('users',  'userName', body.password);

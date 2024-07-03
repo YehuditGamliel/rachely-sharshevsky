@@ -7,17 +7,18 @@ const loginRouter = express.Router();
 const loginController = new LoginController()
 //const userController =new UserController();
 
-loginRouter.post('/', loginController.AuthenticationForSignUpOrLogin);
+loginRouter.post("/login", loginController.Authentication)
+loginRouter.post("/signUp", loginController.addUser)
 loginRouter.post('/verify', loginController.verifyUserName);
 loginRouter.put("/",loginController.updatePassword)
-// loginRouter.post("/login", loginController.Authentication)
+
+
+//loginRouter.post('/', loginController.AuthenticationForSignUpOrLogin);
 // loginRouter.post("/loginManager", loginController.AuthenticationManager)
 // loginRouter.get("/signUp",loginController.checkUserName)
-// loginRouter.post("/signUp", loginController.addUser)
+//loginRouter.post("/signUp", loginController.addUser)
 
 // loginRouter.post("/signUp", userController.addUser);
-
-
 
 export {
     loginRouter

@@ -21,46 +21,36 @@ export default function ListOfPurchase() {
   const [purchases, setPurchases] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(0);
   const [sortedPurchases, setSortedPurchases] = useState(0)
- 
-
+  const [statuses,setStatuses]=useState([])
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-
   const handleClose = (id) => {
     setAnchorEl(null);
     setSortedPurchases(id);
-
   };
-//   const handleChange = ( value) => {
-//     setEditStatus({
-//        "status":value
-//     });
-// };
-// useEffect(() => {
-//   console.log(editStatus);
-// }, [editStatus]);
-
-// const handleChange = (field, value) => {
-//   setEditStatus({
-//       ...editStatus,
-//       [field]: value,
-//   });
-// };
-
-
-
 
   const navigate = useNavigate();
   const APIReqests = new APIRequests();
-  useEffect(() => {
 
+  useEffect(()=>{
+    const fetchData = async () => {
+       let response = await APIReqests.getRequest(`/purchase/status`);
+       let json = await response.json();
+      if (response.status !== 200) {
+        alert(json.error);
+      } else {
+        setStatuses([...json.data]);
+      }
+    }
+    fetchData();
+  },[])
+  useEffect(() => {
     const fetchData = async () => {
       let response = null;
       let json = null;
-
       if (sortedPurchases === 0) {
         response = await APIReqests.getRequest(`/purchase`);
         json = await response.json();
@@ -68,8 +58,6 @@ export default function ListOfPurchase() {
         response = await APIReqests.getRequest(`/purchase/status/${sortedPurchases}`);
         json = await response.json();
       }
-
-      // console.log("👌", json.data);
       if (response.status !== 200) {
         alert("אין הזמנות כאלו ברשימת רכישות!");
       } else {
@@ -77,12 +65,7 @@ export default function ListOfPurchase() {
       }
     }
     fetchData();
-   
-
   }, [sortedPurchases]);
-
- 
-
 
   return (<>
     <div className="ListOfPurchase">
@@ -110,46 +93,16 @@ export default function ListOfPurchase() {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={() => handleClose(1)}>הזמנות חדשות</MenuItem>
-        <MenuItem onClick={() => handleClose(2)}>הזמנות במעבדה</MenuItem>
-        <MenuItem onClick={() => handleClose(3)}>הזמנות מוכנות</MenuItem>
+       {statuses.map((status,index)=> <MenuItem onClick={() => handleClose(status.id)}>הזמנות ש{status.title}</MenuItem>)}
         <MenuItem onClick={() => handleClose(0)}>כל ההזמנות </MenuItem>
       </Menu>
       {console.log("👌", purchases)}
       <h2>ההזמנות שלנו</h2>
-
       {purchases.map((purchase, index) => <div key={index} class="glasses">
-        <EditPurchase purchase={purchase} />
+        <EditPurchase purchase={purchase} statuses={statuses}/>
       </div>)
       }
-      {/* <DataView value={purchases} itemTemplate={itemTemplate} layout="list" /> */}
     </div>
-
-
   </>
   );
 }
-// date
-// :
-// "2024-11-10T22:00:00.000Z"
-// id
-// :
-// 100001
-// idEyeData
-// :
-// 1
-// isActive
-// :
-// 1
-// model
-// :
-// "3"
-// price
-// :
-// 3
-// status
-// :
-// 1
-// userName
-// :
-// "dani"

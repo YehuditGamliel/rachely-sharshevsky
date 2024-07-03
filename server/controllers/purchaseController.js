@@ -24,6 +24,27 @@ export class PurchaseController {
         }
     }
 
+    async getAllPurchaseStatus(req, res, next) {
+        try {
+            const purchaseService = new PurchaseService()
+            const resultItem = await purchaseService.getAllPurchaseStatus(req.query);
+            if (resultItem.length != 0) {
+                res.status(200).json({ status: 200, data: resultItem });
+            }
+            else {
+                const err = {}
+                err.statusCode = 404;
+                err.message = ex;
+            }
+        }
+        catch (ex) {
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
+
     async addPurchase(req, res, next) {
         const mergedObjectsData = (req.body).reduce((acc, obj) => {
             return { ...acc, ...obj };
