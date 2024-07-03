@@ -1,5 +1,5 @@
 import { executeQuery } from './db.js';
-import { getAllElementsQuery,getByValue,getByValueQuery, addQuery,updateSpecificFieldQuery,updateQuery } from './queries.js'
+import { getByValue,getByValueQuery, addQuery,updateSpecificFieldQuery,updateQuery } from './queries.js'
 import otpGenerator from 'otp-generator';
 import jwt from 'jsonwebtoken';
 import bcrypt from'bcryptjs';
@@ -13,16 +13,12 @@ const generateOTP = () => {
 };
 
 export class LoginService {
-
-    async  validateUserSignUp(userName, otp) {
-        console.log(userName, otp);
+    async validateUserSignUp(userName, otp) {
         const query = getByValueQuery('users', 'userName', '*');
         const user = await executeQuery(query, [userName]);
-        console.log(user,userName,"💕💕💕")
         if (user.length === 0) {
             return [false, 'User not found'];
         }
-        console.log("begin")
         return new Promise((resolve, reject) => {
             bcrypt.compare(otp, user[0].otp, async function (err, result) {
                 console.log("rs",result)
@@ -41,22 +37,19 @@ export class LoginService {
     async Authentication(data) {
         const query = getByValue('users', 'hashPassword,role,email', 'userName');
         const resultData = await executeQuery(query, [data.userName]); 
-        console.log("begin")       
         const verificationResult = await bcrypt.compare(data.password, resultData[0].hashPassword);
         if(verificationResult){
             const token = jwt.sign({ id: data.userName }, "privateKey", { expiresIn: '20m' });
-             console.log("after")  
             return [verificationResult, token, resultData[0].role,resultData[0].email]; 
           
         }
          else {
             [false, 'Incorrect Password']
-         }
+        }
 
 
     }
 
-    
     async checkUserName(userName){ 
        const query = getByValueQuery('users',  'userName','email');
        const result = await executeQuery(query, [userName]);
@@ -70,11 +63,9 @@ export class LoginService {
         const keysWithoutPassword = Object.keys(itemDetailsWithoutPassword);
         const valuesWithoutPassword=Object.values(itemDetailsWithoutPassword); 
         const [otpGenerated,hashOtp] = generateOTP();
-        console.log("createUser",hash,hashOtp)
         const query = addQuery('users',[...keysWithoutPassword,'otp','hashPassword']);
         const newUser = await executeQuery(query, [...valuesWithoutPassword,hashOtp,hash]);
         sendStyledEmail(itemDetailes.email,"להשלמת תהליך הרישום מצורך סיסמא חד פמית ",otpGenerated)
-        console.log(newUser,"🥻")
         if (!newUser) {
             return [false, 'Unable to sign you up'];
         }
@@ -86,7 +77,7 @@ export class LoginService {
         const query = updateQuery('users',  'userName', body.password);
         const result = await executeQuery(query, [userName]);
         return result;
-     }
+    }
   
 }
 

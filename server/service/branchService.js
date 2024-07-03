@@ -7,15 +7,13 @@ export class BranchService {
    
 
     async  getAllBranches(q) {
-        console.log("😒",q )
-        // if (Object.keys(q)[0] !== 'sorted') {
-           const query = getAllElementsQuery('branches','*');
+        const query = getAllElementsQuery('branches','*');
            
         // } else {
         //     query = getAllSortedQuery('eyeglasses', 'model,price,photo,title', q, q.sort); 
         // }
         const result = await executeQuery(query);
-        console.log("😒",q  ,result)
+        // console.log("😒",q  ,result)
 
         return result;
     }

@@ -1,24 +1,29 @@
 
 
 import { LoginService } from '../service/loginService.js'
+import { userSchema } from '../validateData/validateUser.js';
 // //import { sha512, sha384, sha512_256, sha512_224 } from 'js-sha512';
 // //imconst { encrypt, compare } = require('../services/crypto');
 
 export class LoginController {
-
-
     async AuthenticationForSignUpOrLogin(req, res, next) {
-
-        console.log(req.body)
-        const loginService = new LoginService();
-        if (req.body.email == undefined) {
+        const {error} = userSchema.validate(req.body)
+        if(error){
+            console.log(error)
+            const err = {}
+            err.statusCode = 400;
+            err.message = "Incorrect data";
+            next(err)
+        }
+        else{
+            const loginService = new LoginService();
+            if (req.body.email == undefined) {
             try {
                 const loginService = new LoginService();
                 const result = await loginService.Authentication(req.body)
                 console.log("result.token",result[1])
                 if (result[0] == true) {
                     return res.cookie('x-access-token', result[1], { httpOnly: true }).json({ status: 200, email: result[3], role: result[2], token: result[1] });
-                    //return res.status(200).json({ status: 200, data: resultItems });
                 }
                 else {
                     const err = {}
@@ -37,15 +42,9 @@ export class LoginController {
         else {
             const { userName } = req.body;
             console.log(userName, req.body)
-
             try {
-
-                // const loginService = new LoginService();
                 const resultItems = await loginService.checkUserName(userName)
-                // const isExisting = await findUserByEmail(email);
-
                 if (resultItems.length) {
-
                     const err = {}
                     err.statusCode = 400;
                     err.message = "Already Exist";
@@ -53,7 +52,6 @@ export class LoginController {
                 }
                 else {
                     try {
-
                         const newUser = await loginService.createUser(req.body);
                         res.status(200).json({ status: 200, data: newUser });
                     }
@@ -63,8 +61,6 @@ export class LoginController {
                         err.message = 'faild in sending email';
                         next(err)
                     }
-
-
                 }
             }
             catch (ex) {
@@ -73,17 +69,12 @@ export class LoginController {
                 err.message = ex;
                 next(err)
             }
+        }
         };
-
-
-
     }
-
- 
 
     verifyUserName = async (req, res) => {
         const { userName, otp } = req.body;
-
         try {
 
             const loginService = new LoginService();
@@ -97,7 +88,6 @@ export class LoginController {
             err.message = ex;
             next(err)
         }
-
     };
     
     async updatePassword(req, res, next) {
@@ -113,10 +103,6 @@ export class LoginController {
             next(err)
         }
     }
-
-
-
-
 }
 
 

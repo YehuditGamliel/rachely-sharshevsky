@@ -12,7 +12,6 @@ const pool = mysql.createPool({
 async function executeTransactionQuery(date, params) {
     let connection, results, paramsOfPurchase;
     try {
-        console.log(params)
         connection = await pool.getConnection();
         await connection.beginTransaction();
         [results] = await connection.query(
@@ -24,7 +23,6 @@ async function executeTransactionQuery(date, params) {
         await connection.query(
            `INSERT INTO purchase (userName, date, price, status, model, idEyeData)
              VALUES (?, ${date},?, 1 ,?, ?)`,paramsOfPurchase );
-             console.log("@@@@@@@@@@@@@@@@@@@@2222",Object.values(params[2]))
         await connection.query(
            `UPDATE eyeglasses SET stock = ? WHERE model = ?`,Object.values(params[2]))
         await connection.commit();
