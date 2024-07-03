@@ -132,10 +132,7 @@ if (!isNaN(additionalPrice)) {
       
     }
    
-    if (name == 'withOrWithoutPrescription') {
-      if (id == "1")
-        setCurrentPaper({ title: 'verification' })
-    }
+    
     setButtonDisabled(false)
     if (title == 'sizeOfGlasses' && id == 1) {
       
@@ -154,7 +151,7 @@ if (!isNaN(additionalPrice)) {
 
   
   {(()=>{
-    console.log("userData",userData)
+    console.log("userData",userData,"👌")
     switch (paper.title) {
       case 'login':
         return <Login paper='invition' />;

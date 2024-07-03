@@ -68,7 +68,8 @@ export function getByValueQuery(tableName, value, columns) {
 export function updateOneFieldQuery(tableName, value, columns) {
     // const query = updateOneFieldQuery('purchase', 'id', itemDetails);
     // const result = await executeQuery(query, [value]);
-    const query = `UPDATE optics.purchase SET ${columns}=? WHERE  ${value} =? AND isActive = 1`;
+    //const query = `UPDATE optics.purchase SET ${columns}=? WHERE  ${value} =? AND isActive = 1`;
+    const query = `UPDATE optics.${tableName} SET ${columns}=? WHERE  ${value} =? AND isActive = 1`
     // const query=`UPDATE optics.${tableName} SET active=1 WHERE ${value} = 'Yehudit' AND isActive = 1`;
     console.log( query);
     return query;

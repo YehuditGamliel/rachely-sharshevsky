@@ -56,15 +56,21 @@ function WithOrWithoutPrescription(){
         ['WithOrWithoutPrescription']: withOrWithoutPrescriptionId
       }));
       if (withOrWithoutPrescriptionId === 1) {
-        if (!user.userName) {
-          setCurrentPaper({ title: 'login' });
-        } else {
+        // if (!user.userName) {
+        //   setCurrentPaper({ title: 'login' });
+        // } 
+        
           
             const response = await APIRequest.getRequest(`/eyesData/${user.userName}`);
             const json = await response.json();
             
             if (response.status !== 200) {
-              alert(json.error);
+              alert("אין מרשמים קודמים")
+              setUpdateEyeData(data => ({
+                ...data,
+               
+                ['WithOrWithoutPrescription']: withOrWithoutPrescriptionId
+              }));
               // setCurrentPaper({ title: 'withOrWithoutPrescription' });
             } else {
               console.log(json.data)
@@ -77,7 +83,7 @@ function WithOrWithoutPrescription(){
               // Handle successful response here
             }
          
-        }
+        
       }
       else{
         setCurrentPaper({"title":'SizeOfGlasses'})

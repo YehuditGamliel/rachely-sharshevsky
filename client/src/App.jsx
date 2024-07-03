@@ -44,8 +44,8 @@ function App() {
                   <Route index element={<SpecificInfo />} />
                   <Route path="invitation">
                       <Route index element={<Invitation />} />
-                      {/* <Route path="CU6" element={<CU6 />} />
-                      <Route path="kindOfGlasses" element={<KindOfClasses />} /> */}
+                      
+                      <Route path="kindOfGlasses" element={<KindOfClasses />} /> 
                  
                   </Route>
                 </Route>

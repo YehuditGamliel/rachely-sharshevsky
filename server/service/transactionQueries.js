@@ -10,21 +10,27 @@ const pool = mysql.createPool({
 });
 
 async function executeTransactionQuery(date, params) {
-    let connection, results, paramsOfPurchase;
+    let connection, resultsEyeData, paramsOfPurchase, resultStock,rows;
     try {
         connection = await pool.getConnection();
         await connection.beginTransaction();
-        [results] = await connection.query(
+        [resultsEyeData] = await connection.query(
             `INSERT INTO eyesdata (SPHRight, SPHLeft, CYLRight, CYLLeft, PDFAR, PDNEAR,idKindOfGlasses, idCU6, idKindOfPrescription)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,Object.values(params[0]));
-        console.log("res", results);
-        paramsOfPurchase = [...Object.values(params[1]), results.insertId]
-        console.log("paramsOfPurchase",paramsOfPurchase)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, Object.values(params[0]));
+        paramsOfPurchase = [...Object.values(params[1]), resultsEyeData.insertId]
+        console.log("paramsOfPurchase", paramsOfPurchase)
         await connection.query(
-           `INSERT INTO purchase (userName, date, price, status, model, idEyeData)
-             VALUES (?, ${date},?, 1 ,?, ?)`,paramsOfPurchase );
+            `INSERT INTO purchase (userName, date, price, status, model, idEyeData)
+             VALUES (?, ${date},?, 1 ,?, ?)`, paramsOfPurchase);
         await connection.query(
-           `UPDATE eyeglasses SET stock = ? WHERE model = ?`,Object.values(params[2]))
+            `UPDATE eyeglasses SET stock = stock - 1
+             WHERE model = ?;`, Object.values(params[2]))
+        console.log("Object.values(params[2])", Object.values(params[2]))
+        
+        // [rows] = await connection.query(
+        //     `SELECT stock FROM eyeglasses WHERE model = ?;`, Object.values(params[2]));
+        //     resultStock=rows
+        console.log("resultStock", rows)
         await connection.commit();
     } catch (error) {
         if (connection) {
@@ -36,7 +42,6 @@ async function executeTransactionQuery(date, params) {
             connection.release();
         }
     }
-    console.log("kkkkkkkkkkkk")
-    return results;
+    return resultStock;
 }
 export { executeTransactionQuery };

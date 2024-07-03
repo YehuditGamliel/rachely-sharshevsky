@@ -10,14 +10,17 @@ import { UserContext } from "../../UserProvider.jsx";
 import OTPInput, { ResendOTP } from "otp-input-react";
 import { APIRequests } from "../../APIRequests";
 import JsonData from '../../assets/data.json'
+import Invitation from "../Invitation/Invitation.jsx";
+import { Divider } from "@mui/material";
 
-function Register() {
+function Register({paper1= 'defaultPaperValue' }) {
   const { user, setCurrentUser } = useContext(UserContext);
   // const [otp, setOtp] = useState('');
   const [extraDetails, setExterDetails] = useState(false)
   const [showLogin, setShowLogin] = useState(<Login />);
   const [loginOrRegister, setLoginOrRegister] = useState(true);
   const [authorization, setAuthorization] = useState(false)
+  const [invitation,setInvitation]=useState(false)
   const APIRequest = new APIRequests();
   const [tempUser,setTempUse]=useState()
   const navigate = useNavigate();
@@ -53,9 +56,17 @@ function Register() {
           alert("הקוד שהוזן לא תקין , אנא בקש קוד חדש ונסה שנית")
         }
       else {
-        console.log(tempUser,"💕")
+        console.log(tempUser,"💕",paper1 == 'defaultPaperValue')
         localStorage.setItem('currentUser', JSON.stringify({ userName: tempUser.userName, email: tempUser.email,role:0 }))
-        navigate(`./home`)
+        if (paper1 == 'defaultPaperValue') {
+          navigate('./home')
+      }
+      else {
+        
+          setInvitation(true)
+
+        
+      }
       }
     }
     else {
@@ -96,68 +107,69 @@ function Register() {
 
   return (
     <div className="register-box">
-  
-      {authorization ? (
-       <> 
-       <p id="otpTitle"> {JsonData.otpMessage.title}</p>
-       <p id="otpP">{JsonData.otpMessage.p}</p>
-       <OTPInput value={OTP} onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} secure />
-       
-        </> 
-        
-      ) : (
-        loginOrRegister ? (
-          < >
-            {/* {alert("register")} */}
-            <form onSubmit={handleSubmit(checkRegister)}>
-              <button type="button" onClick={() => setLogin()}>Login</button>
-              <h2>Sign Up</h2>
-              <div className="user-box">
-                <input
-                  type='text'
-                  name='userName'
-                  {...register("userName", { required: true, minLength: 2, maxLength: 15 })}
-                  placeholder="userName"
-                />
-                {errors.userName && errors.userName.type === "minLength" && <span>userName must be a minimum of 2 characters long!</span>}
-                {errors.userName && errors.userName.type === "maxlength" && <span>userName can be a maximum of 15 characters long</span>}
-                {errors.userName && errors.userName.type === "required" && <span>userName is required</span>}
-              </div>
-              <div className="user-box">
-                <input
-                  type='email'
-                  {...register("email", { required: true })}
-                  placeholder="email"
-                />
-                {errors.email && errors.email.type === "required" && <span className="span">email is required</span>}
-              </div>
-              <div className="user-box">
-                <input
-                  type='password'
-                  name='password'
-                  {...register("password", { required: true, minLength: 6 })}
-                  placeholder="password"
-                />
-                {errors.password && errors.password.type === "minLength" && <span className="span">password must be a minimum of 6 characters long!</span>}
-                {errors.password && errors.password.type === "required" && <span className="span">password is required</span>}
-              </div>
-              <div className="user-box">
-                <input
-                  type='password'
-                  name='verifyPassword'
-                  {...register("verifyPassword", { required: true, minLength: 6 })}
-                  placeholder="verifyPassword"
-                />
-                {errors.verifyPassword && errors.verifyPassword.type === "minLength" && <span className="span">verify password must be a minimum of 6 characters long!</span>}
-                {errors.verifyPassword && errors.verifyPassword.type === "required" && <span className="span">verify password is required</span>}
-              </div>
-              <button className='submit' type='submit'>submit</button>
-            </form>
-          </>
-        ) :    (
-          showLogin
-        )
-      )}
+      {invitation ? <Invitation /> :
+        <div>
+          {authorization ? (
+            <>
+              <p id="otpTitle">{JsonData.otpMessage.title}</p>
+              <p id="otpP">{JsonData.otpMessage.p}</p>
+              <OTPInput value={OTP} onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} secure />
+            </>
+          ) : (
+            loginOrRegister ? (
+              <>
+                <form onSubmit={handleSubmit(checkRegister)}>
+                  <button type="button" onClick={() => setLogin()}>Login</button>
+                  <h2>Sign Up</h2>
+                  <div className="user-box">
+                    <input
+                      type='text'
+                      name='userName'
+                      {...register("userName", { required: true, minLength: 2, maxLength: 15 })}
+                      placeholder="userName"
+                    />
+                    {errors.userName && errors.userName.type === "minLength" && <span>userName must be a minimum of 2 characters long!</span>}
+                    {errors.userName && errors.userName.type === "maxlength" && <span>userName can be a maximum of 15 characters long</span>}
+                    {errors.userName && errors.userName.type === "required" && <span>userName is required</span>}
+                  </div>
+                  <div className="user-box">
+                    <input
+                      type='email'
+                      {...register("email", { required: true })}
+                      placeholder="email"
+                    />
+                    {errors.email && errors.email.type === "required" && <span className="span">email is required</span>}
+                  </div>
+                  <div className="user-box">
+                    <input
+                      type='password'
+                      name='password'
+                      {...register("password", { required: true, minLength: 6 })}
+                      placeholder="password"
+                    />
+                    {errors.password && errors.password.type === "minLength" && <span className="span">password must be a minimum of 6 characters long!</span>}
+                    {errors.password && errors.password.type === "required" && <span className="span">password is required</span>}
+                  </div>
+                  <div className="user-box">
+                    <input
+                      type='password'
+                      name='verifyPassword'
+                      {...register("verifyPassword", { required: true, minLength: 6 })}
+                      placeholder="verifyPassword"
+                    />
+                    {errors.verifyPassword && errors.verifyPassword.type === "minLength" && <span className="span">verify password must be a minimum of 6 characters long!</span>}
+                    {errors.verifyPassword && errors.verifyPassword.type === "required" && <span className="span">verify password is required</span>}
+                  </div>
+                  <button className='submit' type='submit'>submit</button>
+                </form>
+              </>
+            ) : (
+              showLogin
+            )
+            
+          )}
+        </div>
+      }
     </div>
   );
 }

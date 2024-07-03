@@ -5,15 +5,28 @@ import { UserContext } from "../../UserProvider.jsx";
 import jsonData from '../../assets/data.json'
 import { Button } from '@mui/material';
 import { APIRequests } from '../../APIRequests.js';
+import Invitation from '../Invitation/Invitation.jsx';
+
 
 const StatusCheck = () => {
   const [status, setStatus] = useState('')
   const [numOfInvitation, setnumOfInvitation] = useState();
+  const[currentNavigate,setCurrentNavigate]=useState(false);
   const navigate = useNavigate();
   const { user, setCurrentUser } = useContext(UserContext);
   const APIRequest = new APIRequests()
-
+  useEffect(() => {
+    // alert("pp")
+    console.log(location.pathname.split('/')[3],"url")
+    if(location.pathname.split('/')[3]!=undefined){
+      setCurrentNavigate(true)
+      // history.pushState(null, '', `/eyeglasses/${location.pathname.split('/')[2]}/${location.pathname.split('/')[3]}/invitation`);
+    }
+}, [])
   const checkStatusCheck = () => {
+
+   
+
     const response = APIRequest.postRequest(`/purchase/getStatut`, { userName: user.userName, id: numOfInvitation })
     const json = response.json()
     if (json.status != 200) {
@@ -22,7 +35,8 @@ const StatusCheck = () => {
     else {
       setStatus(json.data[0].status)
     }
-    
+  
+   
     // fetch(`http://localhost:8082/purchase/getStatut`, {
     //   method: 'POST',
     //   body: JSON.stringify({
@@ -55,27 +69,30 @@ const StatusCheck = () => {
 
   return (
     <>
-
-      {user.role === 0 ? (
-        <>
-
-          <div className='status-background'>
-            <Button onClick={handleClick}> יציאה</Button>
-            <div className='status-box'>
-              <p>מה עם ההזמנה שלי?</p>
-              <p>אנא הכנס מספר הזמנה </p>
-              <input type="number" placeholder="מספר הזמנה" min="100000" max="999999" onChange={handleInputChange} />
-              <button onClick={() => checkStatusCheck()}></button>
-              <p>סטטוס ההזמנה שלך:</p>
-              {status !== '' ? <p id="status">{jsonData.statusValue[1].status}</p> : <></>}
-            </div>
-          </div>
-        </>
-      ) : <div className='status-background'><Button className='buttonExit' onClick={handleClick}>יציאה</Button></div>}
+    {console.log("currentNavigate",currentNavigate)}
+     {currentNavigate ? <Invitation /> :
+        <div>
+          {user.role === 0 ? (
+            <>
+              <div className='status-background'>
+                <Button onClick={handleClick}> יציאה</Button>
+                <div className='status-box'>
+                  <p>מה עם ההזמנה שלי?</p>
+                  <p>אנא הכנס מספר הזמנה </p>
+                  <input type="number" placeholder="מספר הזמנה" min="100000" max="999999" onChange={handleInputChange} />
+                  <button onClick={() => checkStatusCheck()}></button>
+                  <p>סטטוס ההזמנה שלך:</p>
+                  {status !== '' ? <p id="status">{jsonData.statusValue[1].status}</p> : null}
+                </div>
+              </div>
+            </>
+          ) : <div className='status-background'><Button className='buttonExit' onClick={handleClick}>יציאה</Button></div>
+          }
+        </div>
+      }
     </>
   );
 }
-
 export default StatusCheck;
 
 

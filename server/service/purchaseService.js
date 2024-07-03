@@ -30,8 +30,17 @@ export class PurchaseService {
         let year = date_ob.getFullYear();
         let currentDate = (year + "-" + month + "-" + date);
         let dateToString = `"${currentDate}"`;
-        const result = await executeTransactionQuery(dateToString, Object.values(itemDetailes));
-        return result;
+        const stock = await executeTransactionQuery(dateToString, Object.values(itemDetailes));
+        console.log("stock",stock)
+        if(stock){
+            const query = updateOneFieldQuery('eyeglasses', 'stock', 'isActive');
+            console.log(query)
+            const result = await executeQuery(query, [0,0]);
+            return result;
+        }
+        //sendStyledEmail(itemDetailes.email,"הזמנת הושלממ בהצלחנ מספר ההזמנה",otpGenerated)
+
+        return stock;
     }
 
     async getStatus(itemDetailes) {

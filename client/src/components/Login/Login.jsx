@@ -64,7 +64,8 @@ function Login({ paper = 'defaultPaperValue' }) {
         }
         else {
             // alert("pp")
-            navigate('./')
+
+          
         }
     };
     const navigate = useNavigate();
@@ -199,6 +200,7 @@ function Login({ paper = 'defaultPaperValue' }) {
     }
     return (
         <>
+           {console.log((location.pathname.split('/')[4]==undefined),location.pathname.split('/'),"ppp")}
             {/* {alert("pp")} */}
             {(open) ?
                 //   <Button variant="outlined" onClick={handleClickOpen}>
@@ -289,8 +291,9 @@ function Login({ paper = 'defaultPaperValue' }) {
                                 </div>
 
                             </div>
-                                : <Register />
-                        }</> : <StatusCheck />
+                                : <Register paper1={paper} />
+                             
+                        }</> : (<StatusCheck />)
 
 
                     }</>}
