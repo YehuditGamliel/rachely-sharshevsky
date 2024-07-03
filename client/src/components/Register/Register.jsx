@@ -12,7 +12,7 @@ import { APIRequests } from "../../APIRequests";
 import JsonData from '../../assets/data.json'
 import Invitation from "../Invitation/Invitation.jsx";
 import { Divider } from "@mui/material";
-
+import { useCookies } from 'react-cookie';
 function Register({paper1= 'defaultPaperValue' }) {
   const { user, setCurrentUser } = useContext(UserContext);
   // const [otp, setOtp] = useState('');
@@ -24,7 +24,7 @@ function Register({paper1= 'defaultPaperValue' }) {
   const APIRequest = new APIRequests();
   const [tempUser,setTempUse]=useState()
   const navigate = useNavigate();
-
+  const [cookies, setCookie] = useCookies(['token']);
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       userName: '',
@@ -86,6 +86,7 @@ function Register({paper1= 'defaultPaperValue' }) {
     }
     const response = await APIRequest.postRequest(`/authorization`, { email: user.email, userName: user.userName, password: user.password });
     if (response.status == 200) {
+      setCookie('token', json.token, { path: '/' });
       setAuthorization(true)
            // setCurrentEyeglasses({ userName: user.userName, email: user.email, password: user.password })
 

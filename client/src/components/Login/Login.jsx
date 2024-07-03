@@ -18,6 +18,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { APIRequests } from "../../APIRequests.js";
+import { useCookies } from 'react-cookie';
 
 
 
@@ -33,7 +34,7 @@ function Login({ paper = 'defaultPaperValue' }) {
     const [loginOrNot, setLoginOrNot] = useState(true);
     const [roles, setRoles] = useState([]);
     const APIRequest = new APIRequests()
-
+    const [cookies, setCookie] = useCookies(['token']);
     // const[showDialog,setShowDialog]=useState(false)
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -125,6 +126,7 @@ function Login({ paper = 'defaultPaperValue' }) {
         let json = await userExist(user)
         console.log("json", json)
         if (json.status == 200) {
+            setCookie('token', json.token, { path: '/' });
             localStorage.setItem('currentUser', JSON.stringify(
                 { userName: user.userName, email: json.email, role: json.role }));
 

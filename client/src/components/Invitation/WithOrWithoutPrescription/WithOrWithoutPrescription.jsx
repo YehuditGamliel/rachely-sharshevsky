@@ -71,7 +71,7 @@ function WithOrWithoutPrescription(){
                
                 ['WithOrWithoutPrescription']: withOrWithoutPrescriptionId
               }));
-              // setCurrentPaper({ title: 'withOrWithoutPrescription' });
+              
             } else {
               console.log(json.data)
               setCurrentPaper({"title":'CU6'})
@@ -86,7 +86,7 @@ function WithOrWithoutPrescription(){
         
       }
       else{
-        setCurrentPaper({"title":'SizeOfGlasses'})
+        setCurrentPaper({"title":'sizeOfGlasses'})
       }
     };
       const handleClick = (index) => {

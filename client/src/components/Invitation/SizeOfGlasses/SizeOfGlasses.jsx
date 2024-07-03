@@ -13,6 +13,7 @@ import * as React from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
+import { PaperContext } from "../../../PaperProvider.jsx"
 // import '..Invitation/Invitation.css'
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 250,
@@ -23,7 +24,7 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 }));
 
 
-function SizeOfGlasses({ addInformation }) {
+function SizeOfGlasses({  }) {
   const theme = useTheme();
   const [sizeOfGlasses, setSizeOfGlasses] = useState({ "PWRRight": "0", "CYLRight": "0", "PWRLeft": "0", "CYLLeft": "0", "PDFAR": "62", "PDNEAR": "62" });
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -31,6 +32,7 @@ function SizeOfGlasses({ addInformation }) {
   //const [isButtonDisabled,setIsButtonDisabled]=useState(true)
   const [open, setOpen] = React.useState(true);
   const [plusNum, setPlusNum] = useState(false)
+  const { paper, setCurrentPaper,userData, setUpdateEyeData } = useContext(PaperContext);
 
   const [minusNum, setMinusNum] = useState(false)
   const handleClickOpen = () => {
@@ -40,9 +42,18 @@ function SizeOfGlasses({ addInformation }) {
   const handleClose = () => {
     setOpen(false);
   };
+  const addInformation=()=>{
+    setUpdateEyeData(data => ({
+      ...data,
+      ['SizeOfGlasses']: sizeOfGlasses,
+      
+    })); 
+    setCurrentPaper({'title':'CU6'})
+  }
   return (
-
-
+<>
+    {console.log(userData.kindOfGlasses === 3,userData.kindOfGlasses,"userData.withOrWithOutPrescription")}
+    
     <Dialog
       //fullScreen={fullScreen}
       open={open}
@@ -59,10 +70,11 @@ function SizeOfGlasses({ addInformation }) {
             setMinusNum(false)
           }
           }>+</Button>
+          {(userData.kindOfGlasses != 3)?
         <Button onClick={() => {
           setMinusNum(true)
           setPlusNum(false)
-        }}>-</Button>
+        }}>-</Button>:<></>}
         <Autocomplete
           disablePortal
           id="combo-box-demo"
@@ -84,10 +96,11 @@ function SizeOfGlasses({ addInformation }) {
           setMinusNum(false)
         }
         }>+</Button>
+           {(userData.kindOfGlasses != 3)?
         <Button onClick={() => {
           setMinusNum(true)
           setPlusNum(false)
-        }}>-</Button>
+        }}>-</Button>:<></>}
         <Autocomplete onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'PWRLeft': value })}
           disablePortal
           id="combo-box-demo"
@@ -119,11 +132,11 @@ function SizeOfGlasses({ addInformation }) {
           sx={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="PD NERA" />} />
         <Button
-          onClick={() => addInformation('sizeOfGlasses', sizeOfGlasses, 'CU6')}
+          onClick={() => addInformation()}
         >אפשר להמשיך</Button>
       </DialogContent>
     </Dialog>
-  );
+    </>);
 
 }
 const PWROptionMinus = Array.from(new Array(24 * 2)).map(
