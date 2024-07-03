@@ -4,7 +4,6 @@ import { LoginController } from '../controllers/loginController.js'
 
 //import { UserController } from '../controllers/userController.js'
 const loginRouter = express.Router();
-console.log("🤷‍♀️")
 const loginController = new LoginController()
 //const userController =new UserController();
 

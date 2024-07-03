@@ -18,7 +18,6 @@ const WebcamGlassesOverlay = ({img}) => {
         console.log('Loading Tiny Face Detector model...');
         await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
         console.log('Tiny Face Detector Model loaded');
-
         console.log('Loading Face Landmark 68 model...');
         await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
         console.log('Face Landmark Model loaded');
@@ -39,6 +38,7 @@ const WebcamGlassesOverlay = ({img}) => {
     const imgElement = new Image();
 console.log(img)
     imgElement.src = img;
+
      imgElement.crossOrigin = 'anonymous'
     // img.src = '/without.png';
      // Adjust path to your glasses image

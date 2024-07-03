@@ -22,7 +22,6 @@ function Header(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         if (currentUser) {
             setCurrentUser({ userName: currentUser.userName, email: currentUser.email,role:currentUser.role })
@@ -33,7 +32,6 @@ function Header(props) {
 
 
     useEffect(() => {
-       
         if (location.pathname === '/home') {
             setLogin(false);
             setStyle("activity")

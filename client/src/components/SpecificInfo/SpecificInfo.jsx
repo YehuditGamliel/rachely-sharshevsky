@@ -14,8 +14,9 @@ function SpecificInfo() {
     const APIRequest = new APIRequests()
     
     useEffect(() => {
+        const kindOfGlasses = location.pathname.split('/')[2];
         const fetchData = async () => {
-            const response = await APIRequest.getRequest(`/eyeglasses/${eyeglasses.model}`)
+            const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}/${eyeglasses.model}`)
             const json = await response.json();
             if (json.status != 200) {
                 alert(json.error)
@@ -23,6 +24,7 @@ function SpecificInfo() {
             else {
                 setMoreImages([...moreImages, ...json.data[1]])
                 console.log("json.data[1]",json.data[1])
+                alert("glassesData",glassesData)
                 setEditedEyeglasses(glassesData => ({
                     ...glassesData,
                     ...json.data[0][0]

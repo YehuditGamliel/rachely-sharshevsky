@@ -7,7 +7,15 @@ export class PurchaseController {
         try {
             const purchaseService = new PurchaseService()
             const resultItem = await purchaseService.getAllPurchase(req.query);
-            res.status(200).json({ status: 200, data: resultItem });
+            if (resultItem.length != 0) {
+                res.status(200).json({ status: 200, data: resultItem });
+            }
+            else {
+                const err = {}
+                err.statusCode = 404;
+                err.message = ex;
+                next(err)
+            }
         }
         catch (ex) {
             const err = {}
@@ -24,7 +32,7 @@ export class PurchaseController {
         let data = mergedObjectsData;
         const { error } = purchaseSchema.validate(data)
         if (error) {
-            console.log("error",error)
+            console.log("error", error)
             const err = {}
             err.statusCode = 400;
             err.message = "Incorrect data";
@@ -51,12 +59,10 @@ export class PurchaseController {
             }
             else {
                 const err = {}
-                err.statusCode = 400;
-                err.message = "Incorrect data";
+                err.statusCode = 404;
+                err.message = ex;
                 next(err)
             }
-
-
         }
         catch (ex) {
             console.log("catch")
@@ -71,15 +77,13 @@ export class PurchaseController {
         try {
             const purchaseService = new PurchaseService();
             const resultItems = await purchaseService.getPurchaseByStatus(req.params.status)
-
-            console.log("by", resultItems)
             if (resultItems.length != 0) {
                 return res.status(200).json({ status: 200, data: resultItems });
             }
             else {
                 const err = {}
-                err.statusCode = 400;
-                err.message = "Incorrect data";
+                err.statusCode = 404;
+                err.message = ex;
                 next(err)
             }
 
@@ -110,7 +114,7 @@ export class PurchaseController {
             const purchaseService = new PurchaseService();
             const result = await purchaseService.updatePurchase(req.params.id, req.body)
             if (result[0] == true) {
-                res.status(200).json({ status: 200, data: "" });                
+                res.status(200).json({ status: 200, data: "" });
             }
             else {
                 const err = {}

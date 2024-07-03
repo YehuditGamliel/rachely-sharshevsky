@@ -8,7 +8,15 @@ export class EyeglassesController {
         try {
             const eyeglassesService = new EyeglassesService();
             const resultItems = await eyeglassesService.getAllEyeglasses(req.query)
-            return res.status(200).json({ status: 200, data: resultItems });
+            if(resultItems.length){
+                return res.status(200).json({ status: 200, data: resultItems });
+            }
+            else{
+                const err = {}
+                err.statusCode = 404;
+                err.message = ex;
+                next(err)
+            }
         }
         catch (ex) {
             const err = {}
@@ -17,13 +25,22 @@ export class EyeglassesController {
             next(err)
         }
     }
+
     async getEyeglassesByModel(req, res, next) {
         try {
             const eyeglassesService = new EyeglassesService();
             const resultItems = await eyeglassesService.getEyeglassesByModel(req.params.model)
             const result = await eyeglassesService.getEyeglassesByCompany(resultItems[0].company)
-            console.log("by", resultItems, result)
-            return res.status(200).json({ status: 200, data: [resultItems, result] });
+            if(resultItems.length || result.length){
+                return res.status(200).json({ status: 200, data: [resultItems, result] });
+            }
+            else{
+                const err = {}
+                err.statusCode = 404;
+                err.message = ex;
+                next(err)
+            }
+            
         }
         catch (ex) {
             const err = {}
@@ -39,7 +56,6 @@ export class EyeglassesController {
             const eyeglassesService = new EyeglassesService();
             const result = await eyeglassesService.updateEyeGlasses(req.params.model, req.body)
             res.status(200).json({ status: 200, data: "" });
-
         }
         catch (ex) {
             const err = {}
@@ -53,7 +69,16 @@ export class EyeglassesController {
         try {
             const eyeglassesService = new EyeglassesService();
             const resultItem = await eyeglassesService.addEyeglasses(req.body);
-            res.status(200).json({ status: 200, data: resultItem.insertId });
+            if(resultItem.insertId){
+                res.status(200).json({ status: 200, data: resultItem.insertId });
+            }
+            else{
+                const err = {}
+                err.statusCode = 404;
+                err.message = ex;
+                next(err)
+            }
+            
         }
         catch (ex) {
             const err = {}
@@ -81,8 +106,15 @@ export class EyeglassesController {
         try {
             const eyeglassesService = new EyeglassesService();
             const resultItems = await eyeglassesService.getEyeglassesByKind(req.params.kind,req.query)
-            console.log("by", resultItems)
-            return res.status(200).json({ status: 200, data: resultItems });
+            if(resultItems.length){
+                return res.status(200).json({ status: 200, data: resultItems });
+            }
+            else{
+                const err = {}
+                err.statusCode = 404;
+                err.message = ex;
+                next(err)
+            }
         }
         catch (ex) {
             const err = {}

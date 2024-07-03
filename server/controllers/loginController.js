@@ -6,8 +6,10 @@ import { userSchema } from '../validateData/validateUser.js';
 // //imconst { encrypt, compare } = require('../services/crypto');
 
 export class LoginController {
+
     async AuthenticationForSignUpOrLogin(req, res, next) {
         const {error} = userSchema.validate(req.body)
+        console.log("error",error)
         if(error){
             console.log(error)
             const err = {}
@@ -20,9 +22,11 @@ export class LoginController {
             if (req.body.email == undefined) {
             try {
                 const loginService = new LoginService();
+                console.log("req.body",req.body)
                 const result = await loginService.Authentication(req.body)
-                console.log("result.token",result[1])
+                console.log(result)
                 if (result[0] == true) {
+                    console.log("result[0]",result[0])
                     return res.cookie('x-access-token', result[1], { httpOnly: true }).json({ status: 200, email: result[3], role: result[2], token: result[1] });
                 }
                 else {
@@ -41,7 +45,6 @@ export class LoginController {
         }
         else {
             const { userName } = req.body;
-            console.log(userName, req.body)
             try {
                 const resultItems = await loginService.checkUserName(userName)
                 if (resultItems.length) {
@@ -76,11 +79,9 @@ export class LoginController {
     verifyUserName = async (req, res) => {
         const { userName, otp } = req.body;
         try {
-
             const loginService = new LoginService();
             const user = await loginService.validateUserSignUp(userName, otp);
             res.status(200).json({ status: 200, data: user });
-
         }
         catch (ex) {
             const err = {}
@@ -104,6 +105,8 @@ export class LoginController {
         }
     }
 }
+
+
 
 
 // export class LoginController {

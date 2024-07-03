@@ -11,95 +11,111 @@ import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import GoogleMaps from '../GoogleMap/GoogleMap.jsx'
 import dataJson from '../../assets/data.json'
 import '../Branches/Branches.css'
+import { APIRequests } from '../../APIRequests.js';
 function Branches() {
 
-    // const [cities, setBranches] = useState([]);
-    const [branches, setBranches] = useState([])
-    const [search, setSearch] = useState('city')
-    const [branch, setBranch] = useState({});
-    const [branchMap,setBranchMap]=useState('');
-    
-    useEffect(() => {
-        fetch(`http://localhost:8082/branch`, {
-          method: 'GET',
-        })
-          .then(response => response.json())
-          .then((json) => {
-            console.log("😊",json)
-            if (json.status != 200) {
-              alert(json.error)
-            }
-            else {
-              setBranches([...json.data])
-              // setSearch('city')
-            }
-          })
-      },[])
-      const lookForCity = (event) => {
-        fetch(`http://localhost:8082/branch/${event.target.value}`, {
-          method: 'GET',
-    
-        })
-          .then(response => response.json())
-          .then((json) => {
-            console.log(json.data)
-            if (json.status != 200) {
-              alert(json.error)
-            }
-            else {
-              setBranches([...json.data])
-              // console.log("branch", branches)
-              // setSearch('branch')
-            }
-          })
-      };
-    
-      
+  // const [cities, setBranches] = useState([]);
+  const [branches, setBranches] = useState([])
+  const [search, setSearch] = useState('city')
+  const [branch, setBranch] = useState({});
+  const [branchMap, setBranchMap] = useState('');
+  const APIRequest = new APIRequests()
 
-      const itemTemplate = (branch) => {
-        const handleClickBranch = () => {
-          setBranchMap(branch); // Set branchMap to the selected branch
-        };
-        return (
-          <div className="branch-item"  onClick={handleClickBranch}>
-            <div className="branch-detail">
-             
-               <div className="branch-address"> EyeCenter  סניף{branch.number}{branch.strre}{branch.city}</div>
-            <div className="branch-hours"> <AccessTimeIcon/> שעות פעילות:{branch.hours}</div>
-          <div className="branch-days"><CalendarTodayIcon/> ימי פתיחה:{branch.days}</div>
-              <div className="branch-phone"><PhoneEnabledIcon/>טלפון :{branch.phone}</div> 
-            </div>
-            </div>
-        );
-      };
-      
-    
-    
-      return (
-        <>
-        <div id="titles">
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await APIRequest.getRequest(`/branch`)
+      const json = await response.json();
+      if (json.status != 200) {
+        alert(json.error)
+      }
+      else {
+        setBranches([...json.data])
+        // setSearch('city')
+      } 
+    }
+    fetchData()
+    // fetch(`http://localhost:8082/branch`, {
+    //   method: 'GET',
+    // })
+    //   .then(response => response.json())
+    //   .then((json) => {
+    //     console.log("😊",json)
+    //     if (json.status != 200) {
+    //       alert(json.error)
+    //     }
+    //     else {
+    //       setBranches([...json.data])
+    //       // setSearch('city')
+    //     }
+    //   })
+  }, [])
+
+
+  const lookForCity = (event) => {
+    fetch(`http://localhost:8082/branch/${event.target.value}`, {
+      method: 'GET',
+
+    })
+      .then(response => response.json())
+      .then((json) => {
+        console.log(json.data)
+        if (json.status != 200) {
+          alert(json.error)
+        }
+        else {
+          setBranches([...json.data])
+          // console.log("branch", branches)
+          // setSearch('branch')
+        }
+      })
+  };
+
+
+
+  const itemTemplate = (branch) => {
+    const handleClickBranch = () => {
+      setBranchMap(branch); // Set branchMap to the selected branch
+    };
+    return (
+      <div className="branch-item" onClick={handleClickBranch}>
+        <div className="branch-detail">
+
+          <div className="branch-address"> EyeCenter  סניף{branch.number}{branch.strre}{branch.city}</div>
+          <div className="branch-hours"> <AccessTimeIcon /> שעות פעילות:{branch.hours}</div>
+          <div className="branch-days"><CalendarTodayIcon /> ימי פתיחה:{branch.days}</div>
+          <div className="branch-phone"><PhoneEnabledIcon />טלפון :{branch.phone}</div>
+        </div>
+      </div>
+    );
+  };
+
+
+
+  return (
+    <>
+      <div id="titles">
         <h id="title" >{dataJson.Branches[0].title}</h>
         <p>{dataJson.Branches[0].description}</p>
+      </div>
+      <div className="brances">
+
+
+        <DataView value={branches} itemTemplate={itemTemplate} layout="list" />
+        <div id="map">{branchMap ? (
+          <GoogleMaps
+            lat={branchMap.lat}
+            lng={branchMap.lng}
+            street={branchMap.street}
+            number={branchMap.number}
+            phone={branchMap.phone}
+            hours={branchMap.hours}
+            days={branchMap.days}
+          />
+        ) : null}
         </div>
-          <div className="brances">
-            
-         
-            <DataView value={branches} itemTemplate={itemTemplate} layout="list" />
-            <div id="map">{branchMap ? (
-              <GoogleMaps
-                lat={branchMap.lat}
-                lng={branchMap.lng}
-                street={branchMap.street}
-                number={branchMap.number}
-                phone={branchMap.phone}
-                hours={branchMap.hours}
-                days={branchMap.days}
-              />
-            ) : null}
-            </div>
-          </div>
-        </>
-      );
+      </div>
+    </>
+  );
 
 }
 export default Branches;

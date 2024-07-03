@@ -6,13 +6,14 @@ import { BranchService } from '../service/branchService.js'
 import { UserService } from '../service/userService.js'
 
 export class BranchController {
+
     async getAllBranches(req, res, next) {
         console.log("Controller E")
         try {
             //let limit = Object.values(req.query).slice(1)
             const branchServiceService = new BranchService();
             const resultItems = await branchServiceService.getAllBranches(req)
-           console.log(resultItems)
+            console.log(resultItems)
             return res.status(200).json({ status: 200, data: resultItems });
         }
         catch (ex) {
@@ -22,7 +23,7 @@ export class BranchController {
             next(err)
         }
     }
-    
+
     // async geAllBranchesByCity(req, res, next) {
     //     console.log("Controller E")
     //     try {
@@ -32,7 +33,7 @@ export class BranchController {
     //        console.log(resultItems)
     //         return res.status(200).json({ status: 200, data: resultItems });
     //         //let limit = Object.values(req.query).slice(1)
-         
+
     //     }
     //     catch (ex) {
     //         const err = {}
@@ -41,6 +42,6 @@ export class BranchController {
     //         next(err)
     //     }
     // }
-  
+
 
 }

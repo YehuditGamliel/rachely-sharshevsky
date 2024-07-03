@@ -5,45 +5,63 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
 import { TextField, Button } from '@mui/material';
+import { APIRequests } from "../../APIRequests.js";
+
 function EditingGlassesDetails() {
     const { eyeglasses } = useContext(EyeglassesContext);
     const [moreImages, setMoreImages] = useState([])
     const [editedEyeglasses, setEditedEyeglasses] = useState({ ...eyeglasses });
     const [isEditing, setIsEditing] = useState(false);
+    const APIRequest = new APIRequests();
 
-    const handleConfirmChanges = () => {
-        fetch(`http://localhost:8082/eyeglasses/${editedEyeglasses.model}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify([
-                {
-                    "title":editedEyeglasses.title,
-                    "color": editedEyeglasses.color,
-                    "stock": editedEyeglasses.stock,
-                    "description": editedEyeglasses.description,
-                    "BridgeWidth": editedEyeglasses.BridgeWidth,
-                    "lensWidth": editedEyeglasses.lensWidth,
-                    "company": editedEyeglasses.company,
-                    "material": editedEyeglasses.material
-                }
-            ]),
-        })
-            .then(response => {
-                console.log(response)
-                if (!response.ok) {
-                    throw new Error('Failed to update eyeglasses');
-                }
-                return response.json();
-            })
-            .then(data => {
-            })
-            .catch(error => {
-                console.error('Error updating eyeglasses data:', error);
-            });
+    const handleConfirmChanges = async () => {
+        const response = await APIRequest.putRequest(`/eyeglasses/${editedEyeglasses.model}`,
+            {
+                "title": editedEyeglasses.title,
+                "color": editedEyeglasses.color,
+                "stock": editedEyeglasses.stock,
+                "description": editedEyeglasses.description,
+                "BridgeWidth": editedEyeglasses.BridgeWidth,
+                "lensWidth": editedEyeglasses.lensWidth,
+                "company": editedEyeglasses.company,
+                "material": editedEyeglasses.material
+            }
+        )
+        if (!response.ok) {
+            throw new Error('Failed to update eyeglasses');
+        }
+        return response.json();
+        // fetch(`http://localhost:8082/eyeglasses/${editedEyeglasses.model}`, {
+        //     method: 'PUT',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify([
+        //         {
+        //             "title": editedEyeglasses.title,
+        //             "color": editedEyeglasses.color,
+        //             "stock": editedEyeglasses.stock,
+        //             "description": editedEyeglasses.description,
+        //             "BridgeWidth": editedEyeglasses.BridgeWidth,
+        //             "lensWidth": editedEyeglasses.lensWidth,
+        //             "company": editedEyeglasses.company,
+        //             "material": editedEyeglasses.material
+        //         }
+        //     ]),
+        // })
+        //     .then(response => {
+        //         console.log(response)
+        //         if (!response.ok) {
+        //             throw new Error('Failed to update eyeglasses');
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //     })
+        //     .catch(error => {
+        //         console.error('Error updating eyeglasses data:', error);
+        //     });
     };
-
 
     const handleChange = (field, value) => {
         setEditedEyeglasses({
@@ -65,26 +83,41 @@ function EditingGlassesDetails() {
     }));
 
     useEffect(() => {
-        console.log("specific", eyeglasses)
+        const fetchData = async () => {
+            const response = await APIRequest.getRequest(`/eyeglasses/${eyeglasses.model}`)
+            const json = await response.json()
+            alert(json)
+            if (json.status != 200) {
+                alert(json.error)
+            }
+            else {
+                setMoreImages([...moreImages, ...json.data[1]])
+                setEditedEyeglasses(glassesData => ({
+                    ...glassesData,
+                    ...json.data[0][0]
+                }));
+                console.log("😂", eyeglasses)
+            }
+        }
+        fetchData();
+        // fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
+        //     method: 'GET',
 
-        fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
-            method: 'GET',
-
-        })
-            .then(response => response.json())
-            .then((json) => {
-                if (json.status != 200) {
-                    alert(json.error)
-                }
-                else {
-                    setMoreImages([...moreImages, ...json.data[1]])
-                    setEditedEyeglasses(glassesData => ({
-                        ...glassesData,
-                        ...json.data[0][0]
-                    }));
-                    console.log("😂", eyeglasses)
-                }
-            })
+        // })
+        //     .then(response => response.json())
+        //     .then((json) => {
+        //         if (json.status != 200) {
+        //             alert(json.error)
+        //         }
+        //         else {
+        //             setMoreImages([...moreImages, ...json.data[1]])
+        //             setEditedEyeglasses(glassesData => ({
+        //                 ...glassesData,
+        //                 ...json.data[0][0]
+        //             }));
+        //             console.log("😂", eyeglasses)
+        //         }
+        //     })
     }, [])
 
     return (<>

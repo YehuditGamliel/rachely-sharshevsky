@@ -5,11 +5,18 @@ export class RoleController {
 
     async getAllRoles(req, res, next) {
         try {
-            console.log("😊")
             const roleService = new RoleService();
             const resultItem = await roleService.getAllRoles(req.body);
-            console.log("😊",resultItem)
-            res.status(200).json({ status: 200, data: resultItem });
+            if (resultItem.length != 0) {
+                res.status(200).json({ status: 200, data: resultItem });
+            }
+            else {
+                const err = {}
+                err.statusCode = 404;
+                err.message = ex;
+                next(err)
+            }
+
         }
         catch (ex) {
             const err = {}
@@ -18,8 +25,8 @@ export class RoleController {
             next(err)
         }
     }
-    
-   
+
+
 
 
 }

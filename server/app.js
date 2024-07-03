@@ -21,16 +21,7 @@ let allowCrossDomain = function(req, res, next) {
     next();
 }
 
-
 const app = express();
-//const cookieParser = require('cookie-parser');
-
-// app.use(cors({
-//     origin: true,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // מתודות המורשות
-//     allowedHeaders: ['Content-Type', 'Authorization'] ,// כותרות מותרות
-//     credentials: true
-// }));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -38,14 +29,13 @@ app.use(allowCrossDomain);
 
 app.use(cors({
     origin: true,
-    //methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // מתודות המורשות
-    //allowedHeaders: ['Content-Type', 'Authorization'] ,// כותרות מותרות
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // מתודות המורשות
+    allowedHeaders: ['Content-Type', 'Authorization'] ,// כותרות מותרות
     credentials: true
 }));
 
 app.use(cookieParser());
 app.use('/img', express.static('img'));
-
 app.use('/users', userRouter);
 app.use('/eyeglasses', eyeglassesRouter);
 app.use('/eyesData', eyesDataRouter);
@@ -54,7 +44,7 @@ app.use('/branch',branchRouter);
 app.use('/purchase',purchaseRouter)
 app.use('/roles',roleRouter)
 //  app.use('/EditingGlasses',editingGlassesRouter)
-// app.use(verifyToken);
+app.use(verifyToken);
 app.use(logErrors);
 
 app.listen(8082, (err) => {

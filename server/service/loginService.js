@@ -36,14 +36,18 @@ export class LoginService {
  
     async Authentication(data) {
         const query = getByValue('users', 'hashPassword,role,email', 'userName');
+        console.log("query",query)
         const resultData = await executeQuery(query, [data.userName]); 
+        console.log("resultData",resultData)
         const verificationResult = await bcrypt.compare(data.password, resultData[0].hashPassword);
+        console.log("verificationResult",verificationResult)
         if(verificationResult){
+            console.log(">>>>>>>>>>>>>>>>>")
             const token = jwt.sign({ id: data.userName }, "privateKey", { expiresIn: '20m' });
             return [verificationResult, token, resultData[0].role,resultData[0].email]; 
-          
         }
          else {
+            console.log("PPPPPPPPPPPPPPPPPPPPPPPP")
             [false, 'Incorrect Password']
         }
 
