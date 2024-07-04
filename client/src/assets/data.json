@@ -58,7 +58,8 @@
   ],
   "emailBody":[
     {"title":"register","body": "להשלמת תהליך הרישום מצורך סיסמא חד פמית "},{
-      "title":"","body":""
+      "title":"completePurchase","body":"הזמנתך נקלטה במערכת בעוד תקבל מייל מיד שזה יהיה מוכן "},{
+        "title":"galssesRedy","body":"המשקפיים שלך מוכנות מספר הזמנתך"
     }
   ]
 }
