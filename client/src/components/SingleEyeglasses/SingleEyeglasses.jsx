@@ -3,6 +3,7 @@ import { useEffect ,useState, useContext } from 'react'
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import {  UserContext } from "../../UserProvider.jsx";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -32,7 +33,6 @@ const buyEyeglasses = (id) => {
   fetch(`https://localhost:8082/eyeglasses/${model}`, {
     method: 'PUT',
     body: JSON.stringify({
-      // model: props.model,
       price: props.price,
       imgDisplay: props.imgDisplay,
       p: props.stock
@@ -55,6 +55,7 @@ function SingleEyeglasses(props) {
 
   const [isExist, setIsExist] = useState(true)
   const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
+  const {user,setCurrentUser} =useContext(UserContext)
   const [showCamera, setShowCamera] = useState(false); const navigate = useNavigate();
   const [glassesDisplay ,setGlassesDisplay] = useState("")
   const [glassesCamara , setGlassesCamara] = useState("")
@@ -99,7 +100,8 @@ function SingleEyeglasses(props) {
           <span> {props.price}</span>
           <span>ש"ח</span>
           <CardActions disableSpacing>
-            {eyeglasses.role==1 != '' ? buttonsFunc()
+            {console.log()}
+            {user.role==1 != '' ? buttonsFunc()
               : <></>}
             <Button onClick={() => displaySpecificInfo()} variant="contained" endIcon={<ChevronLeftIcon />}>
               לפרטים

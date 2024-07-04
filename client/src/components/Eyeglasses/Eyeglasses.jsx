@@ -28,10 +28,11 @@ function Eyeglasses() {
         const response = await APIRequest.getRequest(
           `/eyeglasses/kind/${kindOfGlasses}/?_page=${eyeglassesPage[kindOfGlasses]}`);
         const json = await response.json();
+        console.log(json,"pppppppppp")
           if (changeTypeGlasses == "notChange" || selectedValue == "everyOne") {
-            setDisplayEyglasses([...displayEyeglasses, ...json.data]);
+            setDisplayEyglasses([...displayEyeglasses, ...json]);
           } else {
-            setDisplayEyglasses([...json.data]);
+            setDisplayEyglasses([...json]);
           }
         setChangeTypeGlasses("notChange");
         setEyeglassesPage(prevState => {

@@ -78,32 +78,6 @@ function EditPurchase({ purchase, statuses }) {
     <>
       <div className="col-12" >
         <div className="purchase-item" >
-          <div className="purchase-detail">
-            <div className="purchase-name">מחיר:{purchase.price}</div>
-            <div className="product-date"> תאריך: {purchase.date && new Date(purchase.date).toISOString().split('T')[0]}</div>
-            <div className="product-model">מודל:{purchase.model}</div>
-            <div className="product-userName">שם:{purchase.userName}</div>
-          </div>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <Select
-              value={status}
-              onChange={handleChange}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}>
-              <MenuItem value="">
-                <em>{purchase.title}</em>
-              </MenuItem>
-              {purchase.status == 1 && [
-                <MenuItem key={2} value={2}>{statuses[1].title}</MenuItem>,
-                <MenuItem key={3} value={3}>{statuses[2].title}</MenuItem>
-              ]}
-              {purchase.status === 2 && [
-                <MenuItem key={3} value={3}>{statuses[2].title}</MenuItem>
-              ]}
-            </Select>
-            <FormHelperText>עדכון סטטוס</FormHelperText>
-          </FormControl>
-          <Button onClick={handleClick}>עדכון</Button>
           <p>לפרטי הלקוח</p>
           <ExpandMore
             expand={expanded}
@@ -138,6 +112,34 @@ function EditPurchase({ purchase, statuses }) {
               ))}
             </CardContent>
           </Collapse>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <Select
+              value={status}
+              onChange={handleChange}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}>
+              <MenuItem value="">
+                <em>{purchase.title}</em>
+              </MenuItem>
+              {purchase.status == 1 && [
+                <MenuItem key={2} value={2}>{statuses[1].title}</MenuItem>,
+                <MenuItem key={3} value={3}>{statuses[2].title}</MenuItem>
+              ]}
+              {purchase.status === 2 && [
+                <MenuItem key={3} value={3}>{statuses[2].title}</MenuItem>
+              ]}
+            </Select>
+            <FormHelperText>עדכון סטטוס</FormHelperText>
+          </FormControl>
+          <Button onClick={handleClick}>עדכון סטטוס</Button>
+          <div className="purchase-detail">
+          {JsonData.dataUser.map((data, index) => (
+                <p  className="purchase"key={index} paragraph>
+                  {data.title}{purchase[data.value]}
+                </p>
+              ))}
+            <div className="product-date"> תאריך: {purchase.date && new Date(purchase.date).toISOString().split('T')[0]}</div>
+          </div>
         </div>
       </div>
     </>

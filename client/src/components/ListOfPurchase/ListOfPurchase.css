@@ -13,6 +13,10 @@
     background-color: #fff;
     gap: 20px;
 }
+.glasses{
+    width: 90%;
+    padding-left: 0%;
+}
 
 .purchase-image {
     max-width: 100px;

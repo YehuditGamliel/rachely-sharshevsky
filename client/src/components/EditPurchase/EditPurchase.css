@@ -1,5 +1,5 @@
-.shopping-cart {
-    padding: 20px;
+.glasses {
+   width: 100%;
 }
 
 .purchase-item {
@@ -20,7 +20,9 @@
 }
 
 .purchase-detail {
-    flex: 1;
+    padding-left: 0%;
+    margin: 0%;
+    /* flex: 0.5; */
 }
 
 .purchase-name {

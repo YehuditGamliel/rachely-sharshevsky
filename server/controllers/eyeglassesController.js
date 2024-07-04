@@ -8,6 +8,7 @@ export class EyeglassesController {
     
     async getEyeglassesByModel(req, res, next) {
         try {
+            console.log("dssd")
             const eyeglassesService = new EyeglassesService();
             const result = await eyeglassesService.getEyeglassesByModel(req.params.model)
             const resultItems = await eyeglassesService.getEyeglassesByCompany(result[0].company)
@@ -75,6 +76,7 @@ export class EyeglassesController {
 
     async getEyeglassesByKind(req, res, next) {
         try {
+            console.log(req.params.kind,req.query)
             const eyeglassesService = new EyeglassesService();
             const resultItems = await eyeglassesService.getEyeglassesByKind(req.params.kind,req.query)
             if(resultItems.length){
