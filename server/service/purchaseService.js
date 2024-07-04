@@ -2,7 +2,7 @@
 import { executeQuery } from './db.js';
 import { executeTransactionQuery } from './transactionQueries.js';
 import { updateOneFieldQuery, getFromTwoTables, getAllSortedQuery, getByValues, getAllElementsQuery, getByValueQuery } from './queries.js'
-import{getAllFromStatusAndPueches,getFromPurchaseAndUsers}from './purchaceQueries.js'
+import{getAllFromStatusAndPueches,getFromPurchaseAndUsersAndRole,getFromPurchaseAndUsers}from './purchaceQueries.js'
 import { sendStyledEmail } from '../emailSender.js';
 export class PurchaseService {
 
@@ -53,6 +53,13 @@ export class PurchaseService {
     async getAllPurchaseStatus(itemDetailes) {
         const query = getAllElementsQuery('status', 'id,title');
         const result = await executeQuery(query);
+        return result;
+    }
+    
+    async getuserData(userName) {
+        const query = getFromPurchaseAndUsersAndRole('r.roleDescription,email', 'userName');
+        const result = await executeQuery(query,[userName]);
+        console.log(userName,"userName")
         return result;
     }
 

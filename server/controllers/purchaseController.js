@@ -93,6 +93,31 @@ export class PurchaseController {
         }
     }
 
+    async getuserData(req, res, next) {
+        try {
+            const purchaseService = new PurchaseService()
+            const resultItem = await purchaseService.getuserData(req.params.userName);
+            console.log(resultItem)
+            if (resultItem.length != 0) {
+                res.status(200).json({ status: 200, data: resultItem });
+            }
+            else {
+                const err = {}
+                err.statusCode = 404;
+                err.message = ex;
+                next(err)
+            }
+        }
+        catch (ex) {
+            console.log("catch")
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
+
+
     async getPurchaseByStatus(req, res, next) {
         try {
             const purchaseService = new PurchaseService();

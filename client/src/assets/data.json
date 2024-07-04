@@ -13,7 +13,11 @@
     {
       "lastIndex":0
     }
-    ],"otpMessage":{
+    ],
+    "userDetails":[{"title":"תפקיד","value":"roleDescription"},{"title":"מייל","value":"roleDescription"}],
+    
+    
+    "otpMessage":{
       "title":"ברגעים אלו נשלח אליך קוד חד פעמי לאימות ",
       "p":"מה הקוד שקיבלת?"
     },"istroctions":[   {   "title":"חדש!  תמוד רצית לקנות onLine משקפיים ולא יכולת למדוד?",

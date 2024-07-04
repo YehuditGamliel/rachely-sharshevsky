@@ -64,7 +64,7 @@ function Login({ paper = 'defaultPaperValue' }) {
             navigate('./home')
         }
         else {
-            // alert("pp")
+           // alert("pp")
 
           
         }
@@ -133,12 +133,18 @@ function Login({ paper = 'defaultPaperValue' }) {
             if (json.role == 1) {
                 setOpen(true);
             }
-
-
-
-
             else {
-                navigate('./home')
+                if(paper!='defaultPaperValue')
+                    {
+                        alert("deF")
+                        navigate(`/eyeglasses/${location.pathname.split('/')[2]}/${location.pathname.split('/')[3]}/invitation`)
+                    }
+                    else{
+                        alert("deT")
+                        navigate('./home')
+                    }
+                
+               
             }
         }
         else {
