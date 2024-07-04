@@ -253,7 +253,6 @@ function Login({ paper = 'defaultPaperValue' }) {
                                                     (<span className='span'>username is required</span>)}
                                             </div>
                                             <div className='user-box'>
-                                                <Password value={value} onChange={(e) => setValue(e.target.value)} toggleMask />
                                                 <input type='password' name='password' {...register("password",
                                                     { required: true, minLength: 6 })} placeholder='סיסמא' />
                                                 {errors.password && errors.password.type === "minLength" &&
