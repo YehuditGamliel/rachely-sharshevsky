@@ -25,17 +25,12 @@ function Branches() {
     const fetchData = async () => {
       const response = await APIRequest.getRequest(`/branch`)
       const json = await response.json();
-      if (json.status != 200) {
-        alert(json.error)
-      }
-      else {
-        setBranches([...json.data])
-        if(json.data[1])
+      setBranches([...json.data])
+      if (json.data[1])
         setBranchMap(json.data[1]);
-      } 
     }
     fetchData()
-    
+
     // fetch(`http://localhost:8082/branch`, {
     //   method: 'GET',
     // })
@@ -90,8 +85,6 @@ function Branches() {
       </div>
     );
   };
-
-
 
   return (
     <>

@@ -13,55 +13,49 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Login from "../Login/Login.jsx";
 
 function SpecificInfo() {
-    const {user,setCurrentUser}=useContext(UserContext);
-    const [editEyeglasses,setEditedEyeglasses]=useState([])
+    const { user, setCurrentUser } = useContext(UserContext);
+    const [editEyeglasses, setEditedEyeglasses] = useState([])
     const { eyeglasses, setCurrentEyeglasses } = useContext(EyeglassesContext);
     const [displaySpecificInfo, setDisplaypecificInfo] = useState('');
     const [moreImages, setMoreImages] = useState([])
-    const [login,setLogin]=useState(false)
+    const [login, setLogin] = useState(false)
     const APIRequest = new APIRequests()
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         const kindOfGlasses = location.pathname.split('/')[2];
         const fetchData = async () => {
             const response = await APIRequest.getRequest(`/eyeglasses/kind/${kindOfGlasses}/${eyeglasses.model}`)
             const json = await response.json();
-            if (json.status != 200) {
-                alert(json.error)
-            }
-            else {
-                setMoreImages([...moreImages, ...json.data[1]])
-                console.log("json.data[1]",json.data[1])
-                setEditedEyeglasses(glassesData => ({
-                    ...glassesData,
-                    ...json.data[0][0]
-                }));
-            }
+            console.log("json",json)
+            setMoreImages([...moreImages, ...json.resultItems])
+            setEditedEyeglasses(glassesData => ({
+                ...glassesData,
+                ...json.result[0]
+            }));  
         }
         fetchData();
     }, [])
-    const checkNavigate=()=>{
-        console.log(user.userName,"user.userName")
-        if(user.userName){
+
+    const checkNavigate = () => {
+        console.log(user.userName, "user.userName")
+        if (user.userName) {
             navigate('./invitation')
         }
-        else{
-          {console.log(user.userName,"login")}  
-         setLogin(true)
-          
+        else {
+            { console.log(user.userName, "login") }
+            setLogin(true)
         }
-
     }
 
     return (
         <>
-            {login ? <Login paper='invition' />:
+            {login ? <Login paper='invition' /> :
                 <div id="card">
                     <div id="container">
                         <div id="title">
                             <p>{eyeglasses.title} <> </>
-                            {displaySpecificInfo.company}</p>
+                                {displaySpecificInfo.company}</p>
                         </div>
                         <p>{eyeglasses.price}₪</p>
                         <p> דגם:{eyeglasses.model}</p>
@@ -115,21 +109,21 @@ export default SpecificInfo;
 
 
 // { alert(eyeglasses.model) }
-        // fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
-        //     method: 'GET',
+// fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
+//     method: 'GET',
 
-        // })
-        //     .then(response => response.json())
-        //     .then((json) => {
-        //         if (json.status != 200) {
-        //             alert(json.error)
-        //         }
-        //         else {
-        //             console.log("json", json.data[0])
-        //             setMoreImages([...moreImages, ...json.data])
-        //             setCurrentEyeglasses(glassesData => ({
-        //                 ...glassesData,
-        //                 ...json.data[0][0]
-        //             }));
-        //         }
-        //     })
+// })
+//     .then(response => response.json())
+//     .then((json) => {
+//         if (json.status != 200) {
+//             alert(json.error)
+//         }
+//         else {
+//             console.log("json", json.data[0])
+//             setMoreImages([...moreImages, ...json.data])
+//             setCurrentEyeglasses(glassesData => ({
+//                 ...glassesData,
+//                 ...json.data[0][0]
+//             }));
+//         }
+//     })

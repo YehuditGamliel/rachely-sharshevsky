@@ -40,7 +40,7 @@ export class LoginService {
         const resultData = await executeQuery(query, [data.userName]); 
         const verificationResult = await bcrypt.compare(data.password, resultData[0].hashPassword);
         if(verificationResult){
-            const token = jwt.sign({ username: data.userName }, "privateKey", { expiresIn: '20m' });
+            const token = jwt.sign({ username: data.userName }, "privateKey", { expiresIn: '1m' });
             return {verifyPassword:verificationResult,token:token,role: resultData[0].role,email:resultData[0].email}; 
         }
         else {

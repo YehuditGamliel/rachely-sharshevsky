@@ -194,12 +194,12 @@ function Login({ paper = 'defaultPaperValue' }) {
     }
 
     const setRegister = () => {
-
-        setShowRegister(<Register />)
         setRegisterOrLogin(false)
+        setShowRegister(<Register />)
     }
     return (
         <>
+        {console.log(registerOrLogin,"login")}
            {console.log((location.pathname.split('/')[4]==undefined),location.pathname.split('/'),"ppp")}
             {/* {alert("pp")} */}
             {(open) ?

@@ -8,15 +8,13 @@ export class BranchService {
 
     async  getAllBranches(q) {
         const query = getAllElementsQuery('branches','*');
-           
-        // } else {
-        //     query = getAllSortedQuery('eyeglasses', 'model,price,photo,title', q, q.sort); 
-        // }
         const result = await executeQuery(query);
-        // console.log("😒",q  ,result)
-
         return result;
     }
+
+
+
+    
     //   async getEyeglassesByCity( city) {
     //     const query = getByValueQuery('branches','city','street,number,lng,lat,phone,hours,days,id');
     //     const result = await executeQuery(query, [city]);

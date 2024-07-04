@@ -32,10 +32,12 @@ function WithOrWithoutPrescription() {
   const [selected, setSelected] = useState(null);
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const APIRequest = new APIRequests()
+
   const updateStyle = (withOrNot) => {
     setIsButtonDisabled(false)
     setwithOrWithoutPrescriptionId(withOrNot)
   }
+
   const addInformation = async () => {
     setUpdateEyeData(data => ({
       ...data,
@@ -50,9 +52,7 @@ function WithOrWithoutPrescription() {
           ...data,
           ['WithOrWithoutPrescription']: withOrWithoutPrescriptionId
         }));
-
       } else {
-        console.log(json.data)
         setCurrentPaper({ "title": 'CU6' })
         setUpdateEyeData(data => ({
           ...data,
@@ -64,23 +64,18 @@ function WithOrWithoutPrescription() {
       setCurrentPaper({ "title": 'sizeOfGlasses' })
     }
   };
+
   const handleClick = (index) => {
     setSelected(index);
   };
 
-  const fetchData = async () => {
-    const response = await APIRequest.getRequest(`/invitation/withorwithoutprescription`);
-    const json = await response.json();
-    if (response.status !== 200) {
-      alert(json.error);
-    } else {
-      console.log("setwithOrWithoutPrescription", json.data)
-      setwithOrWithoutPrescription([...json.data])
-    }
-  };
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await APIRequest.getRequest(`/invitation/withorwithoutprescription`);
+      const json = await response.json();
+        setwithOrWithoutPrescription([...json.data])
+    };
     fetchData();
-
   }, [])
 
   const handleClose = () => {

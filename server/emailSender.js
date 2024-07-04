@@ -102,7 +102,7 @@ console.log(basePathWithDoubleBackslashes)
 //  const styledEmailContent = fs.readFileSync(basePathWithDoubleBackslashes);
 // C:\Users\The user\rachely-sharshevsky-7\server\template\templates.html
 
-   const styledEmailContent = fs.readFileSync('C:\\Users\\The user\\rachely-sharshevsky-7\\server\\templates\\templates.html', 'utf8');
+   const styledEmailContent = fs.readFileSync('C:\\Users\\The user\\rachely-sharshevsky-2\\server\\templates\\templates.html', 'utf8');
    const replacedEmailContent = styledEmailContent.replace('${emailBody}', emailBody).replace('${params}', params).replace('${mail}', process.env.MAIL_EMAIL);
   // Define the mail options with styled content
   const mailOptions = {

@@ -105,11 +105,14 @@ function Register({paper1= 'defaultPaperValue' }) {
   };
 
   const setLogin = () => {
-    setShowLogin(<Login />)
     setLoginOrRegister(false)
+    setShowLogin(<Login />)
+  
   }
 
   return (
+   
+    <> 
     <div className="register-box">
       {invitation ? <Invitation /> :
         <div>
@@ -120,6 +123,7 @@ function Register({paper1= 'defaultPaperValue' }) {
               <OTPInput value={OTP} onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} secure />
             </>
           ) : (
+            
             loginOrRegister ? (
               <>
                 <form onSubmit={handleSubmit(checkRegister)}>
@@ -174,7 +178,7 @@ function Register({paper1= 'defaultPaperValue' }) {
           )}
         </div>
       }
-    </div>
+    </div></>
   );
 }
 export default Register;

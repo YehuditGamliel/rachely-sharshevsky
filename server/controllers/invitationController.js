@@ -4,24 +4,15 @@ export class InvitationController {
 
     async getAll(req, res, next) {
         try {
-
-            console.log(req.params.paper,req.query)
             const invitationService = new InvitationService()
             const resultItem = await invitationService.getAll(req.params.paper);
             if (resultItem.length != 0) {
-                res.status(200).json({ status: 200, data: resultItem });
-            }
-            else {
-                const err = {}
-                err.statusCode = 404;
-                err.message = ex;
+                res.json({ data: resultItem });
             }
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message:ex.message || ex})
+
         }
     }
 

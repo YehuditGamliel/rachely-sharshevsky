@@ -1,6 +1,6 @@
 
 import { executeQuery } from './db.js';
-import {getAllElementsQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery ,deleteQuery} from './queries.js'
+import {getAllElementsQuery } from './queries.js'
 export class RoleService {
 
 
@@ -8,7 +8,10 @@ export class RoleService {
         let query = getAllElementsQuery('roles','roleDescription,id')
         const result = await executeQuery(query);
         return result;
-     }
+    }
+
+
+
     // // async  getAllEyeglasses(q) {
     // //     console.log("Controller ddE")
     // //     let query = null;

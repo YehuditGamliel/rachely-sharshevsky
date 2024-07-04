@@ -10,9 +10,14 @@ export class APIRequests {
                 },
                 body: JSON.stringify(body)
             });
-            return response;
+            if (response.ok) {
+                return response;
+            } 
+            else {
+              throw({errorCode:response.status,errorText:response.statusText})
+            }
         } catch (error) {
-            throw error;
+            alert(error.errorText);
         };
     }
 

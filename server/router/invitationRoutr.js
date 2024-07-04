@@ -7,6 +7,8 @@ const invitationController = new InvitationController();
 
 
 invitationRouter.get("/:paper", invitationController.getAll)
+
+
 // eyeglassesRouter.put("/:model", eyeglassesController.updateEyeGlasses)
 // eyeglassesRouter.post("/", eyeglassesController.addEyeglasses)
 // // eyeglassesRouter.get("/", eyeglassesController.getAllEyeglasses)

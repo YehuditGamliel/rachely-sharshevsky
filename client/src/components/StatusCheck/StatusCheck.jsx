@@ -63,6 +63,7 @@ const StatusCheck = () => {
   const handleClick = (event) => {
     localStorage.clear()
     removeCookie('token', { path: '/' });
+    //removeCookie('x-access-token', { path: '/' });
     navigate('./home')
     setCurrentUser({})
   }

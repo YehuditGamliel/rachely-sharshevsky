@@ -7,22 +7,19 @@ import { BranchService } from '../service/branchService.js'
 export class BranchController {
 
     async getAllBranches(req, res, next) {
-        console.log("Controller E")
         try {
             //let limit = Object.values(req.query).slice(1)
             const branchServiceService = new BranchService();
             const resultItems = await branchServiceService.getAllBranches(req)
-            console.log(resultItems)
-            return res.status(200).json({ status: 200, data: resultItems });
+            if (resultItems != 0)
+                res.json({ data: resultItems });
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message:ex.message || ex})
         }
     }
 
+    
     // async geAllBranchesByCity(req, res, next) {
     //     console.log("Controller E")
     //     try {

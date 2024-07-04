@@ -1,52 +1,23 @@
 
 
+import { verifyToken } from '../middleware/verifyToken.js';
 import { EyeglassesService } from '../service/eyeglassesService.js'
 
 export class EyeglassesController {
 
-    async getAllEyeglasses(req, res, next) {
-        try {
-            const eyeglassesService = new EyeglassesService();
-            const resultItems = await eyeglassesService.getAllEyeglasses(req.query)
-            if(resultItems.length){
-                return res.status(200).json({ status: 200, data: resultItems });
-            }
-            else{
-                const err = {}
-                err.statusCode = 404;
-                err.message = ex;
-                next(err)
-            }
-        }
-        catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
-        }
-    }
-
+    
     async getEyeglassesByModel(req, res, next) {
         try {
             const eyeglassesService = new EyeglassesService();
-            const resultItems = await eyeglassesService.getEyeglassesByModel(req.params.model)
-            const result = await eyeglassesService.getEyeglassesByCompany(resultItems[0].company)
+            const result = await eyeglassesService.getEyeglassesByModel(req.params.model)
+            const resultItems = await eyeglassesService.getEyeglassesByCompany(result[0].company)
+            console.log("result",result,"resultItems",resultItems)
             if(resultItems.length || result.length){
-                return res.status(200).json({ status: 200, data: [resultItems, result] });
+                res.json({result:result , resultItems:resultItems})
             }
-            else{
-                const err = {}
-                err.statusCode = 404;
-                err.message = ex;
-                next(err)
-            }
-            
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message:ex.message || ex})
         }
     }
 
@@ -68,9 +39,9 @@ export class EyeglassesController {
     async addEyeglasses(req, res, next) {
         try {
             const eyeglassesService = new EyeglassesService();
-            const resultItem = await eyeglassesService.addEyeglasses(req.body);
-            if(resultItem.insertId){
-                res.status(200).json({ status: 200, data: resultItem.insertId });
+            const result = await eyeglassesService.addEyeglasses(req.body);
+            if(result.insertId){
+                res.status(200).json({ status: 200, data: result.insertId });
             }
             else{
                 const err = {}
@@ -107,66 +78,36 @@ export class EyeglassesController {
             const eyeglassesService = new EyeglassesService();
             const resultItems = await eyeglassesService.getEyeglassesByKind(req.params.kind,req.query)
             if(resultItems.length){
-                return res.status(200).json({ status: 200, data: resultItems });
-            }
-            else{
-                const err = {}
-                err.statusCode = 404;
-                err.message = ex;
-                next(err)
+                res.json(resultItems)
             }
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message:ex.message || ex})
         }
     }
 
-    async updatecomment(req, res, next) {
-        try {
-            const commentService = new TableService();
-            await commentService.updateObject(CommentController.tableName, req.params.id, req.body);
-            res.status(200).json({ status: 200 });
-        }
-        catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
-        }
-    }
 }
 
 
- //     async getCommentById(req, res, next) {
-    //     try {
-    //         const commentsService = new TableService();
-    //         const resultItem = await commentsService.getById(CommentController.tableName,CommentController.columns, req.params.id);
-    //         res.status(200).json({ status: 200, data: resultItem });
-    //     }
-    //     catch (ex) {
-    //         const err = {}
-    //         err.statusCode = 500;
-    //         err.message = ex;
-    //         next(err)
-    //     }
-    // }
 
-    
-    // async getEyeglassesByUrl(req, res, next) {
-    //     try {
-    //         const eyeglassesService = new EyeglassesService();
-    //         const resultItems = await eyeglassesService.getEyeglassesByUrl(req.params.model)
-    //         const result = await eyeglassesService.getEyeglassesByCompany(resultItems[0].company)
-    //         console.log("by", resultItems, result)
-    //         return res.status(200).json({ status: 200, data: [resultItems, result] });
-    //     }
-    //     catch (ex) {
-    //         const err = {}
-    //         err.statusCode = 500;
-    //         err.message = ex;
-    //         next(err)
-    //     }
-    // }
+    // async getAllEyeglasses(req, res, next) {
+        //     try {
+        //         const eyeglassesService = new EyeglassesService();
+        //         const resultItems = await eyeglassesService.getAllEyeglasses(req.query)
+        //         if(resultItems.length){
+        //             return res.status(200).json({ status: 200, data: resultItems });
+        //         }
+        //         else{
+        //             const err = {}
+        //             err.statusCode = 404;
+        //             err.message = ex;
+        //             next(err)
+        //         }
+        //     }
+        //     catch (ex) {
+        //         const err = {}
+        //         err.statusCode = 500;
+        //         err.message = ex;
+        //         next(err)
+        //     }
+        // }
