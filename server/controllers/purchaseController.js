@@ -118,21 +118,23 @@ export class PurchaseController {
 
 
     async updatePurchase(req, res, next) {
-        const mergedObjectsData = (req.body).reduce((acc, obj) => {
-            return { ...acc, ...obj };
-        }, {});
-        let data = mergedObjectsData;
-        const { error } = purchaseSchema.validate(data)
-        if (error) {
-            console.log(error)
-            const err = {}
-            err.statusCode = 400;
-            err.message = "Incorrect data";
-            next(err)
-        }
+        // const mergedObjectsData = (req.body).reduce((acc, obj) => {
+        //     return { ...acc, ...obj };
+        // }, {});
+        // let data = mergedObjectsData;
+        // const { error } = purchaseSchema.validate(data)
+        // if (error) {
+        //     console.log(error)
+        //     const err = {}
+        //     err.statusCode = 400;
+        //     err.message = "Incorrect data";
+        //     next(err)
+        // }
         try {
             const purchaseService = new PurchaseService();
+            console.log(req.params.id, req.body)
             const result = await purchaseService.updatePurchase(req.params.id, req.body)
+            console.log(result)
             if (result[0] == true) {
                 res.status(200).json({ status: 200, data: "" });
             }

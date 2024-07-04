@@ -3,7 +3,6 @@
 import { BranchService } from '../service/branchService.js'
 //import { sha512, sha384, sha512_256, sha512_224 } from 'js-sha512';
 // /import { UserService } from '../service/userService.js';
-import { UserService } from '../service/userService.js'
 
 export class BranchController {
 

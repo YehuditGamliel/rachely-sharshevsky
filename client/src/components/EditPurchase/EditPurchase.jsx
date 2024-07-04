@@ -14,7 +14,6 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 // import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Select from '@mui/material/Select';
-import jsonData from '../../assets/data.json'
 import './EditPurchase.css'
 
 function EditPurchase({purchase,statuses}) {
@@ -55,8 +54,9 @@ function EditPurchase({purchase,statuses}) {
 
     //  return(<>{console.log(purchase)}</>)
         return (
-          <>
-          {console.log(statuses[2].title,"pp")}
+          <> 
+           {console.log(statuses[1].title,"1")}{console.log(statuses[2].title,"2")}
+          {console.log(statuses[0].title,"0")}
     {console.log(purchase.title)}
             <div className="col-12" >
               <div className="purchase-item" >
@@ -80,21 +80,18 @@ function EditPurchase({purchase,statuses}) {
                 <em>{purchase.title}</em>
               </MenuItem>
     {purchase.status === 1 && [
-      // <MenuItem value={1}>{jsonData.statusValue[0].status}</MenuItem>,
-      
       <MenuItem key={2} value={2}>{statuses[1].title}</MenuItem>,
       <MenuItem key={3} value={3}>{statuses[1].title}</MenuItem>
     ]}
     {purchase.status === 2 && [
-      // <MenuItem value={2}>{jsonData.statusValue[1].status}</MenuItem>,
       <MenuItem key={3} value={3}>{statuses[2].title}</MenuItem>
     ]}
             </Select>
             <FormHelperText>עדכון סטטוס</FormHelperText>
           </FormControl>
           <Button onClick={handleClick}>עדכון</Button>
-          {/* <Button onClick={handleClick}></Button> */}
-    
+             <Button>לפרטי הלקןח</Button>
+             <Button>לפרטי נתוני עיניים</Button>
               </div>
             </div>
           </>

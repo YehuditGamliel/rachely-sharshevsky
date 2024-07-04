@@ -1,8 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import nodemailer from 'nodemailer';
-import { userRouter } from './router/userRouter.js';
 import { eyeglassesRouter } from './router/eyeglassesRouter.js';
 import { eyesDataRouter } from './router/eyesDataRouter.js';
 import { logErrors } from './middleware/logError.js';
@@ -37,7 +35,6 @@ app.use(cors({
 
 app.use(cookieParser());
 app.use('/img', express.static('img'));
-app.use('/users', userRouter);
 app.use('/eyeglasses', eyeglassesRouter);
 app.use('/eyesData', eyesDataRouter);
 app.use('/authorization',loginRouter);
