@@ -5,10 +5,7 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import header from '../../img/header.jpg';
 import jsonData from '../../assets/data.json'
-
-import useSound from 'use-sound';
 import r from '../img/r.mp3'
-
 
 function Home(props) {
   const [cities, setCities] = useState([]);
@@ -19,16 +16,8 @@ function Home(props) {
   const [login, setLogin] = useState('');
   let location = useLocation();
   let navigate = useNavigate()
-  const [play, { stop }] = useSound(r);
 
-  
-    
   useEffect(() => {
-    // const storedProducts = JSON.parse(localStorage.getItem("ShoppingCart")) || [];
-
-    // if(storedProducts){
-    //   navigate('/my-account')
-    // }
     if (location.pathname === '/my-account') {
       setLogin(false);
       setStyle("activity")
@@ -44,9 +33,7 @@ function Home(props) {
     },
   }));
   return (<>
-  < button onMouseEnter={() => play()} onMouseLeave={() => stop()}></button>
         {branches.map((branch) => {
-          // { console.log("p", branch) }
           return <option>{branch.street}{branch.number}</option>;
         })}
       
@@ -66,10 +53,6 @@ function Home(props) {
           {jsonData.dataHome[2].title}
         </p>
         <span id="text">{jsonData.dataHome[2].description}</span>
-        {/* <p>לסניפים שלנו :</p>
-        <div id='bottom'>
-          <span id='titleBottom'>צרו איתנו קשר</span>
-        </div> */}
 
       </div>
     </div>

@@ -112,3 +112,25 @@ nav {
    pointer-events: none; 
 }  
 
+@media screen and (max-width: 600px) {
+    nav ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+    }
+    
+    nav li {
+        margin:0px;
+        padding: 0px; /* Adjust the spacing between links as needed */
+    }
+    
+    nav a {
+        font-size: 10px; /* Adjust the font size of the links as needed */
+        text-decoration: none;
+    }
+    span{
+        font-size: 10px; /* Adjust the font size of the links as needed */
+        text-decoration: none;
+
+    }
+}

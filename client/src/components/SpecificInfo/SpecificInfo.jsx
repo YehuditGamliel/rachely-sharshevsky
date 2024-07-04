@@ -93,37 +93,3 @@ function SpecificInfo() {
 export default SpecificInfo;
 
 
-//import { div } from "@tensorflow/tfjs";
-//import { useAuth } from '../../hook/AuthProvider.jsx'
-// import { styled } from '@mui/material/styles';
-// import Badge from '@mui/material/Badge';
-
-// const StyledBadge = styled(Badge)(({ theme }) => ({
-//     '& .MuiBadge-badge': {
-//         right: -3,
-//         top: 13,
-//         border: `2px solid ${theme.palette.background.paper}`,
-//         padding: '0 4px',
-//     },
-// }));
-
-
-// { alert(eyeglasses.model) }
-// fetch(`http://localhost:8082/eyeglasses/${eyeglasses.model}`, {
-//     method: 'GET',
-
-// })
-//     .then(response => response.json())
-//     .then((json) => {
-//         if (json.status != 200) {
-//             alert(json.error)
-//         }
-//         else {
-//             console.log("json", json.data[0])
-//             setMoreImages([...moreImages, ...json.data])
-//             setCurrentEyeglasses(glassesData => ({
-//                 ...glassesData,
-//                 ...json.data[0][0]
-//             }));
-//         }
-//     })

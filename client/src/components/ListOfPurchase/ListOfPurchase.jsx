@@ -69,14 +69,15 @@ export default function ListOfPurchase() {
 
   return (<>
     <div className="ListOfPurchase">
-      <Button
+    <h2>ההזמנות שלנו</h2>
+      <Button 
         id="demo-positioned-button"
         aria-controls={open ? 'demo-positioned-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        הזמנות
+        מיון הזמנות
       </Button>
       <Menu
         id="demo-positioned-menu"
@@ -96,12 +97,10 @@ export default function ListOfPurchase() {
        {statuses.map((status,index)=> <MenuItem onClick={() => handleClose(status.id)}>הזמנות ש{status.title}</MenuItem>)}
         <MenuItem onClick={() => handleClose(0)}>כל ההזמנות </MenuItem>
       </Menu>
-      {console.log("👌", purchases)}
-      <h2>ההזמנות שלנו</h2>
       {purchases.map((purchase, index) => 
       
       <div key={index} class="glasses">{console.log("par",purchase)}
-        <EditPurchase purchase={purchase} statuses={statuses}/>
+        <EditPurchase id="editPurchase" purchase={purchase} statuses={statuses}/>
       </div>)
       }
     </div>

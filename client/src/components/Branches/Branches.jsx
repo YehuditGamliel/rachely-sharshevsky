@@ -14,7 +14,6 @@ import '../Branches/Branches.css'
 import { APIRequests } from '../../APIRequests.js';
 function Branches() {
 
-  // const [cities, setBranches] = useState([]);
   const [branches, setBranches] = useState([])
   const [search, setSearch] = useState('city')
   const [branch, setBranch] = useState({});
@@ -31,20 +30,6 @@ function Branches() {
     }
     fetchData()
 
-    // fetch(`http://localhost:8082/branch`, {
-    //   method: 'GET',
-    // })
-    //   .then(response => response.json())
-    //   .then((json) => {
-    //     console.log("😊",json)
-    //     if (json.status != 200) {
-    //       alert(json.error)
-    //     }
-    //     else {
-    //       setBranches([...json.data])
-    //       // setSearch('city')
-    //     }
-    //   })
   }, [])
 
 
@@ -61,8 +46,6 @@ function Branches() {
         }
         else {
           setBranches([...json.data])
-          // console.log("branch", branches)
-          // setSearch('branch')
         }
       })
   };
@@ -71,7 +54,7 @@ function Branches() {
 
   const itemTemplate = (branch) => {
     const handleClickBranch = () => {
-      setBranchMap(branch); // Set branchMap to the selected branch
+      setBranchMap(branch); 
     };
     return (
       <div className="branch-item" onClick={handleClickBranch}>
@@ -97,7 +80,7 @@ function Branches() {
 
         <DataView value={branches} itemTemplate={itemTemplate} layout="list" />
         <div id="map">{branchMap ? (
-          <GoogleMaps
+          <GoogleMaps id="googleMap"
             lat={branchMap.lat}
             lng={branchMap.lng}
             street={branchMap.street}

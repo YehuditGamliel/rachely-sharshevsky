@@ -90,3 +90,12 @@ footer{
 #links{
   font-size: 100%;
 }
+@media screen and (max-width: 600px) {
+  #title{
+
+    font-size: 6px;
+  }
+  p{
+    font-size: 6px;
+  }
+}

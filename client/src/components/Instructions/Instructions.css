@@ -6,5 +6,34 @@ padding-left: 10%;
 padding-right: 10%;
 }
 #title{
+    /* margin-left: 20%; */
     font-size: 200%;
+    display: inline-block;
+    padding: 0%;
+    margin-right: 30%;
+    /* margin-left: 40%; */
+    text-shadow: 0px 4px 10px rgba(179, 147, 211, 0.8);
+    font-size: 70px;
+    font-weight: 600;
+    color: #fdfdfe;
+    text-shadow: 0px 0px 5px #41c1ba, 0px 0px 10px #41c1ba, 0px 0px 10px #41c1ba,
+      0px 0px 20px #41c1ba;
+  text-align: center;
+}
+p{
+    text-align: center;
+}
+#camara{
+   margin-left: 40%;
+}
+#buttonForInstruction{
+    margin-left: 49%;
+}
+@media screen and (max-width: 600px) {
+    #camara{
+        margin-left: 20%;
+     }
+     #buttonForInstruction{
+         margin-left: 33%;
+     }
 }

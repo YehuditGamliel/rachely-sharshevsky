@@ -19,9 +19,10 @@ function Instructions() {
                     <p id="p">{data.p}</p>
                 </div>
             )}
-            <button onClick={() => play()} onDoubleClick={handleDoubleClick}>לשמע ההוראות </button>
-            <WebcamGlassesOverlay img={'http://localhost:8082/img/101-159-c_3-Front.jpg'} />
-
+            <button  id="buttonForInstruction" onClick={() => play()} onDoubleClick={handleDoubleClick}>לשמע ההוראות </button>
+            <div id="camara">
+            <WebcamGlassesOverlay  img={'http://localhost:8082/img/101-159-c_3-Front.jpg'} />
+           </div>
         </>
     );
 }

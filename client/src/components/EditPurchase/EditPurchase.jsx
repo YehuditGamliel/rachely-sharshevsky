@@ -87,14 +87,14 @@ function EditPurchase({ purchase, statuses }) {
             <ExpandMoreIcon />
           </ExpandMore>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              {JsonData.userDetails.map((data, index) => (
-                <Typography key={index} paragraph>
-                  {data.title}{userEyeData[data.value]}
-                </Typography>
-              ))}
-            </CardContent>
-          </Collapse>
+    <CardContent className="collapse-content">
+        {JsonData.userDetails.map((data, index) => (
+            <p key={index} paragraph>
+                {data.title}{userEyeData[data.value]}
+            </p>
+        ))}
+    </CardContent>
+</Collapse>
           <p>לפרטי נתוני עיניים</p>
           <ExpandMore
             expand={expanded2}
@@ -103,17 +103,18 @@ function EditPurchase({ purchase, statuses }) {
             aria-label="show more" >
             <ExpandMoreIcon />
           </ExpandMore>
+          
           <Collapse in={expanded2} timeout="auto" unmountOnExit>
-            <CardContent>
+            <CardContent className="collapse-content">
               {EyeDataDetails.map((data, index) => (
                 Object.keys(data).map((key, innerIndex) => (
-                  <Typography key={index + '-' + innerIndex} paragraph>{key + ": " + data[key]}</Typography>
+                  <p key={index + '-' + innerIndex} paragraph>{key + ": " + data[key]}</p>
                 ))
               ))}
             </CardContent>
           </Collapse>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <Select
+            <Select 
               value={status}
               onChange={handleChange}
               displayEmpty
@@ -132,14 +133,14 @@ function EditPurchase({ purchase, statuses }) {
             <FormHelperText>עדכון סטטוס</FormHelperText>
           </FormControl>
           <Button onClick={handleClick}>עדכון סטטוס</Button>
-          <div className="purchase-detail">
+          <p className="purchase-detail">
           {JsonData.dataUser.map((data, index) => (
                 <p  className="purchase"key={index} paragraph>
                   {data.title}{purchase[data.value]}
                 </p>
               ))}
-            <div className="product-date"> תאריך: {purchase.date && new Date(purchase.date).toISOString().split('T')[0]}</div>
-          </div>
+            <p className="product-date"> תאריך: {purchase.date && new Date(purchase.date).toISOString().split('T')[0]}</p>
+          </p>
         </div>
       </div>
     </>

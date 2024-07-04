@@ -4,7 +4,10 @@
 #titles{
   text-align: center;
 }
-
+#googleMap{
+  height: 100%;
+  width: 50%;
+}
 /* // Adjust styles for the left column (Google Maps) */
 #map {
   flex: 1; /* Allow the map to take up the available space */

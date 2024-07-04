@@ -57,7 +57,6 @@ export class GoogleMap extends Component {
 
     return (
       <div className="showmap">
-      {console.log("🙌",this.props)}
         <Map
           google={this.props.google}
           zoom={12}
@@ -75,7 +74,6 @@ export class GoogleMap extends Component {
             onClose={this.onClose}
           >
             <div>
-              {console.log("😊",this.props.lat)}
               <h4>{this.state.selectedPlace.name}</h4>
               <p>{this.props.street} {this.props.number}</p>
               <p>{this.props.hours}</p>

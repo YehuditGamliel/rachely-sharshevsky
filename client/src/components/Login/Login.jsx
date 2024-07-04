@@ -136,14 +136,12 @@ function Login({ paper = 'defaultPaperValue' }) {
             else {
                 if(paper!='defaultPaperValue')
                     {
-                        alert("deF")
                         navigate(`/eyeglasses/${location.pathname.split('/')[2]}/${location.pathname.split('/')[3]}/invitation`)
                     }
                     else{
                         alert("deT")
                         navigate('./home')
                     }
-                
                
             }
         }
@@ -157,7 +155,6 @@ function Login({ paper = 'defaultPaperValue' }) {
                 alert(json.error)
             }
         }
-        // alert(currentUser)
     }
 
     const handleChangePassword = async (passwords) => {
@@ -308,50 +305,3 @@ function Login({ paper = 'defaultPaperValue' }) {
 
 }
 export default Login;
-
-
-
-
-
-
-
-
-// const handleChangePassword = async (passwords) => {
-//     if (passwords.newPassword != passwords.verifyPassword)
-//         setErrorMassage("verity is not correct,try again")
-//     else {
-//         setErrorMassage(" ")
-//         let json = await userExist({ username: passwords.username, password: passwords.oldPassword })
-//         if (json.status == 200) {
-//             fetch(`http://localhost:8082/authorization`, {
-//                 method: 'PUT',
-//                 body: JSON.stringify({
-//                     username: passwords.username,
-//                     password: passwords.newPassword
-//                 }),
-//                 headers: {
-//                     'Content-type': 'application/json; charset=UTF-8',
-//                 }
-//             }).then(response => response.json())
-//                 .then((json) => {
-//                     if (json.status != 200) {
-//                         alert(json.error)
-//                     }
-//                 })
-//         }
-//         else if (json.status == 400) {
-//             <Alert severity="error">The username or password you entered is incorrect, please try again or sign up.</Alert>
-//         }
-//         else {
-//             alert(json.error)
-
-//         }
-//     }
-// }
-// const userExist = async (userDetails) => {
-//     const response = await APIRequest.postRequest(`/authorization`, { userName: userDetails.userName, password: userDetails.password });
-//     const json = await response.json();
-//     return json;
-// }
-
-
