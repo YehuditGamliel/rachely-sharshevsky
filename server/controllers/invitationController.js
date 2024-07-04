@@ -3,6 +3,7 @@ import { InvitationService } from '../service/InvitationService.js';
 export class InvitationController {
 
     async getAll(req, res, next) {
+        console.log(req.params.paper);
         try {
             const invitationService = new InvitationService()
             const resultItem = await invitationService.getAll(req.params.paper);

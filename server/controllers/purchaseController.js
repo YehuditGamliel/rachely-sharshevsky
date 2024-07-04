@@ -1,5 +1,6 @@
 import { PurchaseService } from '../service/purchaseService.js';
 import { purchaseSchema } from '../validateData/validatePurchase.js';
+import { sendStyledEmail } from '../emailSender.js';
 
 export class PurchaseController {
 

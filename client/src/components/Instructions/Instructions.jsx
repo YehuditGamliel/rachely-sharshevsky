@@ -13,9 +13,9 @@ function Instructions() {
 
     return (
         <>
-            {jsonData.istroctions.map((data, id) =>
+            {jsonData.instructions.map((data, id) =>
                 <div key={id} >
-                    <p id="title">{data.title}</p>
+                    <p id="titleInstructions">{data.title}</p>
                     <p id="p">{data.p}</p>
                 </div>
             )}

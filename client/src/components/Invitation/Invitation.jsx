@@ -48,11 +48,14 @@ function Invitation() {
     setCurrentPaper({  title: 'kindOfGlasses'  })
   },[])
 
+
   return (
     <React.Fragment>
   {(()=>{
     console.log("userData",userData,"👌")
+    console.log("@@@@@@@@@@@@22222",paper.title)
     switch (paper.title) {
+      
       case 'login':
         return <Login paper='invition' />;
       case 'withOrWithoutPrescription':

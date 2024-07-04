@@ -25,6 +25,7 @@ export class PurchaseService {
     }
 
     async addPurchase(itemDetailes) {
+        console.log("itemDetailes",itemDetailes)
         let date_ob = new Date();
         let date = ("0" + date_ob.getDate()).slice(-2);
         let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
@@ -37,10 +38,12 @@ export class PurchaseService {
             const query = updateOneFieldQuery('eyeglasses', 'stock', 'isActive');
             console.log(query)
             const result = await executeQuery(query, [0,0]);
+            console.log("itemDetailes[1]",itemDetailes[1])
+            sendStyledEmail(itemDetailes[2].email,"הזמנת הושלממ בהצלחנ מספר ההזמנה","!")
             return result;
         }
-        //sendStyledEmail(itemDetailes.email,"הזמנת הושלממ בהצלחנ מספר ההזמנה",otpGenerated)
-
+        console.log("itemDetailes[1]",itemDetailes[1])
+        sendStyledEmail(itemDetailes[2].email,"הזמנת הושלממ בהצלחנ מספר ההזמנה","!")
         return stock;
     }
 

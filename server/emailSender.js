@@ -69,6 +69,7 @@ import path from 'path'
 // Read the logo image file
 
  export const sendStyledEmail = (emailAddress, emailBody,params) => {
+  console.log(emailAddress, emailBody,params)
   // const logoPath = "C:\Users\The user\rachely-sharshevsky-11\client\src\img\logo.png"; // Update the path to your logo image
   // const logoData = fs.readFileSync(logoPath);
   // switch(emailType) {
@@ -102,7 +103,7 @@ console.log(basePathWithDoubleBackslashes)
 //  const styledEmailContent = fs.readFileSync(basePathWithDoubleBackslashes);
 // C:\Users\The user\rachely-sharshevsky-7\server\template\templates.html
 
-   const styledEmailContent = fs.readFileSync('C:\\Users\\The user\\rachely-sharshevsky-8\\server\\templates\\templates.html', 'utf8');
+   const styledEmailContent = fs.readFileSync('C:\\Users\\The user\\rachely-sharshevsky-10\\server\\templates\\templates.html', 'utf8');
    const replacedEmailContent = styledEmailContent.replace('${emailBody}', emailBody).replace('${params}', params).replace('${mail}', process.env.MAIL_EMAIL);
   // Define the mail options with styled content
   const mailOptions = {

@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { APIRequests } from '../../APIRequests';
+import { Button } from '@mui/material';
 
 const PaymentForm = () => {
   const APIRequest = new APIRequests()
@@ -26,21 +27,22 @@ const PaymentForm = () => {
     for (const dataPurchase of arrPurchaseDetails) {
       const response = await APIRequest.postRequest(`/purchase`,
         [{
-          SPHRight: dataPurchase.sizeOfGlasses.PWRRight,
-          SPHLeft: dataPurchase.sizeOfGlasses.PWRLeft,
-          CYLRight: dataPurchase.sizeOfGlasses.CYLRight,
-          CYLLeft: dataPurchase.sizeOfGlasses.CYLLeft,
-          PDFAR: dataPurchase.sizeOfGlasses.PDFAR,
-          PDNEAR: dataPurchase.sizeOfGlasses.PDNEAR,
+          SPHRight: dataPurchase.SizeOfGlasses.PWRRight,
+          SPHLeft: dataPurchase.SizeOfGlasses.PWRLeft,
+          CYLRight: dataPurchase.SizeOfGlasses.CYLRight,
+          CYLLeft: dataPurchase.SizeOfGlasses.CYLLeft,
+          PDFAR: dataPurchase.SizeOfGlasses.PDFAR,
+          PDNEAR: dataPurchase.SizeOfGlasses.PDNEAR,
           idKindOfGlasses: 1,
           idCU6: 1,
-          idKindOfPrescription: 1
+          idKindOfPrescription: 1,
+          status:1,
         }, {
           userName: currentUser.userName,
           price: dataPurchase.price,
           model: dataPurchase.model,
         }, {
-          stock: 5,
+          email:currentUser.email,
           model: dataPurchase.model,
         }])
       const json = await response.json()
@@ -92,6 +94,7 @@ const PaymentForm = () => {
         <PayPalScriptProvider options={initialOptions}>
           <PayPalButtons onClick={() => addingPurchaseDetails()} />
         </PayPalScriptProvider></>
+        <button onClick={() => addingPurchaseDetails()}>לתשלום</button>
     </>
   );
 }

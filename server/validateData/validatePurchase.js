@@ -16,5 +16,5 @@ export const purchaseSchema = Joi.object({
     status: Joi.number().required(),
     model: Joi.string().required(),
     userName: Joi.string().min(2).max(30).required(),
-    stock: Joi.number().required(),
+    email: Joi.string().email().min(5).max(50).optional(), 
 }).options({ abortEarly: false });
