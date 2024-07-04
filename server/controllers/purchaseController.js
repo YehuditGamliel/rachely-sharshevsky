@@ -7,6 +7,7 @@ export class PurchaseController {
         try {
             const purchaseService = new PurchaseService()
             const resultItem = await purchaseService.getAllPurchase(req.query);
+            console.log(resultItem)
             if (resultItem.length != 0) {
                 res.status(200).json({ status: 200, data: resultItem });
             }
@@ -103,7 +104,31 @@ export class PurchaseController {
             }
             else {
                 const err = {}
-                err.statusCode = 404;
+                err.statusCode = 400;
+                err.message = ex;
+                next(err)
+            }
+        }
+        catch (ex) {
+            console.log("catch")
+            const err = {}
+            err.statusCode = 500;
+            err.message = ex;
+            next(err)
+        }
+    }
+
+    async getEyeDataId(req, res, next) {
+        try {
+            const purchaseService = new PurchaseService()
+            const resultItem = await purchaseService.getEyeDataId(req.params.eyeDataId);
+            console.log(resultItem,req.params.eyeDataId)
+            if (resultItem.length != 0) {
+                res.status(200).json({ status: 200, data: resultItem });
+            }
+            else {
+                const err = {}
+                err.statusCode = 400;
                 err.message = ex;
                 next(err)
             }
@@ -119,6 +144,7 @@ export class PurchaseController {
 
 
     async getPurchaseByStatus(req, res, next) {
+        console.log("ppppppppppppp")
         try {
             const purchaseService = new PurchaseService();
             const resultItems = await purchaseService.getPurchaseByStatus(req.params.status)

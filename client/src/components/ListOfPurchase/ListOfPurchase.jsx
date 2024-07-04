@@ -98,7 +98,9 @@ export default function ListOfPurchase() {
       </Menu>
       {console.log("👌", purchases)}
       <h2>ההזמנות שלנו</h2>
-      {purchases.map((purchase, index) => <div key={index} class="glasses">
+      {purchases.map((purchase, index) => 
+      
+      <div key={index} class="glasses">{console.log("par",purchase)}
         <EditPurchase purchase={purchase} statuses={statuses}/>
       </div>)
       }

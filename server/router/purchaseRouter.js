@@ -13,6 +13,7 @@ purchaseRouter.get("/date/:date", purchaseController.getPurchaseByDate)
 purchaseRouter.put("/:id", purchaseController.updatePurchase)
 purchaseRouter.get("/status/:status", purchaseController.getPurchaseByStatus)
 purchaseRouter.get("/userName/:userName", purchaseController.getuserData)
+purchaseRouter.get("/eyeData/:eyeDataId", purchaseController.getEyeDataId)
 
 
 export {

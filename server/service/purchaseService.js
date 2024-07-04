@@ -2,7 +2,7 @@
 import { executeQuery } from './db.js';
 import { executeTransactionQuery } from './transactionQueries.js';
 import { updateOneFieldQuery, getFromTwoTables, getAllSortedQuery, getByValues, getAllElementsQuery, getByValueQuery } from './queries.js'
-import{getAllFromStatusAndPueches,getFromPurchaseAndUsersAndRole,getFromPurchaseAndUsers}from './purchaceQueries.js'
+import{getAllFromStatusAndPueches, getAllortedFromdPuechesByStatus,getFromPurchaseAndEyeData,getFromPurchaseAndUsersAndRole,getFromPurchaseAndUsers}from './purchaceQueries.js'
 import { sendStyledEmail } from '../emailSender.js';
 export class PurchaseService {
 
@@ -53,31 +53,40 @@ export class PurchaseService {
     async getAllPurchaseStatus(itemDetailes) {
         const query = getAllElementsQuery('status', 'id,title');
         const result = await executeQuery(query);
+        console.log(result)
         return result;
     }
     
-    async getuserData(userName) {
+    async  getuserData(userName) {
         const query = getFromPurchaseAndUsersAndRole('r.roleDescription,email', 'userName');
         const result = await executeQuery(query,[userName]);
         console.log(userName,"userName")
         return result;
     }
 
+    async  getEyeDataId(id) {
+        const query = getFromPurchaseAndEyeData('e.SPHRight,e.SPHLeft,e.CYLRight,e.CYLLeft,e.PDFAR,e.PDNEAR ', 'idEyeData');
+        const result = await executeQuery(query,[id]);
+        console.log(id,"userName")
+        return result;
+    }
+
     async getAllPurchase(q) {
-        let query = null;
-        if (Object.keys(q)[0] !== 'sort') {
-            query = getAllFromStatusAndPueches( '*');
-        } else {
+        // let query = null;
+        // if (Object.keys(q)[0] !== 'sort') {
+           let  query = getAllFromStatusAndPueches( '*');
+        // } else {
             //ךסדר
-            query = getSortedFromStatusAndPueches('eyeglasses', '*', q, q.sort);
-        }
+        //     query = getAllortedFromSortedAndPueches( '*',  q.sort);
+        // }
         const result = await executeQuery(query);
         return result;
     }
     
     async getPurchaseByStatus(status) {
-        const query = getByValueQuery('purchase', 'status', '*');
-        const result = await executeQuery(query, [status]);
+        console.log(status)
+        const query = getAllortedFromdPuechesByStatus( '*',  'status');
+        const result = await executeQuery(query,[status]);
         console.log(result)
         return result;
     }

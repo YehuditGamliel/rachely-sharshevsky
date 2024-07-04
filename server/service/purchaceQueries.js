@@ -1,10 +1,17 @@
 export function getAllFromStatusAndPueches( columns) {
-    // const query = updateOneFieldQuery('purchase', 'id', itemDetails);
-    // const result = await executeQuery(query, [value]);
     const query = `SELECT ${columns} 
     FROM optics.purchase p INNER JOIN optics.status s
     ON p.status=s.id
     WHERE s.isActive=1 AND p.isActive=1  ;`;
+    console.log(query)
+    return query;
+
+}
+export function getAllortedFromdPuechesByStatus( columns,status) {
+    const query = `SELECT ${columns} 
+    FROM optics.purchase p INNER JOIN optics.status s
+    ON p.status=s.id
+    WHERE s.isActive=1 AND p.isActive=1 AND ${status}=?;  ;`;
     console.log(query)
     return query;
 
@@ -14,6 +21,14 @@ export function getFromPurchaseAndUsers( columns,valueCheck) {
     const query = `SELECT ${columns} 
     FROM optics.purchase p INNER JOIN optics.users u
     ON p.userName=u.userName
+    WHERE p.isActive=1 AND p.${valueCheck}=? ;`;
+    console.log(query)
+    return query;
+}
+export function getFromPurchaseAndEyeData( columns,valueCheck) {
+    const query = `SELECT ${columns} 
+    FROM optics.purchase p INNER JOIN optics.eyesData e
+    ON p.idEyeData=e.id
     WHERE p.isActive=1 AND p.${valueCheck}=? ;`;
     console.log(query)
     return query;

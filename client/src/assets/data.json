@@ -14,9 +14,8 @@
       "lastIndex":0
     }
     ],
-    "userDetails":[{"title":"תפקיד","value":"roleDescription"},{"title":"מייל","value":"roleDescription"}],
     
-    
+    "userDetails":[{"title":"תפקיד","value":"roleDescription"},{"title":"מייל","value":"email"}],
     "otpMessage":{
       "title":"ברגעים אלו נשלח אליך קוד חד פעמי לאימות ",
       "p":"מה הקוד שקיבלת?"
