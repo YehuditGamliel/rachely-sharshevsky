@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
-import { PaperContext } from "./../../../src/PaperProvider.jsx"
+import { PaperContext } from "./../../hook/PaperProvider.jsx"
 
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 250,

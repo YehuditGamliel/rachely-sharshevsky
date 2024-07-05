@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../StatusCheck/StatusCheck.css'
-import { UserContext } from "../../UserProvider.jsx";
+import { UserContext } from "../../hook/UserProvider.jsx";
 import jsonData from '../../assets/data.json'
 import { Button } from '@mui/material';
 import { APIRequests } from '../../APIRequests.js';

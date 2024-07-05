@@ -13,7 +13,7 @@ import * as React from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
-import { PaperContext } from "../../../PaperProvider.jsx"
+import { PaperContext } from "../../../hook/PaperProvider.jsx"
 // import '..Invitation/Invitation.css'
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 250,

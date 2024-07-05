@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Tab from '@mui/material/Tab';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
-import { UserContext } from '../../UserProvider.jsx'
+import { UserContext } from '../../hook/UserProvider.jsx'
 import Footer from '../Footer/Footer.jsx';
 import MenuIcon from '@mui/icons-material/Menu';
 

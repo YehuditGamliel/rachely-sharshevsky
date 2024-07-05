@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
-import { UserContext } from "../../UserProvider.jsx";
-import Invitation from '../Invitation/Invitation.jsx';
+import { EyeglassesContext } from "../../hook/EyeglassesProvider.jsx";
+import { UserContext } from "../../hook/UserProvider.jsx";
 import SingleEyeglasses from "../SingleEyeglasses/SingleEyeglasses.jsx";
 import '../SpecificInfo/SpecificInfo.css'
 import { APIRequests } from "../../APIRequests.js";

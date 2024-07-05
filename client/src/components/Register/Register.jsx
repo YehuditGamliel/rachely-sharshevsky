@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useContext, useEffect } from "react";
 import '../Register/Register.css'
 import Login from '../Login/Login.jsx'
-import { UserContext } from "../../UserProvider.jsx";
+import { UserContext } from "../..//hook/UserProvider.jsx";
 // import OtpInput from 'react-otp-input';
 // import OtpInput1 from "../OtpInput1/OtpInput1.jsx";
 import OTPInput, { ResendOTP } from "otp-input-react";

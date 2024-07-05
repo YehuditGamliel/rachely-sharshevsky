@@ -1,6 +1,6 @@
 
 import Dialog from '@mui/material/Dialog';
-import { PaperContext } from "../../../../src/PaperProvider.jsx"
+import { PaperContext } from "../../../hook/PaperProvider.jsx"
 import { APIRequests } from "./../../../APIRequests.js";
 import { useState, useContext, useEffect } from 'react';
 import DialogContent from '@mui/material/DialogContent';
@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-import { UserContext } from "../../../UserProvider.jsx";
+import { UserContext } from "../../../hook/UserProvider.jsx";
 import * as React from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';

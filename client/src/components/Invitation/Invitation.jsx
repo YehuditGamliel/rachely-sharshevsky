@@ -4,11 +4,11 @@ import { useState, useContext } from 'react';
 import './Invitation.css'
 import KindOfGlasses from './KindOfGlasses.jsx'
 import CU6 from './CU6/CU6'
-import { PaperContext } from "../../../src/PaperProvider.jsx"
+import { PaperContext } from "../../hook/PaperProvider.jsx"
 import WithOrWithoutPrescription from './WithOrWithoutPrescription/WithOrWithoutPrescription';
 import SizeOfGlasses from './SizeOfGlasses/SizeOfGlasses';
-import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
-import { UserContext } from '../../UserProvider.jsx';
+import { EyeglassesContext } from "../../hook/EyeglassesProvider.jsx";
+import { UserContext } from '../../hook/UserProvider.jsx';
 import Login from '../Login/Login.jsx';
 
 function Invitation() {

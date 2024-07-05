@@ -6,8 +6,8 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import { useState, useContext, useEffect } from 'react';
 import * as React from 'react';
-import { PaperContext } from "../../../PaperProvider.jsx"
-import { EyeglassesContext } from "../../../EyeglassesProvider.jsx";
+import { PaperContext } from "../../../hook/PaperProvider.jsx"
+import { EyeglassesContext } from "../../../hook/EyeglassesProvider.jsx";
 import jsonData from "../../../assets/data.json";
 import { APIRequests } from "../../../APIRequests.js";
 import useMediaQuery from '@mui/material/useMediaQuery';

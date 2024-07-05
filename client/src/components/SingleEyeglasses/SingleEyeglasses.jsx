@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useEffect ,useState, useContext } from 'react'
 
 import { useNavigate, useLocation } from 'react-router-dom';
-import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
-import {  UserContext } from "../../UserProvider.jsx";
+import { EyeglassesContext } from "../../hook/EyeglassesProvider.jsx";
+import {  UserContext } from "../../hook/UserProvider.jsx";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';

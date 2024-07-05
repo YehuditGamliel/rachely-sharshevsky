@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import '../SpecificInfo/SpecificInfo.css'
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
-import { EyeglassesContext } from "../../EyeglassesProvider.jsx";
+import { EyeglassesContext } from "../../hook/EyeglassesProvider.jsx";
 import { TextField, Button } from '@mui/material';
 import { APIRequests } from "../../APIRequests.js";
 import { eyeglassesSchema } from '../../../clientValidations.js';
