@@ -47,13 +47,16 @@ const PaymentForm = () => {
                     status: 1,
                 },
                 {
+                    
                     userName: currentUser.userName,
                     price: dataPurchase.price,
                     model: dataPurchase.model,
                 },
                 {
-                    email: currentUser.email,
+                    
                     model: dataPurchase.model,
+                },{
+                  email: currentUser.email,
                 }
             ]);
             const json = await response.json();

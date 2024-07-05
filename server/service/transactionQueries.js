@@ -18,19 +18,12 @@ async function executeTransactionQuery(date, params) {
             `INSERT INTO eyesdata (SPHRight, SPHLeft, CYLRight, CYLLeft, PDFAR, PDNEAR,idKindOfGlasses, idCU6, idKindOfPrescription)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, Object.values(params[0]));
         paramsOfPurchase = [...Object.values(params[1]), resultsEyeData.insertId]
-        console.log("paramsOfPurchase", paramsOfPurchase)
         await connection.query(
             `INSERT INTO purchase (userName, date, price, status, model, idEyeData)
              VALUES (?, ${date},?, 1 ,?, ?)`, paramsOfPurchase);
         await connection.query(
             `UPDATE eyeglasses SET stock = stock - 1
-             WHERE model = ?;`, Object.values(params[2]))
-        console.log("Object.values(params[2])", Object.values(params[2]))
-        
-        // [rows] = await connection.query(
-        //     `SELECT stock FROM eyeglasses WHERE model = ?;`, Object.values(params[2]));
-        //     resultStock=rows
-        console.log("resultStock", rows)
+             WHERE model = ?;`,Object.values(params[2]))
         await connection.commit();
     } catch (error) {
         if (connection) {
@@ -42,6 +35,6 @@ async function executeTransactionQuery(date, params) {
             connection.release();
         }
     }
-    return resultStock;
+    return resultsEyeData;
 }
 export { executeTransactionQuery };

@@ -1,29 +1,31 @@
 .brances {
   display: flex;
 }
-#titles{
+
+#titles {
   text-align: center;
 }
-#googleMap{
+
+#googleMap {
   height: 100%;
   width: 50%;
 }
-/* // Adjust styles for the left column (Google Maps) */
+
 #map {
-  flex: 1; /* Allow the map to take up the available space */
+  flex: 1;
 }
 
-  
-  #title {
-      font-size: 400%;
-      text-align: center; /* Add this line to center the text */
-      margin-bottom: 10px; /* Add spacing below the title */
-    }
+#title {
+  font-size: 400%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .branch-item {
   background-color: #f2f2f2;
   padding: 10px;
   margin: 10px;
-  flex: 1; /* Allow the itemTemplate to take up the available space */
+  flex: 1;
 }
 
 .branch-detail {
@@ -37,35 +39,36 @@
 .branch-phone {
   margin-bottom: 5px;
 }
+
 .branches {
-display: flex;
+  display: flex;
 }
 
 #map {
-flex: 0.4; /* Adjust the flex value to make the map narrower */
+  flex: 0.4;
 }
 
 #title {
-font-size: 400%;
-text-align: center;
-margin-bottom: 10px; /* Add spacing below the title */
+  font-size: 400%;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .branch-item {
-background-color: #f2f2f2;
-padding: 10px;
-margin: 10px;
-flex: 0.6; /* Adjust the flex value to make the itemTemplate wider */
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin: 10px;
+  flex: 0.6;
 }
 
 .branch-detail {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .branch-address,
 .branch-hours,
 .branch-days,
 .branch-phone {
-margin-bottom: 5px;
+  margin-bottom: 5px;
 }

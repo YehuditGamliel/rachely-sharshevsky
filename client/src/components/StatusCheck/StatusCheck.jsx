@@ -13,32 +13,47 @@ const StatusCheck = () => {
 
   const [status, setStatus] = useState('')
   const [numOfInvitation, setnumOfInvitation] = useState();
-  const[currentNavigate,setCurrentNavigate]=useState(false);
+  const [currentNavigate, setCurrentNavigate] = useState(false);
   const navigate = useNavigate();
   const { user, setCurrentUser } = useContext(UserContext);
   const APIRequest = new APIRequests()
+  
   useEffect(() => {
     // alert("pp")
-    console.log(location.pathname.split('/')[3],"url")
-    if(location.pathname.split('/')[3]!=undefined){
+    console.log(location.pathname.split('/')[3], "url")
+    if (location.pathname.split('/')[3] != undefined) {
       setCurrentNavigate(true)
       // history.pushState(null, '', `/eyeglasses/${location.pathname.split('/')[2]}/${location.pathname.split('/')[3]}/invitation`);
     }
-}, [])
+  }, [])
+
   const checkStatusCheck = () => {
+    fetch(`http://localhost:8082/purchase/getStatut`, {
+      method: 'POST',
+      body: JSON.stringify({
+        userName: user.userName,
+        idEyeData: numOfInvitation
 
-   
-
-    const response = APIRequest.postRequest(`/purchase/getStatut`, { userName: user.userName, id: numOfInvitation })
-    const json = response.json()
-    if (json.status != 200) {
-      alert("נתונים לא נכונים!")
-    }
-    else {
-      setStatus(json.data[0].status)
-    }
-  
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      }
+    }).then(response => response.json())
+      .then((json) => {
+        if (json.status != 200) {
+          alert("נתונים לא נכונים!")
+        }
+        else {
+          alert(json.data[0])
+          setStatus(json.data[0].title)
+        } 
+      })
   }
+
+  const exit=()=>{
+    navigate('./home')
+  }
+
   const handleClick = (event) => {
     localStorage.clear()
     removeCookie('token', { path: '/' });
@@ -51,8 +66,8 @@ const StatusCheck = () => {
 
   return (
     <>
-    {console.log("currentNavigate",currentNavigate)}
-     {currentNavigate ? <Invitation /> :
+      {console.log("currentNavigate", currentNavigate)}
+      {currentNavigate ? <Invitation /> :
         <div>
           {user.role === 0 ? (
             <>
@@ -64,7 +79,8 @@ const StatusCheck = () => {
                   <input type="number" placeholder="מספר הזמנה" min="100000" max="999999" onChange={handleInputChange} />
                   <button onClick={() => checkStatusCheck()}>לבדיקת סטטוס ההזמנה</button>
                   <p className="titleForIntormations">סטטוס ההזמנה שלך:</p>
-                  {status !== '' ? <p id="status">{jsonData.statusValue[1].status}</p> : null}
+                  {status !== '' ? <p id="status">{status}</p> : null}
+                  <button onClick={exit}>חזרה</button>
                 </div>
               </div>
             </>

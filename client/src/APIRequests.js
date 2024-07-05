@@ -3,25 +3,18 @@ import { allFaces } from "face-api.js";
 export class APIRequests {
 
     async postRequest(url, body) {
-        //const token = document.cookie(['x-access-token'])
         try {
             const response = await fetch('http://localhost:8082' + url, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(body)
             });
-            if (response.ok) {
-                return response;
-            } 
-            else {
-              throw({errorCode:response.status,errorText:response.statusText})
-            }
+            return response;
         } catch (error) {
-            alert(error.errorText);
+            throw(error.message)
         };
     }
 

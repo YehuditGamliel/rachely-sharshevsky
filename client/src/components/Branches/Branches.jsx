@@ -11,50 +11,28 @@ function Branches() {
   const [branches, setBranches] = useState([])
   const [branchMap, setBranchMap] = useState('');
   const APIRequest = new APIRequests()
-
   useEffect(() => {
     const fetchData = async () => {
-      try{
-         const response = await APIRequest.getRequest(`/branch`)
-      const json = await response.json();
-      setBranches([...json.data])
-      if (json.data[1])
+      try {
+        const response = await APIRequest.getRequest(`/branch`)
+        const json = await response.json();
+        setBranches([...json.data])
         setBranchMap(json.data[1]);
       }
-      catch(error){
-         alert(error)
+      catch (error) {
+        alert(error)
       }
     }
     fetchData()
   }, [])
 
-  const lookForCity = (event) => {
-    fetch(`http://localhost:8082/branch/${event.target.value}`, {
-      method: 'GET',
-
-    })
-      .then(response => response.json())
-      .then((json) => {
-        console.log(json.data)
-        if (json.status != 200) {
-          alert(json.error)
-        }
-        else {
-          setBranches([...json.data])
-        }
-      })
-  };
-
-
-
   const itemTemplate = (branch) => {
     const handleClickBranch = () => {
-      setBranchMap(branch); 
+      setBranchMap(branch);
     };
     return (
       <div className="branch-item" onClick={handleClickBranch}>
         <div className="branch-detail">
-
           <div className="branch-address"> EyeCenter  סניף{branch.number}{branch.strre}{branch.city}</div>
           <div className="branch-hours"> <AccessTimeIcon /> שעות פעילות:{branch.hours}</div>
           <div className="branch-days"><CalendarTodayIcon /> ימי פתיחה:{branch.days}</div>
@@ -71,8 +49,6 @@ function Branches() {
         <p>{dataJson.Branches[0].description}</p>
       </div>
       <div className="brances">
-
-
         <DataView value={branches} itemTemplate={itemTemplate} layout="list" />
         <div id="map">{branchMap ? (
           <GoogleMaps id="googleMap"

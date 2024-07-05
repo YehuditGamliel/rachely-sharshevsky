@@ -1,17 +1,14 @@
 
 import { executeQuery } from './db.js';
 import { addQuery,getByValueQuery } from './queries.js'
+
 export class EyesDataService {
 
-           ///נראה לי לא בשימוש
-    async addEyesData( itemDetailes) {
-        console.log("service");
-        console.log(Object.values(itemDetailes))
-        const query = addQuery('eyesdata','SPHRight,SPHLeft,CYLRight,CYLLeft,addLeft,addRight,PDFAR,PDNERAR');
-        const result = await executeQuery(query, Object.values(itemDetailes));
-        console.log("result",result)
-        return result;
-    }
+    // async addEyesData(itemDetailes) {
+    //     const query = addQuery('eyesdata','SPHRight,SPHLeft,CYLRight,CYLLeft,addLeft,addRight,PDFAR,PDNERAR');
+    //     const result = await executeQuery(query, Object.values(itemDetailes));
+    //     return result;
+    // }
 
     async getEyeDataByUsername(username) {
         const queryPurchase = getByValueQuery('purchase', 'userName', 'date,idEyeData');

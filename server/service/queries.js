@@ -39,9 +39,7 @@ export function addQuery(tableName, itemKeys)   {
         keys += element + ',';
         QuestionMark += "?,"
     })
-    
     const query = `INSERT INTO optics.${tableName} (${keys.slice(0, -1)}) VALUES (${QuestionMark.slice(0, -1)});`;
-   console.log(query)
     return query
 }
 
@@ -65,6 +63,7 @@ export function getByValue(tableName, columns,itemKey) {
 
 export function getByValueQuery(tableName, value, columns) {
     const query = `SELECT ${columns} FROM optics.${tableName}  WHERE ${value} = ?`;
+    console.log(query)
     return query
 }
 export function updateOneFieldQuery(tableName, value, columns) {

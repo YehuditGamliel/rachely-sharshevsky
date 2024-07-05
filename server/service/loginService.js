@@ -31,6 +31,7 @@ export class LoginService {
                     const result = await executeQuery(query2, [userName]);
                     resolve([true, result]);
                 }
+
             });
         });
     }
@@ -39,14 +40,12 @@ export class LoginService {
         const query = getByValue('users', 'hashPassword,role,email', 'userName');
         const resultData = await executeQuery(query, [data.userName]); 
         const verificationResult = await bcrypt.compare(data.password, resultData[0].hashPassword);
-        
         if(verificationResult){
             const token = jwt.sign({ username: data.userName }, "privateKey", { expiresIn: '500m' });
             return {verifyPassword:verificationResult,token:token,role: resultData[0].role,email:resultData[0].email}; 
         }
         else {
             return {verifyPassword:verificationResult}
-            // [false, 'Incorrect Password']
         }
     }
 
@@ -57,20 +56,28 @@ export class LoginService {
     }
  
     createUser = async (itemDetailes) => { 
-        var salt = bcrypt.genSaltSync(10);
-        var hash = bcrypt.hashSync(itemDetailes.password, salt);
-        const { password, ...itemDetailsWithoutPassword } = itemDetailes;
-        const keysWithoutPassword = Object.keys(itemDetailsWithoutPassword);
-        const valuesWithoutPassword = Object.values(itemDetailsWithoutPassword); 
-        const [otpGenerated,hashOtp] = generateOTP();
-        const query = addQuery('users',[...keysWithoutPassword,'otp','hashPassword']);
-        const newUser = await executeQuery(query, [...valuesWithoutPassword,hashOtp,hash]);
-        sendStyledEmail(itemDetailes.email,"להשלמת תהליך הרישום מצורך סיסמא חד פמית ",otpGenerated)
-        if (!newUser) {
-            return [false, 'Unable to sign you up'];
+        try{
+            var salt = bcrypt.genSaltSync(10);
+            var hash = bcrypt.hashSync(itemDetailes.password, salt);
+            const { password, ...itemDetailsWithoutPassword } = itemDetailes;
+            const keysWithoutPassword = Object.keys(itemDetailsWithoutPassword);
+            const valuesWithoutPassword = Object.values(itemDetailsWithoutPassword); 
+            const [otpGenerated,hashOtp] = generateOTP();
+            const query = addQuery('users',[...keysWithoutPassword,'otp','hashPassword']);
+            const newUser = await executeQuery(query, [...valuesWithoutPassword,hashOtp,hash]);
+            if(newUser==undefined){
+                const customError = new Error("Duplicate entry error");
+                customError.status = 1062;
+                throw customError.status;
+            }
+            return  {newUser:newUser,otpGenerated:otpGenerated}
         }
-        return [true, newUser];
+            catch (ex) {
+            console.log("exS",ex) 
+            throw ex;
+          }
     }
+
 
     async updatePassword(body){ 
         const query = updateQuery('users',  'userName', body.password);

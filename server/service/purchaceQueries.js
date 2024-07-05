@@ -33,6 +33,14 @@ export function getFromPurchaseAndEyeData( columns,valueCheck) {
     console.log(query)
     return query;
 }
+export function getStatusFromStatusSchema(){
+    const query = `SELECT title
+    FROM optics.purchase p INNER JOIN optics.status s
+    ON p.status=s.id AND p.userName=? AND p.idEyeData=? 
+    WHERE s.isActive=1 AND p.isActive=1  ;`;
+    console.log(query)
+    return query;
+}
 
 export function getFromPurchaseAndUsersAndRole( columns,valueCheck) {
     const query = `SELECT ${columns} 

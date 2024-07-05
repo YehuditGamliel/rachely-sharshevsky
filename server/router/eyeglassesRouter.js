@@ -5,7 +5,7 @@ import { verifyToken } from "../middleware/verifyToken.js";
 
 const eyeglassesRouter = express.Router();
 const eyeglassesController = new EyeglassesController();
-console.log("router")
+
 eyeglassesRouter.get("/kind/:kind/:model", eyeglassesController.getEyeglassesByModel)
 eyeglassesRouter.put("/:model", eyeglassesController.updateEyeGlasses)
 eyeglassesRouter.post("/", eyeglassesController.addEyeglasses)

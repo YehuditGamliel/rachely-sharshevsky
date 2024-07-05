@@ -36,12 +36,10 @@ function Home(props) {
     },
   }));
   return (<>
-  <WebcamGlassesOverlay/>
+  {/* <WebcamGlassesOverlay/>
         {branches.map((branch) => {
           return <option>{branch.street}{branch.number}</option>;
-        })}
-      
-   
+        })} */}
     <div id={style}>
       <div>
         <img id="img" src={header} />

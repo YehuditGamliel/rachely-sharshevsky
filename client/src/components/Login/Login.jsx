@@ -41,7 +41,7 @@ function Login({ paper = 'defaultPaperValue' }) {
     const handleClickOpen = () => {
 
     };
-    
+
     const handleClose = (id) => {
 
         console.log(id, "id")
@@ -65,9 +65,9 @@ function Login({ paper = 'defaultPaperValue' }) {
             navigate('./home')
         }
         else {
-           // alert("pp")
+            // alert("pp")
 
-          
+
         }
     };
     const navigate = useNavigate();
@@ -77,7 +77,7 @@ function Login({ paper = 'defaultPaperValue' }) {
                 const response = await APIRequest.getRequest('/roles');
                 const json = await response.json();
 
-                    setRoles([...json.data]);
+                setRoles([...json.data]);
             } catch (error) {
                 alert('An error occurred while fetching data');
                 console.error(error);
@@ -103,53 +103,31 @@ function Login({ paper = 'defaultPaperValue' }) {
     });
 
     const userExist = async (userDetails) => {
-        const response = await APIRequest.postRequest(`/authorization/login`, { userName: userDetails.userName, password: userDetails.password })
-        const json = await response.json();
-        return json;
-        // let response = await fetch(`http://localhost:8082/authorization`, {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         userName: userDetails.userName,
-        //         password: userDetails.password,
-        //     }),
-        //     headers: {
-        //         'Content-type': 'application/json; charset=UTF-8',
-        //     }
-        // })
-        // return response.json();
+        try {
+            const response = await APIRequest.postRequest(`/authorization/login`, { userName: userDetails.userName, password: userDetails.password })
+            console.log("response", response)
+            const json = await response.json();
+            return json;
+        } catch (error) {
+            alert("!משתמש לא קיים, בבקשה להרשם")
+        }
     }
 
     const login = async (user) => {
         let json = await userExist(user)
-        console.log("json", json)
-        if (json.status == 200) {
-            setCookie('token', json.token, { path: '/' });
-            localStorage.setItem('currentUser', JSON.stringify(
-                { userName: user.userName, email: json.email, role: json.role }));
-            setCurrentUser({ userName: user.userName, email: json.email, role: json.role })
-            if (json.role == 1) {
-                setOpen(true);
-            }
-            else {
-                if(paper!='defaultPaperValue')
-                    {
-                        navigate(`/eyeglasses/${location.pathname.split('/')[2]}/${location.pathname.split('/')[3]}/invitation`)
-                    }
-                    else{
-                        alert("deT")
-                        navigate('./home')
-                    }
-               
-            }
+        // setCookie('token', json.token, { path: '/' });
+        localStorage.setItem('currentUser', JSON.stringify(
+            { userName: user.userName, email: json.email, role: json.role }));
+        setCurrentUser({ userName: user.userName, email: json.email, role: json.role })
+        if (json.role == 1) {
+            setOpen(true);
         }
         else {
-            if (json.status == 400) {
-                return (
-                    <Alert severity="error">The username or password you entered is incorrect, please try again or sign up.</Alert>
-                );
+            if (paper != 'defaultPaperValue') {
+                navigate(`/eyeglasses/${location.pathname.split('/')[2]}/${location.pathname.split('/')[3]}/invitation`)
             }
             else {
-                alert(json.error)
+                navigate('./home')
             }
         }
     }
@@ -199,8 +177,8 @@ function Login({ paper = 'defaultPaperValue' }) {
     }
     return (
         <>
-        {console.log(registerOrLogin,"login")}
-           {console.log((location.pathname.split('/')[4]==undefined),location.pathname.split('/'),"ppp")}
+            {console.log(registerOrLogin, "login")}
+            {console.log((location.pathname.split('/')[4] == undefined), location.pathname.split('/'), "ppp")}
             {/* {alert("pp")} */}
             {(open) ?
                 //   <Button variant="outlined" onClick={handleClickOpen}>
@@ -245,10 +223,10 @@ function Login({ paper = 'defaultPaperValue' }) {
                                         <form onSubmit={handleSubmit(login)}>
                                             <div className='user-box'>
                                                 <input type='text' name='userName' {...register("userName",
-                                                    { required: true, minLength: 2 ,maxLength:15})} placeholder='שם משתמש' />
+                                                    { required: true, minLength: 2, maxLength: 15 })} placeholder='שם משתמש' />
                                                 {errors.username && errors.username.type === "minLength" &&
                                                     (<span className='span'>שם משתמש צריך להיות לפחות עם 2 תווים</span>)}
-                                                       {errors.username && errors.username.type === "maxLength" &&
+                                                {errors.username && errors.username.type === "maxLength" &&
                                                     (<span className='span'>שם משתמש לא יכול להיות יותר מ 15 תווים</span>)}
                                                 {errors.username && errors.username.type === "required" &&
                                                     (<span className='span'>שם משתמש שדה חובה</span>)}
@@ -266,11 +244,11 @@ function Login({ paper = 'defaultPaperValue' }) {
                                         </form>
                                         : <><p>{errorMassage}</p>
                                             <form onSubmit={handleSubmit2(handleChangePassword)}>
-                                                 <input type='text' name='userName' {...passwords("userName",
-                                                    { required: true, minLength: 2 ,maxLength:15})} placeholder='שם משתמש' />
+                                                <input type='text' name='userName' {...passwords("userName",
+                                                    { required: true, minLength: 2, maxLength: 15 })} placeholder='שם משתמש' />
                                                 {errors.username && errors.username.type === "minLength" &&
                                                     (<span className='span'>שם משתמש צריך להיות לפחות עם 2 תווים</span>)}
-                                                       {errors.username && errors.username.type === "maxLength" &&
+                                                {errors.username && errors.username.type === "maxLength" &&
                                                     (<span className='span'>שם משתמש לא יכול להיות יותר מ 15 תווים</span>)}
                                                 {errors.username && errors.username.type === "required" &&
                                                     (<span className='span'>שם משתמש שדה חובה</span>)}
@@ -294,7 +272,7 @@ function Login({ paper = 'defaultPaperValue' }) {
 
                             </div>
                                 : <Register paper1={paper} />
-                             
+
                         }</> : (<StatusCheck />)
 
 

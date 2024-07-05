@@ -2,8 +2,9 @@
 import { executeQuery } from './db.js';
 import { executeTransactionQuery } from './transactionQueries.js';
 import { updateOneFieldQuery, getFromTwoTables, getAllSortedQuery, getByValues, getAllElementsQuery, getByValueQuery } from './queries.js'
-import{getAllFromStatusAndPueches, getAllortedFromdPuechesByStatus,getFromPurchaseAndEyeData,getFromPurchaseAndUsersAndRole,getFromPurchaseAndUsers}from './purchaceQueries.js'
+import{getAllFromStatusAndPueches,getStatusFromStatusSchema ,getFromPurchaseAndEyeData,getFromPurchaseAndUsersAndRole,getFromPurchaseAndUsers}from './purchaceQueries.js'
 import { sendStyledEmail } from '../emailSender.js';
+
 export class PurchaseService {
 
     async updatePurchase(value, itemDetails) {
@@ -32,23 +33,14 @@ export class PurchaseService {
         let year = date_ob.getFullYear();
         let currentDate = (year + "-" + month + "-" + date);
         let dateToString = `"${currentDate}"`;
-        const stock = await executeTransactionQuery(dateToString, Object.values(itemDetailes));
-        console.log("stock",stock)
-        if(stock){
-            const query = updateOneFieldQuery('eyeglasses', 'stock', 'isActive');
-            console.log(query)
-            const result = await executeQuery(query, [0,0]);
-            console.log("itemDetailes[1]",itemDetailes[1])
-            sendStyledEmail(itemDetailes[2].email,"הזמנת הושלממ בהצלחנ מספר ההזמנה","!")
-            return result;
-        }
-        console.log("itemDetailes[1]",itemDetailes[1])
-        sendStyledEmail(itemDetailes[2].email,"הזמנת הושלממ בהצלחנ מספר ההזמנה","!")
-        return stock;
+        const result = await executeTransactionQuery(dateToString, Object.values(itemDetailes));
+        sendStyledEmail(itemDetailes[3].email,"הזמנת הושלממ בהצלחנ מספר ההזמנה",result.insertId)
+        return result;
     }
 
     async getStatus(itemDetailes) {
-        const query = getByValues('purchase', 'status', Object.keys(itemDetailes));
+        console.log(Object.values(itemDetailes))
+        const query = getStatusFromStatusSchema();
         const result = await executeQuery(query, Object.values(itemDetailes));
         return result;
     }

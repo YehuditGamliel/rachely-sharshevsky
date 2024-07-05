@@ -79,7 +79,7 @@ function SingleEyeglasses(props) {
 
   const displayEditingGlassesDetails = () => {
     
-    setCurrentEyeglasses({ "imgDisplay": props.imgDisplay, "model": props.model, "title": props.title, "price": props.price,"model":props.model })
+    setCurrentEyeglasses({ "imgDisplay": props.imgDisplay, "model": props.model, "title": props.title, "price": props.price })
     navigate(`/EditingGlasses/${location.pathname.split('/')[2]}/${props.model}`)
 
   }
