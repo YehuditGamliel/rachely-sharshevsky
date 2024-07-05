@@ -3,18 +3,33 @@ import Webcam from 'react-webcam';
 import * as faceapi from 'face-api.js';
 import '@tensorflow/tfjs';
 
+import logo from '../../img/logo.png';
 const WebcamGlassesOverlay = ({img}) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [glassesImg, setGlassesImg] = useState(null);
 
-
-
-  
   // Log the loading process step-by-step
   useEffect(() => {
     const loadModels = async () => {
       try {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         console.log('Loading Tiny Face Detector model...');
         await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
         console.log('Tiny Face Detector Model loaded');
@@ -35,26 +50,31 @@ const WebcamGlassesOverlay = ({img}) => {
   }, []);
   // Load glasses image with logging
   useEffect(() => {
-    const imgElement = new Image();
-console.log(img)
-    imgElement.src = img;
+    const loadGlassesImage = () => {
+      const imgElement = new Image();
+      imgElement.src = logo; // Use the imported glasses image
+      imgElement.onload = () => {
+        console.log('Glasses image loaded');
+        setGlassesImg(imgElement);
+      };
 
-     imgElement.crossOrigin = 'anonymous'
-    // img.src = '/without.png';
-     // Adjust path to your glasses image
-    imgElement.onload = () => {
-      console.log('Glasses image loaded');
-      setGlassesImg(imgElement);
+      imgElement.onerror = (error) => {
+        console.error('Error loading glasses image:', error);
+        alert(`Glasses image loading error: ${error.message}`);
+      };
     };
 
-
-
-    imgElement.onerror = (error) => {
-      console.error('Error loading glasses image:', error);
-      alert(`Glasses image loading error: ${error.message}`);
-    };
-
+    loadGlassesImage();
   }, []);
+
+
+
+
+
+
+
+
+
 
 
 
@@ -62,34 +82,29 @@ console.log(img)
   const drawGlasses = async () => {
     if (webcamRef.current && webcamRef.current.video.readyState === 4 && glassesImg) {
       const video = webcamRef.current.video;
+  
       try {
         console.log('Attempting to detect faces...');
         const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks();
+        
         if (detection) {
           const ctx = canvasRef.current.getContext('2d');
-          canvasRef.current.width = video.videoWidth;
-          canvasRef.current.height = video.videoHeight;
-
-          faceapi.matchDimensions(canvasRef.current, video);
-          const resizedDetection = faceapi.resizeResults(detection, {
-            width: video.videoWidth,
-            height: video.videoHeight,
-          });
-
-          const landmarks = resizedDetection.landmarks;
+  
+          // Process face landmarks
+          const landmarks = detection.landmarks;
           const leftEye = landmarks.getLeftEye();
           const rightEye = landmarks.getRightEye();
-
-          const leftEyeCenter = [leftEye[0].x, leftEye[0].y];
-          const rightEyeCenter = [rightEye[3].x, rightEye[3].y];
-
-          const glassesWidth = Math.hypot(leftEyeCenter[0] - rightEyeCenter[0], leftEyeCenter[1] - rightEyeCenter[1]) * 2.5;
-          const glassesHeight = (glassesImg.height / glassesImg.width) * glassesWidth;
-          const glassesX = leftEyeCenter[0] - glassesWidth / 2;
-          const glassesY = leftEyeCenter[1] - glassesHeight / 2;
-
+  
+          // Calculate glasses position and size
+          const glassesWidth = Math.abs(rightEye[0].x - leftEye[3].x) * 1.5;
+          const glassesHeight = glassesWidth * (glassesImg.height / glassesImg.width);
+          const glassesX = leftEye[0].x - glassesWidth * 0.2;
+          const glassesY = leftEye[0].y - glassesHeight * 0.4;
+  
+          // Draw the glasses on the canvas
           ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
           ctx.drawImage(glassesImg, glassesX, glassesY, glassesWidth, glassesHeight);
+  
           console.log('Glasses drawn at:', glassesX, glassesY, glassesWidth, glassesHeight);
         } else {
           console.log('No face detected');
@@ -100,8 +115,7 @@ console.log(img)
       }
     }
   };
-
-  return (
+    return (
     <div style={{position: 'relative', width: 'fit-content' }}>
       <Webcam
         ref={webcamRef}

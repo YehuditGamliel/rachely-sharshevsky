@@ -45,6 +45,10 @@ h2 {
       0px 0px 20px #41c1ba;
   
 }
+#payingTitle{
+    margin :0%;
+    margin-left: 15%;
+}
 button{
     display: inline-block;
 
@@ -90,7 +94,10 @@ button{
         align-items: center;
         margin: 4px;
         padding: 3px;}
-   
+        #payingTitle{
+            margin :0%;
+            margin-left: 2%;
+        }
 }
 #editPurchase{
     margin-left:20px;

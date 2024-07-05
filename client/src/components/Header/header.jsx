@@ -43,8 +43,6 @@ function Header(props) {
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         if (currentUser) {
             setCurrentUser({ userName: currentUser.userName, email: currentUser.email, role: currentUser.role })
-            // if(currentUser.role!=1)
-            //navigate('/my-account');
         }
     }, [location])
 
@@ -57,6 +55,10 @@ function Header(props) {
     }, [location]);
 
     useEffect(() => {
+         if (location.pathname === '/home') {
+            setLogin(false);
+            setStyle("activity")
+        }
         const storedCart = localStorage.getItem("ShoppingCart");
         if (storedCart) {
             const parsedCart = JSON.parse(storedCart);
