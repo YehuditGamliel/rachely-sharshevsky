@@ -61,6 +61,7 @@ function SingleEyeglasses(props) {
   const [glassesCamara , setGlassesCamara] = useState("")
 
   const buttonsFunc = () => {
+    console.log("eyeGlassesSingle",eyeglasses)
     return (<><Button onClick={() => displayEditingGlassesDetails()} variant="contained" > שינוי פרטים
     </Button>
       <Button onClick={() => deleteEyeGlasses(props.model, setIsExist)} variant="contained" >
@@ -77,14 +78,15 @@ function SingleEyeglasses(props) {
   }
 
   const displayEditingGlassesDetails = () => {
-    setCurrentEyeglasses({ "imgDisplay": props.imgDisplay, "model": props.model, "title": props.title, "price": props.price })
+    
+    setCurrentEyeglasses({ "imgDisplay": props.imgDisplay, "model": props.model, "title": props.title, "price": props.price,"model":props.model })
     navigate(`/EditingGlasses/${location.pathname.split('/')[2]}/${props.model}`)
 
   }
 
   return (
     <>
-
+{console.log(props,"props")}
       {isExist ?
         <Card id="cards" sx={{ maxWidth: 300 }}>
           <CardHeader

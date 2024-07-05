@@ -11,6 +11,7 @@ eyeglassesRouter.put("/:model", eyeglassesController.updateEyeGlasses)
 eyeglassesRouter.post("/", eyeglassesController.addEyeglasses)
 eyeglassesRouter.delete("/:model", eyeglassesController.deleteEyeglasses)
 eyeglassesRouter.get("/kind/:kind",verifyToken ,eyeglassesController.getEyeglassesByKind)
+eyeglassesRouter.get("/:model" ,eyeglassesController.getEyeglassesByModel)
 //eyeglassesRouter.get("/typeOfGlasses", eyeglassesController.getTypeOfGlasses)
 // eyeglassesRouter.get("/", eyeglassesController.getAllEyeglasses)
 

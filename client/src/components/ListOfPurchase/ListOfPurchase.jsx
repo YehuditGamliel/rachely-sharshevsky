@@ -99,7 +99,7 @@ export default function ListOfPurchase() {
       </Menu>
       {purchases.map((purchase, index) => 
       
-      <div key={index} class="glasses">{console.log("par",purchase)}
+      <div key={index} class="purchase">{console.log("par",purchase)}
         <EditPurchase id="editPurchase" purchase={purchase} statuses={statuses}/>
       </div>)
       }

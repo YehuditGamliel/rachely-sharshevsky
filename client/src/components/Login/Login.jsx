@@ -78,11 +78,7 @@ function Login({ paper = 'defaultPaperValue' }) {
                 const response = await APIRequest.getRequest('/roles');
                 const json = await response.json();
 
-                if (response.status !== 200) {
-                    alert(json.error);
-                } else {
                     setRoles([...json.data]);
-                }
             } catch (error) {
                 alert('An error occurred while fetching data');
                 console.error(error);
@@ -218,7 +214,6 @@ function Login({ paper = 'defaultPaperValue' }) {
                     aria-labelledby="responsive-dialog-title"
                 >
                     <DialogTitle id="responsive-dialog-title">
-                        {"Use Google's location service?"}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
@@ -246,49 +241,53 @@ function Login({ paper = 'defaultPaperValue' }) {
                         <>{
                             registerOrLogin ? <div className='login-background'>
                                 <div className='login-box'>
-                                    <button onClick={() => setRegister()}>Register</button>
+                                    <button onClick={() => setRegister()}>משתמש חדש</button>
                                     {!changePassword ?
                                         <form onSubmit={handleSubmit(login)}>
                                             <div className='user-box'>
                                                 <input type='text' name='userName' {...register("userName",
-                                                    { required: true, minLength: 2 })} placeholder='שם משתמש' />
+                                                    { required: true, minLength: 2 ,maxLength:15})} placeholder='שם משתמש' />
                                                 {errors.username && errors.username.type === "minLength" &&
-                                                    (<span className='span'>username must be a minimum of 2 characters long!</span>)}
+                                                    (<span className='span'>שם משתמש צריך להיות לפחות עם 2 תווים</span>)}
+                                                       {errors.username && errors.username.type === "maxLength" &&
+                                                    (<span className='span'>שם משתמש לא יכול להיות יותר מ 15 תווים</span>)}
                                                 {errors.username && errors.username.type === "required" &&
-                                                    (<span className='span'>username is required</span>)}
+                                                    (<span className='span'>שם משתמש שדה חובה</span>)}
                                             </div>
                                             <div className='user-box'>
                                                 <input type='password' name='password' {...register("password",
                                                     { required: true, minLength: 6 })} placeholder='סיסמא' />
                                                 {errors.password && errors.password.type === "minLength" &&
-                                                    (<span className='span'>password must be a minimum of 6 characters long!</span>)}
+                                                    (<span className='span'>סיסמא צריכה להיות לפחות עם 6 תווים</span>)}
                                                 {errors.password && errors.password.type === "required" &&
-                                                    (<span className='span'>password is required</span>)}
+                                                    (<span className='span'>סיסמא שדה חובה</span>)}
                                             </div>
-                                            <Link onClick={() => setChangePassword(true)}>change password</Link><br />
-                                            <button type='submit' className='submit'>submit</button>
+                                            <Link onClick={() => setChangePassword(true)}>שינוי סיסמא</Link><br />
+                                            <button type='submit' className='submit'>שליחה</button>
                                         </form>
                                         : <><p>{errorMassage}</p>
                                             <form onSubmit={handleSubmit2(handleChangePassword)}>
-                                                <input type='text' name='username' {...passwords("username",
-                                                    { required: true, minLength: 2 })} placeholder='usename' />
+                                                 <input type='text' name='userName' {...passwords("userName",
+                                                    { required: true, minLength: 2 ,maxLength:15})} placeholder='שם משתמש' />
                                                 {errors.username && errors.username.type === "minLength" &&
-                                                    (<span className='span'>username must be a minimum of 2 characters long!</span>)}
+                                                    (<span className='span'>שם משתמש צריך להיות לפחות עם 2 תווים</span>)}
+                                                       {errors.username && errors.username.type === "maxLength" &&
+                                                    (<span className='span'>שם משתמש לא יכול להיות יותר מ 15 תווים</span>)}
                                                 {errors.username && errors.username.type === "required" &&
-                                                    (<span className='span'>username is required</span>)}
+                                                    (<span className='span'>שם משתמש שדה חובה</span>)}
                                                 <input type='password' name='oldPassword'{...passwords("oldPassword",
                                                     { required: true, minLength: 6 })} placeholder='old Password' />
                                                 {errors2.oldPassword &&
-                                                    (<span className='span'>password must be a minimum of 6 characters long!</span>)}
+                                                    (<span className='span'>סיסמא צריכה להיות לפחות 6 תווים</span>)}
                                                 <input type='password' name='newPassword' {...passwords("newPassword",
                                                     { required: true, minLength: 6 })} placeholder='new Password' />
                                                 {errors2.newPassword &&
-                                                    (<span className='span'>password must be a minimum of 6 characters long!</span>)}
+                                                    (<span className='span'>סיסמא צריכה להכיל לפחות 6 תווים</span>)}
                                                 <input type='password' name='verifyPassword' {...passwords("verifyPassword",
                                                     { required: true, minLength: 6 })} placeholder='verify Password' />
                                                 {errors2.verifyPassword &&
-                                                    (<span className='span'>password must be a minimum of 6 characters long!</span>)}<br />
-                                                <button type='submit' className='submit'>change</button>
+                                                    (<span className='span'>סיסמא צריכה להכיל לפחות 6 תווים!</span>)}<br />
+                                                <button type='submit' className='submit'>שינוי</button>
 
                                             </form></>
                                     }

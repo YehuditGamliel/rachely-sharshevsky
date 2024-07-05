@@ -23,12 +23,13 @@ export function deleteQuery(tableName,value) {
     // const query = ` SET SQL_SAFE_UPDATES = 0;
     //  UPDATE optics.eyeglasses SET isActive =0 WHERE ${value} = ? AND isActive =1 SET
     //   SQL_SAFE_UPDATES = 1;; `;
-    const query = `UPDATE optics.eyeglasses SET isActive =false WHERE model = 12; `;
+    const query = `UPDATE optics.eyeglasses SET isActive =0 WHERE model = ?; `;
     return query
 }
 
 export function getFromTwoTablesByTwoValues(tableName1,tableName2, value1,value2, columns,valueToCheck,filter) {
     const query = `SELECT ${columns} FROM optics.${tableName1} u INNER JOIN optics.${tableName2} p ON u.${value1}=p.${value2} WHERE p.${valueToCheck}= ? AND u.isActive=1 LIMIT 5 OFFSET ${(filter._page - 1) * 5};`;
+    console.log(query)
     return query;
 }
 
@@ -96,7 +97,8 @@ export function updateQuery(tableName, value, itemKeys) {
             keys += ', ';
         }
     });
-    const query = `UPDATE optics.${tableName} SET ${keys} WHERE ${value} = ? AND isActive = 1`;
+    const query = `UPDATE optics.${tableName} SET ${keys} WHERE ${value} = ? AND isActive = 1;`;
+    console.log(query)
     return query;
 }
 

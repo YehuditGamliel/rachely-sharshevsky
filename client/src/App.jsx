@@ -54,7 +54,7 @@ function App() {
 
               <Route path="EditingGlasses">
                 <Route index element={<Eyeglasses />} />
-                <Route path=":eyeglassesModel" element={<EditingGlassesDetails />} />
+                <Route path=":kindOfEyeglasses/:eyeglassesModel" element={<EditingGlassesDetails />} />
               </Route>
             </Route>
             <Route path='*' element={<p>not found</p>} />

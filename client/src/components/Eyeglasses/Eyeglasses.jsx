@@ -23,8 +23,10 @@ function Eyeglasses() {
 
   useEffect(() => {
     const kindOfGlasses = location.pathname.split('/')[2];
+   
     const fetchData = async () => {
       if (loadMore && location.search == "") {
+       
         const response = await APIRequest.getRequest(
           `/eyeglasses/kind/${kindOfGlasses}/?_page=${eyeglassesPage[kindOfGlasses]}`);
         const json = await response.json();
@@ -106,10 +108,12 @@ function Eyeglasses() {
 
   return (<>
   {console.log("displayEyeglasses",displayEyeglasses)}
+  <div>
     <select id="sortBy" value={selectedValue} onChange={handleSortByChange}>
-      <option value="everyOne">every one</option>
-      <option value="price" >price</option>
+      <option value="everyOne">הכל</option>
+      <option value="price" >מחיר</option>
     </select>
+    </div>
     {console.log("displayEyeglasses", displayEyeglasses)}
     <div id='container'>
       {displayEyeglasses.map((eyeglasses, index) => <div key={index} class="glasses">

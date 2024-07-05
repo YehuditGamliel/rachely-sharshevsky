@@ -11,10 +11,11 @@ export class EyeglassesController {
             console.log("dssd")
             const eyeglassesService = new EyeglassesService();
             const result = await eyeglassesService.getEyeglassesByModel(req.params.model)
-            const resultItems = await eyeglassesService.getEyeglassesByCompany(result[0].company)
-            console.log("result",result,"resultItems",resultItems)
-            if(resultItems.length || result.length){
-                res.json({result:result , resultItems:resultItems})
+            console.log("result",result)
+            // const resultItems = await eyeglassesService.getEyeglassesByCompany(result[0].company)
+            // console.log("result",result,"resultItems",resultItems)
+            if( result.length){
+                res.json({ status: 200, data: result})
             }
         }
         catch (ex) {
@@ -24,6 +25,7 @@ export class EyeglassesController {
 
     async updateEyeGlasses(req, res, next) {
         try {
+            console.log("be",req.params.model, req.body)
             //let limit = Object.values(req.query).slice(1)
             const eyeglassesService = new EyeglassesService();
             const result = await eyeglassesService.updateEyeGlasses(req.params.model, req.body)
@@ -76,7 +78,7 @@ export class EyeglassesController {
 
     async getEyeglassesByKind(req, res, next) {
         try {
-            console.log(req.params.kind,req.query)
+            console.log("😁",req.params.kind,req.query)
             const eyeglassesService = new EyeglassesService();
             const resultItems = await eyeglassesService.getEyeglassesByKind(req.params.kind,req.query)
             if(resultItems.length){

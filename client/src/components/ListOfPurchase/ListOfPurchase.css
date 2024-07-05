@@ -13,7 +13,7 @@
     background-color: #fff;
     gap: 20px;
 }
-.glasses{
+.purchase{
     width: 90%;
     padding-left: 0%;
 }
@@ -67,7 +67,7 @@ button{
 .purchase-tags {
     margin-top: 10px;
 }
-.glasses{
+.purchase{
     margin-left: 5%;
 }
 #demo-positioned-button{
@@ -75,7 +75,7 @@ button{
     font-size: 30px;
 }
 @media screen and (max-width: 600px) {
-    .glasses{
+    .purchase{
          width: 98%;
     }
     h2{

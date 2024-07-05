@@ -17,6 +17,7 @@ export class EyeglassesService {
     async getEyeglassesByModel(model) {
         const query = getByValueQuery('eyeglasses','model','color,stock,description,BridgeWidth,lensWidth,company,material,imgDisplay,imgCamara');
         const result = await executeQuery(query, [model]);
+        console.log(result)
         return result;
     }
 
@@ -51,9 +52,10 @@ export class EyeglassesService {
     }
  
     async updateEyeGlasses(value, itemDetailsArray) {
-        const itemDetails = itemDetailsArray[0]; // Access the object inside the array
+        const itemDetails = itemDetailsArray; // Access the object inside the array
         const values = Object.values(itemDetails);
         const keys = Object.keys(itemDetails);
+        console.log(itemDetails,values,keys,[...values, value])
         const query = updateQuery('eyeglasses', 'model', keys);
         const result = await executeQuery(query, [...values, value]);
         return result;
