@@ -17,6 +17,7 @@ function Invitation() {
   const {user,setCurrentUser}=useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
+  
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   const [alert, setAlert] = useState()
   const navigate = useNavigate();
@@ -42,11 +43,18 @@ function Invitation() {
   }, [open]);
 
   React.useEffect(()=>{
-    console.log("😁",eyeglasses)
+    console.log("😁","useEffect",paper.title)
+    if(paper.title=='ShoppingCart'){
+
+       setCurrentPaper({  title: 'kindOfGlasses'  })
+    }
+    // setCurrentPaper({  title: 'kindOfGlasses'  })
+    
+    
     setOpen(true)
+    
     setScroll('paper');
-    setCurrentPaper({  title: 'kindOfGlasses'  })
-  },[])
+  },[paper.title])
 
 
   return (
