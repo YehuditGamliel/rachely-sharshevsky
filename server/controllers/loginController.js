@@ -38,8 +38,8 @@ export class LoginController {
                 }
            
             catch (ex) {
-                console.log("exC",ex.status)
-                next({ statusCode: ex.errno == 1062 ? 409 : 500, message: ex.message || ex });
+                console.log("exC",ex)
+                next({ statusCode: ex == 1062 ? 409 : 500, message: ex.message || ex });
               }
 
             }
