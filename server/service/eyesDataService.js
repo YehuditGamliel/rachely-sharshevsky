@@ -1,14 +1,8 @@
 
 import { executeQuery } from './db.js';
-import { addQuery,getByValueQuery } from './queries.js'
+import { addQuery,getByValueQuery } from '../queries.js/queries.js'
 
 export class EyesDataService {
-
-    // async addEyesData(itemDetailes) {
-    //     const query = addQuery('eyesdata','SPHRight,SPHLeft,CYLRight,CYLLeft,addLeft,addRight,PDFAR,PDNERAR');
-    //     const result = await executeQuery(query, Object.values(itemDetailes));
-    //     return result;
-    // }
 
     async getEyeDataByUsername(username) {
         const queryPurchase = getByValueQuery('purchase', 'userName', 'date,idEyeData');

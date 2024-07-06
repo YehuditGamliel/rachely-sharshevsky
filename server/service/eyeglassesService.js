@@ -1,6 +1,6 @@
 
 import { executeQuery } from './db.js';
-import {getFromTwoTablesByTwoValues,getByValueQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery ,deleteQuery,getFromTwoTables,getSortFromTwoTablesByTwoValues} from './queries.js'
+import {getFromTwoTablesByTwoValues,getByValueQuery, addQuery, getAllQuery,updateQuery,getAllSortedQuery ,deleteQuery,getFromTwoTables,getSortFromTwoTablesByTwoValues} from '../queries.js/queries.js'
 export class EyeglassesService {
 
     async  getAllEyeglasses(filter) {

@@ -7,7 +7,6 @@ async function executeQuery(query, params){
     const connection = await mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        //port:8080,
         database: process.env.DB_NAME,
         password: process.env.PASSWORD
     });
@@ -15,7 +14,7 @@ async function executeQuery(query, params){
     try {
         [results] = await connection.execute(query,params);
     } catch (err) {
-        console.log(err);
+       throw(err)
     }
     finally {
         connection.end();

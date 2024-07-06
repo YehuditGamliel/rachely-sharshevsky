@@ -1,7 +1,7 @@
 
 import { executeQuery } from './db.js';
 
-import {  getAllElementsQuery } from './queries.js'
+import {  getAllElementsQuery } from '../queries.js/queries.js'
 
 export class InvitationService {
 

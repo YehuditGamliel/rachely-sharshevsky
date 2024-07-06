@@ -19,9 +19,9 @@ export class APIRequests {
     }
 
     async getRequest(url) {
-        const cookies = document.cookie;
+        //const cookies = document.cookie;
         //alert(cookies)
-        const token = cookies.split(';').find(cookie => cookie.trim().startsWith('x-access-token'));
+        //const token = cookies.split(';').find(cookie => cookie.trim().startsWith('x-access-token'));
         //alert(token)
         try {
             const response = await fetch('http://localhost:8082' + url, {
@@ -29,7 +29,7 @@ export class APIRequests {
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
+                    // 'Authorization': `Bearer ${token}`,
                 },
             });
             return response;

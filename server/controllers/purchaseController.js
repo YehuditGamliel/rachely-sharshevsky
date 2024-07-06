@@ -7,91 +7,53 @@ export class PurchaseController {
     async getAllPurchase(req, res, next) {
         try {
             const purchaseService = new PurchaseService()
-            const resultItem = await purchaseService.getAllPurchase(req.query);
-            console.log(resultItem)
-            if (resultItem.length != 0) {
-                res.status(200).json({ status: 200, data: resultItem });
-            }
-            else {
-                const err = {}
-                err.statusCode = 404;
-                err.message = ex;
-            }
+            const resultItem = await purchaseService.getAllPurchase();
+            res.json({ data: resultItem });
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message: ex.message || ex})
         }
     }
 
     async getAllPurchaseStatus(req, res, next) {
         try {
             const purchaseService = new PurchaseService()
-            const resultItem = await purchaseService.getAllPurchaseStatus(req.query);
-            if (resultItem.length != 0) {
-                res.status(200).json({ status: 200, data: resultItem });
-            }
-            else {
-                const err = {}
-                err.statusCode = 404;
-                err.message = ex;
-            }
+            const resultItem = await purchaseService.getAllPurchaseStatus();
+            res.json({ data: resultItem });
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message: ex.message || ex})
         }
     }
 
     async addPurchase(req, res, next) {
-        const mergedObjectsData = (req.body).reduce((acc, obj) => {
-            return { ...acc, ...obj };
-        }, {});
-        let data = mergedObjectsData;
-        const { error } = purchaseSchema.validate(data)
-        if (error) {
-            console.log("error", error)
-            const err = {}
-            err.statusCode = 400;
-            err.message = "Incorrect data";
-            next(err)
-        }
         try {
+            // const mergedObjectsData = (req.body).reduce((acc, obj) => {
+            //     return { ...acc, ...obj };
+            // }, {});
+            // let data = mergedObjectsData;
+            // const { error } = purchaseSchema.validate(data)
+            // if (error) {
+            //     next({statusCode: ex.errno || 400, message: ex.message || ex})
+            // }
             const purchaseService = new PurchaseService()
             const resultItem = await purchaseService.addPurchase(req.body);
-            res.status(200).json({ status: 200, data: resultItem });
+            res.json({ data: resultItem });
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500 , message: ex.message || ex})
         }
     }
+
     async getStatus(req, res, next) {
         try {
             const purchaseService = new PurchaseService()
             const resultItem = await purchaseService.getStatus(req.body);
-            if (resultItem.length != 0) {
-                res.status(200).json({ status: 200, data: resultItem });
-            }
-            else {
-                const err = {}
-                err.statusCode = 404;
-                err.message = ex;
-                next(err)
-            }
+            console.log("resultItem",resultItem)
+            res.json({ data: resultItem });
         }
         catch (ex) {
-            console.log("catch")
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message: ex.message || ex})
         }
     }
 
@@ -99,23 +61,10 @@ export class PurchaseController {
         try {
             const purchaseService = new PurchaseService()
             const resultItem = await purchaseService.getuserData(req.params.userName);
-            console.log(resultItem)
-            if (resultItem.length != 0) {
-                res.status(200).json({ status: 200, data: resultItem });
-            }
-            else {
-                const err = {}
-                err.statusCode = 400;
-                err.message = ex;
-                next(err)
-            }
+            res.json({ data: resultItem });
         }
         catch (ex) {
-            console.log("catch")
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message: ex.message || ex})
         }
     }
 
@@ -123,85 +72,41 @@ export class PurchaseController {
         try {
             const purchaseService = new PurchaseService()
             const resultItem = await purchaseService.getEyeDataId(req.params.eyeDataId);
-            console.log(resultItem,req.params.eyeDataId)
-            if (resultItem.length != 0) {
-                res.status(200).json({ status: 200, data: resultItem });
-            }
-            else {
-                const err = {}
-                err.statusCode = 400;
-                err.message = ex;
-                next(err)
-            }
+            res.json({  data: resultItem });
         }
         catch (ex) {
-            console.log("catch")
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message: ex.message || ex})
         }
     }
 
-
     async getPurchaseByStatus(req, res, next) {
-        console.log("ppppppppppppp")
         try {
             const purchaseService = new PurchaseService();
             const resultItems = await purchaseService.getPurchaseByStatus(req.params.status)
-            if (resultItems.length != 0) {
-                return res.status(200).json({ status: 200, data: resultItems });
-            }
-            else {
-                const err = {}
-                err.statusCode = 404;
-                err.message = ex;
-                next(err)
-            }
-
+            res.json({ data: resultItems });
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message: ex.message || ex})
         }
     }
 
-
+    
     async updatePurchase(req, res, next) {
-        // const mergedObjectsData = (req.body).reduce((acc, obj) => {
-        //     return { ...acc, ...obj };
-        // }, {});
-        // let data = mergedObjectsData;
-        // const { error } = purchaseSchema.validate(data)
-        // if (error) {
-        //     console.log(error)
-        //     const err = {}
-        //     err.statusCode = 400;
-        //     err.message = "Incorrect data";
-        //     next(err)
-        // }
         try {
+            // const mergedObjectsData = (req.body).reduce((acc, obj) => {
+            //     return { ...acc, ...obj };
+            // }, {});
+            // let data = mergedObjectsData;
+            // const { error } = purchaseSchema.validate(data)
+            // if (error) {
+            //     next({statusCode: ex.errno || 400, message: ex.message || ex})
+            // }
             const purchaseService = new PurchaseService();
-            console.log(req.params.id, req.body)
             const result = await purchaseService.updatePurchase(req.params.id, req.body)
-            console.log(result)
-            if (result[0] == true) {
-                res.status(200).json({ status: 200, data: "" });
-            }
-            else {
-                const err = {}
-                err.statusCode = 400;
-                err.message = "Incorrect data";
-                next(err)
-            }
+            res.json({ data: result });
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message: ex.message || ex})
         }
     }
 
@@ -209,25 +114,10 @@ export class PurchaseController {
         try {
             const purchaseService = new PurchaseService();
             const resultItems = await purchaseService.getPurchaseByDate(req.params.date)
-            if (resultItems.length != 0) {
-                return res.status(200).json({ status: 200, data: resultItems });
-            }
-            else {
-                const err = {}
-                err.statusCode = 400;
-                err.message = "Incorrect data";
-                next(err)
-            }
+            res.json({ data: resultItems });
         }
         catch (ex) {
-            const err = {}
-            err.statusCode = 500;
-            err.message = ex;
-            next(err)
+            next({statusCode: ex.errno || 500, message: ex.message || ex})
         }
     }
-
-
-
-
 }

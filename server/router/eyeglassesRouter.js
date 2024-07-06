@@ -10,10 +10,8 @@ eyeglassesRouter.get("/kind/:kind/:model", eyeglassesController.getEyeglassesByM
 eyeglassesRouter.put("/:model", eyeglassesController.updateEyeGlasses)
 eyeglassesRouter.post("/", eyeglassesController.addEyeglasses)
 eyeglassesRouter.delete("/:model", eyeglassesController.deleteEyeglasses)
-eyeglassesRouter.get("/kind/:kind",verifyToken ,eyeglassesController.getEyeglassesByKind)
+eyeglassesRouter.get("/kind/:kind",eyeglassesController.getEyeglassesByKind)
 eyeglassesRouter.get("/:model" ,eyeglassesController.getEyeglassesByModel)
-//eyeglassesRouter.get("/typeOfGlasses", eyeglassesController.getTypeOfGlasses)
-// eyeglassesRouter.get("/", eyeglassesController.getAllEyeglasses)
 
 export {
     eyeglassesRouter

@@ -1,15 +1,12 @@
 import { useContext, useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../StatusCheck/StatusCheck.css'
 import { UserContext } from "../../hook/UserProvider.jsx";
-import jsonData from '../../assets/data.json'
 import { Button } from '@mui/material';
 import { APIRequests } from '../../APIRequests.js';
 import Invitation from '../Invitation/Invitation.jsx';
-import { useCookies } from 'react-cookie';
 
 const StatusCheck = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
   const [status, setStatus] = useState('')
   const [numOfInvitation, setnumOfInvitation] = useState();
@@ -19,35 +16,22 @@ const StatusCheck = () => {
   const APIRequest = new APIRequests()
   
   useEffect(() => {
-    // alert("pp")
     console.log(location.pathname.split('/')[3], "url")
     if (location.pathname.split('/')[3] != undefined) {
       setCurrentNavigate(true)
-      // history.pushState(null, '', `/eyeglasses/${location.pathname.split('/')[2]}/${location.pathname.split('/')[3]}/invitation`);
     }
   }, [])
 
-  const checkStatusCheck = () => {
-    fetch(`http://localhost:8082/purchase/getStatut`, {
-      method: 'POST',
-      body: JSON.stringify({
-        userName: user.userName,
-        idEyeData: numOfInvitation
-
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      }
-    }).then(response => response.json())
-      .then((json) => {
-        if (json.status != 200) {
-          alert("נתונים לא נכונים!")
-        }
-        else {
-          alert(json.data[0])
-          setStatus(json.data[0].title)
-        } 
-      })
+  const checkStatusCheck = async () => {
+    try{
+      const response = await APIRequest.postRequest(`/purchase/getStatut`,{ userName: user.userName,idEyeData: numOfInvitation})
+      const json = await response.json()
+      console.log("json",response)
+      setStatus(json.data[0].title)
+    }
+    catch(error){
+      alert("!הנתונים לא נכונים")
+    }
   }
 
   const exit=()=>{

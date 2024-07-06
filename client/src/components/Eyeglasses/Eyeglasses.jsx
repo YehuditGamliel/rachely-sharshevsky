@@ -23,15 +23,18 @@ function Eyeglasses() {
 
   useEffect(() => {
     const kindOfGlasses = location.pathname.split('/')[2];
-   
     const fetchData = async () => {
       if (loadMore && location.search == "") {
-       
+        console.log("@@@@@@@@@@@@@@@@@@@@22",kindOfGlasses,eyeglassesPage[kindOfGlasses])
         const response = await APIRequest.getRequest(
-          `/eyeglasses/kind/${kindOfGlasses}/?_page=${eyeglassesPage[kindOfGlasses]}`);
+          `/eyeglasses/kind/${kindOfGlasses}/?_page=${eyeglassesPage[kindOfGlasses]==1?
+            eyeglassesPage[kindOfGlasses]:
+            eyeglassesPage[kindOfGlasses]-1
+          }`);
+          console.log("response",response)
         const json = await response.json();
         console.log(json,"pppppppppp")
-          if (changeTypeGlasses == "notChange" || selectedValue == "everyOne") {
+          if (changeTypeGlasses == "notChange") {
             setDisplayEyglasses([...displayEyeglasses, ...json]);
           } else {
             setDisplayEyglasses([...json]);
@@ -48,6 +51,7 @@ function Eyeglasses() {
       }
     };
     fetchData();
+    
   }, [changeTypeGlasses, loadMore]);
 
   const handleSortByChange = async (event) => {
