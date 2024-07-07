@@ -13,10 +13,10 @@ function EditingGlassesDetails() {
     const [editedEyeglasses, setEditedEyeglasses] = useState({ ...eyeglasses });
     const [isEditing, setIsEditing] = useState(false);
     const APIRequest = new APIRequests();
+    
     const handleConfirmChanges = async () => {
         const { model, imgDisplay, ...editedEyeglassesWithoutModelForUpdate } = editedEyeglasses;
-        setEditedEyeglasses(editedEyeglassesWithoutModelForUpdate);
-        let valid = eyeglassesSchema.validate(editedEyeglasses);
+        let valid = eyeglassesSchema.validate(editedEyeglassesWithoutModelForUpdate);
         if (valid.error) {
             alert(valid.error.details[0].message);
             return;
@@ -26,6 +26,7 @@ function EditingGlassesDetails() {
                 "title": editedEyeglasses.title,
                 "color": editedEyeglasses.color,
                 "stock": editedEyeglasses.stock,
+                "price": editedEyeglasses.price,
                 "description": editedEyeglasses.description,
                 "BridgeWidth": editedEyeglasses.BridgeWidth,
                 "lensWidth": editedEyeglasses.lensWidth,
@@ -93,7 +94,6 @@ function EditingGlassesDetails() {
                         disabled={!isEditing}
                     />
                 ))}
-                {console.log(editedEyeglasses, "ppppppp")}
                 <div id="datas">
                     {isEditing || <Button onClick={handleEdit} variant="contained">עריכת פרטים</Button>}
                     {isEditing && <Button onClick={handleConfirmChanges} variant="contained" color="primary">אישור השינויים</Button>}

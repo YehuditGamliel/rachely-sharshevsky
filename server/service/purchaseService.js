@@ -10,11 +10,9 @@ export class PurchaseService {
     async updatePurchase(value, itemDetails) {
         const query = updateOneFieldQuery('purchase', 'idEyeData', 'status');
         const result = await executeQuery(query, [itemDetails.status, value]);
-
         if (itemDetails.status == 3) {
             const query2 = getFromPurchaseAndUsers('email', 'idEyeData')
             const result2 = await executeQuery(query2, [value]);
-            console.log(result2)
             if (!result2)
                 return [false, "IncorretData"]
             sendStyledEmail(result2[0].email, "המשקפים שלך מוכנות מספר הזמנתך הוא:", value)

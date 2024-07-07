@@ -2,7 +2,6 @@
 
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import TextField from '@mui/material/TextField';
 import { useState, useContext } from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -14,7 +13,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
 import { PaperContext } from "../../../hook/PaperProvider.jsx"
-// import '..Invitation/Invitation.css'
+
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 250,
   height: 110,
@@ -23,122 +22,114 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
 }));
 
-
-function SizeOfGlasses({  }) {
+function SizeOfGlasses({ }) {
   const theme = useTheme();
   const [sizeOfGlasses, setSizeOfGlasses] = useState({ "PWRRight": 0, "CYLRight": 0, "PWRLeft": 0, "CYLLeft": 0, "PDFAR": 62, "PDNEAR": 62 });
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [open, setOpen] = React.useState(true);
   const [plusNum, setPlusNum] = useState(false)
-  const { paper, setCurrentPaper,userData, setUpdateEyeData } = useContext(PaperContext);
-
+  const { paper, setCurrentPaper, userData, setUpdateEyeData } = useContext(PaperContext);
   const [minusNum, setMinusNum] = useState(false)
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
   };
-  const addInformation=()=>{
+
+  const addInformation = () => {
     setUpdateEyeData(data => ({
       ...data,
       ['SizeOfGlasses']: sizeOfGlasses,
-      
-    })); 
-    setCurrentPaper({'title':'CU6'})
+
+    }));
+    setCurrentPaper({ 'title': 'CU6' })
   }
   return (
-<>
-    {console.log(userData.kindOfGlasses === 3,userData.kindOfGlasses,"userData.withOrWithOutPrescription")}
-    
-    <Dialog
-      //fullScreen={fullScreen}
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="responsive-dialog-title"
-    >
-
-      <DialogTitle id="scroll-dialog-title" >נא להזין את פרטי המרשם שלך:</DialogTitle>
-      <DialogContent dividers={scroll === 'paper'}>
-        <p>עין ימין</p>
-        <Button
-          onClick={() => {
+    <>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="scroll-dialog-title" >נא להזין את פרטי המרשם שלך:</DialogTitle>
+        <DialogContent dividers={scroll === 'paper'}>
+          <p>עין ימין</p>
+          <Button
+            onClick={() => {
+              setPlusNum(true)
+              setMinusNum(false)
+            }
+            }>+</Button>
+          {(userData.kindOfGlasses != 3) ?
+            <Button onClick={() => {
+              setMinusNum(true)
+              setPlusNum(false)
+            }}>-</Button> : <></>}
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={plusNum ? PWROptionPlus : PWROptionMinus}
+            onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'PWRRight': value })}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="מספר PWR/SPH" />}
+          />
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={CYLOption}
+            onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'CYLRight': value })}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="CYLצילינדר" />} />
+          <p>עין שמאל</p>
+          <Button onClick={() => {
             setPlusNum(true)
             setMinusNum(false)
           }
           }>+</Button>
-          {(userData.kindOfGlasses != 3)?
-        <Button onClick={() => {
-          setMinusNum(true)
-          setPlusNum(false)
-        }}>-</Button>:<></>}
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={plusNum ? PWROptionPlus : PWROptionMinus}
-          onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'PWRRight': value })}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="מספר PWR/SPH" />}
-        />
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={CYLOption}
-          onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'CYLRight': value })}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="CYLצילינדר" />} />
-        <p>עין שמאל</p>
-        <Button onClick={() => {
-          setPlusNum(true)
-          setMinusNum(false)
-        }
-        }>+</Button>
-           {(userData.kindOfGlasses != 3)?
-        <Button onClick={() => {
-          setMinusNum(true)
-          setPlusNum(false)
-        }}>-</Button>:<></>}
-        <Autocomplete onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'PWRLeft': value })}
-          disablePortal
-          id="combo-box-demo"
-          options={plusNum ? PWROptionPlus : PWROptionMinus}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="מספר PWR/SPH" />} />
+          {(userData.kindOfGlasses != 3) ?
+            <Button onClick={() => {
+              setMinusNum(true)
+              setPlusNum(false)
+            }}>-</Button> : <></>}
+          <Autocomplete onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'PWRLeft': value })}
+            disablePortal
+            id="combo-box-demo"
+            options={plusNum ? PWROptionPlus : PWROptionMinus}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="מספר PWR/SPH" />} />
 
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={CYLOption}
-          onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'CYLLeft': value })}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="CYLצילינדר" />} />
-        <p>PD FAR : מרחק בין האישונים</p>
-        <Autocomplete
-          onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'PDFAR': value })}
-          disablePortal
-          id="combo-box-demo"
-          options={PDOptions}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="PD FAR" />} />
-        <p>PD NEAR : מרחק בין האישונים</p>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={PDOptions}
-          onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'PDNEAR': value })}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="PD NERA" />} />
-        <Button
-          onClick={() => addInformation()}
-        >אפשר להמשיך</Button>
-      </DialogContent>
-    </Dialog>
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={CYLOption}
+            onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'CYLLeft': value })}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="CYLצילינדר" />} />
+          <p>PD FAR : מרחק בין האישונים</p>
+          <Autocomplete
+            onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'PDFAR': value })}
+            disablePortal
+            id="combo-box-demo"
+            options={PDOptions}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="PD FAR" />} />
+          <p>PD NEAR : מרחק בין האישונים</p>
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={PDOptions}
+            onChange={(event, value) => setSizeOfGlasses({ ...sizeOfGlasses, 'PDNEAR': value })}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="PD NERA" />} />
+          <Button
+            onClick={() => addInformation()}
+          >אפשר להמשיך</Button>
+        </DialogContent>
+      </Dialog>
     </>);
-
 }
+
 const PWROptionMinus = Array.from(new Array(24 * 2)).map(
-  (_, index) => -(Math.floor(index / 4) + index % 4 * 0.25) ,);
+  (_, index) => -(Math.floor(index / 4) + index % 4 * 0.25),);
 
 const PWROptionPlus = Array.from(new Array(24 * 2)).map(
   (_, index) =>

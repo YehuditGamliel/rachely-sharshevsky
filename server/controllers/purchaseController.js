@@ -28,14 +28,12 @@ export class PurchaseController {
 
     async addPurchase(req, res, next) {
         try {
-            // const mergedObjectsData = (req.body).reduce((acc, obj) => {
-            //     return { ...acc, ...obj };
-            // }, {});
-            // let data = mergedObjectsData;
-            // const { error } = purchaseSchema.validate(data)
-            // if (error) {
-            //     next({statusCode: ex.errno || 400, message: ex.message || ex})
-            // }
+            const mergedObjectsData = Object.assign({}, ...req.body);
+            let data = mergedObjectsData;
+            const { error } = purchaseSchema.validate(data)
+            if (error) {
+                next({statusCode: ex.errno || 400, message: ex.message || ex})
+            }
             const purchaseService = new PurchaseService()
             const resultItem = await purchaseService.addPurchase(req.body);
             res.json({ data: resultItem });
@@ -93,14 +91,12 @@ export class PurchaseController {
     
     async updatePurchase(req, res, next) {
         try {
-            // const mergedObjectsData = (req.body).reduce((acc, obj) => {
-            //     return { ...acc, ...obj };
-            // }, {});
-            // let data = mergedObjectsData;
-            // const { error } = purchaseSchema.validate(data)
-            // if (error) {
-            //     next({statusCode: ex.errno || 400, message: ex.message || ex})
-            // }
+            const mergedObjectsData = Object.assign({}, ...req.body);
+            let data = mergedObjectsData;
+            const { error } = purchaseSchema.validate(data)
+            if (error) {
+                next({statusCode: ex.errno || 400, message: ex.message || ex})
+            }
             const purchaseService = new PurchaseService();
             const result = await purchaseService.updatePurchase(req.params.id, req.body)
             res.json({ data: result });

@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../StatusCheck/StatusCheck.css'
 import { UserContext } from "../../hook/UserProvider.jsx";
 import { Button } from '@mui/material';
@@ -16,7 +16,6 @@ const StatusCheck = () => {
   const APIRequest = new APIRequests()
   
   useEffect(() => {
-    console.log(location.pathname.split('/')[3], "url")
     if (location.pathname.split('/')[3] != undefined) {
       setCurrentNavigate(true)
     }
@@ -26,7 +25,6 @@ const StatusCheck = () => {
     try{
       const response = await APIRequest.postRequest(`/purchase/getStatut`,{ userName: user.userName,idEyeData: numOfInvitation})
       const json = await response.json()
-      console.log("json",response)
       setStatus(json.data[0].title)
     }
     catch(error){
@@ -38,19 +36,18 @@ const StatusCheck = () => {
     navigate('./home')
   }
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     localStorage.clear()
-    removeCookie('token', { path: '/' });
     navigate('./home')
     setCurrentUser({})
   }
+  
   const handleInputChange = (event) => {
     setnumOfInvitation(event.target.value);
   };
 
   return (
     <>
-      {console.log("currentNavigate", currentNavigate)}
       {currentNavigate ? <Invitation /> :
         <div>
           {user.role === 0 ? (

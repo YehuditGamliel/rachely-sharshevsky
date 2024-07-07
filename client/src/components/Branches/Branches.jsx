@@ -11,6 +11,7 @@ function Branches() {
   const [branches, setBranches] = useState([])
   const [branchMap, setBranchMap] = useState('');
   const APIRequest = new APIRequests()
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

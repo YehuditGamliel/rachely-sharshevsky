@@ -14,7 +14,7 @@ import { UserContext } from '../../hook/UserProvider.jsx'
 import Footer from '../Footer/Footer.jsx';
 import MenuIcon from '@mui/icons-material/Menu';
 
-function Header(props) {
+function Header() {
     const { user, setCurrentUser } = useContext(UserContext);
     const [style, setStyle] = useState("activity");
     const [login, setLogin] = useState('');
@@ -31,13 +31,10 @@ function Header(props) {
                 setShowNav(true);
             }
         };
-
         handleResize();
-
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
 
     useEffect(() => {
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -45,7 +42,6 @@ function Header(props) {
             setCurrentUser({ userName: currentUser.userName, email: currentUser.email, role: currentUser.role })
         }
     }, [location])
-
 
     useEffect(() => {
         if (location.pathname === '/home') {
@@ -92,7 +88,6 @@ function Header(props) {
                             aria-label="menu"
                             sx={{ mr: 2 }}
                         >
-                            {/* {showNav ? 'Hide Navigation' : 'Show Navigation'} */}
                             <MenuIcon />
                         </IconButton>
                     )}
@@ -100,14 +95,13 @@ function Header(props) {
                         <nav id="links">
        {/*  */}                     <ul>
                                 {user.role === 1 && window.innerWidth > 600 && (
-                                    <li> <Link to={"updateStatus"}>עדכון סטטוס הזמנה </Link></li>
+                                    <li> <Link to={"updateStatus"}>נתוני הזמנה</Link></li>
                                 )}                                <li> <Link to={"branches"}>סניפים</Link></li>
-                                <li> <Link to={"eyeglasses/sport"}> {window.innerWidth <= 600 ? 'ספורט' : 'משקפי ספורט'}</Link></li>
                                 <li> <Link to={"eyeglasses/sun"}> {window.innerWidth <= 600 ? 'שמש' : 'משקפי שמש'}</Link></li>
                                 <li> <Link to={"eyeglasses/women"}> {window.innerWidth <= 600 ? 'נשים' : 'משקפי נשים'}</Link></li>
                                 <li> <Link to={"eyeglasses/men"}> {window.innerWidth <= 600 ? 'גברים' : 'משקפי גברים'}</Link></li>
                                 {(window.innerWidth > 600) && <li> <Link to={"instructions"}>חדש! מדידת משקפיים</Link></li>}
-                                <li> <Link to={"/"}>אודותינו </Link></li>
+                                <li> <Link to={"/"}>דף הבית </Link></li>
                                 <li>
                                     <li><IconButton onClick={() => navigate('/ShoppingCart')} aria-label="cart">
                                         <StyledBadge badgeContent={cartLength} color="secondary">
@@ -119,7 +113,7 @@ function Header(props) {
                                         setLogin(<Login />)
                                         setStyle("notActivity")
                                     }} /></li>
-                                {/*  */}{user.userName ?
+                                    {user.userName ?
                                     <li><span> Hi {user.userName} </span></li>
                                     : <></>}
                             </ul>
@@ -129,7 +123,6 @@ function Header(props) {
                 <Outlet />
                 <Footer />
             </div>
-
             {login}
         </>
     );

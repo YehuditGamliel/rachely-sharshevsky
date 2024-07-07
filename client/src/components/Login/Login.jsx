@@ -93,15 +93,7 @@ function Login({ paper = 'defaultPaperValue' }) {
             password: '',
         }
     });
-    const { register: passwords, handleSubmit: handleSubmit2, formState: { errors: errors2 } } = useForm({
-        defaultValues: {
-            username: '',
-            oldPassword: '',
-            newPassword: '',
-            verifyPassword: ''
-        }
-    });
-
+    
     const userExist = async (userDetails) => {
         try {
             const response = await APIRequest.postRequest(`/authorization/login`, { userName: userDetails.userName, password: userDetails.password })
@@ -132,49 +124,11 @@ function Login({ paper = 'defaultPaperValue' }) {
         }
     }
 
-    const handleChangePassword = async (passwords) => {
-        if (passwords.newPassword != passwords.verifyPassword)
-            setErrorMassage("verity is not correct,try again")
-        else {
-            setErrorMassage(" ")
-            let json = await userExist({ username: passwords.username, password: passwords.oldPassword })
-            if (json.status == 200) {
-                const response = await APIRequest.putRequest(`/authorization/login`, { username: passwords.username, password: passwords.newPassword })
-                const json = response.json();
-                if (json.status != 200) {
-                    alert(json.error)
-                }
-                // fetch(`http://localhost:8082/authorization/login`, {
-                //     method: 'PUT',
-                //     body: JSON.stringify({
-                //         userId: json.data[0].id,
-                //         username: passwords.username,
-                //         password: passwords.newPassword
-                //     }),
-                //     headers: {
-                //         'Content-type': 'application/json; charset=UTF-8',
-                //     }
-                // }).then(response => response.json())
-                //     .then((json) => {
-                //         if (json.status != 200) {
-                //             alert(json.error)
-                //         }
-                //     })
-            }
-            else if (json.status == 400) {
-                <Alert severity="error">The username or password you entered is incorrect, please try again or sign up.</Alert>
-            }
-            else {
-                alert(json.error)
-
-            }
-        }
-    }
-
     const setRegister = () => {
         setRegisterOrLogin(false)
         setShowRegister(<Register />)
     }
+
     return (
         <>
             {console.log(registerOrLogin, "login")}
@@ -239,34 +193,10 @@ function Login({ paper = 'defaultPaperValue' }) {
                                                 {errors.password && errors.password.type === "required" &&
                                                     (<span className='span'>סיסמא שדה חובה</span>)}
                                             </div>
-                                            <Link onClick={() => setChangePassword(true)}>שינוי סיסמא</Link><br />
                                             <button type='submit' className='submit'>שליחה</button>
                                         </form>
                                         : <><p>{errorMassage}</p>
-                                            <form onSubmit={handleSubmit2(handleChangePassword)}>
-                                                <input type='text' name='userName' {...passwords("userName",
-                                                    { required: true, minLength: 2, maxLength: 15 })} placeholder='שם משתמש' />
-                                                {errors.username && errors.username.type === "minLength" &&
-                                                    (<span className='span'>שם משתמש צריך להיות לפחות עם 2 תווים</span>)}
-                                                {errors.username && errors.username.type === "maxLength" &&
-                                                    (<span className='span'>שם משתמש לא יכול להיות יותר מ 15 תווים</span>)}
-                                                {errors.username && errors.username.type === "required" &&
-                                                    (<span className='span'>שם משתמש שדה חובה</span>)}
-                                                <input type='password' name='oldPassword'{...passwords("oldPassword",
-                                                    { required: true, minLength: 6 })} placeholder='old Password' />
-                                                {errors2.oldPassword &&
-                                                    (<span className='span'>סיסמא צריכה להיות לפחות 6 תווים</span>)}
-                                                <input type='password' name='newPassword' {...passwords("newPassword",
-                                                    { required: true, minLength: 6 })} placeholder='new Password' />
-                                                {errors2.newPassword &&
-                                                    (<span className='span'>סיסמא צריכה להכיל לפחות 6 תווים</span>)}
-                                                <input type='password' name='verifyPassword' {...passwords("verifyPassword",
-                                                    { required: true, minLength: 6 })} placeholder='verify Password' />
-                                                {errors2.verifyPassword &&
-                                                    (<span className='span'>סיסמא צריכה להכיל לפחות 6 תווים!</span>)}<br />
-                                                <button type='submit' className='submit'>שינוי</button>
-
-                                            </form></>
+                                            </>
                                     }
                                 </div>
 

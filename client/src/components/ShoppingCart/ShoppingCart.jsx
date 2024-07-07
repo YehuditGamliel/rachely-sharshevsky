@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import './ShoppingCart.css';  // Import custom CSS for additional styling
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-
-
 export default function ShoppingCart() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -18,26 +16,6 @@ export default function ShoppingCart() {
     setProducts(storedProducts);
   }, []);
 
-  // Function to format price and rating
-  const formatCurrency = (value) => {
-    return value ? value.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : '';
-  };
-
-  // Function to get severity for the Tag component
-  // const getSeverity = (inventoryStatus) => {
-  //   switch (inventoryStatus) {
-  //     case 'INSTOCK':
-  //       return 'success';
-  //     case 'LOWSTOCK':
-  //       return 'warning';
-  //     case 'OUTOFSTOCK':
-  //       return 'danger';
-  //     default:
-  //       return null;
-  //   }
-  // };
-
-  // Template for rendering each product
   const itemTemplate = (product) => {
     return (
       <div className="col-12" key={product.id}>
@@ -46,7 +24,6 @@ export default function ShoppingCart() {
           <div className="product-detail">
             <div className="product-name">{product.company}</div>
             <div className="product-description">{product.title}</div>
-            {/* <div className="product-description">{product.amount > 1 ? product.amount / 2 + 0.5 : product.amount}</div> */}
             <div className="product-price">₪{product.price}</div>
             <div className="product-rating">
               <Rating value={product.rating} readOnly stars={5} cancel={false} />
@@ -64,15 +41,14 @@ export default function ShoppingCart() {
     );
   };
 
-  // Function to remove a product from the cart
   const removeFromCart = (productModel) => {
     let removedOne = false;
     const updatedProducts = products.filter((product) => {
       if (!removedOne && product.model === productModel) {
         removedOne = true;
-        return false; // Skip this item
+        return false; 
       }
-      return true; // Keep other items
+      return true; 
     });
     setProducts(updatedProducts);
     localStorage.setItem("ShoppingCart", JSON.stringify(updatedProducts));

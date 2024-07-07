@@ -44,20 +44,25 @@ function WithOrWithoutPrescription() {
       ['WithOrWithoutPrescription']: withOrWithoutPrescriptionId
     }));
     if (withOrWithoutPrescriptionId === 1) {
-      const response = await APIRequest.getRequest(`/eyesData/${user.userName}`);
-      const json = await response.json();
-      if (response.status !== 200) {
-        alert("אין מרשמים קודמים")
-        setUpdateEyeData(data => ({
-          ...data,
-          ['WithOrWithoutPrescription']: withOrWithoutPrescriptionId
-        }));
-      } else {
-        setCurrentPaper({ "title": 'CU6' })
-        setUpdateEyeData(data => ({
-          ...data,
-          ['sizeOfGlasses']: json.data
-        }));
+      try {
+        const response = await APIRequest.getRequest(`/eyesData/${user.userName}`);
+        const json = await response.json();
+        if (response.status !== 200) {
+          alert("אין מרשמים קודמים")
+          setUpdateEyeData(data => ({
+            ...data,
+            ['WithOrWithoutPrescription']: withOrWithoutPrescriptionId
+          }));
+        } else {
+          setCurrentPaper({ "title": 'CU6' })
+          setUpdateEyeData(data => ({
+            ...data,
+            ['sizeOfGlasses']: json.data
+          }));
+        }
+      }
+      catch (error) {
+        alert(error)
       }
     }
     else {
@@ -71,9 +76,14 @@ function WithOrWithoutPrescription() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await APIRequest.getRequest(`/invitation/withorwithoutprescription`);
-      const json = await response.json();
+      try {
+        const response = await APIRequest.getRequest(`/invitation/withorwithoutprescription`);
+        const json = await response.json();
         setwithOrWithoutPrescription([...json.data])
+      }
+      catch (error) {
+        alert(error)
+      }
     };
     fetchData();
   }, [])
@@ -81,9 +91,7 @@ function WithOrWithoutPrescription() {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+
   return (<Dialog
     fullScreen={fullScreen}
     open={open}

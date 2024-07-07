@@ -12,6 +12,7 @@ import jsonData from "../../../assets/data.json";
 import { APIRequests } from "../../../APIRequests.js";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 250,
   height: 110,
@@ -27,7 +28,7 @@ function CU6() {
   const [CU6, setCU6] = useState([])
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
   const [open, setOpen] = React.useState(true);
-  const { paper, setCurrentPaper, userData, setUpdateEyeData } = useContext(PaperContext)
+  const { setCurrentPaper, setUpdateEyeData } = useContext(PaperContext)
   const theme = useTheme();
   const APIRequest = new APIRequests()
 
@@ -43,7 +44,6 @@ function CU6() {
       ['id']: jsonData.idInvition[0].lastIndex++
     }));
     setCurrentPaper({ "title": paper })
-    
     console.log(eyeglasses.price + CU6[CU6Id].price, "price")
     setCurrentEyeglasses(prevState => {
       return { ...prevState, price: eyeglasses.price + CU6[CU6Id].price };
@@ -51,13 +51,18 @@ function CU6() {
   }
 
   const fetchData = async () => {
-    const response = await APIRequest.getRequest(`/invitation/CU6`);
-    const json = await response.json();
-    if (response.status !== 200) {
-      alert(json.error);
-    } else {
-      console.log("cu6", json.data)
-      setCU6([...json.data])
+    try{
+      const response = await APIRequest.getRequest(`/invitation/CU6`);
+      const json = await response.json();
+      if (response.status !== 200) {
+        alert(json.error);
+      } else {
+        console.log("cu6", json.data)
+        setCU6([...json.data])
+      }
+    }
+    catch(error){
+      alert(error)
     }
   };
 
@@ -67,9 +72,6 @@ function CU6() {
 
   const handleClick = (index) => {
     setSelected(index);
-  };
-  const handleClickOpen = () => {
-    setOpen(true);
   };
 
   const handleClose = () => {

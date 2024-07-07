@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useSound from 'use-sound';
 import r from '../img/r.mp3'
 import '../Instructions/Instructions.css'

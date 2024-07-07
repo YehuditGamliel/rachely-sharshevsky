@@ -1,21 +1,16 @@
-
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { useState, useContext, useEffect } from "react";
 import '../Register/Register.css'
 import Login from '../Login/Login.jsx'
 import { UserContext } from "../..//hook/UserProvider.jsx";
-// import OtpInput from 'react-otp-input';
-// import OtpInput1 from "../OtpInput1/OtpInput1.jsx";
 import OTPInput, { ResendOTP } from "otp-input-react";
 import { APIRequests } from "../../APIRequests";
 import JsonData from '../../assets/data.json'
 import Invitation from "../Invitation/Invitation.jsx";
-import { Divider } from "@mui/material";
 import { useCookies } from 'react-cookie';
 function Register({paper1= 'defaultPaperValue' }) {
   const { user, setCurrentUser } = useContext(UserContext);
-  // const [otp, setOtp] = useState('');
   const [extraDetails, setExterDetails] = useState(false)
   const [showLogin, setShowLogin] = useState(<Login />);
   const [loginOrRegister, setLoginOrRegister] = useState(true);
@@ -62,7 +57,6 @@ function Register({paper1= 'defaultPaperValue' }) {
           navigate('./home')
       }
       else {
-        
           setInvitation(true)
       }
       }
@@ -82,34 +76,27 @@ function Register({paper1= 'defaultPaperValue' }) {
       alert("Password verification is incorrect,try again!")
       return;
     }
-    const response = await APIRequest.postRequest(`/authorization/signUp`, { email: user.email, userName: user.userName, password: user.password });
-    
-    console.log("response",response)
-    if (response.status === 200) {
+    try{
+      const response = await APIRequest.postRequest(`/authorization/signUp`, { email: user.email, userName: user.userName, password: user.password });
+      console.log(response)
       const json = await response.json()
+      console.log(response,"response")
       setCookie('token', json.token, { path: '/' });
       setAuthorization(true)
-           // setCurrentEyeglasses({ userName: user.userName, email: user.email, password: user.password })
-
       setTempUse({userName: user.userName, email: user.email})
     }
-    else if (response.status == 400) {
-      alert(json.error)
-      setLogin(<Login />)
+    catch(error)
+    {
+      alert("שם משתמש קיים בבקשה להרשם מחדש")
     }
-    else {
-      alert(response.error)
-    }
+ 
   };
-
   const setLogin = () => {
     setLoginOrRegister(false)
     setShowLogin(<Login />)
-  
   }
 
   return (
-   
     <> 
     <div className="register-box">
       {invitation ? <Invitation /> :
@@ -121,7 +108,6 @@ function Register({paper1= 'defaultPaperValue' }) {
               <OTPInput value={OTP} onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} secure />
             </>
           ) : (
-            
             loginOrRegister ? (
               <>
                 <form onSubmit={handleSubmit(checkRegister)}>
@@ -172,7 +158,6 @@ function Register({paper1= 'defaultPaperValue' }) {
             ) : (
               showLogin
             )
-            
           )}
         </div>
       }

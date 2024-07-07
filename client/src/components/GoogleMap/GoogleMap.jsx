@@ -10,7 +10,6 @@ const mapStyles = {
 
 export class GoogleMap extends Component {
   _isMounted = false;
-
   state = {
     showingInfoWindow: false,
     activeMarker: null,

@@ -1,6 +1,7 @@
 
 import express from "express";
 import { PurchaseController } from '../controllers/purchaseController.js';
+import { verifyToken } from "../middleware/verifyToken.js";
 
 const purchaseRouter = express.Router();
 const purchaseController = new PurchaseController()
@@ -10,7 +11,7 @@ purchaseRouter.get("/", purchaseController.getAllPurchase)
 purchaseRouter.get("/status", purchaseController.getAllPurchaseStatus)
 purchaseRouter.post("/getStatut", purchaseController.getStatus)
 purchaseRouter.get("/date/:date", purchaseController.getPurchaseByDate)
-purchaseRouter.put("/:id", purchaseController.updatePurchase)
+purchaseRouter.put("/:id",verifyToken ,purchaseController.updatePurchase)
 purchaseRouter.get("/status/:status", purchaseController.getPurchaseByStatus)
 purchaseRouter.get("/userName/:userName", purchaseController.getuserData)
 purchaseRouter.get("/eyeData/:eyeDataId", purchaseController.getEyeDataId)

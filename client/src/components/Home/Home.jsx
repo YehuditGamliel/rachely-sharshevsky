@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
 import './Home.css';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
@@ -8,17 +8,11 @@ import jsonData from '../../assets/data.json'
 import r from '../img/r.mp3'
 import WebcamGlassesOverlay from '../WebcamGlassesOverlay/WebcamGlassesOverlay';
 
-function Home(props) {
+function Home() {
 
-  
-  const [cities, setCities] = useState([]);
-  const [branches, setBranches] = useState([])
-  const [search, setSearch] = useState('city')
-  const [branch, setBranch] = useState({})
   const [style, setStyle] = useState("activity")
   const [login, setLogin] = useState('');
   let location = useLocation();
-  let navigate = useNavigate()
 
   useEffect(() => {
     if (location.pathname === '/my-account') {
@@ -55,12 +49,9 @@ function Home(props) {
           {jsonData.dataHome[2].title}
         </p>
         <span id="text">{jsonData.dataHome[2].description}</span>
-
       </div>
     </div>
-
     {login}
-
   </>);
 }
 export default Home

@@ -1,4 +1,4 @@
-import { InvitationService } from '../service/InvitationService.js';
+import { InvitationService } from '../service/invitationService.js';
 
 export class InvitationController {
 
@@ -6,14 +6,11 @@ export class InvitationController {
         try {
             const invitationService = new InvitationService()
             const resultItem = await invitationService.getAll(req.params.paper);
-            if (resultItem.length != 0) {
-                res.json({ data: resultItem });
-            }
+            res.json({ data: resultItem });
         }
         catch (ex) {
-            next({statusCode: ex.errno || 500, message:ex.message || ex})
-
+                next({ statusCode: ex.errno || 500, message: ex.message || ex })
+            }
         }
-    }
 
 }
