@@ -8,7 +8,6 @@ const enterController = new EnterController()
 enterRouter.post("/login", enterController.Authentication)
 enterRouter.post("/signUp", enterController.addUser)
 enterRouter.post('/verify', enterController.verifyUserName);
-enterRouter.put("/",enterController.updatePassword)
 
 export {
     enterRouter

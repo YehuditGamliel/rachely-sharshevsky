@@ -43,16 +43,10 @@ function Invitation() {
   }, [open]);
 
   React.useEffect(()=>{
-    console.log("😁","useEffect",paper.title)
     if(paper.title=='ShoppingCart'){
-
        setCurrentPaper({  title: 'kindOfGlasses'  })
     }
-    // setCurrentPaper({  title: 'kindOfGlasses'  })
-    
-    
     setOpen(true)
-    
     setScroll('paper');
   },[paper.title])
 
@@ -60,10 +54,7 @@ function Invitation() {
   return (
     <React.Fragment>
   {(()=>{
-    console.log("userData",userData,"👌")
-    console.log("@@@@@@@@@@@@22222",paper.title)
     switch (paper.title) {
-      
       case 'login':
         return <Login paper='invition' />;
       case 'withOrWithoutPrescription':

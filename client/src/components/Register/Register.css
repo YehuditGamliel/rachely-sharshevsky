@@ -199,3 +199,7 @@
   color: white;
 }
 
+#buttonLogin{
+  display: flex;
+ margin-left:140px;
+}

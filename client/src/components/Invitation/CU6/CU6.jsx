@@ -44,7 +44,6 @@ function CU6() {
       ['id']: jsonData.idInvition[0].lastIndex++
     }));
     setCurrentPaper({ "title": paper })
-    console.log(eyeglasses.price + CU6[CU6Id].price, "price")
     setCurrentEyeglasses(prevState => {
       return { ...prevState, price: eyeglasses.price + CU6[CU6Id].price };
     });
@@ -57,7 +56,6 @@ function CU6() {
       if (response.status !== 200) {
         alert(json.error);
       } else {
-        console.log("cu6", json.data)
         setCU6([...json.data])
       }
     }

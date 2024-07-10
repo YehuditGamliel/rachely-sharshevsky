@@ -6,10 +6,10 @@ import { verifyToken } from "../middleware/verifyToken.js";
 const eyeglassesRouter = express.Router();
 const eyeglassesController = new EyeglassesController();
 
-eyeglassesRouter.get("/kind/:kind/:model", eyeglassesController.getEyeglassesByModel)
+eyeglassesRouter.get("/kind/:kind/:model",eyeglassesController.getEyeglassesByModel)
 eyeglassesRouter.put("/:model", eyeglassesController.updateEyeGlasses)
-eyeglassesRouter.post("/", verifyToken,eyeglassesController.addEyeglasses)
-eyeglassesRouter.delete("/:model", verifyToken,eyeglassesController.deleteEyeglasses)
+eyeglassesRouter.post("/",eyeglassesController.addEyeglasses)
+eyeglassesRouter.delete("/:model",eyeglassesController.deleteEyeglasses)
 eyeglassesRouter.get("/kind/:kind",eyeglassesController.getEyeglassesByKind)
 eyeglassesRouter.get("/:model" ,eyeglassesController.getEyeglassesByModel)
 

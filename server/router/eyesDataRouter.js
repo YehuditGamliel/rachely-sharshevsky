@@ -7,7 +7,6 @@ const eyesDataController = new EyesDataController();
 
 eyesDataRouter.get("/:userName", eyesDataController.getEyeDataByUsername)
 
-
 export {
     eyesDataRouter
 }

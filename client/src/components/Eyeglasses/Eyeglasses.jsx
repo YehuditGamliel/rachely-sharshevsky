@@ -8,7 +8,7 @@ function Eyeglasses() {
   const [selectedValue, setSelectedValue] = useState('everyOne');
   const [displayEyeglasses, setDisplayEyglasses] = useState([]);
   const [loadMore, setLoadMore] = useState(true)
-  const [eyeglassesPage, setEyeglassesPage] = useState({ men: 1, women: 1, children: 1, sport: 1 });
+  const [eyeglassesPage, setEyeglassesPage] = useState({ men: 1, women: 1, sun: 1, sport: 1 });
   const [changeTypeGlasses, setChangeTypeGlasses] = useState("change");
   const APIRequest = new APIRequests()
   const navigate = useNavigate();
@@ -141,7 +141,7 @@ function Eyeglasses() {
       <button onClick={() => { setLoadMore(true); 
         setChangeTypeGlasses("notChange")
         cheackLocation();
-      }}>load more</button>
+      }}>תראו לי עוד</button>
     </div>
   </>)
 }

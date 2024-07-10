@@ -4,8 +4,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import '../Login/Login.css'
 import StatusCheck from '../StatusCheck/StatusCheck.jsx';
 import Register from '../Register/Register'
-import Alert from '@mui/material/Alert';
-import { Password } from 'primereact/password';
 import { UserContext } from "../../hook/UserProvider.jsx";
 import { useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
@@ -17,34 +15,24 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { APIRequests } from "../../APIRequests.js";
-import { useCookies } from 'react-cookie';
-
 
 
 function Login({ paper = 'defaultPaperValue' }) {
     let location = useLocation();
-    const [value, setValue] = useState('');
     const [changePassword, setChangePassword] = useState(false)
     const [errorMassage, setErrorMassage] = useState("")
     const { user, setCurrentUser } = useContext(UserContext);
     const [showRegister, setShowRegister] = useState('');
     const [registerOrLogin, setRegisterOrLogin] = useState(true)
-    const [open, setOpen] = React.useState(false);
-    const [loginOrNot, setLoginOrNot] = useState(true);
+    const [open, setOpen] = useState(false);
     const [roles, setRoles] = useState([]);
     const APIRequest = new APIRequests()
-    const [cookies, setCookie] = useCookies(['token']);
-    // const[showDialog,setShowDialog]=useState(false)
     const theme = useTheme();
+    const navigate = useNavigate();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    const handleClickOpen = () => {
-
-    };
-
+    
     const handleClose = (id) => {
-
-        console.log(id, "id")
         if (id == 0) {
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
             currentUser.role = 0;
@@ -56,34 +44,22 @@ function Login({ paper = 'defaultPaperValue' }) {
                 };
             });
         }
-
         setOpen(false);
-
-        //   setLoginOrNot(false)
-
         if (paper == 'defaultPaperValue') {
             navigate('./home')
         }
-        else {
-            // alert("pp")
-
-
-        }
     };
-    const navigate = useNavigate();
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await APIRequest.getRequest('/roles');
                 const json = await response.json();
-
                 setRoles([...json.data]);
             } catch (error) {
-                alert('An error occurred while fetching data');
-                console.error(error);
+               alert(error)
             }
         };
-
         fetchData();
     }, [open])
 
@@ -97,7 +73,6 @@ function Login({ paper = 'defaultPaperValue' }) {
     const userExist = async (userDetails) => {
         try {
             const response = await APIRequest.postRequest(`/authorization/login`, { userName: userDetails.userName, password: userDetails.password })
-            console.log("response", response)
             const json = await response.json();
             return json;
         } catch (error) {
@@ -107,7 +82,6 @@ function Login({ paper = 'defaultPaperValue' }) {
 
     const login = async (user) => {
         let json = await userExist(user)
-        // setCookie('token', json.token, { path: '/' });
         localStorage.setItem('currentUser', JSON.stringify(
             { userName: user.userName, email: json.email, role: json.role }));
         setCurrentUser({ userName: user.userName, email: json.email, role: json.role })
@@ -131,13 +105,7 @@ function Login({ paper = 'defaultPaperValue' }) {
 
     return (
         <>
-            {console.log(registerOrLogin, "login")}
-            {console.log((location.pathname.split('/')[4] == undefined), location.pathname.split('/'), "ppp")}
-            {/* {alert("pp")} */}
             {(open) ?
-                //   <Button variant="outlined" onClick={handleClickOpen}>
-                //     Open responsive dialog
-                //   </Button>
                 <Dialog
                     fullScreen={fullScreen}
                     open={open}
@@ -152,19 +120,11 @@ function Login({ paper = 'defaultPaperValue' }) {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-
-                        {console.log(roles)}
                         {roles.map((role, index) =>
                             <Button autoFocus onClick={() => handleClose(role.id)}>
                                 {role.roleDescription}
                             </Button>)
                         }
-                        {/* <Button autoFocus onClick={()=>handleClose(1)}>
-           כמנהל
-          </Button>
-          <Button onClick={()=>handleClose(0)} autoFocus>
-            כלקוח
-          </Button> */}
                     </DialogActions>
                 </Dialog>
                 : <>
@@ -202,13 +162,9 @@ function Login({ paper = 'defaultPaperValue' }) {
 
                             </div>
                                 : <Register paper1={paper} />
-
                         }</> : (<StatusCheck />)
-
-
                     }</>}
         </>
-
     )
 
 }

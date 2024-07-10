@@ -97,10 +97,9 @@ export default function ListOfPurchase() {
         {statuses.map((status, index) => <MenuItem onClick={() => handleClose(status.id)}>הזמנות ש{status.title}</MenuItem>)}
         <MenuItem onClick={() => handleClose(0)}>כל ההזמנות </MenuItem>
       </Menu>
-      {console.log(purchases, "purchases")}
+
       {purchases.map((purchase, index) =>
-        <div key={index} class="purchase">{console.log("par", purchase, purchase
-        )}
+        <div key={index} class="purchase">
           <EditPurchase id="editPurchase" purchase={purchase} statuses={statuses} />
         </div>)
       }

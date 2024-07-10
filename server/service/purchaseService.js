@@ -15,7 +15,7 @@ export class PurchaseService {
             const result2 = await executeQuery(query2, [value]);
             if (!result2)
                 return [false, "IncorretData"]
-            sendStyledEmail(result2[0].email, "המשקפים שלך מוכנות מספר הזמנתך הוא:", value)
+            return [true, "sendEmail",result2[0].email,value];
         }
         return [true, "statusUpdate"];
     }
@@ -28,8 +28,8 @@ export class PurchaseService {
         let currentDate = (year + "-" + month + "-" + date);
         let dateToString = `"${currentDate}"`;
         const result = await executeTransactionQuery(dateToString, Object.values(itemDetailes));
-        sendStyledEmail(itemDetailes[3].email,"הזמנת הושלממ בהצלחנ מספר ההזמנה",result.insertId)
-        return result;
+        console.log("result",result)
+        return [itemDetailes[3].email,result.insertId];
     }
 
     async getStatus(itemDetailes) {

@@ -54,6 +54,7 @@ function EditPurchase({ purchase, statuses }) {
     setStatus(selectedValue);
   };
 
+
   const handleClick = (event) => {
     fetch(`http://localhost:8082/purchase/${purchase.idEyeData}`, {
       method: 'PUT',

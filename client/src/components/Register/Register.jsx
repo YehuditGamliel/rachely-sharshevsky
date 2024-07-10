@@ -3,15 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useContext, useEffect } from "react";
 import '../Register/Register.css'
 import Login from '../Login/Login.jsx'
-import { UserContext } from "../..//hook/UserProvider.jsx";
 import OTPInput, { ResendOTP } from "otp-input-react";
 import { APIRequests } from "../../APIRequests";
 import JsonData from '../../assets/data.json'
 import Invitation from "../Invitation/Invitation.jsx";
-import { useCookies } from 'react-cookie';
+
 function Register({paper1= 'defaultPaperValue' }) {
-  const { user, setCurrentUser } = useContext(UserContext);
-  const [extraDetails, setExterDetails] = useState(false)
   const [showLogin, setShowLogin] = useState(<Login />);
   const [loginOrRegister, setLoginOrRegister] = useState(true);
   const [authorization, setAuthorization] = useState(false)
@@ -19,7 +16,7 @@ function Register({paper1= 'defaultPaperValue' }) {
   const APIRequest = new APIRequests();
   const [tempUser,setTempUse]=useState()
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(['token']);
+
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       userName: '',
@@ -31,7 +28,6 @@ function Register({paper1= 'defaultPaperValue' }) {
 
   const [OTP, setOTP] = useState("");
   useEffect(() => {
-  
     if (OTP.length === 6) {
       verificationOtp();
       console.log('Starting function after OTP entry:', OTP);
@@ -40,29 +36,18 @@ function Register({paper1= 'defaultPaperValue' }) {
   }, [OTP]);
 
   const verificationOtp = async () => {
-    const response = await APIRequest.postRequest(`/authorization/verify`, { userName: tempUser.userName, otp: OTP });
-    const json = await response.json();
-    console.log(json)
-    if (json.status == 200) {
-      if (json.data[0] == false)
-        if (json.data[1] == "User not found")
-          alert("משתמש לא קיים!")
+    try{
+      const response = await APIRequest.postRequest(`/authorization/verify`, { userName: tempUser.userName, otp: OTP });
+          localStorage.setItem('currentUser', JSON.stringify({ userName: tempUser.userName, email: tempUser.email,role:0 }))
+          if (paper1 == 'defaultPaperValue') {
+            navigate('./home')
+          }
         else {
-          alert("הקוד שהוזן לא תקין , אנא בקש קוד חדש ונסה שנית")
+            setInvitation(true)
         }
-      else {
-        console.log(tempUser,"💕",paper1 == 'defaultPaperValue')
-        localStorage.setItem('currentUser', JSON.stringify({ userName: tempUser.userName, email: tempUser.email,role:0 }))
-        if (paper1 == 'defaultPaperValue') {
-          navigate('./home')
-      }
-      else {
-          setInvitation(true)
-      }
-      }
-    }
-    else {
-      alert(json.error)
+       }
+    catch(error){
+      alert("הקוד שהוזן לא תקין , אנא הרשם שנית")
     }
   }
 
@@ -78,19 +63,16 @@ function Register({paper1= 'defaultPaperValue' }) {
     }
     try{
       const response = await APIRequest.postRequest(`/authorization/signUp`, { email: user.email, userName: user.userName, password: user.password });
-      console.log(response)
-      const json = await response.json()
-      console.log(response,"response")
-      setCookie('token', json.token, { path: '/' });
       setAuthorization(true)
       setTempUse({userName: user.userName, email: user.email})
     }
     catch(error)
     {
       alert("שם משתמש קיים בבקשה להרשם מחדש")
+      setShowLogin(<Login />)
     }
- 
   };
+
   const setLogin = () => {
     setLoginOrRegister(false)
     setShowLogin(<Login />)
@@ -111,14 +93,13 @@ function Register({paper1= 'defaultPaperValue' }) {
             loginOrRegister ? (
               <>
                 <form onSubmit={handleSubmit(checkRegister)}>
-                  <button type="button" onClick={() => setLogin()}>Login</button>
-                  <h2>כניסה</h2>
+                  <button id="buttonLogin" type="button" onClick={() => setLogin()}>כניסה</button>
                   <div className="user-box">
                     <input
                       type='text'
                       name='userName'
                       {...register("userName", { required: true, minLength: 2, maxLength: 15 })}
-                      placeholder="userName"
+                      placeholder="שם משתמש"
                     />
                     {errors.userName && errors.userName.type === "minLength" && <span>שם משתמש צריך להכיל לפחות 2 תווים</span>}
                     {errors.userName && errors.userName.type === "maxlength" && <span>שם משתמש צריך להכיל מקסימום 15 תווים</span>}
@@ -128,7 +109,7 @@ function Register({paper1= 'defaultPaperValue' }) {
                     <input
                       type='email'
                       {...register("email", { required: true })}
-                      placeholder="email"
+                      placeholder="אמייל"
                     />
                     {errors.email && errors.email.type === "required" && <span className="span">מייל הוא שדה חובה</span>}
                   </div>
@@ -137,7 +118,7 @@ function Register({paper1= 'defaultPaperValue' }) {
                       type='password'
                       name='password'
                       {...register("password", { required: true, minLength: 6 })}
-                      placeholder="password"
+                      placeholder="סיסמא"
                     />
                     {errors.password && errors.password.type === "minLength" && <span className="span">סיסמא צריכה להכיל לפחות 6 תווים</span>}
                     {errors.password && errors.password.type === "required" && <span className="span">סיסמא זה שדה חובה</span>}
@@ -147,7 +128,7 @@ function Register({paper1= 'defaultPaperValue' }) {
                       type='password'
                       name='verifyPassword'
                       {...register("verifyPassword", { required: true, minLength: 6 })}
-                      placeholder="verifyPassword"
+                      placeholder="אימות סיסמא"
                     />
                     {errors.verifyPassword && errors.verifyPassword.type === "minLength" && <span className="span">סיסמא לאימות צריכה להכיל לפחות 6 תווים</span>}
                     {errors.verifyPassword && errors.verifyPassword.type === "required" && <span className="span">סיסמא לאימות - חובה</span>}

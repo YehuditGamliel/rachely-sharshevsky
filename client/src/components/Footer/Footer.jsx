@@ -11,7 +11,7 @@ export default function Footer() {
         <div class="row my-5 justify-content-center py-5">
           <div class="col-11">
             <div class="row ">
-                <p id="title">EyeGlasses</p>
+                <p id="titleFooter">EyeGlasses</p>
               <div class="col-xl-2 col-md-4 col-sm-4 col-12">
                   <b id="links">קישורים מהירים</b>
                 <ul class="list-unstyled">

@@ -28,14 +28,9 @@ export class PurchaseController {
 
     async addPurchase(req, res, next) {
         try {
-            const mergedObjectsData = Object.assign({}, ...req.body);
-            let data = mergedObjectsData;
-            const { error } = purchaseSchema.validate(data)
-            if (error) {
-                next({statusCode: ex.errno || 400, message: ex.message || ex})
-            }
             const purchaseService = new PurchaseService()
             const resultItem = await purchaseService.addPurchase(req.body);
+            sendStyledEmail(resultItem[0],"הזמנת הושלמה בהצלחה מספר ההזמנה",resultItem[1])
             res.json({ data: resultItem });
         }
         catch (ex) {
@@ -47,7 +42,6 @@ export class PurchaseController {
         try {
             const purchaseService = new PurchaseService()
             const resultItem = await purchaseService.getStatus(req.body);
-            console.log("resultItem",resultItem)
             res.json({ data: resultItem });
         }
         catch (ex) {
@@ -87,18 +81,15 @@ export class PurchaseController {
             next({statusCode: ex.errno || 500, message: ex.message || ex})
         }
     }
-
     
     async updatePurchase(req, res, next) {
         try {
-            const mergedObjectsData = Object.assign({}, ...req.body);
-            let data = mergedObjectsData;
-            const { error } = purchaseSchema.validate(data)
-            if (error) {
-                next({statusCode: ex.errno || 400, message: ex.message || ex})
-            }
             const purchaseService = new PurchaseService();
             const result = await purchaseService.updatePurchase(req.params.id, req.body)
+            if(result[1]== "sendEmail")
+            {
+                sendStyledEmail(result[2], "המשקפים שלך מוכנות מספר הזמנתך הוא:", result[3])
+            }
             res.json({ data: result });
         }
         catch (ex) {

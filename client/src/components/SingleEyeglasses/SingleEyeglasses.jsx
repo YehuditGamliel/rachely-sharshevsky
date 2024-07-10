@@ -19,11 +19,9 @@ const deleteEyeGlasses = (model, setIsExist) => {
     credentials: 'include',
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
                 },
   }).then((response) => response.json())
     .then(json => {
-      console.log(json)
         setIsExist(false)
      
     }).catch((error) => alert(error))
@@ -36,7 +34,6 @@ function SingleEyeglasses(props) {
   const {user,setCurrentUser} = useContext(UserContext)
   const [showCamera, setShowCamera] = useState(false); const navigate = useNavigate();
   const buttonsFunc = () => {
-    console.log("eyeGlassesSingle",eyeglasses)
     return (<><Button onClick={() => displayEditingGlassesDetails()} variant="contained" > שינוי פרטים
     </Button>
       <Button onClick={() => deleteEyeGlasses(props.model, setIsExist)} variant="contained" >
@@ -71,15 +68,18 @@ function SingleEyeglasses(props) {
           <span> {props.price}</span>
           <span>ש"ח</span>
           <CardActions disableSpacing>
-            {console.log()}
             {user.role==1 != '' ? buttonsFunc()
               : <></>}
-            <Button onClick={() => displaySpecificInfo()} variant="contained" endIcon={<ChevronLeftIcon />}>
-              לפרטים
-            </Button>
-            <Button onClick={() => setShowCamera(prevState => !prevState)} variant="contained" endIcon={<CameraAltIcon />}>  איך זה עלי?
-            </Button>
-          </CardActions>
+               {window.innerWidth >600 ? 
+              
+              <Button  id="buttonDetails"onClick={() => displaySpecificInfo()} variant="contained"   endIcon={<ChevronLeftIcon />}>
+                לפרטים
+              </Button>:<Button onClick={() => displaySpecificInfo()} variant="contained" >
+                לפרטים
+              </Button>}
+              <Button onClick={() => setShowCamera(prevState => !prevState)} variant="contained" endIcon={<CameraAltIcon />}>  איך זה עלי?
+              </Button>
+            </CardActions>
         </Card> : <></>}
     </>
   );

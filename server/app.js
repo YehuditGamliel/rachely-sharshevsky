@@ -22,7 +22,6 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(allowCrossDomain);
 
 app.use(cors({
     origin: true,
@@ -33,6 +32,7 @@ app.use(cors({
 
 app.use(cookieParser());
 app.use('/img', express.static('img'));
+
 app.use('/eyeglasses', eyeglassesRouter);
 app.use('/eyesData', eyesDataRouter);
 app.use('/authorization',enterRouter);
@@ -41,12 +41,9 @@ app.use('/purchase',purchaseRouter)
 app.use('/roles',roleRouter)
 app.use('/invitation',invitationRouter)
 
-app.use(verifyToken);
 app.use(logErrors);
 
-
 app.listen(8082, (err) => {
-    console.log("pp")
     if (err) console.error(err);
     console.log("Server listening on PORT", 8082);
 });

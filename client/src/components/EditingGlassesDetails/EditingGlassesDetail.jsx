@@ -65,7 +65,6 @@ function EditingGlassesDetails() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log("begin", eyeglasses)
                 const response = await APIRequest.getRequest(`/eyeglasses/${eyeglasses.model}`)
                 const json = await response.json()
                 setEditedEyeglasses(glassesData => ({

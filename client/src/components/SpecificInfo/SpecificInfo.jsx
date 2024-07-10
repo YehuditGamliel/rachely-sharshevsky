@@ -47,7 +47,7 @@ function SpecificInfo() {
     }
 
     return (
-        <>{console.log("eyeglasses",eyeglasses)}
+        <>
             {login ? <Login paper='invition' /> :
                 <div id="card">
                     <div id="container">

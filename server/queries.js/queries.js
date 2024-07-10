@@ -4,7 +4,7 @@ export function getAllElementsQuery(tableName,columns) {
 }
 
 export function getAllQuery(tableName,columns,filter) {
-    const query = `SELECT ${columns} FROM optics.${tableName}  where isActive=1 LIMIT 5 OFFSET ${(filter._page - 1) * 5};`;
+    const query = `SELECT ${columns} FROM optics.${tableName}  where isActive=1 LIMIT 10 OFFSET ${(filter._page - 1) *10};`;
     return query
 }
 
@@ -14,7 +14,7 @@ export function getAllSortedQuery(tableName,columns,q,sortedKey) {
 }
 
 export function getSortFromTwoTablesByTwoValues(tableName1,tableName2, value1,value2, columns,valueToCheck,filter) {
-    const query = `SELECT ${columns} FROM optics.${tableName1} u INNER JOIN optics.${tableName2} p ON u.${value1}=p.${value2} WHERE p.${valueToCheck}= ? AND u.isActive=1 ORDER BY ${filter.sort} LIMIT ${(filter._page) * 5} OFFSET 0;`;
+    const query = `SELECT ${columns} FROM optics.${tableName1} u INNER JOIN optics.${tableName2} p ON u.${value1}=p.${value2} WHERE p.${valueToCheck}= ? AND u.isActive=1 ORDER BY ${filter.sort} LIMIT ${(filter._page) * 10} OFFSET 0;`;
     return query
 }
 
@@ -24,7 +24,7 @@ export function deleteQuery(tableName,value) {
 }
 
 export function getFromTwoTablesByTwoValues(tableName1,tableName2, value1,value2, columns,valueToCheck,filter) {
-    const query = `SELECT ${columns} FROM optics.${tableName1} u INNER JOIN optics.${tableName2} p ON u.${value1}=p.${value2} WHERE p.${valueToCheck}= ? AND u.isActive=1 LIMIT 5 OFFSET ${(filter._page - 1) * 5};`;
+    const query = `SELECT ${columns} FROM optics.${tableName1} u INNER JOIN optics.${tableName2} p ON u.${value1}=p.${value2} WHERE p.${valueToCheck}= ? AND u.isActive=1 LIMIT 10 OFFSET ${(filter._page - 1) * 10};`;
     return query;
 }
 
@@ -84,7 +84,7 @@ export function updateQuery(tableName, value, itemKeys) {
 }
 
 export function updateSpecificFieldQuery(tableName, value, update) {
-    const query=`UPDATE optics.${tableName} SET${update} active=1 WHERE ${value} = ? AND isActive = 1`;
+    const query=`UPDATE optics.${tableName} SET ${update}  AND active=1 WHERE ${value} = ? AND isActive = 1`;
     return query;
 }
 

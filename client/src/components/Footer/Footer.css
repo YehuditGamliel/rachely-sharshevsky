@@ -40,6 +40,7 @@ body {
     12px + (15 - 12) * ((100vw - 360px) / (1600 - 360))
   ) !important;
 }
+
 .row {
   
   padding: 0%;
