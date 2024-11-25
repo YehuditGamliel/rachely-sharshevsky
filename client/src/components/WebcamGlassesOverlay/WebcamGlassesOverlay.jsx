@@ -1,111 +1,84 @@
-import React, { useRef, useEffect, useState } from 'react';
-import Webcam from 'react-webcam';
-import * as faceapi from 'face-api.js';
-import '@tensorflow/tfjs';
-import glasses1 from '../img/glasses1.jpg'
-const WebcamGlassesOverlay = ({ img }) => {
-  const webcamRef = useRef(null);
+import React, { useEffect, useRef } from "react";
+import * as faceapi from "face-api.js";
+
+const WebcamGlassesOverlay = () => {
+  const videoRef = useRef(null);
   const canvasRef = useRef(null);
-  const [glassesImg, setGlassesImg] = useState(null);
-  useEffect(() => {
-    const loadModels = async () => {
-      try {
-        await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
-        await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
-        setInterval(async () => {
-          await drawGlasses();
-        }, 100);
-      } catch (error) {
-        alert(`Model loading error: ${error.message}`);
-      }
-    };
 
-    loadModels();
-  }, []);
-
-  // Load glasses image with logging
-  useEffect(() => {
-     const imgElement = new Image();
-    imgElement.src = glasses1;
-    console.log(imgElement)
-    imgElement.crossOrigin = 'anonymous'
-    imgElement.onload = () => {
-      console.log('Glasses image loaded');
-      setGlassesImg(imgElement);
-    };
-
-    imgElement.onerror = (error) => {
-      console.error('Error loading glasses image:', error);
-    };
-
-  }, []);
-
-
-
-
-
-  const drawGlasses = async () => {
-    if (webcamRef.current && webcamRef.current.video.readyState === 4 && glassesImg) {
-      const video = webcamRef.current.video;
-      try {
-        console.log('Attempting to detect faces...');
-        const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks();
-        if (detection) {
-          const ctx = canvasRef.current.getContext('2d');
-          canvasRef.current.width = video.videoWidth;
-          canvasRef.current.height = video.videoHeight;
-
-          faceapi.matchDimensions(canvasRef.current, video);
-          const resizedDetection = faceapi.resizeResults(detection, {
-            width: video.videoWidth,
-            height: video.videoHeight,
-          });
-
-          const landmarks = resizedDetection.landmarks;
-          const leftEye = landmarks.getLeftEye();
-          const rightEye = landmarks.getRightEye();
-
-          const leftEyeCenter = [leftEye[0].x, leftEye[0].y];
-          const rightEyeCenter = [rightEye[3].x, rightEye[3].y];
-
-          const glassesWidth = Math.hypot(leftEyeCenter[0] - rightEyeCenter[0], leftEyeCenter[1] - rightEyeCenter[1]) * 2.5;
-          const glassesHeight = (glassesImg.height / glassesImg.width) * glassesWidth;
-          const glassesX = leftEyeCenter[0] - glassesWidth / 2;
-          const glassesY = leftEyeCenter[1] - glassesHeight / 2;
-
-          ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-          ctx.drawImage(glassesImg, glassesX, glassesY, glassesWidth, glassesHeight);
-          console.log('Glasses drawn at:', glassesX, glassesY, glassesWidth, glassesHeight);
-        } else {
-          console.log('No face detected');
-        }
-      } catch (error) {
-        console.error('Error during face detection or drawing glasses:', error);
-        alert(`Face detection or drawing error: ${error.message}`);
-      }
+  const loadModels = async () => {
+    try {
+      const modelPath = `${window.location.origin}/models`; // נתיב לתיקיית המודלים
+      await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath);
+      await faceapi.nets.faceLandmark68Net.loadFromUri(modelPath);
+      await faceapi.nets.faceRecognitionNet.loadFromUri(modelPath);
+      console.log("Models loaded successfully");
+    } catch (error) {
+      console.error("Error loading face-api.js models:", error);
     }
   };
 
+  const startVideo = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      })
+      .catch((err) => console.error("Error starting video stream:", err));
+  };
 
+  const handleVideoPlay = () => {
+    setInterval(async () => {
+      if (videoRef.current && canvasRef.current) {
+        const video = videoRef.current;
+        const canvas = canvasRef.current;
 
+        const displaySize = { width: video.width, height: video.height };
+        faceapi.matchDimensions(canvas, displaySize);
+
+        const detections = await faceapi
+          .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+          .withFaceLandmarks()
+          .withFaceDescriptors();
+
+        const resizedDetections = faceapi.resizeResults(detections, displaySize);
+        canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+        faceapi.draw.drawDetections(canvas, resizedDetections);
+        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+      }
+    }, 100);
+  };
+
+  useEffect(() => {
+    const initialize = async () => {
+      await loadModels(); // טוען מודלים
+      startVideo(); // מתחיל וידאו
+    };
+    initialize();
+  }, []);
 
   return (
-    <div style={{ position: 'relative', width: 'fit-content' }}>
-      <Webcam
-        ref={webcamRef}
-        audio={false}
-        screenshotFormat="image/jpeg"
-        width={390}
-        height={180}
-
-        videoConstraints={{ width: 440, height: 180, facingMode: 'user' }}
-      // style={{ position: 'absolute' }}
+    <div style={{ position: "relative", textAlign: "center" }}>
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        width="720"
+        height="560"
+        onPlay={handleVideoPlay}
+        style={{ position: "relative" }}
       />
-      <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0 }} />
-
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+        }}
+      />
     </div>
   );
 };
-
 
 export default WebcamGlassesOverlay;
