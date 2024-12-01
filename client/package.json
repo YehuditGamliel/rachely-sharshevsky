@@ -19,6 +19,8 @@
     "@paypal/react-paypal-js": "^8.5.0",
     "@react-google-maps/api": "^2.19.3",
     "@syncfusion/ej2-react-dropdowns": "^26.1.38",
+    "@tensorflow/tfjs": "^4.22.0",
+    "@tensorflow/tfjs-core": "^4.22.0",
     "algoliasearch": "^4.23.3",
     "axios": "^1.7.2",
     "face-api.js": "^0.22.2",
